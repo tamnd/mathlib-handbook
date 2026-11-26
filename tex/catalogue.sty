@@ -1,0 +1,36 @@
+% The Catalogue volumes (spec 06.4 of tamnd/mathlib): small type in two columns, one entry for each declaration.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{catalogue}
+\RequirePackage{multicol}
+\setlength{\columnsep}{14pt}
+\setlength{\columnseprule}{0.2pt}
+\def\columnseprulecolor{\color{hbmuted!40}}
+
+% the preface: one paragraph above the list, in the full width, then the E0 families with their sentences
+\newcommand\hbcatpreface[2]{%
+  \chapter*{About this Catalogue}\markboth{About this Catalogue}{About this Catalogue}%
+  {\small #1\par}%
+  \section*{The E0 families}{\small\raggedright\setlength{\parindent}{0pt}\setlength{\parskip}{3pt}#2\par}\clearpage}
+\newcommand\hbcatfamily[3]{{\sffamily\bfseries #1}\enspace{\sffamily\scriptsize\color{hbmuted}#3 entries}\newline #2\par}
+
+% the list: two balanced columns in small type, with no indent and a small space between entries
+\newenvironment{hbcatlist}{%
+  \begin{multicols*}{2}\footnotesize\raggedright\setlength{\parindent}{0pt}%
+  \setlength{\parskip}{1.2pt plus 0.5pt}\emergencystretch=3em\hyphenpenalty=10000}%
+  {\end{multicols*}}
+
+% a module: a small heading that stays with its first entry; the running heads give the module of the page
+\newcommand\hbcatmodule[1]{%
+  \par\addvspace{5pt plus 2pt}\needspace{3\baselineskip}%
+  {\sffamily\bfseries\scriptsize\color{hbaccent}#1\par}\markboth{#1}{#1}\nobreak\vspace{1pt}}
+
+% an entry: the Lean name, the kind and the other facts, then the sentence
+\newcommand\hbcatrow[3]{%
+  \par{\bfseries #1}\enspace{\sffamily\scriptsize\color{hbmuted}#2}%
+  \ifx\relax#3\relax\else\newline #3\fi\par}
+
+% the mark of a sentence that comes from the docstring of Mathlib
+\renewcommand\hbvolumeline{\hbvolnum\enspace·\enspace\hbvolname}
+
+\newcommand\hbcatdoc{{\sffamily\scriptsize\color{hbmuted}[doc]}}
+\endinput

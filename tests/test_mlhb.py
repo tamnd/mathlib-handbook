@@ -124,3 +124,23 @@ def test_highlight_anchor_missing(tmp_path):
         Store(os.path.join(HERE, "highlight")).anchor("MathlibHandbook/V13/C05/Examples.lean#nothing")
     with pytest.raises(KeyError):
         Store(str(tmp_path)).anchor("MathlibHandbook/V13/C05/Examples.lean#closedUnitBall")
+
+
+def test_catalogue():
+    from mlhb import catalogue
+    h, rows = catalogue.load(os.path.join(HERE, "catalogue", "C13.jsonl.gz"))
+    assert h["catalogue"] == "C13" and len(rows) == 4
+    assert catalogue.title(h) == "Catalogue of General topology"
+    assert catalogue.title({"title": "The tactics of Mathlib"}) == "Catalogue of the tactics of Mathlib"
+    assert catalogue.out_name(h, "0.2.0") == "mathlib-handbook-c13-catalogue-of-general-topology-0.2.0"
+    assert catalogue.families(rows) == [("F-instance", "An instance tells Lean that a type has a structure.", 1)]
+    # the kind instance is not repeated as an attribute
+    assert catalogue.meta(rows[1]) == "instance · E0 · V13.C05.S01"
+    assert catalogue.text_tex(rows[2]["text"]) == r"The closed ball of radius r is in \texttt{Metric.ball x s} when r < s."
+    body = catalogue.latex_body(h, rows)
+    assert r"\hbcatmodule{\texttt{Mathlib.Topology.MetricSpace.Pseudo.Defs}}" in body
+    assert r"instance · E0 · V13.C05.S01 · F-instance}{}" in body
+    assert r"\hbcatdoc" in body and r"1 (25.0\%)" in body
+    md = catalogue.epub_md(h, rows, "0.2.0", "2026-11-27")
+    assert "- **F-instance** (1 entries)." in md
+    assert "- **`Metric.closedBall_subset`** *theorem · simp · E1 · V13.C05.S01*." in md

@@ -1,7 +1,7 @@
 name: build
 
 # Test mlhb and build the books. The job runs on each push to main, on each tag v*, on each pull request and by hand.
-# The job always builds the fixture library of tests/fixture as HTML, PDF and EPUB. When content/ has volumes, it also checks and builds them against the map of tamnd/mathlib, the companion tamnd/mathlib-lean and the index of Mathlib at the commits of EDITION, with the highlighted Lean of the companion (spec 12.5).
+# The job always builds the fixture library of tests/fixture as HTML, PDF and EPUB. When content/ has volumes, it also checks and builds them against the map of tamnd/mathlib, the companion tamnd/mathlib-lean and the index of Mathlib at the commits of EDITION, with the highlighted Lean of the companion (spec 12.5). It builds mlib of tamnd/mathlib-agent at the commit of EDITION, and with mlib it sets the Catalogue volumes of the catalogue line of EDITION (spec 06.4).
 # On a tag v*, the job attaches the books of content/ to the GitHub release of the tag, with their SHA-256 sums and a build provenance attestation.
 # The job does not cache the Tectonic bundle. The books of a release must not come from a cache that another run wrote.
 on:
@@ -40,6 +40,9 @@ jobs:
             echo "version=$(awk '/^version /{print $2}' EDITION)"
             echo "mathlib=$(awk '/^mathlib /{print $2}' EDITION)"
             echo "lean=$(awk '/^mathlib-lean /{print $2}' EDITION)"
+            echo "agent=$(awk '/^mathlib-agent /{print $2}' EDITION)"
+            echo "catalogue=$(awk '/^catalogue /{$1=""; sub(/^ /, ""); gsub(/ /, ","); print}' EDITION)"
+            echo "fullcommit=$(awk '/^mathlib-commit /{print $2}' EDITION)"
             echo "commit=$(awk '/^mathlib-commit /{print substr($2, 1, 10)}' EDITION)"
             if ls -d content/[0-9][0-9]-*/ >/dev/null 2>&1; then echo "content=true"; fi
           } >> "$GITHUB_OUTPUT"
@@ -77,6 +80,7 @@ jobs:
           f=tests/fixture
           python -m mlhb --map "$f/map" --lean "$f/lean" --index "$f/index.jsonl.gz" --highlight "$f/highlight" --content "$f/content" check
           python -m mlhb --map "$f/map" --lean "$f/lean" --index "$f/index.jsonl.gz" --highlight "$f/highlight" --content "$f/content" build --volume all --formats html,pdf,epub --out fixture-build
+          python -m mlhb catalogue --data "$f/catalogue" --formats pdf,epub --out fixture-build
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: steps.ed.outputs.content == 'true'
         with:
@@ -91,12 +95,27 @@ jobs:
           ref: ${{ steps.ed.outputs.lean }}
           path: mathlib-lean
           persist-credentials: false
-      - name: the index of Mathlib
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: steps.ed.outputs.content == 'true'
+        with:
+          repository: tamnd/mathlib-agent
+          ref: ${{ steps.ed.outputs.agent }}
+          path: mathlib-agent
+          persist-credentials: false
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
+        if: steps.ed.outputs.content == 'true'
+        with:
+          go-version-file: mathlib-agent/go.mod
+          cache-dependency-path: mathlib-agent/go.sum
+      - name: mlib and the index of Mathlib
         if: steps.ed.outputs.content == 'true'
         env:
-          GH_TOKEN: ${{ github.token }}
-          COMMIT: ${{ steps.ed.outputs.commit }}
-        run: gh release download index -R tamnd/mathlib -p "index-*-${COMMIT}.jsonl.gz" -O index.jsonl.gz
+          GITHUB_TOKEN: ${{ github.token }}
+          COMMIT: ${{ steps.ed.outputs.fullcommit }}
+        run: |
+          (cd mathlib-agent && go build -trimpath -o ../mlib ./cmd/mlib)
+          ./mlib index fetch -commit "$COMMIT" -out idx
+          cp idx/index.jsonl.gz index.jsonl.gz
       - name: the highlighted Lean of the companion
         if: steps.ed.outputs.content == 'true'
         env:
@@ -112,6 +131,13 @@ jobs:
       - name: mlhb build
         if: steps.ed.outputs.content == 'true'
         run: python -m mlhb --map mathlib-map --lean mathlib-lean --index index.jsonl.gz --highlight highlight build --volume all --formats html,pdf,epub --out build
+      - name: the Catalogue volumes
+        if: steps.ed.outputs.content == 'true' && steps.ed.outputs.catalogue != ''
+        env:
+          VOLUMES: ${{ steps.ed.outputs.catalogue }}
+        run: |
+          ./mlib catalogue -index idx -map mathlib-map -volume "$VOLUMES" -out catalogue
+          python -m mlhb catalogue --data catalogue --formats pdf,epub --out build
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: volumes

@@ -16,10 +16,13 @@ Each release has a section. The newest release is first.
 - The text of V00 (Guide: how to read Mathlib), 5 chapters with 6 guide sections. It reads one theorem, a signature, a proof term and a tactic proof, shows how to find a declaration, and gives the junk values and one full proof read line by line.
 - The first drafts of V01 (The language of Mathlib), 6 chapters with 1 theory section each, and of V34 (The tactics of Mathlib), 5 chapters with 2 tactic sections each. Each chapter has the status drafted and prints with the Draft mark.
 - The book files of `books/`: MIL, TPIL, LLR and MSG.
+- `mlhb catalogue` and `tex/catalogue.sty`, the Catalogue volumes of spec 06.4. The command sets the files of `mlib catalogue` of tamnd/mathlib-agent as a PDF in two columns and as an EPUB. The CI sets C01 to C05 and C13 for the editions. C05 has 24,928 entries on 446 pages.
 
 ### Changed
 
 - The monospace font of the PDF is JuliaMono 0.63.2 (decision Q-08 of tamnd/mathlib). JuliaMono has a glyph for each of the 130 characters in the Lean blocks and the inline code of V00, V01 and V34. The fonts and the SIL Open Font License are in `tex/fonts`. DejaVu Sans Mono stays in the chain of fallback fonts.
+- `EDITION` has two new lines. The line `mathlib-agent` pins mathlib-agent at `ed6297adfb`, and the line `catalogue` gives the Catalogue volumes of the books.
+- The CI gets the index of Mathlib with `mlib index fetch`.
 - `EDITION` pins mathlib-lean at `8c0d454ca3`, the commit with the Lean files of V00, V01 and V34, and Mathlib at `e54979a532`, the pin of that commit.
 
 ### Fixed
