@@ -20,6 +20,7 @@ h1,h2,h3{font-family:Helvetica,Arial,sans-serif;line-height:1.25}
 table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:0.2em 0.5em;vertical-align:top}
 blockquote{border-left:3px solid #ccc;margin-left:0;padding-left:1em;color:#333}
 code{font-size:0.9em}nav#TOC li{list-style:none}
+pre.lean{background:#f7f7f9;border:1px solid #ddd;padding:0.5em 0.7em;overflow-x:auto}.lean-keyword{color:#1F4E8C;font-weight:bold}a.lean-const,.lean-const{color:#6B3FA0;text-decoration:none}a.lean-const:hover{text-decoration:underline}.lean-var{color:#1D6B4F}.lean-comment,.lean-doc{color:#6B7280;font-style:italic}.lean-num,.lean-str{color:#9A3412}.lean-sorry{color:#B91C1C;font-weight:bold}
 """
 
 

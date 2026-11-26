@@ -12,9 +12,9 @@ from mlhb.resolve import ResolveError, resolve
 HERE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixture")
 
 
-def book(content=None):
+def book(content=None, highlight=""):
     return Book(content or os.path.join(HERE, "content"), os.path.join(HERE, "map"),
-                os.path.join(HERE, "index.jsonl.gz"), os.path.join(HERE, "lean"))
+                os.path.join(HERE, "index.jsonl.gz"), os.path.join(HERE, "lean"), highlight=highlight)
 
 
 def test_load():
@@ -36,7 +36,8 @@ def test_markdown():
     md, st = b.markdown(b.volume("V13"))
     assert "Theorem 13.5.2 (Heine and Borel)." in md
     assert "Definition 13.5.1 (Bounded set)." in md
-    assert "theorem Metric.isCompact_iff_isClosed_bounded : ∀ {α : Type u}" in md
+    assert r"\LeanKw{theorem} \LeanConst{Metric.isCompact_iff_isClosed_bounded} : \LeanKw{∀} \LeanOB{}α" in md
+    assert '<span class="lean-keyword">theorem</span> <a class="lean-const" href=' in md
     assert "isCompact_closedBall 0 1" in md
     assert "-- anchor" not in md
     assert "| [`Metric.isBounded_closedBall`](https://mathlib.tamnd.com/decl/Metric.isBounded_closedBall/) | theorem | A closed ball is bounded. | E1 | simp |" in md
@@ -103,3 +104,23 @@ def test_check_faults(tmp_path):
 def test_out_name():
     v = book().volume("V13")
     assert out_name(v, "0.2.0", "v4.38.0") == "mathlib-handbook-13-general-topology-0.2.0+mathlib-v4.38.0"
+
+
+def test_highlight():
+    b = book(highlight=os.path.join(HERE, "highlight"))
+    md, _ = b.markdown(b.volume("V13"))
+    assert r"\LeanKw{example} : \LeanConst{IsCompact} (\LeanConst{Metric.closedBall} (\LeanNum{0}" in md
+    # ProperSpace.isCompact_closedBall is not a name of the fixture index, so it has no link
+    assert '<span class="lean-const" title="ProperSpace.isCompact_closedBall.{u} {α : Type u}' in md
+    assert "(Metric.closedBall x r)\">isCompact_closedBall</span>" in md
+    assert "-- anchor" not in md and "public import" not in md
+    faults, _ = check(b.volumes, b.map, os.path.dirname(b.content), b.volumes)
+    assert faults == []
+
+
+def test_highlight_anchor_missing(tmp_path):
+    from mlhb.lean import Store
+    with pytest.raises(KeyError):
+        Store(os.path.join(HERE, "highlight")).anchor("MathlibHandbook/V13/C05/Examples.lean#nothing")
+    with pytest.raises(KeyError):
+        Store(str(tmp_path)).anchor("MathlibHandbook/V13/C05/Examples.lean#closedUnitBall")

@@ -223,6 +223,8 @@ class Checker:
             elif kind == "lean" and self.map.lean_root:   # 4. the anchors
                 try:
                     self.map.lean_anchor(arg)
+                    if self.map.highlight is not None:
+                        self.map.highlight.anchor(arg)
                 except KeyError as e:
                     f.append(f"{rel}:{i + offset}: <?lean {arg}?>: {e.args[0]}")
         # 5. the home volume of each module

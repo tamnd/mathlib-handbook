@@ -16,6 +16,10 @@ checks of the names do not run and a build with a <?decl?> stops.
 
 The companion (--lean, default ../mathlib-lean) holds the Lean files. A <?lean path#name?> directive takes the
 text between the lines `-- anchor: name` and `-- end: name` of the file (spec 10.3).
+
+The highlighted files (--highlight, optional) are the SubVerso JSON files that the companion writes (spec 12.5,
+mlhb/lean.py). With them, a <?lean?> block prints with the token kinds and the links of the constants. Without
+them, the block is plain Lean text.
 """
 
 from __future__ import annotations
@@ -117,6 +121,7 @@ class Map:
     decls: dict[str, Decl] | None = None                          # None: no index
     index_commit: str = ""
     lean_root: str = ""
+    highlight: object = None                                      # a lean.Store, or None
     _informal: dict[str, dict[str, str]] = field(default_factory=dict)
 
     @property
@@ -124,8 +129,11 @@ class Map:
         return os.path.exists(os.path.join(self.root, "blueprint", "volumes.yaml"))
 
     @classmethod
-    def load(cls, root: str, books: str = "", index: str = "", lean: str = "") -> "Map":
+    def load(cls, root: str, books: str = "", index: str = "", lean: str = "", highlight: str = "") -> "Map":
         m = cls(root, lean_root=lean)
+        if highlight:
+            from .lean import Store
+            m.highlight = Store(highlight)
         vp = os.path.join(root, "blueprint", "volumes.yaml")
         if os.path.exists(vp):
             for v in (yaml.safe_load(read(vp)) or {}).get("volumes") or []:

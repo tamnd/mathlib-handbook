@@ -40,6 +40,7 @@ def main_tex(book: Book, vol: Volume, edition: str, date: str) -> str:
 \RequirePackage{{xcolor}}
 \definecolor{{hbaccent}}{{HTML}}{{{hue}}}
 \usepackage{{handbook}}
+\usepackage{{lean}}
 \renewcommand\hbvolnum{{{vol.number}}}
 \renewcommand\hbvolname{{{title}}}
 \hypersetup{{pdftitle={{The Mathlib Handbook, Volume {vol.number}: {title}}},pdfauthor={{The mathlib-handbook contributors}},
@@ -181,7 +182,8 @@ def build(book: Book, vol: Volume, md: str, outdir: str, edition: str, date: str
     body = re.sub(r"\\\((.*?)\\\)|\\\[(.*?)\\\]", _math_hats, body, flags=re.S)
     open(os.path.join(outdir, "body.tex"), "w").write(body)
     open(os.path.join(outdir, "main.tex"), "w").write(main_tex(book, vol, edition, date))
-    shutil.copy(os.path.join(ROOT, "tex", "handbook.sty"), outdir)
+    for sty in ("handbook.sty", "lean.sty"):
+        shutil.copy(os.path.join(ROOT, "tex", sty), outdir)
     info = {"pandoc_s": round(t1 - t0, 1), "missing_glyphs": dict(sorted(fb.missing.items(), key=lambda x: -x[1]))}
     if pdf:
         t2 = time.time()

@@ -88,7 +88,7 @@ python -m mlhb new volume V13
 python -m mlhb new section V13/C05 compactness-in-metric-spaces
 ```
 
-Each command takes `--map` (a checkout of tamnd/mathlib, default `../mathlib`), `--lean` (a checkout of tamnd/mathlib-lean, default `../mathlib-lean`), `--index` (the file `index.jsonl.gz` of the release `index` of tamnd/mathlib) and `--content` (default `content/`). Without an index, the checks of the Lean names do not run, and a build with a `<?decl?>` stops.
+Each command takes `--map` (a checkout of tamnd/mathlib, default `../mathlib`), `--lean` (a checkout of tamnd/mathlib-lean, default `../mathlib-lean`), `--index` (the file `index.jsonl.gz` of the release `index` of tamnd/mathlib), `--highlight` (the unpacked tarball of the release `highlighted` of tamnd/mathlib-lean) and `--content` (default `content/`). Without an index, the checks of the Lean names do not run, and a build with a `<?decl?>` stops. Without the highlighted files, each `<?lean?>` block prints as plain Lean text.
 
 A section file has the front matter of spec 07.7 and the parts of spec 07.3 as `###` headings. The builder replaces these directives:
 

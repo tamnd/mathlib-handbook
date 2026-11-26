@@ -8,13 +8,15 @@
 
 A directive that cannot be resolved is an error, and the build stops. There is no fallback text.
 
-The signature comes from the type of the index for now. The SubVerso tokens of spec 12.5 replace it later.
+A <?decl?> block and a <?lean?> block print with the token kinds of spec 12.5 (mlhb/lean.py). A <?lean?> block
+needs the highlighted files of the companion (--highlight) for this. Without them, it is plain Lean text.
 """
 
 from __future__ import annotations
 
 import re
 
+from . import lean
 from .content import Section, Volume, as_list
 from .map import Map
 
@@ -40,7 +42,17 @@ def signature(smap: Map, name: str) -> str:
     d = smap.decls.get(name)
     if d is None:
         raise ResolveError(f"<?decl {name}?>: {name} is not in the index")
-    return f"```lean\n{_KIND.get(d.kind, d.kind)} {name} : {d.type}\n```"
+    return lean.block(lean.lex_signature(_KIND.get(d.kind, d.kind), name, d.type, smap.decls), smap.decls)
+
+
+def lean_block(smap: Map, ref: str) -> str:
+    """The Lean text between the anchors of a file of the companion."""
+    try:
+        if smap.highlight is not None:
+            return lean.block(smap.highlight.anchor(ref), smap.decls)
+        return "```lean\n" + smap.lean_anchor(ref) + "\n```"
+    except KeyError as e:
+        raise ResolveError(f"<?lean {ref}?>: {e.args[0]}") from None
 
 
 def _cell(s: str) -> str:
@@ -107,10 +119,7 @@ def resolve(smap: Map, vol: Volume, sec: Section, body: str) -> str:
             if kind == "decl":
                 out.append(signature(smap, arg))
             elif kind == "lean":
-                try:
-                    out.append("```lean\n" + smap.lean_anchor(arg) + "\n```")
-                except KeyError as e:
-                    raise ResolveError(f"<?lean {arg}?>: {e.args[0]}") from None
+                out.append(lean_block(smap, arg))
             elif kind == "reference":
                 out.append(reference(smap, vol, sec))
             else:

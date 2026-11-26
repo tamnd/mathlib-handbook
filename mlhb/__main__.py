@@ -9,7 +9,8 @@
 
 A volume is named by its id or its number: V13 or 13. Each command takes --map PATH (default ../mathlib, or the
 environment variable MLHB_MAP), --lean PATH (default ../mathlib-lean, or MLHB_LEAN), --index PATH (or
-MLHB_INDEX; no default) and --content PATH (default content/).
+MLHB_INDEX; no default), --highlight PATH (the SubVerso JSON files of the companion, or MLHB_HIGHLIGHT; no
+default) and --content PATH (default content/).
 """
 
 from __future__ import annotations
@@ -43,9 +44,11 @@ def edition() -> dict:
 
 def load(args) -> Book:
     book = Book(os.path.abspath(args.content), os.path.abspath(args.map), args.index,
-                os.path.abspath(args.lean) if args.lean else "", edition().get("mathlib", ""))
+                os.path.abspath(args.lean) if args.lean else "", edition().get("mathlib", ""), args.highlight)
     m = book.map
     idx = "no index" if m.decls is None else f"{len(m.decls)} declarations"
+    if m.highlight is None:
+        idx += ", no highlighted files (the Lean blocks of <?lean?> are plain text)"
     print(f"map {m.root}: {len(m.volumes)} volumes, {len(m.plans)} plans, {len(m.books)} books, {idx}; "
           f"{len(book.volumes)} volumes in content", file=sys.stderr)
     return book
@@ -216,6 +219,8 @@ def main(argv=None):
                         help="the checkout of tamnd/mathlib-lean (default ../mathlib-lean or $MLHB_LEAN)")
     common.add_argument("--index", default=argparse.SUPPRESS,
                         help="index.jsonl.gz or the folder that has it (default $MLHB_INDEX)")
+    common.add_argument("--highlight", default=argparse.SUPPRESS,
+                        help="the folder of the SubVerso JSON files of the companion (default $MLHB_HIGHLIGHT)")
     common.add_argument("--content", default=argparse.SUPPRESS, help="the content folder (default content/)")
     ap = argparse.ArgumentParser(prog="mlhb", parents=[common])
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -241,6 +246,8 @@ def main(argv=None):
         args.lean = os.environ.get("MLHB_LEAN") or os.path.join(ROOT, "..", "mathlib-lean")
     if not hasattr(args, "index"):
         args.index = os.environ.get("MLHB_INDEX", "")
+    if not hasattr(args, "highlight"):
+        args.highlight = os.environ.get("MLHB_HIGHLIGHT", "")
     if not hasattr(args, "content"):
         args.content = os.path.join(ROOT, "content")
     if args.cmd == "new" and args.what == "section" and not args.slug:
