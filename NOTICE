@@ -1,0 +1,5 @@
+The Mathlib Handbook
+
+The text of this repository is licensed under CC BY 4.0. The builder is licensed under MIT.
+
+The books quote declaration names, signatures and docstrings of Mathlib (https://github.com/leanprover-community/mathlib4). Mathlib is Copyright (c) the Mathlib contributors and is released under the Apache License 2.0. The copyright page of each book gives the Mathlib commit that its quotes come from. The authors of each Mathlib file are named in the header of the file.

@@ -1,0 +1,23 @@
+name: Error in the text
+description: Report an error of mathematics, of Lean or of language in a volume.
+labels: ["type/fix", "area/handbook"]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Where
+      description: The volume, the section and the edition, for example "V13, section 3.2, edition v4.36.0".
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong
+      description: Quote the text and say what is wrong. Use $...$ for math.
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: Fix
+      description: The correct text, if you know it.
