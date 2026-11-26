@@ -19,6 +19,7 @@ Each release has a section. The newest release is first.
 
 ### Changed
 
+- The monospace font of the PDF is JuliaMono 0.63.2 (decision Q-08 of tamnd/mathlib). JuliaMono has a glyph for each of the 130 characters in the Lean blocks and the inline code of V00, V01 and V34. The fonts and the SIL Open Font License are in `tex/fonts`. DejaVu Sans Mono stays in the chain of fallback fonts.
 - `EDITION` pins mathlib-lean at `8c0d454ca3`, the commit with the Lean files of V00, V01 and V34, and Mathlib at `e54979a532`, the pin of that commit.
 
 ### Fixed

@@ -16,7 +16,7 @@ import tempfile
 
 # the fonts the text uses, and the chain of fallbacks with their letters in handbook.sty
 TEXT_FONTS = ["LibertinusSerif-Regular.otf", "LibertinusSerif-Italic.otf", "LibertinusSerif-Bold.otf",
-              "LibertinusSans-Regular.otf", "LibertinusSans-Bold.otf", "DejaVuSansMono.ttf"]
+              "LibertinusSans-Regular.otf", "LibertinusSans-Bold.otf", "JuliaMono-Regular.ttf"]
 CHAIN = [("F", "LibertinusSerif-Regular.otf"), ("A", "LibertinusMath-Regular.otf"), ("B", "DejaVuSansMono.ttf"),
          ("C", "STIXTwoMath-Regular.otf"), ("D", "FreeSerif.otf"), ("E", "FandolSong-Regular.otf"),
          ("G", "UnBatang.ttf"), ("H", "DejaVuSans.ttf")]
@@ -31,8 +31,12 @@ def _cache_dirs():
     return out
 
 
+# the fonts of the repository: JuliaMono
+FONTS = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "tex", "fonts")
+
+
 def _find(name: str) -> str | None:
-    for d in _cache_dirs():
+    for d in [FONTS] + _cache_dirs():
         p = os.path.join(d, name)
         if os.path.exists(p):
             return p
@@ -41,7 +45,7 @@ def _find(name: str) -> str | None:
 
 def ensure_fonts():
     """Make tectonic fetch every font of the chain into its cache, so that fontTools can read them."""
-    names = sorted(set(TEXT_FONTS) | {f for _, f in CHAIN})
+    names = sorted((set(TEXT_FONTS) | {f for _, f in CHAIN}) - set(os.listdir(FONTS)))
     if all(_find(n) for n in names):
         return
     body = "".join(r"\newfontfamily\f%s{%s}" % ("abcdefghijklmnop"[i], n) for i, n in enumerate(names))
