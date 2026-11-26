@@ -1,4 +1,4 @@
-version 0.0.2
-mathlib c2d9750d0cf1abb9bf662a410cad9008caa6ba3b
-mathlib-lean 11e7670ddb324a539cd6bde0355149ae61e82afc
+version 0.1.0
+mathlib 29b279ceb05ebc7311d7e40d95976568a5caa6bf
+mathlib-lean c83443ca57f586b5bcdae527a8982da0cdb1ada2
 mathlib-commit 4472534b607bbff9621756cca1be340c60e7272a
