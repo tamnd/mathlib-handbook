@@ -63,7 +63,7 @@ The text follows Mathlib `master` each day. Each stable Mathlib tag `v4.X.0` giv
 | V33 | Data structures and computation | foundation | VI. Discrete mathematics and logic |
 | V34 | The tactics of Mathlib | every Lean reader | VII. Tactics |
 
-The status of each volume is on the site. A volume is released only when every chapter is reviewed and every Lean block builds (spec 12.6 of tamnd/mathlib).
+The folder `content/` has the text of V00 (5 chapters), V01 (6 chapters) and V34 (5 chapters). The folder `books/` has the books that the sections read with: MIL, TPIL, LLR and MSG. The status of each volume is on the site. A volume is released only when every chapter is reviewed and every Lean block builds (spec 12.6 of tamnd/mathlib).
 
 ## The repositories
 

@@ -1,0 +1,36 @@
+number: 1
+title: The language of Mathlib
+subtitle: Logic, sets, functions and classes as Mathlib writes them
+level: foundation
+prefixes:
+- Mathlib/Logic
+- Mathlib/Basic
+- Mathlib/Util
+- Mathlib/Lean
+- Mathlib/Deprecated
+- Mathlib/Algebra/HierarchyDesign
+- Mathlib/Algebra/PEmptyInstances
+- Mathlib/Data/FunLike
+- Mathlib/Data/Prod
+- Mathlib/Data/Sum
+- Mathlib/Data/Sigma
+- Mathlib/Data/PSigma
+- Mathlib/Data/Subtype
+- Mathlib/Data/SubtypeNeLift
+- Mathlib/Data/Option
+- Mathlib/Data/Opposite
+- Mathlib/Data/Bool
+- Mathlib/Data/Quot
+- Mathlib/Data/Setoid
+- Mathlib/Data/ULift
+- Mathlib/Data/Pi
+- Mathlib/Data/Rel
+- Mathlib/Data/Erased
+- Mathlib/Data/Part
+- Mathlib/Data/PFun
+- Mathlib/Data/PEquiv
+- Mathlib/Data/Sign
+- Mathlib/Data/SProd
+- Mathlib/Data/TwoPointing
+- Mathlib/Data/Ordering
+- Mathlib/Data/Bracket

@@ -1,0 +1,8 @@
+number: 34
+title: The tactics of Mathlib
+subtitle: Each tactic on a worked goal, and what it cannot do
+level: every Lean reader
+prefixes:
+- Mathlib/Tactic
+- Mathlib/Data/Ineq
+- Mathlib/Algebra/Expr

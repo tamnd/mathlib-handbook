@@ -1,0 +1,6 @@
+number: 0
+title: 'Guide: how to read Mathlib'
+subtitle: A guide for the mathematician who wants to read Mathlib
+level: guide
+prefixes:
+- Mathlib/Init
