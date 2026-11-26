@@ -1,0 +1,26 @@
+% Lean in print (spec 12.5). mlhb writes each Lean block as the environment LeanCode, with one macro for each token kind of SubVerso. The PDF needs no shell escape and no Pygments.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{lean}[2026/11/26 Lean blocks of The Mathlib Handbook]
+\RequirePackage{xcolor}
+\RequirePackage{fvextra}
+\definecolor{leankw}{HTML}{1F4E8C}
+\definecolor{leanconst}{HTML}{6B3FA0}
+\definecolor{leanvar}{HTML}{1D6B4F}
+\definecolor{leancomment}{HTML}{6B7280}
+\definecolor{leannum}{HTML}{9A3412}
+\definecolor{leansorry}{HTML}{B91C1C}
+\newcommand\LeanKw[1]{\textcolor{leankw}{\textbf{#1}}}
+\newcommand\LeanConst[1]{\textcolor{leanconst}{#1}}
+\newcommand\LeanVar[1]{\textcolor{leanvar}{#1}}
+\newcommand\LeanComment[1]{\textcolor{leancomment}{\textit{#1}}}
+\newcommand\LeanNum[1]{\textcolor{leannum}{#1}}
+\newcommand\LeanStr[1]{\textcolor{leannum}{#1}}
+\newcommand\LeanSorry[1]{\textcolor{leansorry}{\textbf{#1}}}
+\newcommand\LeanBS{\textbackslash}
+\newcommand\LeanOB{\{}
+\newcommand\LeanCB{\}}
+% A long line breaks at any character, with a mark at the break.
+\DefineVerbatimEnvironment{LeanCode}{Verbatim}{commandchars=\\\{\},breaklines=true,breakanywhere=true,fontsize=\small}
+\AddToHook{env/LeanCode/before}{\par\medskip}
+\AddToHook{env/LeanCode/after}{\par\medskip}
+\endinput

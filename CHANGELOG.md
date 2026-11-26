@@ -12,6 +12,7 @@ Each release has a section. The newest release is first.
 - `tex/handbook.sty` with the copyright page of spec 12.7 and the Mathlib box, `tex/epub.css` and `filters/mlhb.lua`.
 - A fixture library in `tests/fixture` and the tests of `mlhb`.
 - The workflow `build`. It tests `mlhb`, builds the fixture with pandoc 3.12 and Tectonic 0.17.0 at pinned SHA-256 sums, and on a tag attaches the books of `content/` to the release with their sums and a build provenance attestation.
+- Lean in print (spec 12.5). With `--highlight`, mlhb prints each `<?lean?>` block with the SubVerso tokens of the companion, and each constant of Mathlib links to its page. Each `<?decl?>` signature gets the same classes. The PDF uses the new `tex/lean.sty` and needs no shell escape.
 
 ## v0.1.1 - 2026-11-26
 

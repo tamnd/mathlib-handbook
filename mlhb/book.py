@@ -24,10 +24,11 @@ def reads_key(r: str) -> str:
 
 
 class Book:
-    def __init__(self, content_dir: str, map_dir: str, index: str = "", lean: str = "", pin: str = ""):
+    def __init__(self, content_dir: str, map_dir: str, index: str = "", lean: str = "", pin: str = "",
+                 highlight: str = ""):
         self.content = content_dir
         self.map = Map.load(map_dir, os.path.join(os.path.dirname(os.path.abspath(content_dir)), "books"),
-                            index, lean)
+                            index, lean, highlight)
         self.volumes = content.load(content_dir)
         self.map_commit = self.map.commit() or pin or "unknown"
 

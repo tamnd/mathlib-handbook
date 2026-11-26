@@ -1,7 +1,7 @@
 name: build
 
 # Test mlhb and build the books. The job runs on each push to main, on each tag v*, on each pull request and by hand.
-# The job always builds the fixture library of tests/fixture as HTML, PDF and EPUB. When content/ has volumes, it also checks and builds them against the map of tamnd/mathlib, the companion tamnd/mathlib-lean and the index of Mathlib at the commits of EDITION.
+# The job always builds the fixture library of tests/fixture as HTML, PDF and EPUB. When content/ has volumes, it also checks and builds them against the map of tamnd/mathlib, the companion tamnd/mathlib-lean and the index of Mathlib at the commits of EDITION, with the highlighted Lean of the companion (spec 12.5).
 # On a tag v*, the job attaches the books of content/ to the GitHub release of the tag, with their SHA-256 sums and a build provenance attestation.
 # The job does not cache the Tectonic bundle. The books of a release must not come from a cache that another run wrote.
 on:
@@ -75,8 +75,8 @@ jobs:
       - name: build the fixture
         run: |
           f=tests/fixture
-          python -m mlhb --map "$f/map" --lean "$f/lean" --index "$f/index.jsonl.gz" --content "$f/content" check
-          python -m mlhb --map "$f/map" --lean "$f/lean" --index "$f/index.jsonl.gz" --content "$f/content" build --volume all --formats html,pdf,epub --out fixture-build
+          python -m mlhb --map "$f/map" --lean "$f/lean" --index "$f/index.jsonl.gz" --highlight "$f/highlight" --content "$f/content" check
+          python -m mlhb --map "$f/map" --lean "$f/lean" --index "$f/index.jsonl.gz" --highlight "$f/highlight" --content "$f/content" build --volume all --formats html,pdf,epub --out fixture-build
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: steps.ed.outputs.content == 'true'
         with:
@@ -97,12 +97,21 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           COMMIT: ${{ steps.ed.outputs.commit }}
         run: gh release download index -R tamnd/mathlib -p "index-*-${COMMIT}.jsonl.gz" -O index.jsonl.gz
+      - name: the highlighted Lean of the companion
+        if: steps.ed.outputs.content == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LEAN: ${{ steps.ed.outputs.lean }}
+        run: |
+          gh release download highlighted -R tamnd/mathlib-lean -p "highlighted-${LEAN:0:10}.tar.gz" -O highlighted.tar.gz
+          mkdir highlight
+          tar -xzf highlighted.tar.gz -C highlight
       - name: mlhb check
         if: steps.ed.outputs.content == 'true'
-        run: python -m mlhb --map mathlib-map --lean mathlib-lean --index index.jsonl.gz check
+        run: python -m mlhb --map mathlib-map --lean mathlib-lean --index index.jsonl.gz --highlight highlight check
       - name: mlhb build
         if: steps.ed.outputs.content == 'true'
-        run: python -m mlhb --map mathlib-map --lean mathlib-lean --index index.jsonl.gz build --volume all --formats html,pdf,epub --out build
+        run: python -m mlhb --map mathlib-map --lean mathlib-lean --index index.jsonl.gz --highlight highlight build --volume all --formats html,pdf,epub --out build
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: volumes

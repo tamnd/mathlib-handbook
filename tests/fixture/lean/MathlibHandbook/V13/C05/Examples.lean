@@ -1,4 +1,6 @@
-import Mathlib
+module
+
+public import Mathlib.Topology.MetricSpace.ProperSpace.Real
 
 -- anchor: closedUnitBall
 example : IsCompact (Metric.closedBall (0 : ℝ) 1) :=
