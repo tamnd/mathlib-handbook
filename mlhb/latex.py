@@ -184,6 +184,7 @@ def build(book: Book, vol: Volume, md: str, outdir: str, edition: str, date: str
     open(os.path.join(outdir, "main.tex"), "w").write(main_tex(book, vol, edition, date))
     for sty in ("handbook.sty", "lean.sty"):
         shutil.copy(os.path.join(ROOT, "tex", sty), outdir)
+    shutil.copytree(os.path.join(ROOT, "tex", "fonts"), os.path.join(outdir, "fonts"), dirs_exist_ok=True)
     info = {"pandoc_s": round(t1 - t0, 1), "missing_glyphs": dict(sorted(fb.missing.items(), key=lambda x: -x[1]))}
     if pdf:
         t2 = time.time()
