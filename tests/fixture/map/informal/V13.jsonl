@@ -1,0 +1,2 @@
+{"name": "Metric.isCompact_iff_isClosed_bounded", "text": "In a proper metric space, a set is compact if and only if it is closed and bounded."}
+{"name": "Metric.isBounded_closedBall", "text": "A closed ball is bounded."}

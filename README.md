@@ -74,6 +74,35 @@ The status of each volume is on the site. A volume is released only when every c
 | [mathlib-agent](https://github.com/tamnd/mathlib-agent) | `mlib`, the toolchain: the index, the sync, the coverage, the drift and the site |
 | mathlib-handbook (this repository) | the text of the volumes and `mlhb`, the builder of the PDF, EPUB and HTML books |
 
+## Build the books
+
+`mlhb` is the builder. It is a copy of `mhb` of [mmp-handbook](https://github.com/tamnd/mmp-handbook) with the parts that a book about a library needs. It needs Python 3.11 or later, pandoc 3.12 and Tectonic 0.17.0. The CI installs the two programs from their release files and checks the SHA-256 sums.
+
+```sh
+pip install ".[test]"
+python -m mlhb check                      # the checks of spec 12.3
+python -m mlhb resolve                    # resolve the directives and print the faults
+python -m mlhb number --write             # write the statement numbers into the sources
+python -m mlhb build --volume V13 --formats html,pdf,epub
+python -m mlhb new volume V13
+python -m mlhb new section V13/C05 compactness-in-metric-spaces
+```
+
+Each command takes `--map` (a checkout of tamnd/mathlib, default `../mathlib`), `--lean` (a checkout of tamnd/mathlib-lean, default `../mathlib-lean`), `--index` (the file `index.jsonl.gz` of the release `index` of tamnd/mathlib) and `--content` (default `content/`). Without an index, the checks of the Lean names do not run, and a build with a `<?decl?>` stops.
+
+A section file has the front matter of spec 07.7 and the parts of spec 07.3 as `###` headings. The builder replaces these directives:
+
+| Directive | Replaced by |
+|---|---|
+| `<?decl Name?>` | the signature of `Name` from the index, as a Lean block |
+| `<?lean path#anchor?>` | the Lean text between `-- anchor: anchor` and `-- end: anchor` of a file of mathlib-lean |
+| `<?reference?>` | the reference table of the section: the E3, E2 and E1 declarations and the families |
+| `<?missing?>` | the list `missing` of `volume.yaml` |
+
+A directive that does not resolve stops the build. A Mathlib box is the fenced div `::: mathlib`. Its first line is `` `Name` · `Module` ``, and the builder makes links to the declaration page of the site and to the Mathlib documentation.
+
+The output files are named `mathlib-handbook-<NN-slug>-<version>+mathlib-<tag>.pdf` and `.epub`. The fixture library of `tests/fixture` has one volume with one section. The CI builds it on each pull request.
+
 ## Licence
 
 The text is CC BY 4.0 (`LICENSE-CONTENT`). The builder is MIT (`LICENSE`). The quoted Mathlib signatures and docstrings come from Mathlib under Apache-2.0. See `NOTICE`.

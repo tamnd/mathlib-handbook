@@ -1,0 +1,160 @@
+name: build
+
+# Test mlhb and build the books. The job runs on each push to main, on each tag v*, on each pull request and by hand.
+# The job always builds the fixture library of tests/fixture as HTML, PDF and EPUB. When content/ has volumes, it also checks and builds them against the map of tamnd/mathlib, the companion tamnd/mathlib-lean and the index of Mathlib at the commits of EDITION.
+# On a tag v*, the job attaches the books of content/ to the GitHub release of the tag, with their SHA-256 sums and a build provenance attestation.
+# The job does not cache the Tectonic bundle. The books of a release must not come from a cache that another run wrote.
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/') }}
+
+env:
+  PANDOC_VERSION: "3.12"
+  PANDOC_SHA256: 91903ff19f1b1d4db4129797c7e18f71212990d7394fcff1787719aebf04e372
+  TECTONIC_VERSION: "0.17.0"
+  TECTONIC_SHA256: 8533d07f9ccbd7a65824b9e0459041bca34af1eb33daba48f59215593753a3b7
+
+jobs:
+  build:
+    name: test and build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: edition
+        id: ed
+        run: |
+          {
+            echo "version=$(awk '/^version /{print $2}' EDITION)"
+            echo "mathlib=$(awk '/^mathlib /{print $2}' EDITION)"
+            echo "lean=$(awk '/^mathlib-lean /{print $2}' EDITION)"
+            echo "commit=$(awk '/^mathlib-commit /{print substr($2, 1, 10)}' EDITION)"
+            if ls -d content/[0-9][0-9]-*/ >/dev/null 2>&1; then echo "content=true"; fi
+          } >> "$GITHUB_OUTPUT"
+      - name: the tag matches EDITION
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          TAG: ${{ github.ref_name }}
+          VERSION: ${{ steps.ed.outputs.version }}
+        run: |
+          if [ "$TAG" != "v$VERSION" ]; then
+            echo "the tag $TAG is not v$VERSION of EDITION"
+            exit 1
+          fi
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - name: install
+        run: pip install ".[test]"
+      - name: test
+        run: python -m pytest -q tests
+      - name: pandoc and tectonic
+        run: |
+          curl -fsSL -o pandoc.deb "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb"
+          echo "${PANDOC_SHA256}  pandoc.deb" | sha256sum -c -
+          sudo dpkg -i pandoc.deb
+          curl -fsSL -o tectonic.tar.gz "https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%40${TECTONIC_VERSION}/tectonic-${TECTONIC_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+          echo "${TECTONIC_SHA256}  tectonic.tar.gz" | sha256sum -c -
+          tar -xzf tectonic.tar.gz
+          sudo install -m 0755 tectonic /usr/local/bin/tectonic
+          rm -f pandoc.deb tectonic.tar.gz tectonic
+          pandoc --version | head -1
+          tectonic --version
+      - name: build the fixture
+        run: |
+          f=tests/fixture
+          python -m mlhb --map "$f/map" --lean "$f/lean" --index "$f/index.jsonl.gz" --content "$f/content" check
+          python -m mlhb --map "$f/map" --lean "$f/lean" --index "$f/index.jsonl.gz" --content "$f/content" build --volume all --formats html,pdf,epub --out fixture-build
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: steps.ed.outputs.content == 'true'
+        with:
+          repository: tamnd/mathlib
+          ref: ${{ steps.ed.outputs.mathlib }}
+          path: mathlib-map
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: steps.ed.outputs.content == 'true'
+        with:
+          repository: tamnd/mathlib-lean
+          ref: ${{ steps.ed.outputs.lean }}
+          path: mathlib-lean
+          persist-credentials: false
+      - name: the index of Mathlib
+        if: steps.ed.outputs.content == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          COMMIT: ${{ steps.ed.outputs.commit }}
+        run: gh release download index -R tamnd/mathlib -p "index-*-${COMMIT}.jsonl.gz" -O index.jsonl.gz
+      - name: mlhb check
+        if: steps.ed.outputs.content == 'true'
+        run: python -m mlhb --map mathlib-map --lean mathlib-lean --index index.jsonl.gz check
+      - name: mlhb build
+        if: steps.ed.outputs.content == 'true'
+        run: python -m mlhb --map mathlib-map --lean mathlib-lean --index index.jsonl.gz build --volume all --formats html,pdf,epub --out build
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: volumes
+          path: |
+            fixture-build/*.pdf
+            fixture-build/*.epub
+            build/*.pdf
+            build/*.epub
+            build/html
+          if-no-files-found: error
+
+  release:
+    name: release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      # The attestation step needs these two permissions. It signs a statement that says which commit and which run made each book.
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: volumes
+          path: out
+      - name: the books of content
+        id: books
+        run: |
+          if ls out/build/*.pdf out/build/*.epub >/dev/null 2>&1; then
+            cd out/build
+            rm -rf html
+            sha256sum -- *.pdf *.epub > SHA256SUMS
+            echo "found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "The tag has no books of content/. The release gets no files."
+          fi
+      - uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        if: steps.books.outputs.found == 'true'
+        with:
+          subject-path: |
+            out/build/*.pdf
+            out/build/*.epub
+      - name: release
+        if: steps.books.outputs.found == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "$TAG" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" out/build/* --clobber -R "$GITHUB_REPOSITORY"
+          else
+            gh release create "$TAG" out/build/* -R "$GITHUB_REPOSITORY" --verify-tag --title "mathlib-handbook $TAG" --notes "The books of $TAG. See CHANGELOG.md."
+          fi

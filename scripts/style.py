@@ -17,7 +17,7 @@ import sys
 
 DASHES = {"\u2014": "em dash", "\u2013": "en dash"}
 PAGEBREAK = re.compile(r"\\(newpage|clearpage|pagebreak)\b|\f")
-BLOCK = re.compile(r"^\s*(#|[-*+] |\d+\. |\||>|<|```|~~~|\$\$|---$|- \[|!\[)")
+BLOCK = re.compile(r"^\s*(#|[-*+] |\d+\. |\||>|<|```|~~~|:::|\$\$|---$|- \[|!\[)")
 
 
 def check(path: pathlib.Path) -> list[str]:
@@ -53,7 +53,7 @@ def main(argv: list[str]) -> int:
     for root in roots:
         files = [root] if root.is_file() else sorted(root.rglob("*"))
         for f in files:
-            if f.suffix in (".md", ".yaml", ".yml") and not ({".git", ".lake", "node_modules", "build", "public"} & set(f.parts)):
+            if f.suffix in (".md", ".yaml", ".yml") and not ({".git", ".lake", ".pytest_cache", "node_modules", "build", "public"} & set(f.parts)):
                 faults += check(f)
     for f in faults:
         print(f)
