@@ -1,0 +1,6 @@
+number: 13
+title: General topology
+subtitle: Spaces, compactness and connectedness in Mathlib
+level: undergraduate
+prefixes:
+  - Mathlib/Topology

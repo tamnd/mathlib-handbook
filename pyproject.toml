@@ -1,0 +1,22 @@
+[project]
+name = "mlhb"
+version = "0.1.1"
+description = "The builder of The Mathlib Handbook: the Mathlib library of Lean as a textbook in PDF, EPUB and HTML volumes"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["PyYAML>=6", "Pillow>=10", "fonttools>=4.40"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+mlhb = "mlhb.__main__:main"
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["mlhb"]

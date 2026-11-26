@@ -1,0 +1,4 @@
+- id: F-simp
+  pattern: { attr: simp }
+  text: "A simp lemma rewrites a term to its normal form."
+  depth: E0

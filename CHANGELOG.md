@@ -4,6 +4,15 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+### Added
+
+- `mlhb`, the builder of the books. It is a port of `mhb` of mmp-handbook, with the content model of spec 07 (volumes V00 to V34, chapters, sections with the kinds theory, api, instance, tactic, survey and guide), the Mathlib box, and the directives `<?decl?>`, `<?lean?>`, `<?reference?>` and `<?missing?>` of spec 12.4.
+- `mlhb check` with the checks 1 to 9 of spec 12.3: the front matter and the parts, the Lean names and the deprecated names against the index, the anchors of mathlib-lean, the home volume of the modules, one home section for each E3 and E2 name, the `requires` ids and their cycles, the `reads_with` keys, the style and the exercise grades.
+- `mlhb new volume` and `mlhb new section`, which write the front matter from the section plan of tamnd/mathlib.
+- `tex/handbook.sty` with the copyright page of spec 12.7 and the Mathlib box, `tex/epub.css` and `filters/mlhb.lua`.
+- A fixture library in `tests/fixture` and the tests of `mlhb`.
+- The workflow `build`. It tests `mlhb`, builds the fixture with pandoc 3.12 and Tectonic 0.17.0 at pinned SHA-256 sums, and on a tag attaches the books of `content/` to the release with their sums and a build provenance attestation.
+
 ## v0.1.1 - 2026-11-26
 
 ### Changed

@@ -1,0 +1,17 @@
+volume: V13
+title: General topology
+mathlib: e54979a532247ae4eb9d5578a8fd40a1bc332101
+chapters:
+  - id: C02
+    title: Open sets
+    sections: []
+  - id: C05
+    title: Compactness
+    sections:
+      - id: V13.C05.S01
+        title: Compactness in metric spaces
+        kind: theory
+        modules: [Mathlib.Topology.MetricSpace.Bounded]
+        E3: [Metric.isCompact_iff_isClosed_bounded]
+        families: [F-simp]
+        requires: [V13.C02]
