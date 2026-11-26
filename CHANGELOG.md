@@ -13,6 +13,17 @@ Each release has a section. The newest release is first.
 - A fixture library in `tests/fixture` and the tests of `mlhb`.
 - The workflow `build`. It tests `mlhb`, builds the fixture with pandoc 3.12 and Tectonic 0.17.0 at pinned SHA-256 sums, and on a tag attaches the books of `content/` to the release with their sums and a build provenance attestation.
 - Lean in print (spec 12.5). With `--highlight`, mlhb prints each `<?lean?>` block with the SubVerso tokens of the companion, and each constant of Mathlib links to its page. Each `<?decl?>` signature gets the same classes. The PDF uses the new `tex/lean.sty` and needs no shell escape.
+- The text of V00 (Guide: how to read Mathlib), 5 chapters with 6 guide sections. It reads one theorem, a signature, a proof term and a tactic proof, shows how to find a declaration, and gives the junk values and one full proof read line by line.
+- The first drafts of V01 (The language of Mathlib), 6 chapters with 1 theory section each, and of V34 (The tactics of Mathlib), 5 chapters with 2 tactic sections each. Each chapter has the status drafted and prints with the Draft mark.
+- The book files of `books/`: MIL, TPIL, LLR and MSG.
+
+### Changed
+
+- `EDITION` pins mathlib-lean at `8c0d454ca3`, the commit with the Lean files of V00, V01 and V34, and Mathlib at `e54979a532`, the pin of that commit.
+
+### Fixed
+
+- A heading of level 3 now keeps 9 lines of space below it. Before, a table that started at the foot of a page put its header above the heading.
 
 ## v0.1.1 - 2026-11-26
 
