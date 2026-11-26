@@ -106,7 +106,8 @@ jobs:
         if: steps.ed.outputs.content == 'true'
         with:
           go-version-file: mathlib-agent/go.mod
-          cache-dependency-path: mathlib-agent/go.sum
+          # No cache: the books of a release must not use a cache that another run wrote.
+          cache: false
       - name: mlib and the index of Mathlib
         if: steps.ed.outputs.content == 'true'
         env:

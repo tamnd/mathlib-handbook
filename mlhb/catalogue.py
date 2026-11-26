@@ -173,10 +173,11 @@ def build_pdf(h: dict, rows: list[dict], outdir: str, edition: str, date: str) -
     pdf = os.path.join(outdir, "main.pdf")
     if os.path.exists(pdf):
         info["pdf"] = pdf
-        out = subprocess.run(["pdfinfo", pdf], capture_output=True, text=True).stdout
-        for line in out.splitlines():
-            if line.startswith("Pages"):
-                info["pages"] = int(line.split()[-1])
+        if shutil.which("pdfinfo"):   # the page count is for the log; the CI has no poppler
+            out = subprocess.run(["pdfinfo", pdf], capture_output=True, text=True).stdout
+            for line in out.splitlines():
+                if line.startswith("Pages"):
+                    info["pages"] = int(line.split()[-1])
     return info
 
 
