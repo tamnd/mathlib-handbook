@@ -1,0 +1,9 @@
+# Presentable categories and exactness properties
+
+This chapter studies two kinds of good behavior of a category. The first kind is about size: each object is built from a small set of small objects. The second kind is about exactness: colimits and limits interact as they do in the category of sets. Categories of sets, of modules, of presheaves and of sheaves have both kinds.
+
+Section 1 defines $\kappa$-filtered categories for a regular cardinal $\kappa$, $\kappa$-presentable objects, and locally presentable and accessible categories. It proves that a set is $\kappa$-presentable if and only if it has fewer than $\kappa$ elements, and it uses a strong generator to show that the categories of sets and of presheaves are locally presentable. Section 2 defines extensive, adhesive, distributive and regular categories, and exponentiable morphisms. It proves that coproducts in an extensive category are disjoint, that a pushout along a monomorphism in an adhesive category is a pullback, and that each morphism in a regular category has an image factorization. It ends with the subobject classifier of a category of presheaves and of a category of sheaves.
+
+The chapter needs Volume 24 for limits, filtered colimits, adjunctions and slice categories, and Volume 4 for ordered sets. Section 2 uses the sieves and sheaves of Chapter 6.
+
+Chapter 8 studies Galois categories, whose axioms ask for finite limits, finite coproducts and quotients by finite groups, as in the category of finite sets. The subobject classifier of sheaves is the first step to the theory of a Grothendieck topos.

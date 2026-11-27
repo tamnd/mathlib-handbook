@@ -1,0 +1,7 @@
+# Classes of objects and morphisms
+
+This chapter gives the language of classes that the rest of the volume uses. Section 1 defines properties of objects and of morphisms, full subcategories, closure under isomorphisms, multiplicative classes, the two-out-of-three property and the classes inverted by a functor. Section 2 is about objects that control a category. A separator detects equality of morphisms, a detector detects isomorphisms, and a simple object has no subobjects other than zero and itself. The section proves Schur's lemma and defines Noetherian and Artinian categories. Section 3 treats lifting properties, the retract argument and weak factorization systems, and states the small object argument of Quillen with an outline of its proof, which Mathlib proves in full.
+
+The chapter needs Volume 24, mainly the categories and functors of Chapters 1 and 2 and the limits and colimits of Chapter 4. Section 2 uses the abelian categories of Chapter 2 and the linear categories of Chapter 1. The examples come from sets, groups and modules.
+
+The classes of this chapter come back many times. Chapter 4 constructs the localization of a category at a class of morphisms, and its universal property uses the classes inverted by a functor of Section 1. Chapter 6 defines topologies by classes of sieves. Chapter 7 uses presentable objects, which give the smallness condition of the small object argument. A model category, in the sense of Quillen, is built from two weak factorization systems.

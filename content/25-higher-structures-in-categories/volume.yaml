@@ -1,0 +1,27 @@
+number: 25
+title: Higher structures in categories
+subtitle: Abelian and triangulated categories, localization, shifts, sites and sheaves, presentable and Galois categories in Mathlib
+level: research
+prefixes:
+- Mathlib/CategoryTheory/Abelian
+- Mathlib/CategoryTheory/Preadditive
+- Mathlib/CategoryTheory/Triangulated
+- Mathlib/CategoryTheory/Localization
+- Mathlib/CategoryTheory/Shift
+- Mathlib/CategoryTheory/Sites
+- Mathlib/CategoryTheory/Presentable
+- Mathlib/CategoryTheory/Galois
+- Mathlib/CategoryTheory/ObjectProperty
+- Mathlib/CategoryTheory/MorphismProperty
+- Mathlib/CategoryTheory/Topos
+- Mathlib/CategoryTheory/SmallObject
+- Mathlib/CategoryTheory/Generator
+- Mathlib/CategoryTheory/Idempotents
+- Mathlib/CategoryTheory/Linear
+- Mathlib/CategoryTheory/Noetherian
+- Mathlib/CategoryTheory/Simple
+- Mathlib/CategoryTheory/Extensive
+- Mathlib/CategoryTheory/Adhesive
+- Mathlib/CategoryTheory/Distributive
+- Mathlib/CategoryTheory/LocallyCartesianClosed
+- Mathlib/CategoryTheory/RegularCategory

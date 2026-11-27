@@ -1,0 +1,7 @@
+# Shifts and triangulated categories
+
+This chapter gives the structure that replaces short exact sequences in the derived category. Section 1 defines a shift on a category by an additive monoid, with the isomorphisms that compare the shift by a sum with two shifts and their coherence conditions. It proves that a shift by a group is an autoequivalence, defines functors that commute with shifts, and defines the composite of shifted morphisms. Section 2 defines triangles, rotation and pretriangulated categories. It proves that representable functors turn distinguished triangles into long exact sequences, that each monomorphism splits, and the five lemma for triangles. Section 3 adds the octahedral axiom. It treats triangulated and homological functors and triangulated subcategories, and it constructs the Verdier quotient as a localization at the morphisms whose cone is in the subcategory.
+
+The chapter needs Volume 24, mainly the monoidal functors of Chapter 7 and the additive categories of Chapter 8. It uses the abelian categories of Chapter 2 of this volume, the classes of objects and morphisms of Chapter 3, and the calculus of fractions of Chapter 4. The examples come from graded objects and cochain complexes.
+
+The results of this chapter are the base of Volume 26. There, the homotopy category of complexes is pretriangulated by the mapping cone, the cohomology functors are homological, and the derived category is the Verdier quotient by the acyclic complexes. The groups of shifted morphisms in the derived category are the Ext groups.
