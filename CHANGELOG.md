@@ -9,6 +9,10 @@ Each release has a section. The newest release is first.
 - The first drafts of V02 Numbers, V03 Sets, finite structures and big operators, V04 Order and lattices, and V05 Groups. Each volume has eight chapters with one section each, and the companion files of tamnd/mathlib-lean#16 and #17. The status of each section is drafted.
 - The line `catalogue` of `EDITION` gives the 21 volumes of Part I to Part III, V00 to V20. The CI sets C00 to C20, with about 218,000 entries.
 
+### Changed
+
+- The text of V00, V01, V02, V03, V04, V05 and V34 is rewritten as a textbook for students. Each chapter has 2 to 4 sections, and each section has the definitions, the theorems with complete proofs, worked examples, the Mathlib boxes, the common errors of a learner and graded exercises with hints. The seven volumes have 114 sections and about 297,000 words, against 51,000 words before. The status of each section stays drafted.
+
 ## v0.2.0 - 2026-11-27
 
 ### Added

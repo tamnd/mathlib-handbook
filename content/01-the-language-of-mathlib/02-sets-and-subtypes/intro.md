@@ -1,3 +1,3 @@
 # Sets and subtypes
 
-In Mathlib, a set is a predicate on a type, and a subtype is a new type of the elements with a property. This chapter shows both, and it shows one statement in the four forms that the library uses.
+A set in Mathlib is a predicate on a fixed type. This chapter proves the laws of the algebra of sets and of families of sets, compares the four forms of a finite collection, and builds new types from old ones: subtypes, products, sums and dependent pairs.

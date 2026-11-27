@@ -1,14 +1,13 @@
 ---
-title: "Extended numbers: NNReal, ENNReal and ENat"
+title: "NNReal and ENNReal"
 kind: theory
 modules:
   - Mathlib.Basic.NNReal.Defs
   - Mathlib.Basic.ENNReal.Basic
   - Mathlib.Basic.ENNReal.Operations
-  - Mathlib.Data.ENat.Basic
 explains:
   E3: [NNReal, ENNReal]
-  E2: [ENNReal.toReal, ENNReal.ofReal, ENNReal.mul_top, ENNReal.coe_ne_top, ENat.toNat]
+  E2: [ENNReal.toReal, ENNReal.ofReal, ENNReal.mul_top, ENNReal.coe_ne_top, ENNReal.add_eq_top, ENNReal.iSup_add]
   E1: auto
 families: []
 requires: [V02.C05, V02.C07]
@@ -23,115 +22,157 @@ drafted_by: writer@claude-opus-5-5
 reviewed_by: []
 ---
 
-## Extended numbers: NNReal, ENNReal and ENat
+## NNReal and ENNReal
 
 ### Overview
 
-A measure takes values in $[0, \infty]$, and the dimension of a vector space can be infinite. Mathlib has a type for each of these sets. `NNReal` is the set $[0, \infty)$ of the real numbers that are not negative, with the notation `ℝ≥0`. `ENNReal` is $[0, \infty]$, with the notation `ℝ≥0∞`. `ENat` is $\mathbb{N} \cup \{\infty\}$, with the notation `ℕ∞`. The value $\infty$ is the top element `⊤` of the order. The arithmetic with `⊤` has rules that a reader must know, and the casts back to `ℝ` and `ℕ` have junk values at `⊤`. This section shows the three types, the rules and the casts.
+A length is a real number that is not negative, or infinite. So measure theory needs the set $[0, \infty]$ with an arithmetic for $\infty$. Mathlib has the type `NNReal` (notation `ℝ≥0`) for $[0, \infty)$ and the type `ENNReal` (notation `ℝ≥0∞`) for $[0, \infty]$, where $\infty$ is the top element `⊤`. This section proves the rules for $\infty$ and the main theorem: each subset of $[0, \infty]$ has a supremum, so each series in $[0, \infty]$ has a sum.
 
 ### Definitions
 
-**Definition (NNReal).** `NNReal` is the subtype `{r : ℝ // 0 ≤ r}`. The cast `(x : ℝ)` gives the value of `x`, and `Real.toNNReal r` is $\max(r, 0)$.
-
-**Definition (ENNReal).** `ENNReal` is `WithTop NNReal`: a term is the cast of a term of `NNReal`, or `⊤`. The function `ENNReal.ofReal r` is the cast of $\max(r, 0)$, and `ENNReal.toReal a` is the value of $a$ for $a \neq \top$, with the junk value $0$ at `⊤`.
-
-**Definition (ENat).** `ENat` is `WithTop ℕ`. The function `ENat.toNat` is the identity on `ℕ`, with the junk value $0$ at `⊤`.
-
-**Definition (Arithmetic with ⊤).** In `ENNReal`, $a + \top = \top$ for each $a$, $a \cdot \top = \top$ for $a \neq 0$, and $0 \cdot \top = 0$. The inverse has $0^{-1} = \top$ and $\top^{-1} = 0$. Subtraction is truncated: $a - b = 0$ for $a \leq b$, and $\top - b = \top$ for $b \neq \top$.
-
-### Theorems and proofs
-
-**Theorem (Sums with ⊤).** For $a, b \in [0, \infty]$, $a + b = \top$ if and only if $a = \top$ or $b = \top$.
-
-*Proof.* If $a = \top$ or $b = \top$, then $a + b = \top$ by the rule. If $a$ and $b$ are finite, they are casts of $x, y \in [0, \infty)$, and $a + b$ is the cast of $x + y$, which is finite. $\square$
-
-**Theorem (Products with ⊤).** If $a \neq 0$, then $a \cdot \top = \top$.
-
-*Proof.* If $a = \top$, the product is $\top$ by definition. If $a$ is the cast of $x > 0$, then for each finite $c$ there is $n$ with $c < x n$, so the product is above each finite value. $\square$
-
-**Theorem (Casts back to ℝ).** For $r \geq 0$, $\operatorname{toReal}(\operatorname{ofReal}(r)) = r$. For $a \neq \top$, $\operatorname{ofReal}(\operatorname{toReal}(a)) = a$.
-
-*Proof.* For $r \geq 0$, $\max(r, 0) = r$, and the value of its cast is $r$. For finite $a$, $a$ is the cast of some $x$, and $\operatorname{toReal}(a) = x \geq 0$, so $\operatorname{ofReal}(x)$ is the cast of $x$. $\square$
-
-### Mathlib boxes
+**Definition (Nonnegative reals).** The set $[0, \infty) = \{x \in \mathbb{R} : x \geq 0\}$ with the operations and the order of $\mathbb{R}$, and the truncated subtraction $x \mathbin{\dot -} y = \max(x - y, 0)$.
 
 ::: mathlib
 `NNReal` · `Mathlib.Basic.NNReal.Defs`
 
-The notation `ℝ≥0` needs `open NNReal`. The lemmas about the cast to `ℝ` have the prefix `NNReal.coe_`: `NNReal.coe_add`, `NNReal.coe_mul`, `NNReal.coe_le_coe` and `NNReal.coe_nonneg`. The tactic `norm_cast` uses them.
+`NNReal` is the subtype `{r : ℝ // 0 ≤ r}`, a linear ordered semifield. The cast lemmas have the prefix `NNReal.coe_`, for example `NNReal.coe_add` and `NNReal.coe_mul`. The lemma `NNReal.coe_sub` needs `r₂ ≤ r₁`. The map `Real.toNNReal` sends $r$ to $\max(r, 0)$.
 
 <?decl NNReal?>
 :::
 
+**Definition (Extended nonnegative reals).** The set $[0, \infty] = [0, \infty) \cup \{\infty\}$, with $x < \infty$ for each finite $x$. For each $a$:
+
+1. $a + \infty = \infty + a = \infty$;
+2. $a \cdot \infty = \infty \cdot a = \infty$ if $a \neq 0$, and $0 \cdot \infty = \infty \cdot 0 = 0$;
+3. $a \mathbin{\dot -} b = 0$ if $a \leq b$, and $\infty \mathbin{\dot -} b = \infty$ if $b \neq \infty$;
+4. $0^{-1} = \infty$ and $\infty^{-1} = 0$.
+
 ::: mathlib
 `ENNReal` · `Mathlib.Basic.ENNReal.Basic`
 
-The notation `ℝ≥0∞` needs `open ENNReal`. The type is a complete linear order, so each set has a supremum, and a sum of a family of terms is always defined. This is why measure theory uses it.
+`ENNReal` is `WithTop ℝ≥0`: a term is a cast `↑r` with `r : ℝ≥0`, or `⊤`. It is an ordered commutative semiring and a complete linear order. A proof by cases uses `cases a` or `WithTop.recTopCoe`, and the general lemmas `add_top` and `top_add` apply.
 
 <?decl ENNReal?>
 :::
 
+**Definition (Casts to and from ℝ).** For $r \in \mathbb{R}$, $\operatorname{ofReal}(r) = \max(r, 0)$. For $a \in [0, \infty]$, $\operatorname{toReal}(a) = a$ if $a \neq \infty$, and $\operatorname{toReal}(\infty) = 0$.
+
 ::: mathlib
-`ENNReal.mul_top` · `Mathlib.Basic.ENNReal.Operations`
+`ENNReal.ofReal` · `Mathlib.Basic.ENNReal.Basic`
 
-The hypothesis `a ≠ 0` is necessary, because $0 \cdot \top = 0$. The lemma `ENNReal.top_mul` is the form with `⊤` on the left, and `ENNReal.mul_eq_top` gives the two cases.
+`ENNReal.ofReal r` is the cast of `Real.toNNReal r`, so `ENNReal.ofReal_of_nonpos` gives $0$ for $r \leq 0$.
 
-<?decl ENNReal.mul_top?>
+<?decl ENNReal.ofReal?>
 :::
 
 ::: mathlib
 `ENNReal.toReal` · `Mathlib.Basic.ENNReal.Basic`
 
-The junk value at `⊤` is $0$, so a lemma such as `ENNReal.toReal_add` needs the hypotheses `a ≠ ⊤` and `b ≠ ⊤`.
+The junk value at `⊤` is $0$. So `ENNReal.toReal_add` needs `a ≠ ⊤` and `b ≠ ⊤`. The lemma `ENNReal.toReal_mul` needs no hypothesis, because both sides are $0$ when a factor is `⊤`.
 
 <?decl ENNReal.toReal?>
 :::
 
+### Theorems and proofs
+
+**Theorem (Sums with ∞).** $a + b = \infty$ if and only if $a = \infty$ or $b = \infty$.
+
+*Proof.* If $a = \infty$ or $b = \infty$, rule 1 gives $a + b = \infty$. If $a$ and $b$ are finite, $a + b$ is a real number, so it is not $\infty$. $\square$
+
+::: mathlib
+`ENNReal.add_eq_top` · `Mathlib.Basic.ENNReal.Operations`
+
+A `simp` lemma. The strict form is `ENNReal.add_lt_top`.
+
+<?decl ENNReal.add_eq_top?>
+:::
+
+**Theorem (Products with ∞).** $a b = \infty$ if and only if $a \neq 0$ and $b = \infty$, or $a = \infty$ and $b \neq 0$.
+
+*Proof.* If $a$ and $b$ are finite, $a b$ is a real number. If $b = \infty$, rule 2 gives $a b = \infty$ for $a \neq 0$ and $a b = 0$ for $a = 0$. The case $a = \infty$ is the same. $\square$
+
+::: mathlib
+`ENNReal.mul_top` · `Mathlib.Basic.ENNReal.Operations`
+
+The hypothesis `a ≠ 0` is necessary because $0 \cdot \infty = 0$. The theorem above is `ENNReal.mul_eq_top`.
+
+<?decl ENNReal.mul_top?>
+:::
+
+**Remark.** The convention $0 \cdot \infty = 0$ is forced. A semiring needs $a \cdot 0 = 0$ for each $a$, and $a = \infty$ gives it. With this rule, distributivity holds in all cases, and a case check proves that $[0, \infty]$ is a commutative semiring.
+
+**Theorem (Suprema in [0, ∞]).** Each subset $S$ of $[0, \infty]$ has a supremum.
+
+*Proof.* If $S$ is empty, the supremum is $0$. If $\infty \in S$, or if $S$ has no real upper bound, the only upper bound is $\infty$, and it is the supremum. Otherwise $S$ is a nonempty subset of $[0, \infty)$ that is bounded above in $\mathbb{R}$. The least upper bound property (Chapter 7) gives a supremum $s \geq 0$ in $\mathbb{R}$. Each upper bound in $[0, \infty]$ is $\infty$ or a real upper bound, so it is $\geq s$. $\square$
+
+**Lemma (Sums and suprema).** For a nonempty family $(x_i)$ in $[0, \infty]$ and $c \in [0, \infty]$, $(\sup_i x_i) + c = \sup_i (x_i + c)$.
+
+*Proof.* Let $s = \sup_i x_i$ and $u = \sup_i (x_i + c)$. Each $x_i + c \leq s + c$, so $u \leq s + c$. If $c = \infty$ or $u = \infty$, both sides are $\infty$. Otherwise $u \geq c$ is finite and $x_i \leq u - c$ for each $i$. So $s \leq u - c$ and $s + c \leq u$. $\square$
+
+::: mathlib
+`ENNReal.iSup_add` · `Mathlib.Basic.ENNReal.Operations`
+
+The hypothesis `[Nonempty ι]` is necessary: for the empty family the left side is $c$ and the right side is $0$.
+
+<?decl ENNReal.iSup_add?>
+:::
+
+**Corollary (Series in [0, ∞]).** Define $\sum_n a_n = \sup_N \sum_{n < N} a_n$. This sum exists for each sequence in $[0, \infty]$, and $\sum_n (a_n + b_n) = \sum_n a_n + \sum_n b_n$.
+
+*Proof.* The sum exists by the theorem on suprema. Let $s_N$ and $t_N$ be the partial sums of $a$ and $b$. They increase because the terms are $\geq 0$. Each $s_N + t_N \leq \sup s + \sup t$, which gives one inequality. For all $M, N$ and $K = \max(M, N)$, $s_M + t_N \leq s_K + t_K$. Take the supremum over $M$ and then over $N$ with the lemma. This gives $\sup s + \sup t \leq \sup_K (s_K + t_K)$. $\square$
+
+No hypothesis of convergence appears, so countable additivity $\mu(\bigcup_n A_n) = \sum_n \mu(A_n)$ makes sense for each sequence of disjoint sets. This is why measures in Mathlib take values in `ℝ≥0∞`.
+
+**Theorem (Casts back to ℝ).** For $r \geq 0$, $\operatorname{toReal}(\operatorname{ofReal}(r)) = r$. For $a \neq \infty$, $\operatorname{ofReal}(\operatorname{toReal}(a)) = a$.
+
+*Proof.* For $r \geq 0$, $\operatorname{ofReal}(r) = r$ is finite, and toReal gives $r$. For a finite $a = x \geq 0$, $\operatorname{toReal}(a) = x$ and $\operatorname{ofReal}(x) = x$. $\square$
+
+::: mathlib
+`ENNReal.coe_ne_top` · `Mathlib.Basic.ENNReal.Basic`
+
+A hypothesis `h : a ≠ ⊤` lets a proof lift `a` to `ℝ≥0` with `lift a to ℝ≥0 using h`. The theorem above is `ENNReal.toReal_ofReal` and `ENNReal.ofReal_toReal`.
+
+<?decl ENNReal.coe_ne_top?>
+:::
+
 ### Examples
 
-**Example (The cast of NNReal).**
+**Example (A divergent series).** The partial sums of $\sum 1/(n+1)$ are not bounded, so the sum is $\infty$ in $[0, \infty]$. In `ℝ`, `∑'` of a series that is not summable has the junk value $0$.
+
+**Counterexample (Cancellation).** $\infty + 1 = \infty + 2$ but $1 \neq 2$, so $[0, \infty]$ is not a group. The lemma `ENNReal.add_right_inj` needs `a ≠ ⊤`. Also $\operatorname{toReal}(\infty + 1) = 0 \neq 0 + 1$, so `ENNReal.toReal_add` needs its hypotheses.
+
+**Example (Inverses).** $a \cdot a^{-1} = 1$ for $a \notin \{0, \infty\}$, but $0 \cdot 0^{-1} = 0 \cdot \infty = 0$. So `ENNReal.mul_inv_cancel` needs `a ≠ 0` and `a ≠ ⊤`.
+
+**Example (Lean).** The cast of `ℝ≥0`, the truncated subtraction $3 - 5 = 0$, the rules for `⊤`, a finite value, and the junk value of `toReal`.
 
 <?lean MathlibHandbook/V02/C08/Examples.lean#nnreal?>
 
-**Example (Truncated subtraction).**
-
 <?lean MathlibHandbook/V02/C08/Examples.lean#nnreal_sub?>
-
-**Example (Arithmetic with ⊤).** The lemma `add_top` is the general lemma of an ordered monoid with a top element.
 
 <?lean MathlibHandbook/V02/C08/Examples.lean#ennreal_top?>
 
-**Example (A finite value).**
-
 <?lean MathlibHandbook/V02/C08/Examples.lean#coe_ne_top?>
-
-**Example (The cast to ℝ).**
 
 <?lean MathlibHandbook/V02/C08/Examples.lean#toReal?>
 
-**Example (ENat).**
-
-<?lean MathlibHandbook/V02/C08/Examples.lean#enat?>
-
 ### The library around it
 
-The file `Mathlib.Basic.ENNReal.Basic` has the casts: `ENNReal.ofNNReal`, `ENNReal.toNNReal`, `ENNReal.coe_ne_top`, `ENNReal.coe_lt_top`, `ENNReal.zero_lt_top`, `ENNReal.toReal_ofReal` and `ENNReal.ofReal_toReal`. The file `Mathlib.Basic.ENNReal.Operations` has the arithmetic: `ENNReal.add_eq_top`, `ENNReal.top_mul` and `ENNReal.top_sub_coe`. The inverse and the division are in `Mathlib.Basic.ENNReal.Inv`, with `ENNReal.inv_zero`, `ENNReal.inv_top` and `ENNReal.div_zero`. The lemmas with `ENNReal.toReal` and `ENNReal.ofReal` are in `Mathlib.Basic.ENNReal.Real`, for example `ENNReal.ofReal_add` and `ENNReal.ofReal_of_nonpos`. The file `Mathlib.Data.ENat.Basic` has `ENat.coe_lt_top`, `ENat.top_ne_coe`, `ENat.toNat_natCast` and `ENat.natCast_toNat`. The type `EReal` of the extended real numbers $[-\infty, \infty]$ is in `Mathlib/Data/EReal`.
+`Mathlib.Basic.NNReal.Defs` has `NNReal` and `Real.toNNReal`. `Mathlib.Basic.ENNReal.Basic` has the casts `ENNReal.ofNNReal`, `ENNReal.toNNReal`, `ENNReal.ofReal` and `ENNReal.toReal` with their lemmas, such as `ENNReal.coe_lt_top` and `ENNReal.toReal_top`. `Mathlib.Basic.ENNReal.Operations` has the arithmetic, for example `ENNReal.mul_eq_top`, `ENNReal.sub_top` and `ENNReal.top_sub_coe`. `Mathlib.Basic.ENNReal.Inv` has `ENNReal.inv_zero`, `ENNReal.inv_top` and `ENNReal.div_zero`, and `Mathlib.Basic.ENNReal.Real` has `ENNReal.ofReal_add` and `ENNReal.toReal_add`. A lemma states `≠ ⊤` when the junk value matters.
 
 ### Exercises
 
-1. (A) Give the values of `(⊤ : ENNReal).toReal`, `ENNReal.ofReal (-2)` and `(0 : ENNReal)⁻¹` in Mathlib.
-2. (A) Explain why measure theory uses `ENNReal` and not `ℝ`.
-3. (B) Show that the multiplication of `ENNReal` is not cancellative: find $a \neq 0$ and $b \neq c$ with $a b = a c$.
-4. (B) Show that `ENNReal.toReal` does not keep addition in general.
-5. (L) Prove that $\top \cdot \top = \top$ in `ENNReal`. The solution is `top_mul_top_ennreal`.
-6. (L) Prove that a sum in `ENNReal` is `⊤` if and only if a term is `⊤`. The solution is `add_eq_top_iff_ennreal`.
-7. (L) Prove that the value of `ENNReal.ofReal 2` is $2$. The solution is `toReal_ofReal_two`.
-8. (L) Prove that the cast of `ENat.toNat n` is $n$ for $n \neq \top$. The solution is `enat_coe_toNat`.
-9. (L) Prove that the cast from `NNReal` to `ℝ` keeps products. The solution is `nnreal_coe_mul`.
+1. (A) Give the values of `(⊤ : ℝ≥0∞).toReal`, `ENNReal.ofReal (-2)` and `(0 : ℝ≥0∞)⁻¹`. *Hint.* Use the definitions and rule 4.
+2. (B) Show that the multiplication of $[0, \infty]$ is associative. *Hint.* If a factor is $0$, both sides are $0$. Otherwise use the theorem on products.
+3. (B) Show that $\sum_n 2^{-n} = 2$ in $[0, \infty]$. *Hint.* The partial sums are $2 - 2^{1 - N}$.
+4. (C) Show that $x \mapsto x^{-1}$ is an order reversing bijection of $[0, \infty]$. *Hint.* Treat $0$ and $\infty$ apart.
+5. (L) Prove that $\top \cdot \top = \top$ in `ℝ≥0∞`. The solution is `top_mul_top_ennreal`.
+6. (L) Prove that a sum in `ℝ≥0∞` is `⊤` if and only if a term is `⊤`. The solution is `add_eq_top_iff_ennreal`.
+7. (L) Prove that `(ENNReal.ofReal 2).toReal = 2`. The solution is `toReal_ofReal_two`.
+8. (L) Prove that the cast from `ℝ≥0` to `ℝ` keeps products. The solution is `nnreal_coe_mul`.
 
 ### Notes and history
 
-The convention $0 \cdot \infty = 0$ is the convention of measure theory: the integral of the zero function on a set of infinite measure is $0$. Mathlib defines the extended types with `WithTop`, so the general lemmas about a top element apply to `ENNReal` and to `ENat`.
+The half line $[0, \infty]$ with $0 \cdot \infty = 0$ is the value set of the measures of Lebesgue (1902) and Carathéodory (1914). Rudin, *Real and Complex Analysis*, Section 1.22, explains the convention. In Mathlib, `ENNReal` came from the measure theory library of Johannes Hölzl, and `NNReal` from Johan Commelin.
 
 ### Reference
 

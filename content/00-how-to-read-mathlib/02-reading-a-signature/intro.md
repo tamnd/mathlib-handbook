@@ -1,3 +1,5 @@
 # Reading a signature
 
-This chapter shows how to read the signature of a lemma: the explicit arguments, the implicit arguments, the instance arguments and the statement.
+This chapter teaches the reader to read the signature of a declaration, the line that a Mathlib box shows. Section 2.1 takes a signature apart: the explicit, implicit, strict implicit and instance arguments, the hypotheses as arrows, and the statement after the last colon. Section 2.2 explains the type classes, which are the hypotheses in square brackets, and the hierarchy of algebraic and order structures that Mathlib builds from them. Section 2.3 explains the coercions, the arrows `↑` in a statement, and proves which laws of the casts hold and which need a hypothesis. Section 2.4 reads the statement itself: the quantifiers, the statements on sets, the equivalences, and the limits in the form of filters.
+
+The chapter needs Chapter 1, and the algebra and analysis of a first course: groups, rings, fields, ordered fields, and limits with $\varepsilon$ and $N$. After this chapter the reader can read each Mathlib box of the handbook and say what mathematics it states, under which hypotheses. Chapter 3 then shows how a proof uses a statement.

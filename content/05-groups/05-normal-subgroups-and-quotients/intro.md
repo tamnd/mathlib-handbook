@@ -1,3 +1,5 @@
 # Normal subgroups and quotients
 
-A normal subgroup gives a quotient group. This chapter shows the class `Subgroup.Normal`, the quotient `G ⧸ N`, its universal property and the first isomorphism theorem.
+A normal subgroup is a subgroup whose left and right cosets agree, and its cosets form a group. Section 1 defines normal subgroups and the quotient `G ⧸ N`, proves its universal property and the first isomorphism theorem, with examples such as $\mathbb{R}/\mathbb{Z} \cong S^1$ and $D_4/Z(D_4) \cong V_4$. Section 2 proves the second and the third isomorphism theorems and the correspondence between the subgroups of $G/N$ and the subgroups of $G$ that contain $N$.
+
+The chapter needs Chapters 2 to 4. Chapter 8 uses the correspondence theorem in the proof of the first Sylow theorem, and later volumes use quotients for rings and modules.

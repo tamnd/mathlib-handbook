@@ -1,3 +1,3 @@
-# Extended numbers: NNReal, ENNReal and ENat
+# Extended numbers: NNReal, ENNReal, ENat and EReal
 
-Measure theory and analysis need numbers that are not negative, and numbers that can be infinite. This chapter shows the types `NNReal`, `ENNReal` and `ENat`, the rules of their arithmetic with `⊤`, and the casts that go back to `ℝ` and `ℕ`.
+Measure theory needs lengths that are not negative and can be infinite, and combinatorics needs sizes that can be infinite. This chapter adds a top element, and for `EReal` also a bottom element, to `ℝ≥0`, `ℕ` and `ℝ`. The first section shows `NNReal` and `ENNReal`, the rules of their arithmetic with `⊤`, and the theorem that each series in `ℝ≥0∞` has a sum. The second section shows `ENat` and `EReal`, built from `WithTop` and `WithBot`. In each type, the casts back to `ℕ` or `ℝ` send the infinite elements to the junk value $0$, so the lemmas about the casts state the hypotheses `≠ ⊤` and `≠ ⊥`.

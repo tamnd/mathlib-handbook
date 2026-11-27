@@ -7,8 +7,8 @@ modules:
   - Mathlib.Data.Rat.Lemmas
   - Mathlib.Data.NNRat.Defs
 explains:
-  E3: [NNRat]
-  E2: [Rat.mkRat_eq_divInt, Rat.den_dvd, Rat.num_dvd, Rat.isSquare_iff, NNRat.coe_add]
+  E3: [NNRat, Rat.den_dvd]
+  E2: [Rat.mkRat_eq_divInt, Rat.num_dvd, Rat.den_eq_one_iff, Rat.num_div_eq_of_coprime, Rat.den_div_eq_of_coprime, NNRat.coe_add, Rat.toNNRat]
   E1: auto
 families: []
 requires: [V02.C03]
@@ -27,61 +27,111 @@ reviewed_by: []
 
 ### Overview
 
-A textbook builds $\mathbb{Q}$ as a quotient: a fraction is a class of pairs $(a, b)$ with $b \neq 0$, and $(a, b) \sim (c, d)$ if $a d = b c$. Lean does not use a quotient. The core of Lean defines `ℚ` as a structure with a numerator, a positive denominator and a proof that the two are coprime. So each rational number has one form, and equality is equality of the fields. The type `ℚ≥0`, with the name `NNRat`, is the subtype of the rational numbers that are not negative. This section shows the structure, the functions that make a fraction, and the lemmas about the numerator and the denominator.
+The rational numbers add the solutions of all equations $b x = a$ with $a, b \in \mathbb{Z}$, $b \neq 0$. A textbook builds $\mathbb{Q}$ as classes of pairs $(a, b)$ with $b \neq 0$, where $(a, b) \sim (c, d)$ if $a d = b c$. Each class has one member in lowest terms with a positive denominator, and the core of Lean uses this member as the definition.
+
+This section gives the construction by classes, the theorem that each class has exactly one member in lowest terms, the structure of Lean with the functions `mkRat` and `Rat.divInt`, and the type `ℚ≥0`. The next section studies the order of $\mathbb{Q}$.
 
 ### Definitions
 
-**Definition (The rationals).** A term `q : ℚ` has the fields `q.num : ℤ` and `q.den : ℕ`, and two proofs: `q.den ≠ 0` and `Nat.Coprime q.num.natAbs q.den`. The value of `q` is $q.num / q.den$.
+**Definition (Fractions).** On the set $\mathbb{Z} \times (\mathbb{Z} \setminus \{0\})$ define $(a, b) \sim (c, d)$ if $a d = b c$. The class of $(a, b)$ is written $a / b$, and $\mathbb{Q}$ is the set of the classes.
 
-**Definition (Fractions).** For $n \in \mathbb{Z}$ and $d \in \mathbb{N}$, `mkRat n d` is the fraction $n / d$ in lowest terms. For $n, d \in \mathbb{Z}$, `Rat.divInt n d` is the same fraction, with the notation `n /. d`. Both have the junk value $0$ at $d = 0$.
+The relation is reflexive and symmetric. It is transitive: from $a d = b c$ and $c f = d e$ follows $a d f = b c f = b d e$, so $d (a f - b e) = 0$. Since $d \neq 0$ and $\mathbb{Z}$ is an integral domain, $a f = b e$.
 
-**Definition (Non negative rationals).** `NNRat` is the subtype `{q : ℚ // 0 ≤ q}`, with the notation `ℚ≥0`. The cast `(q : ℚ)` takes a term of `ℚ≥0` to its value.
+**Definition (The operations).** For two classes put
 
-### Theorems and proofs
+$$\frac{a}{b} + \frac{c}{d} = \frac{a d + b c}{b d}, \qquad \frac{a}{b} \cdot \frac{c}{d} = \frac{a c}{b d}, \qquad -\frac{a}{b} = \frac{-a}{b}, \qquad \left(\frac{a}{b}\right)^{-1} = \frac{b}{a} \text{ for } a \neq 0.$$
 
-**Theorem (Lowest terms).** Each $q \in \mathbb{Q}$ is $a / b$ for one pair $(a, b)$ with $b > 0$ and $\gcd(a, b) = 1$.
+The denominators $b d$ are not zero, again because $\mathbb{Z}$ is an integral domain. The integer $n$ is the class $n / 1$.
 
-*Proof.* Write $q = c / d$ with $d > 0$, and let $g = \gcd(c, d)$. Then $a = c / g$ and $b = d / g$ are coprime, and $q = a / b$. If $a / b = a' / b'$ in lowest terms, then $a b' = a' b$. So $b \mid a b'$ and $\gcd(a, b) = 1$ give $b \mid b'$, and in the same way $b' \mid b$. Thus $b = b'$ and $a = a'$. $\square$
+**Definition (Lowest terms).** A pair $(a, b)$ is in lowest terms if $b > 0$ and $\gcd(a, b) = 1$.
 
-**Theorem (The denominator divides).** For $a, b \in \mathbb{Z}$, the denominator of $a / b$ divides $b$, and the numerator divides $a$.
+**Definition (The rationals in Lean).** The core of Lean defines `ℚ` as a structure with four fields: `num : ℤ`, `den : ℕ`, `den_nz : den ≠ 0` and `reduced : num.natAbs.Coprime den`. The value of `q` is $q.\mathrm{num} / q.\mathrm{den}$.
 
-*Proof.* For $b \neq 0$, the fraction in lowest terms is $(a / g) / (b / g)$ up to sign, where $g = \gcd(a, b)$. Both parts divide the original parts. For $b = 0$ the fraction is $0$, so the denominator is $1$ and the numerator is $0$. The lemma about the numerator needs $b \neq 0$. $\square$
+*Remark.* The sign of `q` is the sign of the numerator. Two terms of `ℚ` are equal when their numerators and their denominators are equal, because the two proof fields are propositions.
 
-**Theorem (Squares in ℚ).** A rational number $q$ is a square if and only if its numerator and its denominator are squares in $\mathbb{Z}$ and in $\mathbb{N}$.
+**Definition (Making a fraction).** For $n \in \mathbb{Z}$ and $d \in \mathbb{N}$, `mkRat n d` is the fraction $n / d$ in lowest terms. For $n, d \in \mathbb{Z}$, `Rat.divInt n d`, with the notation `n /. d`, is the same fraction. At $d = 0$ both have the junk value $0$, as the field division `(n : ℚ) / d` does.
 
-*Proof.* If $q.num = a^2$ and $q.den = b^2$, then $q = (a / b)^2$. If $q = r^2$, then $q.num = r.num^2$ and $q.den = r.den^2$, because the square of a fraction in lowest terms is in lowest terms. $\square$
+::: mathlib
+`Rat.mkRat_eq_divInt` · `Mathlib.Data.Rat.Defs`
 
-### Mathlib boxes
+The two functions make the same fraction: `mkRat n d = Rat.divInt n ↑d`. The lemma moves a goal from `mkRat` to the form of the library.
+
+<?decl Rat.mkRat_eq_divInt?>
+:::
+
+**Definition (The nonnegative rationals).** `NNRat` is the subtype `{q : ℚ // 0 ≤ q}`, with the notation `ℚ≥0`. The cast `(q : ℚ)` takes a term of `ℚ≥0` to its value. The function `Rat.toNNRat q` is $\max(q, 0)$, so its value at a negative number is the junk value $0$.
 
 ::: mathlib
 `NNRat` · `Mathlib.Data.Rat.Init`
 
-The type is a subtype, so a term is a pair of a rational number and a proof. It is an ordered semifield. The cast to `ℚ` is `NNRat.cast`, and the lemmas about the cast have the prefix `NNRat.coe_`.
+A term is a pair of a rational number and a proof that it is not negative. The type is a semifield, and its subtraction is truncated, as in `ℕ`. The lemmas of the cast to `ℚ` have the prefix `NNRat.coe_`, for example `NNRat.coe_add`, and `norm_cast` uses them.
 
 <?decl NNRat?>
 :::
 
 ::: mathlib
-`Rat.mkRat_eq_divInt` · `Mathlib.Data.Rat.Defs`
+`Rat.toNNRat` · `Mathlib.Data.NNRat.Defs`
 
-The two functions make the same fraction. Mathlib states most of its lemmas with `Rat.divInt`, so this lemma moves a goal from `mkRat` to the form of the library.
+The value is `⟨max q 0, _⟩`. So `Rat.toNNRat (-1) = 0`. A lemma that removes `toNNRat` has the hypothesis `0 ≤ q`.
 
-<?decl Rat.mkRat_eq_divInt?>
+<?decl Rat.toNNRat?>
+:::
+
+### Theorems and proofs
+
+**Theorem (The operations are well defined).** The sum, the product, the negation and the inverse of classes do not depend on the choice of the pairs.
+
+*Proof.* Let $a b' = a' b$. Both formulas are symmetric, so it is enough to change the first argument. For the sum, $(a d + b c) b' d = a b' d^2 + b b' c d = a' b d^2 + b b' c d = (a' d + b' c) b d$. For the product, $a c \cdot b' d = a' c \cdot b d$ is $c d$ times the hypothesis. The negation is direct. For the inverse, $a \neq 0$ gives $a' \neq 0$, and $b a' = b' a$ is the hypothesis. $\square$
+
+The field axioms then follow from the ring axioms of $\mathbb{Z}$ by computation on representatives, and $n \mapsto n / 1$ is an injective ring map $\mathbb{Z} \to \mathbb{Q}$.
+
+**Theorem (Lowest terms).** Each class has exactly one member in lowest terms.
+
+*Proof.* Existence. Let $(c, d)$ be a member. If $d < 0$, replace it by $(-c, -d)$. Let $g = \gcd(c, d) > 0$, $a = c / g$ and $b = d / g$. Then $b > 0$ and $a d = b c$. A common divisor $e > 0$ of $a$ and $b$ gives the common divisor $e g$ of $c$ and $d$, so $e = 1$.
+
+Uniqueness. Let $(a, b)$ and $(a', b')$ be two members in lowest terms. Then $a b' = a' b$. So $b \mid a b'$. Since $\gcd(b, a) = 1$, Euclid's lemma in its form for coprime numbers gives $b \mid b'$. In the same way $b' \mid b$. Both are positive, so $b = b'$. Then $a b = a' b$ and $b \neq 0$ give $a = a'$. $\square$
+
+**Theorem (Numerator and denominator of a fraction).** Let $a, b \in \mathbb{Z}$ with $b \neq 0$, and let $q = a / b$ with numerator $n$ and denominator $d$. Then $d \mid b$ and $n \mid a$. If $b > 0$ and $\gcd(a, b) = 1$, then $n = a$ and $d = b$.
+
+*Proof.* By the proof of the theorem on lowest terms, $(n, d) = (\pm a / g, |b| / g)$ with $g = \gcd(a, b)$, where the sign is the sign of $b$. So $b = \pm g d$ and $a = \pm g n$, and both divisibilities hold. If $b > 0$ and $\gcd(a, b) = 1$, then $(a, b)$ is in lowest terms, and the uniqueness part gives $(n, d) = (a, b)$. $\square$
+
+For $b = 0$ the fraction is the junk value $0 / 1$. Then $d \mid b$ still holds, but $n \mid a$ fails for $a \neq 0$.
+
+::: mathlib
+`Rat.den_dvd` · `Mathlib.Data.Rat.Lemmas`
+
+The statement is `↑(Rat.divInt a b).den ∣ b`, with no hypothesis on `b`. The lemma `Rat.num_dvd` has the hypothesis `b ≠ 0`.
+
+<?decl Rat.den_dvd?>
 :::
 
 ::: mathlib
-`Rat.isSquare_iff` · `Mathlib.Data.Rat.Lemmas`
+`Rat.num_div_eq_of_coprime` · `Mathlib.Data.Rat.Lemmas`
 
-The statement uses `IsSquare`, the predicate that says $q = r \cdot r$ for some $r$. The form for a natural number is `Rat.isSquare_natCast_iff`.
+For `0 < b` and `a.natAbs.Coprime b.natAbs`, `Rat.num_div_eq_of_coprime` gives `(a / b : ℚ).num = a`, and `Rat.den_div_eq_of_coprime` gives `((a / b : ℚ).den : ℤ) = b`. They read the numerator of a fraction with variables.
 
-<?decl Rat.isSquare_iff?>
+<?decl Rat.num_div_eq_of_coprime?>
+:::
+
+**Proposition (Integers among the rationals).** A rational number $q$ is in the image of $\mathbb{Z}$ if and only if its denominator is $1$.
+
+*Proof.* If the denominator is $1$, then $q = n / 1$ is the image of its numerator $n$. Conversely, if $q = m / 1$ for some $m \in \mathbb{Z}$, then $(m, 1)$ is in lowest terms, so it is the member of $q$ in lowest terms, and the denominator is $1$. $\square$
+
+::: mathlib
+`Rat.den_eq_one_iff` · `Mathlib.Data.Rat.Defs`
+
+The statement is `r.den = 1 ↔ ↑r.num = r`, with the cast `Int.cast : ℤ → ℚ`.
+
+<?decl Rat.den_eq_one_iff?>
 :::
 
 ### Examples
 
-**Example (Lowest terms).** The fraction $6 / 4$ has numerator $3$ and denominator $2$. The kernel computes them.
+**Example (Lowest terms).** For $6 / 4$, $\gcd(6, 4) = 2$, so the numerator is $3$ and the denominator is $2$. For $6 / -4$, change the signs first: the numerator is $-3$ and the denominator is $2$.
 
 <?lean MathlibHandbook/V02/C04/Examples.lean#num_den?>
+
+**Example (A sum).** The formula gives $\frac{1}{6} + \frac{1}{10} = \frac{16}{60}$. The gcd of $16$ and $60$ is $4$, so the sum in lowest terms is $\frac{4}{15}$. The formula does not give lowest terms, so Lean reduces after each operation.
 
 **Example (Two ways to make a fraction).**
 
@@ -95,9 +145,7 @@ The statement uses `IsSquare`, the predicate that says $q = r \cdot r$ for some 
 
 <?lean MathlibHandbook/V02/C04/Examples.lean#den_eq_one?>
 
-**Example (Two is not a square).** The proof moves the goal to `ℕ`, where it is decidable.
-
-<?lean MathlibHandbook/V02/C04/Examples.lean#not_square?>
+**Counterexample (The relation needs b ≠ 0).** With the pairs $(a, 0)$, $(1, 0) \sim (0, 0)$ and $(0, 0) \sim (0, 1)$, but $(1, 0) \not\sim (0, 1)$. So the relation is not transitive. The step from $d (a f - b e) = 0$ fails for $d = 0$.
 
 **Example (The cast of ℚ≥0).**
 
@@ -105,22 +153,21 @@ The statement uses `IsSquare`, the predicate that says $q = r \cdot r$ for some 
 
 ### The library around it
 
-The file `Mathlib.Data.Rat.Defs` has the basic lemmas, for example `Rat.den_ne_zero`, `Rat.num_ne_zero` and `Rat.den_eq_one_iff`. The field structure is `Rat.instField` in `Mathlib.Algebra.Field.Rat`, and the order is in `Mathlib.Algebra.Order.Field.Rat`. The file `Mathlib.Data.Rat.Lemmas` has `Rat.den_dvd`, `Rat.num_dvd` and `Rat.num_div_eq_of_coprime`. The function `Rat.toNNRat` takes a rational number to `ℚ≥0`, with the junk value $0$ for a negative number. The cast from `ℚ` to a field of characteristic zero is the subject of the next chapter. The tactic `norm_num` computes with fractions, and it is the normal way to prove an equation of rational numbers.
+The structure `Rat` and the functions `mkRat` and `Rat.divInt` are in the core of Lean. Mathlib adds `Mathlib.Data.Rat.Init` with `NNRat`, `Mathlib.Data.Rat.Defs` with the basic lemmas (`Rat.den_ne_zero`, `Rat.num_ne_zero`, `Rat.add_divInt`), and `Mathlib.Data.Rat.Lemmas` with the divisibility lemmas. The field structure is `Rat.instField`, and `Rat.isFractionRing : IsFractionRing ℤ ℚ` connects `ℚ` to the general field of fractions. The tactic `norm_num` proves equations of rational literals.
 
 ### Exercises
 
-1. (A) Give the values of `(0 : ℚ).den`, `(-3 / 6 : ℚ).num` and `mkRat 5 0` in Mathlib.
-2. (A) Explain why Lean stores a rational number in lowest terms and does not use a quotient type.
-3. (B) Show that $\sqrt{2}$ is not rational, with `Rat.isSquare_iff`.
-4. (B) Show that the map from `ℚ≥0` to `ℚ` is injective and keeps the order.
+1. (A) Give the values of `(0 : ℚ).den`, `(-3 / 6 : ℚ).num`, `mkRat 5 0` and `Rat.toNNRat (-2)` in Mathlib. *Hint.* Use lowest terms and the junk values.
+2. (A) Compute $\frac{5}{12} - \frac{7}{18}$ in lowest terms, first with the formula of the definition and then with $\gcd(12, 18)$. *Hint.* The result has denominator $36$.
+3. (B) Show that the product of two fractions in lowest terms $\frac{a}{b}$ and $\frac{c}{d}$ is in lowest terms if $\gcd(a, d) = \gcd(c, b) = 1$. *Hint.* A prime that divides $a c$ and $b d$ divides one factor of each.
+4. (B) Show that the map from `ℚ≥0` to `ℚ` is injective and keeps the order. *Hint.* A subtype has equality of the values.
 5. (L) Prove that $1/2 + 1/3 = 5/6$ in `ℚ`. The solution is `half_add_third`.
-6. (L) Prove that $3$ is not a square in `ℚ`. The solution is `not_isSquare_three`.
-7. (L) Prove that a rational number with denominator $1$ is the cast of an integer. The solution is `den_of_den_eq_one`.
-8. (L) Prove that the product of two terms of `ℚ≥0` is not negative in `ℚ`. The solution is `nnrat_mul_nonneg`.
+6. (L) Prove that a rational number with denominator $1$ is the cast of an integer. The solution is `den_of_den_eq_one`.
+7. (L) Prove that the product of two terms of `ℚ≥0` is not negative in `ℚ`. The solution is `nnrat_mul_nonneg`.
 
 ### Notes and history
 
-The construction of $\mathbb{Q}$ as a field of fractions is the construction of the field of fractions of any integral domain, and Mathlib has the general form as `FractionRing`. The structure in lowest terms is the choice of the core of Lean, because it makes computation fast and equality decidable. Lean 3 Mathlib used the same structure.
+Egyptian and Babylonian texts compute with fractions. The field of fractions of an integral domain is the general form of the construction. The structure in lowest terms is the choice of the core of Lean, because it makes computation fast and equality decidable.
 
 ### Reference
 

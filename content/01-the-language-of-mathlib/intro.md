@@ -1,3 +1,3 @@
 # The language of Mathlib
 
-This volume teaches the language that every other volume uses. It shows how Mathlib writes logic, sets, functions, structures and classes. It also lists the conventions that surprise a mathematician, such as division by zero. Read Volume 0 first. Then read this volume in order, because each chapter uses the chapters before it.
+This volume is a first course in the foundations that Mathlib uses. Lean is a type theory, so a statement is a type and a proof is a term. On this base the volume builds logic and its classical principles, sets as predicates on a type, functions with their inverses, equivalences and Cantor's theorem, relations, partitions and quotients, and the classes that carry algebraic structure. Each section proves the standard facts in full and names the Mathlib declarations that state them. Read Volume 0 first, and then read the chapters in order.

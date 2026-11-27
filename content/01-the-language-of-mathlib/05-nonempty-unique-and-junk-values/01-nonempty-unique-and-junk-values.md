@@ -1,13 +1,16 @@
 ---
-title: Nonempty, Unique and junk values
+title: Empty, nonempty and unique types
 kind: theory
 modules:
   - Mathlib.Basic.Unique
   - Mathlib.Basic.Nonempty
+  - Mathlib.Basic.IsEmpty.Defs
+  - Mathlib.Basic.IsEmpty.Basic
+  - Mathlib.Basic.Nontrivial.Defs
 explains:
-  E3: [Unique]
-  E2: [Unique.instSubsingleton, Nonempty.some, uniqueOfSubsingleton]
-  E1: [div_zero, inv_zero, Real.sqrt_eq_zero_of_nonpos, Real.log_zero, Real.log_neg_eq_log, tsub_eq_zero_of_le]
+  E3: [Unique, IsEmpty, Nontrivial]
+  E2: [Unique.instSubsingleton, Nonempty.some, uniqueOfSubsingleton, Unique.uniq, Pi.unique, isEmpty_or_nonempty, not_nonempty_iff, Function.isEmpty, IsEmpty.elim, isEmpty_prod, exists_pair_ne, not_nontrivial_iff_subsingleton, subsingleton_or_nontrivial, Function.Injective.nontrivial, Classical.arbitrary]
+  E1: auto
 families: []
 requires: [V01.C04]
 reads_with: ["MIL"]
@@ -21,119 +24,143 @@ drafted_by: writer@claude-opus-5-5
 reviewed_by: []
 ---
 
-## Nonempty, Unique and junk values
+## Empty, nonempty and unique types
 
 ### Overview
 
-In Lean, a function `f : α → β` has a value at each element of `α`. A textbook says that $x / 0$ is not defined. Mathlib gives it a value instead, the junk value $0$. Each theorem that needs $b \neq 0$ then states it as a hypothesis. This section shows the classes `Nonempty`, `Inhabited`, `Subsingleton` and `Unique`, and the table of junk values.
+Many statements depend on the number of elements of a type, at least in a rough way. Chapter 1 showed that $(\forall x,\ q \land p(x)) \to q$ fails over an empty type. Chapter 3 showed that an injective map has a left inverse only when its domain is nonempty. A ring with $0 = 1$ has only one element, and many theorems of algebra exclude it. Mathlib has a class for each of these conditions: `IsEmpty α` for a type with no element, `Nonempty α` for a type with some element, `Subsingleton α` for a type with at most one element, `Unique α` for a type with exactly one element, and `Nontrivial α` for a type with at least two elements.
+
+This section defines the classes, proves the relations between them, and shows their use as hypotheses. The classes are found by instance search, as Chapter 4 explains, so a lemma with the hypothesis `[Nonempty α]` applies to $\mathbb{N}$ with no extra work. The next section uses these ideas for the junk values of total functions.
 
 ### Definitions
 
-**Definition (Nonempty and Inhabited).** `Nonempty α` is the proposition that `α` has an element. `Inhabited α` is data: it gives one element, `default`.
+**Definition (Empty and nonempty).** A type $\alpha$ is *empty* when it has no element: `IsEmpty α` states that there is a function $\alpha \to \mathrm{False}$. It is *nonempty* when it has an element: `Nonempty α` is the proposition $\exists a : \alpha,\ \mathrm{True}$, in the form of an inductive type with one constructor that takes an element.
 
-**Definition (Subsingleton and Unique).** `Subsingleton α` says that any two elements of `α` are equal. `Unique α` gives an element and says that each element is equal to it.
+**Definition (Inhabited).** `Inhabited α` is a class with one field, an element `default : α`. It is data, not a proposition. Two instances can give different defaults, and a definition can use the default.
 
-**Definition (Junk value).** A junk value is the value that Mathlib gives a function outside the domain of a textbook. The choice makes the function total and makes many lemmas true with no hypothesis.
+**Definition (Subsingleton and unique).** A type $\alpha$ is a *subsingleton* when any two of its elements are equal. A type is *unique* when it has an element and every element is equal to it: `Unique α` is a structure with a field `default : α` and a field `uniq : ∀ a, a = default`.
 
-### Theorems and proofs
-
-**Theorem (Unique gives Subsingleton).** If $\alpha$ is `Unique`, then any two elements of $\alpha$ are equal.
-
-*Proof.* Each element is equal to the default element, so two elements are equal to each other. $\square$
-
-**Theorem (Subsingleton and an element give Unique).** If $\alpha$ is a subsingleton and $a \in \alpha$, then $\alpha$ is `Unique`.
-
-*Proof.* Take $a$ as the default element. Each element is equal to $a$ because $\alpha$ is a subsingleton. $\square$
-
-**Theorem (Division by zero).** In a group with zero, $x / 0 = 0$ for every $x$.
-
-*Proof.* By definition, $x / 0 = x \cdot 0^{-1}$, and $0^{-1} = 0$ is an axiom of the structure. So $x / 0 = x \cdot 0 = 0$. $\square$
-
-The table gives the junk values that a reader meets most often.
-
-| Expression | Value in Mathlib | Lemma |
-|---|---|---|
-| `x / 0` in a field | `0` | `div_zero` |
-| `0⁻¹` in a field | `0` | `inv_zero` |
-| `a - b` in `ℕ` with `a ≤ b` | `0` | `tsub_eq_zero_of_le` |
-| `a / b` in `ℤ` | rounds toward negative infinity for `b > 0` | |
-| `Real.sqrt x` with `x ≤ 0` | `0` | `Real.sqrt_eq_zero_of_nonpos` |
-| `Real.log 0` | `0` | `Real.log_zero` |
-| `Real.log (-x)` | `Real.log x` | `Real.log_neg_eq_log` |
-
-::: mathlib
-`div_zero` · `Mathlib.Algebra.GroupWithZero.Basic`
-
-The lemma has no hypothesis. A proof that divides by a term must show that the term is not zero only when a lemma needs it, for example `div_mul_cancel₀`.
-
-<?decl div_zero?>
-:::
-
-::: mathlib
-`Real.sqrt_eq_zero_of_nonpos` · `Mathlib.Analysis.Real.Sqrt`
-
-The square root of a negative real number is `0`. So the equation `Real.sqrt x ^ 2 = x` needs the hypothesis `0 ≤ x`.
-
-<?decl Real.sqrt_eq_zero_of_nonpos?>
-:::
+**Definition (Nontrivial).** A type $\alpha$ is *nontrivial* when it has two different elements: $\exists x\ y,\ x \neq y$.
 
 ::: mathlib
 `Unique` · `Mathlib.Basic.Unique`
 
-The class has two fields: a default element and a proof that each element is equal to it. The instance `Unique.instSubsingleton` gives `Subsingleton`, and `uniqueOfSubsingleton` goes in the other direction.
+`Unique α` extends `Inhabited α` with the field `uniq`. Its instances include `Unit`, `PUnit`, `Fin 1`, the functions into a unique type (`Pi.unique`), and the functions out of an empty type. An instance gives `Subsingleton α` by `Unique.instSubsingleton`. Conversely, `uniqueOfSubsingleton a` builds `Unique α` from a subsingleton type and an element.
 
 <?decl Unique?>
 :::
 
+::: mathlib
+`IsEmpty` · `Mathlib.Basic.IsEmpty.Defs`
+
+`IsEmpty α` has the field `false : α → False`. The function `isEmptyElim` proves any statement about an element of an empty type. The instances include `Empty`, `Fin 0` and `False`, and `α × β` when `α` is empty. The two forms of emptiness are linked by `not_nonempty_iff : ¬Nonempty α ↔ IsEmpty α`.
+
+<?decl IsEmpty?>
+:::
+
+### Theorems and proofs
+
+**Theorem (Empty or nonempty).** Every type is empty or nonempty, and not both.
+
+*Proof.* By the excluded middle, $\mathrm{Nonempty}\ \alpha$ holds or fails. If it fails, then each $a : \alpha$ gives $\mathrm{Nonempty}\ \alpha$ and a contradiction, so $\alpha \to \mathrm{False}$, and $\alpha$ is empty. Not both: an element $a$ and a function $\alpha \to \mathrm{False}$ give $\mathrm{False}$. $\square$
+
+The theorem is classical. A constructive proof would decide, for every type, whether it has an element, and this includes the type of proofs of any open conjecture.
+
+**Theorem (Functions and emptiness).** Let $f : \alpha \to \beta$.
+
+1. If $\beta$ is empty, then $\alpha$ is empty.
+2. If $\alpha$ is empty, then there is exactly one function $\alpha \to \beta$, for every $\beta$.
+3. If $\alpha$ is nonempty and $\beta$ is empty, then there is no function $\alpha \to \beta$.
+
+*Proof.* 1. For $a : \alpha$, the element $f(a) : \beta$ gives a contradiction. So $\alpha \to \mathrm{False}$.
+
+2. The function $a \mapsto \mathrm{elim}(a)$, where $\mathrm{elim}$ is ex falso from the contradiction at $a$, is a function $\alpha \to \beta$. Two functions $g, h : \alpha \to \beta$ agree at every $a$, because there is no $a$. By function extensionality, $g = h$.
+
+3. This is part 1: a function would make $\alpha$ empty. $\square$
+
+In Mathlib, part 1 is the instance `Function.isEmpty`, and the elimination of an element of an empty type is `IsEmpty.elim`.
+
+So the type $\alpha \to \beta$ is unique when $\alpha$ is empty. In particular, $\mathrm{Empty} \to \mathrm{Empty}$ has exactly one element, the identity, and it is a bijection.
+
+**Theorem (Unique is inhabited and subsingleton).** A type is unique if and only if it is nonempty and a subsingleton.
+
+*Proof.* Let $\alpha$ be unique, with $d$ and $u : \forall a,\ a = d$. Then $d$ shows that $\alpha$ is nonempty. For $a, b : \alpha$, $a = d = b$ by $u(a)$ and $u(b)$. Conversely, let $\alpha$ be a subsingleton with an element $d$. Then every $a$ equals $d$. So $\langle d, u\rangle$ is a unique structure. $\square$
+
+The direction from right to left gives `Unique` from `Nonempty` only by choosing the element, and so `uniqueOfSubsingleton` takes an element as an argument, not a proof of `Nonempty`.
+
+**Theorem (Unique types are equivalent).** If $\alpha$ and $\beta$ are unique, then $\alpha \simeq \beta$, and this equivalence is the only one.
+
+*Proof.* Let $d_\alpha$ and $d_\beta$ be the elements. The functions $a \mapsto d_\beta$ and $b \mapsto d_\alpha$ are inverse to each other: $d_\alpha$ is the only element of $\alpha$, so the composite on $\alpha$ sends every $a$ to $d_\alpha = a$, and the same on $\beta$. Any two equivalences agree at every point, since $\beta$ is a subsingleton, and extensionality makes them equal. $\square$
+
+**Theorem (Subsingleton or nontrivial).** Every type is a subsingleton or nontrivial, and not both.
+
+*Proof.* By the excluded middle, $\exists x\ y,\ x \neq y$ holds or fails. If it holds, the type is nontrivial. If it fails, then for all $x, y$, $\lnot(x \neq y)$, and the elimination of double negation gives $x = y$. Not both: $x \neq y$ contradicts $x = y$. $\square$
+
+The lemma `not_nontrivial_iff_subsingleton` states the same fact as an equivalence, and `exists_pair_ne` extracts the two different elements from `[Nontrivial α]`.
+
+::: mathlib
+`subsingleton_or_nontrivial` · `Mathlib.Basic.Nontrivial.Defs`
+
+The statement is `Subsingleton α ∨ Nontrivial α`. A proof that splits on the size of a type uses `rcases subsingleton_or_nontrivial α with h | h`. In the first case `Subsingleton.elim` proves equations. In the second case lemmas with `[Nontrivial α]` apply, such as `zero_ne_one` for a ring.
+
+<?decl subsingleton_or_nontrivial?>
+:::
+
+**Theorem (Nontrivial rings).** Let $R$ be a ring. Then $R$ is nontrivial if and only if $0 \neq 1$ in $R$.
+
+*Proof.* If $0 \neq 1$, then $0$ and $1$ are two different elements. Conversely, assume $0 = 1$. For every $a : R$, $a = a \cdot 1 = a \cdot 0 = 0$, by the identity law and the law $a \cdot 0 = 0$ of Section 1 of Chapter 4. So every element equals $0$, and $R$ is a subsingleton. By the previous theorem it is not nontrivial. $\square$
+
+This is why a field in Mathlib extends `Nontrivial`, and why many lemmas of algebra take `[Nontrivial R]`. The trivial ring $\{0\}$ satisfies every equational axiom of a ring with $0 = 1$, and it would make some theorems false, such as the theorem that a field has exactly two ideals: the trivial ring has only one.
+
+**Theorem (Transfer of nontriviality).** Let $f : \alpha \to \beta$ be injective. If $\alpha$ is nontrivial, then $\beta$ is nontrivial.
+
+*Proof.* Let $x \neq y$ in $\alpha$. Injectivity gives $f(x) \neq f(y)$ by contraposition. $\square$
+
+This is `Function.Injective.nontrivial`. The dual statement, `Function.Surjective.nontrivial`, transfers nontriviality from the codomain of a surjection to its domain. The product of unique types is unique by the same kind of argument, and `Pi.unique` gives the instance for function types.
+
 ### Examples
 
-**Example (Nonempty).** The anonymous constructor gives a proof that `ℕ` has an element.
+**Example (A nonempty type).** The proposition `Nonempty ℕ` has the proof `⟨0⟩`. The proof contains the element $0$, but the proposition forgets it: any two proofs are equal, by proof irrelevance.
 
 <?lean MathlibHandbook/V01/C05/Examples.lean#nonempty?>
 
-**Example (Inhabited).** The default natural number is `0`.
+**Example (A default element).** `Inhabited ℕ` is data, with the default $0$. The equation `default = 0` holds by `rfl`, because the instance is a definition that Lean can unfold.
 
 <?lean MathlibHandbook/V01/C05/Examples.lean#inhabited?>
 
-**Example (A unique type).** The type `Fin 1` has one element, so any two of its elements are equal.
+**Example (A unique type).** `Fin 1` has exactly one element, $0$. The instance `Unique (Fin 1)` exists, so `Subsingleton (Fin 1)` follows, and `Subsingleton.elim` proves that any two elements are equal.
 
 <?lean MathlibHandbook/V01/C05/Examples.lean#unique?>
 
-**Example (Junk values in a field).**
+**Example (An empty product).** The type $\mathbb{N} \times \mathrm{Empty}$ is empty, by the lemma `isEmpty_prod`: a product is empty if and only if one factor is empty. So the statement $\forall z : \mathbb{N} \times \mathrm{Empty},\ P(z)$ holds for every $P$, and $\exists z : \mathbb{N} \times \mathrm{Empty},\ P(z)$ is false. The sum $\mathbb{N} \oplus \mathrm{Empty}$ is nonempty, and in fact equivalent to $\mathbb{N}$.
 
-<?lean MathlibHandbook/V01/C05/Examples.lean#div_zero?>
-
-**Example (Truncated subtraction).** On `ℕ`, the value of `3 - 5` is `0`, and `rfl` proves it.
-
-<?lean MathlibHandbook/V01/C05/Examples.lean#nat_sub?>
-
-**Example (Integer division).** On `ℤ`, the value of `-7 / 2` is `-4`, not `-3`.
-
-<?lean MathlibHandbook/V01/C05/Examples.lean#int_div?>
-
-**Example (Square root and logarithm).**
-
-<?lean MathlibHandbook/V01/C05/Examples.lean#sqrt_log?>
-
-**Counterexample (A false identity).** The equation `(a - b) + b = a` is false on `ℕ` for `a = 2` and `b = 5`, because `2 - 5 = 0`. The lemma for `ℕ` needs the hypothesis `b ≤ a`.
+**Counterexample (Nonempty does not give an element in a definition).** From `h : Nonempty ℕ`, the term `Nonempty.some h` is an element of `ℕ`, by the axiom of choice. Its value cannot be computed, and no proof can show that it is $0$. A definition that needs a specific element must take `[Inhabited α]` or an explicit argument. For this reason, Mathlib uses `Inhabited` for data and `Nonempty` in hypotheses of theorems.
 
 ### The library around it
 
-The lemmas with a junk value have no hypothesis, and the lemmas that need the usual domain have one. For example, `div_zero` has no hypothesis, and `div_mul_cancel₀` needs `b ≠ 0`. The same pattern holds for `Real.sqrt` and `Real.log`. For `ℕ`, the subtraction is the truncated subtraction of an ordered monoid, and its lemmas have the prefix `tsub_`. The class `Nonempty` is a proposition, so a proof can use it with no cost. To get an element from it, `Nonempty.some` uses choice.
+The modules are `Mathlib.Basic.Nonempty`, with `Nonempty.some`, `Nonempty.map` and `Classical.arbitrary`; `Mathlib.Basic.IsEmpty.Defs` and `Mathlib.Basic.IsEmpty.Basic`, with `IsEmpty`, `isEmptyElim`, `isEmpty_or_nonempty`, `isEmpty_prod`, `isEmpty_sum` and `isEmpty_pi`; `Mathlib.Basic.Unique`, with `Unique`, `Unique.forall_iff` and `Unique.exists_iff`; and `Mathlib.Basic.Nontrivial.Defs`, with `Nontrivial`, `exists_pair_ne`, `nontrivial_iff` and `Function.Surjective.nontrivial`. The core library defines `Nonempty`, `Inhabited` and `Subsingleton`.
+
+The equivalences `Equiv.equivEmpty : α ≃ Empty` and `Equiv.equivPUnit : α ≃ PUnit` exist under `[IsEmpty α]` and `[Unique α]`. The tactic `simp` uses `IsEmpty.forall_iff` and `Unique.forall_iff` to remove quantifiers over such types.
+
+#### Common errors
+
+1. A learner uses `Nonempty α` where a definition needs an element, and gets a noncomputable definition. Use `Inhabited α`.
+2. A learner proves `x = y` in `Fin 1` by `rfl`. This works here, but in a general subsingleton use `Subsingleton.elim x y`.
+3. A learner forgets the hypothesis `[Nontrivial R]` for a lemma such as `zero_ne_one`, and the instance search fails for a general ring.
 
 ### Exercises
 
-1. (A) Give the value of `(1 : ℝ) / 0 + Real.log 0` in Mathlib.
-2. (A) Explain why the lemma `div_zero` needs no hypothesis.
-3. (B) Show that the equation `a / b * b = a` is false in `ℚ` for some `a` and `b`.
-4. (B) Show that a type with a `Unique` instance and a type with one element have the same cardinality.
-5. (L) Prove that `2 - 7 = 0` in `ℕ`. The solution is `nat_sub_example`.
-6. (L) Prove that `q / 0 = 0` in `ℚ`. The solution is `rat_div_zero_example`.
-7. (L) Prove that any two elements of `Fin 1` are equal. The solution is `subsingleton_fin_one`.
+1. (A) Decide which of the classes `IsEmpty`, `Nonempty`, `Subsingleton`, `Unique` and `Nontrivial` hold for `Empty`, `Unit`, `Bool`, `Fin 0`, `Fin 1` and `ℕ`.
+2. (A) Prove that every function $\beta \to \alpha$ is injective when $\beta$ is a subsingleton. Give an example that shows that the hypothesis on $\alpha$ alone is not sufficient.
+3. (B) Prove that $\alpha \to \beta$ is unique when $\beta$ is unique, for every $\alpha$.
+4. (B) Prove that $\alpha \times \beta$ is nontrivial when $\alpha$ is nontrivial and $\beta$ is nonempty. Show that the second hypothesis is needed.
+5. (B) Prove that a surjection from a subsingleton type has a subsingleton codomain.
+6. (C) Show that `Prop` is nontrivial and that `Unique` of a proposition $p$ is equivalent to $p$.
+7. (L) Prove that any two elements of `Fin 1` are equal. The solution is `subsingleton_fin_one` in `Solutions.lean`.
 
 ### Notes and history
 
-Total functions with junk values are common in proof assistants such as HOL and Isabelle. The choice makes the algebra simpler, because most lemmas hold with no side condition. The cost is that a reader must know the junk values to read a statement correctly.
+The empty set has been part of set theory since Zermelo's axioms of 1908, and the convention that there is exactly one function from the empty set is due to the definition of a function as a set of pairs. The distinction between a proposition that a type has an element and the data of an element is a theme of constructive mathematics, and it is the difference between `Nonempty` and `Inhabited`.
 
 ### Reference
 

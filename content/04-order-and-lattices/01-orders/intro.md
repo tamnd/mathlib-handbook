@@ -1,3 +1,7 @@
 # Preorders, partial orders and linear orders
 
-The relation `≤` is the base of each chapter of this volume. This chapter shows the three classes `Preorder`, `PartialOrder` and `LinearOrder`, how `<` comes from `≤`, and the lemmas that a proof uses most often.
+The relation `≤` is the base of each chapter of this volume. This chapter gives the axioms of an order and the first tools to work with them. The first section defines preorders, partial orders and linear orders, the strict relation `<`, and the standard ways to build an order: products, the lexicographic order, the order pulled back along a function, and the quotient that turns a preorder into a partial order. The second section gives the language of bounds: upper bounds, greatest elements, least upper bounds and maximal elements, and the dual order `OrderDual α` that turns each theorem about upper bounds into a theorem about lower bounds. The third section treats well-founded relations, which are the general form of induction. The fourth section proves Zorn's lemma from the axiom of choice, through the Bourbaki-Witt fixed point theorem, and gives two applications in algebra.
+
+The chapter needs Volume 1: sets as predicates, functions, classes and instances, and the classical logic of Mathlib. It needs no algebra, except in the two applications of Zorn's lemma, which use the definitions of an ideal and of a linearly independent set.
+
+The next chapter studies the maps that keep an order. The chapter on lattices turns the least upper bound of two elements into an operation `⊔`, and the chapter on complete lattices does the same for each set. The chapter on conditionally complete lattices uses the bounds of the second section for the supremum of a set of real numbers.
