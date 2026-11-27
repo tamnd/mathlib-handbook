@@ -1,0 +1,7 @@
+# Cardinal numbers
+
+Two sets have the same size when there is a bijection between them. This chapter makes the sizes into objects of their own, the cardinal numbers, and gives them an order and an arithmetic. In Mathlib, a cardinal is a type up to equivalence. The cardinal of a type `α` is written `#α`, and the cardinals of the types of `Type u` form the type `Cardinal.{u}`.
+
+Section 1 defines the cardinals, the operations of sum, product and power on them, and the order by embeddings. It proves that any two cardinals are comparable, with Zorn's lemma, and it takes the theorem of Cantor, Schröder and Bernstein from Volume 4. Section 2 shows that the cardinals are well-ordered, proves the theorem of Cantor $\kappa < 2^\kappa$, and proves the inequality of König, which compares a sum and a product of cardinals. Section 3 studies the least infinite cardinal $\aleph_0$, the countable cardinals, and the cardinalities of unions, images and ranges. Section 4 connects the cardinals with the counting of finite types of Volume 3: the natural number `Nat.card`, the conversion `Cardinal.toNat` and the extended natural numbers.
+
+The chapter needs Volume 1 for types, equivalences and the axiom of choice, Volume 3 for finite and countable types, and Volume 4 for orders and Zorn's lemma. The infinite cardinals get their arithmetic in Chapter 5, after the ordinals of Chapters 2 to 4 give them names.
