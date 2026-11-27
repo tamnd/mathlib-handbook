@@ -4,6 +4,8 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+## v0.2.0 - 2026-11-27
+
 ### Added
 
 - `mlhb`, the builder of the books. It is a port of `mhb` of mmp-handbook, with the content model of spec 07 (volumes V00 to V34, chapters, sections with the kinds theory, api, instance, tactic, survey and guide), the Mathlib box, and the directives `<?decl?>`, `<?lean?>`, `<?reference?>` and `<?missing?>` of spec 12.4.
@@ -20,6 +22,7 @@ Each release has a section. The newest release is first.
 
 ### Changed
 
+- `EDITION` pins mathlib at `42eaad8181`, mathlib-lean at `44682dff69` and mathlib-agent at `ff3ccab543`, the commits of their release v0.2.0.
 - A volume that does not pass the release rule of spec 12.6 is a draft. Its files get `-draft` after the version, for example `mathlib-handbook-00-how-to-read-mathlib-0.2.0-draft.pdf`. Its copyright page says why it is a draft and gives its C-home and C-depth from `records/coverage.json` of tamnd/mathlib.
 - The monospace font of the PDF is JuliaMono 0.63.2 (decision Q-08 of tamnd/mathlib). JuliaMono has a glyph for each of the 130 characters in the Lean blocks and the inline code of V00, V01 and V34. The fonts and the SIL Open Font License are in `tex/fonts`. DejaVu Sans Mono stays in the chain of fallback fonts.
 - `EDITION` has two new lines. The line `mathlib-agent` pins mathlib-agent at `ed6297adfb`, and the line `catalogue` gives the Catalogue volumes of the books.
