@@ -4,6 +4,10 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+### Changed
+
+- The line `catalogue` of `EDITION` gives all 35 volumes, V00 to V34. The CI sets the full Catalogue, C00 to C34, with each declaration of Mathlib in the volume of its home. A local build of C24, the largest new volume, gives 725 pages with 34,120 entries.
+
 ## v0.3.0 - 2026-11-27
 
 ### Added
