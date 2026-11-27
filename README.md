@@ -111,7 +111,7 @@ python -m mlhb catalogue --data catalogue --formats pdf,epub --out build
 
 The line `catalogue` of `EDITION` gives the volumes that the CI sets, and the line `mathlib-agent` gives the commit of mlib. Each entry gives the Lean name, the kind, the attributes, the depth, the home section and one sentence. The sentence comes from a checked E1 record, then from the E0 family, then from the docstring of Mathlib. The preface of each Catalogue gives the count of each source.
 
-The output files are named `mathlib-handbook-<NN-slug>-<version>+mathlib-<tag>.pdf` and `.epub`. The fixture library of `tests/fixture` has one volume with one section. The CI builds it on each pull request.
+The output files are named `mathlib-handbook-<NN-slug>-<version>+mathlib-<tag>.pdf` and `.epub`. A volume with a chapter that is not reviewed is a draft. Its files get `-draft` after the version, and its copyright page says why. The fixture library of `tests/fixture` has one volume with one section. The CI builds it on each pull request.
 
 ## Licence
 

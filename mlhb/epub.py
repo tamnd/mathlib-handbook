@@ -58,10 +58,11 @@ subject: "Mathlib"
 
 def copyright_md(book: Book, vol: Volume, edition: str, date: str) -> str:
     commit = (book.map.index_commit or book.map_commit)[:10]
+    note = f"\n**{book.draft_note(vol)}**\n" if vol.draft else ""
     return f"""# About this edition {{.unnumbered .unlisted}}
 
 **The Mathlib Handbook, Volume {vol.number}: {vol.title}.** Edition {edition}, {date}.
-
+{note}
 {COPYRIGHT.format(commit=commit)}
 """
 

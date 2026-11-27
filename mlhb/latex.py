@@ -48,6 +48,7 @@ def main_tex(book: Book, vol: Volume, edition: str, date: str) -> str:
 \begin{{document}}
 \frontmatter
 \hbtitlepage{{{vol.number}}}{{{title}}}{{{summary}}}{{{edition}}}{{{date}}}
+\def\hbdraftnote{{{tex(book.draft_note(vol))}}}
 \hbcopyright{{{edition}}}{{{date}}}{{{commit}}}{{{vol.number}}}{{{title}}}
 \tableofcontents
 \mainmatter

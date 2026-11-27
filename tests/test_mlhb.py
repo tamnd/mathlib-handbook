@@ -103,7 +103,20 @@ def test_check_faults(tmp_path):
 
 def test_out_name():
     v = book().volume("V13")
-    assert out_name(v, "0.2.0", "v4.38.0") == "mathlib-handbook-13-general-topology-0.2.0+mathlib-v4.38.0"
+    # the chapter of the fixture is not reviewed, so the volume is a draft
+    assert v.draft and v.reviewed == 0
+    assert out_name(v, "0.2.0", "v4.38.0") == "mathlib-handbook-13-general-topology-0.2.0-draft+mathlib-v4.38.0"
+    for c in v.chapters:
+        for s in c.sections:
+            s.fm["status"] = "reviewed"
+    assert not v.draft and book().draft_note(v) == ""
+    assert out_name(v, "0.2.0") == "mathlib-handbook-13-general-topology-0.2.0"
+
+
+def test_draft_note():
+    b = book()
+    note = b.draft_note(b.volume("V13"))
+    assert note.startswith("This volume is a draft.") and "because no chapter is reviewed by a person yet." in note
 
 
 def test_highlight():

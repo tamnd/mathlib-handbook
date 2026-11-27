@@ -431,10 +431,12 @@
   \vspace{4pt}%
   {\noindent\sffamily\small\color{hbmuted}mathlib.tamnd.com\par}
   \end{titlepage}}
+\def\hbdraftnote{}% the note of a draft volume (12.6); empty for a released volume
 \newcommand\hbcopyright[5]{% edition, date, commit, number, name
   \clearpage\thispagestyle{empty}\null\vfill
   {\footnotesize\raggedright\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}
   \textbf{The Mathlib Handbook, Volume #4: #5.} The #1 edition, #2.\par
+  \ifx\hbdraftnote\empty\else\textbf{\hbdraftnote}\par\fi
   The Lean statements in this volume are those of Mathlib at the commit \texttt{#3} (\url{https://github.com/leanprover-community/mathlib4}). Later versions of Mathlib may differ. The site \url{https://mathlib.tamnd.com} gives the current text.\par
   The quoted Mathlib signatures and docstrings come from Mathlib, which is licensed under the Apache License 2.0. The file NOTICE of the repository gives the notice of Mathlib.\par
   A chapter with the mark Draft has not been reviewed by a person. Each section names its writer and its reviewers in its source file.\par

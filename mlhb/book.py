@@ -8,6 +8,7 @@ and the list of the books that its sections read with.
 
 from __future__ import annotations
 
+import json
 import os
 import re
 
@@ -31,6 +32,27 @@ class Book:
                             index, lean, highlight)
         self.volumes = content.load(content_dir)
         self.map_commit = self.map.commit() or pin or "unknown"
+        self.coverage = {}
+        p = os.path.join(map_dir, "records", "coverage.json")
+        if os.path.exists(p):
+            with open(p, encoding="utf-8") as f:
+                cov = json.load(f)
+            self.coverage = {v["volume"]: dict(v, date=cov.get("date", "")) for v in cov.get("volumes") or []}
+
+    def draft_note(self, v: Volume) -> str:
+        """The note of the copyright page of a draft volume (12.6): the reviewed chapters and the coverage."""
+        if not v.draft:
+            return ""
+        n, r = len(v.chapters), v.reviewed
+        why = ("no chapter is reviewed by a person yet" if r == 0 else
+               f"only {r} of its {n} chapters {'is' if r == 1 else 'are'} reviewed by a person")
+        note = f"This volume is a draft. It does not pass the release rule of the handbook, because {why}."
+        c = self.coverage.get(v.id)
+        if c:
+            note += (f" On {c['date']}, the {c.get('decls', 0):,} declarations of the volume had C-home "
+                     f"{100 * (c.get('cHome') or 0):.1f}% and C-depth {100 * (c.get('cDepth') or 0):.1f}% "
+                     "(spec 04.5 of tamnd/mathlib).")
+        return note
 
     def volume(self, n) -> Volume:
         """The volume with the label or the id `n`: 13, "13" or "V13"."""
@@ -94,6 +116,7 @@ def draft_mark(status: str) -> str:
 
 
 def out_name(v: Volume, version: str, tag: str = "") -> str:
-    """mathlib-handbook-<NN-slug>-<version>+mathlib-<tag> (12.6). With no tag, the name has no +mathlib part."""
-    name = f"mathlib-handbook-{v.dirname}-{version}"
+    """mathlib-handbook-<NN-slug>-<version>+mathlib-<tag> (12.6). With no tag, the name has no +mathlib part. A draft
+    volume gets -draft after the version."""
+    name = f"mathlib-handbook-{v.dirname}-{version}" + ("-draft" if v.draft else "")
     return f"{name}+mathlib-{tag}" if tag else name

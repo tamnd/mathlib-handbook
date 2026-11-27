@@ -152,6 +152,15 @@ class Volume:
     chapters: list[Chapter] = field(default_factory=list)
 
     @property
+    def draft(self) -> bool:
+        """A volume with a chapter that is not reviewed fails the release rule of spec 12.6. It is built as a draft."""
+        return not self.chapters or any(c.draft for c in self.chapters)
+
+    @property
+    def reviewed(self) -> int:
+        return sum(1 for c in self.chapters if not c.draft)
+
+    @property
     def id(self) -> str:
         """V00 to V34."""
         return f"V{self.num:02d}"
