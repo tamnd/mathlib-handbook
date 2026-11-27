@@ -1,13 +1,12 @@
 ---
-title: Cosets, the index and the order of an element
+title: Cosets, the index and the theorem of Lagrange
 kind: theory
 modules:
   - Mathlib.GroupTheory.Coset.Card
-  - Mathlib.GroupTheory.OrderOfElement
   - Mathlib.GroupTheory.Index
 explains:
-  E3: [Subgroup.card_subgroup_dvd_card, orderOf_dvd_card]
-  E2: [orderOf, Subgroup.index, Subgroup.card_mul_index, pow_card_eq_one]
+  E3: [Subgroup.card_subgroup_dvd_card]
+  E2: [Subgroup.index, Subgroup.card_mul_index, QuotientGroup.leftRel, QuotientGroup.leftRel_apply, Subgroup.leftCosetEquivSubgroup, Subgroup.card_eq_card_quotient_mul_card_subgroup, Subgroup.relIndex_mul_index, Subgroup.index_dvd_card]
   E1: auto
 families: []
 requires: [V05.C03]
@@ -22,122 +21,174 @@ drafted_by: writer@claude-opus-5-5
 reviewed_by: []
 ---
 
-## Cosets, the index and the order of an element
+## Cosets, the index and the theorem of Lagrange
 
 ### Overview
 
-The left cosets of a subgroup $H$ cut the group into parts of the same size. If $G$ is finite, the order of $H$ then divides the order of $G$. This is the theorem of Lagrange. The number of cosets is the index of $H$. The order of an element $x$ is the least $n > 0$ with $x^n = 1$, and it is the order of the subgroup that $x$ generates. So the order of an element divides the order of the group. This section shows how Mathlib states these facts with `Nat.card`, `Subgroup.index` and `orderOf`.
+A subgroup $H$ of $G$ cuts $G$ into pieces of equal size, the cosets of $H$. The number of pieces is the index of $H$. The count of the elements of $G$ piece by piece gives the theorem of Lagrange: the order of a subgroup of a finite group divides the order of the group. This is the first theorem that relates the structure of a group to arithmetic. It forbids many subgroups at once. For example, a group of order $10$ has no subgroup of order $3$ or $4$.
+
+This section defines the cosets as the classes of an equivalence relation, proves that each class has $|H|$ elements, and proves Lagrange's theorem and the tower law for the index. The next section applies the theorem to the order of an element. Chapter 5 turns the set of cosets into a group when $H$ is normal.
 
 ### Definitions
 
-**Definition (Left coset).** For $a \in G$ and a subgroup $H$, the left coset is $aH = \{a \cdot h : h \in H\}$. Two elements $a$ and $b$ are in the same left coset if and only if $a^{-1} \cdot b \in H$. The type of the left cosets is `G ⧸ H`.
+**Definition (Coset).** Let $H$ be a subgroup of $G$ and $g \in G$. The left coset of $g$ is $g H = \{g h : h \in H\}$. The right coset is $H g = \{h g : h \in H\}$.
 
-**Definition (Index).** The index $[G : H]$ is the number of left cosets of $H$. In Mathlib it is `H.index : ℕ`, and its value is $0$ when there are infinitely many cosets.
-
-**Definition (Order of an element).** The order of $x$ is the least $n > 0$ with $x^n = 1$. In Mathlib it is `orderOf x : ℕ`, and its value is $0$ when no such $n$ exists. This is a junk value, in the sense of Volume 1.
-
-### Theorems and proofs
-
-**Theorem (Lagrange).** If $H$ is a subgroup of a finite group $G$, then $|H| \cdot [G : H] = |G|$. So $|H|$ divides $|G|$.
-
-*Proof.* The left cosets are a partition of $G$, because "same coset" is an equivalence relation. The map $h \mapsto a \cdot h$ is a bijection from $H$ to $aH$, by cancellation. So $G$ is the union of $[G : H]$ disjoint sets, each of size $|H|$. $\square$
-
-**Theorem (Order of an element).** In a finite group, the order of $x$ divides $|G|$.
-
-*Proof.* The powers of $x$ are a subgroup with exactly $\operatorname{orderOf}(x)$ elements $1, x, \dots, x^{n-1}$. Apply the theorem of Lagrange. $\square$
-
-**Theorem (Power of the order).** In a finite group, $x^{|G|} = 1$.
-
-*Proof.* Write $|G| = n \cdot k$ with $n = \operatorname{orderOf}(x)$. Then $x^{|G|} = (x^n)^k = 1$. $\square$
+**Definition (Left coset relation).** For $a, b \in G$, write $a \sim_H b$ if $a^{-1} b \in H$.
 
 ::: mathlib
-`Subgroup.card_subgroup_dvd_card` · `Mathlib.GroupTheory.Coset.Card`
+`QuotientGroup.leftRel` · `Mathlib.GroupTheory.Coset.Defs`
 
-The theorem of Lagrange with `Nat.card`. It needs no finiteness, because `Nat.card` of an infinite type is $0$, and each number divides $0$.
+The relation $\sim_H$ as a `Setoid G`. The type of its classes is the quotient `G ⧸ H`, the set of the left cosets. The notation `⧸` is the symbol `\quot`, not the slash `/`. The right coset relation is `QuotientGroup.rightRel`.
 
-<?decl Subgroup.card_subgroup_dvd_card?>
+<?decl QuotientGroup.leftRel?>
 :::
 
 ::: mathlib
-`orderOf_dvd_card` · `Mathlib.GroupTheory.OrderOfElement`
+`QuotientGroup.leftRel_apply` · `Mathlib.GroupTheory.Coset.Defs`
 
-The order of an element divides `Fintype.card G`. The form `orderOf_dvd_natCard` uses `Nat.card` instead.
+The unfolding of the relation: `leftRel H x y ↔ x⁻¹ * y ∈ H`. Note the order of the factors: the inverse is on the left element.
 
-<?decl orderOf_dvd_card?>
+<?decl QuotientGroup.leftRel_apply?>
 :::
 
-::: mathlib
-`orderOf` · `Mathlib.GroupTheory.OrderOfElement`
-
-The definition uses `Function.minimalPeriod` of the map $y \mapsto x \cdot y$. Use the lemmas `pow_orderOf_eq_one` and `orderOf_dvd_of_pow_eq_one`, not the definition.
-
-<?decl orderOf?>
-:::
+**Definition (Index).** The index $[G : H]$ is the number of left cosets of $H$ in $G$, if this number is finite.
 
 ::: mathlib
 `Subgroup.index` · `Mathlib.GroupTheory.Index`
 
-The index is `Nat.card (G ⧸ H)`. The lemma `Subgroup.index_mul_card` and its partner below connect it to the order of $H$.
+The index as a natural number: `H.index = Nat.card (G ⧸ H)`, by `Subgroup.index_eq_card`. The convention of `Nat.card` is that an infinite type has cardinality `0`. So `H.index = 0` means that the index is infinite. The index of `⊥` is the order of the group, by `Subgroup.index_bot`, and `H.index = 1 ↔ H = ⊤` is `Subgroup.index_eq_one`.
 
 <?decl Subgroup.index?>
+:::
+
+### Theorems and proofs
+
+**Theorem (Cosets are equivalence classes).** The relation $\sim_H$ is an equivalence relation. The class of $a$ is the coset $a H$. For $a, b \in G$ the following are equivalent: $a H = b H$; $b \in a H$; $a^{-1} b \in H$. Two left cosets are equal or disjoint.
+
+*Proof.* Reflexive: $a^{-1} a = 1 \in H$. Symmetric: if $a^{-1} b \in H$, then $(a^{-1} b)^{-1} = b^{-1} a \in H$. Transitive: if $a^{-1} b \in H$ and $b^{-1} c \in H$, then $a^{-1} c = (a^{-1} b)(b^{-1} c) \in H$. The class of $a$ is $\{b : a^{-1} b \in H\}$. Here $a^{-1} b = h \in H$ if and only if $b = a h$, so the class is $a H$. The three statements are equivalent: $b \in a H$ means $a^{-1} b \in H$, as just shown; and two classes of an equivalence relation are equal exactly when the second element is in the first class. Classes of an equivalence relation are equal or disjoint. $\square$
+
+**Theorem (Each coset has $|H|$ elements).** For each $g \in G$, the map $h \mapsto g h$ is a bijection $H \to g H$.
+
+*Proof.* The map is onto $g H$ by the definition of $g H$. It is injective by cancellation: $g h = g h'$ gives $h = h'$. $\square$
+
+::: mathlib
+`Subgroup.leftCosetEquivSubgroup` · `Mathlib.GroupTheory.Coset.Basic`
+
+The bijection of the theorem in the other direction, as an equivalence of types from the coset `g • (H : Set G)` to `↥H`. In Mathlib the left coset $g H$ is the pointwise product `g • (H : Set G)`.
+
+<?decl Subgroup.leftCosetEquivSubgroup?>
+:::
+
+**Theorem (Lagrange).** Let $G$ be a finite group and $H \le G$. Then $|G| = [G : H] \cdot |H|$. So $|H|$ divides $|G|$, and $[G : H]$ divides $|G|$.
+
+*Proof.* Let $g_1 H, \ldots, g_k H$ be the distinct left cosets, with $k = [G : H]$. They cover $G$, because $g \in g H$. They are pairwise disjoint, by the first theorem. So $|G| = \sum_{i=1}^{k} |g_i H|$. Each term is $|H|$, by the second theorem. So $|G| = k |H|$. $\square$
+
+::: mathlib
+`Subgroup.card_eq_card_quotient_mul_card_subgroup` · `Mathlib.GroupTheory.Coset.Card`
+
+The form `Nat.card G = Nat.card (G ⧸ H) * Nat.card H`. The proof in Mathlib is a bijection between `G` and the product `(G ⧸ H) × H`. It needs a choice of one element in each coset, which is the choice of the $g_i$ above. It holds for an infinite group too, with the convention that `Nat.card` is `0` there.
+
+<?decl Subgroup.card_eq_card_quotient_mul_card_subgroup?>
 :::
 
 ::: mathlib
 `Subgroup.card_mul_index` · `Mathlib.GroupTheory.Index`
 
-The equation $|H| \cdot [G : H] = |G|$ with `Nat.card`. It holds for each group, with the junk values.
+The same theorem with the index: `Nat.card H * H.index = Nat.card G`. The version with the factors in the other order is `Subgroup.index_mul_card`.
 
 <?decl Subgroup.card_mul_index?>
 :::
 
 ::: mathlib
-`pow_card_eq_one` · `Mathlib.GroupTheory.OrderOfElement`
+`Subgroup.card_subgroup_dvd_card` · `Mathlib.GroupTheory.Coset.Card`
 
-The power of the order of the group is $1$. With $G = (\mathbb{{Z}}/p)^\times$, it gives the little theorem of Fermat.
+The theorem of Lagrange as a divisibility: `Nat.card H ∣ Nat.card G`. For a finite group with a `Fintype` instance the statement is about `Fintype.card` through `Nat.card_eq_fintype_card`. For two subgroups with `H ≤ K`, the lemma `Subgroup.card_dvd_of_le` gives `Nat.card H ∣ Nat.card K`.
 
-<?decl pow_card_eq_one?>
+<?decl Subgroup.card_subgroup_dvd_card?>
 :::
+
+::: mathlib
+`Subgroup.index_dvd_card` · `Mathlib.GroupTheory.Index`
+
+The index divides the order: `H.index ∣ Nat.card G`. For an infinite group the right side is `0`, and each number divides `0`, so the lemma has no finiteness hypothesis.
+
+<?decl Subgroup.index_dvd_card?>
+:::
+
+**Theorem (Left and right cosets).** The map $a H \mapsto H a^{-1}$ is a well defined bijection from the left cosets to the right cosets. So $H$ has as many right cosets as left cosets.
+
+*Proof.* The inverse map of sets sends $a H$ to $(a H)^{-1} = \{h^{-1} a^{-1} : h \in H\} = H a^{-1}$, because $h \mapsto h^{-1}$ is a bijection of $H$. So the coset $H a^{-1}$ depends only on the set $a H$, and the map is well defined. The inverse map of sets is its own inverse, and it sends right cosets to left cosets by the same computation. So it is a bijection. $\square$
+
+**Theorem (Tower law).** Let $G$ be a finite group and $H \le K \le G$. Then $[G : H] = [G : K] \cdot [K : H]$.
+
+*Proof.* By Lagrange's theorem for $H \le G$, for $K \le G$ and for $H \le K$:
+$$[G : H] = \frac{|G|}{|H|} = \frac{|G|}{|K|} \cdot \frac{|K|}{|H|} = [G : K] \cdot [K : H].$$
+The orders are positive, since each subgroup contains $1$. $\square$
+
+The tower law holds for infinite groups too, when the indices are finite. The proof chooses representatives $g_i$ for the cosets of $K$ in $G$ and $k_j$ for the cosets of $H$ in $K$, and shows that the cosets $g_i k_j H$ are distinct and cover $G$.
+
+::: mathlib
+`Subgroup.relIndex_mul_index` · `Mathlib.GroupTheory.Index`
+
+The tower law for `H ≤ K`: `H.relIndex K * K.index = H.index`. Here `H.relIndex K` is the index of `H ⊓ K` in `K`, as a subgroup of the type `↥K`. The lemma has no finiteness hypothesis, by the convention that an infinite index is `0`.
+
+<?decl Subgroup.relIndex_mul_index?>
+:::
+
+**Corollary (Indices of a chain).** If $H \le K \le G$ with $G$ finite, then $[G : K]$ divides $[G : H]$, and $|H|$ divides $|K|$.
+
+*Proof.* The first claim is the tower law. The second claim is Lagrange's theorem for the group $K$ and its subgroup $H$. $\square$
 
 ### Examples
 
-**Example (The theorem of Lagrange).**
+**Example (Cosets of $3\mathbb{Z}$).** In $(\mathbb{Z}, +)$ the cosets are written $a + 3\mathbb{Z}$. There are three: $3\mathbb{Z}$, $1 + 3\mathbb{Z}$ and $2 + 3\mathbb{Z}$, the classes of the remainders modulo $3$. So $[\mathbb{Z} : 3\mathbb{Z}] = 3$, while both groups are infinite. In Mathlib this is the fact that `(AddSubgroup.zmultiples (3 : ℤ)).index = 3`.
+
+**Example (Cosets in $S_3$).** Let $H = \{e, (1\,2)\} \le S_3$, with products that act on the right first. The left cosets are
+$$H = \{e, (1\,2)\}, \quad (1\,3) H = \{(1\,3), (1\,2\,3)\}, \quad (2\,3) H = \{(2\,3), (1\,3\,2)\}.$$
+For example $(1\,3)(1\,2)$ sends $1 \mapsto 2$, $2 \mapsto 1 \mapsto 3$ and $3 \mapsto 1$, so it is $(1\,2\,3)$. There are $3$ cosets of size $2$, and $3 \cdot 2 = 6 = |S_3|$, as Lagrange's theorem says.
+
+**Counterexample (Left cosets are not right cosets).** In the last example, the right cosets are
+$$H, \quad H (1\,3) = \{(1\,3), (1\,3\,2)\}, \quad H (2\,3) = \{(2\,3), (1\,2\,3)\}.$$
+So $(1\,3) H \neq H (1\,3)$. The left and the right partitions of $S_3$ differ, although both have three parts. For the subgroup $A_3 = \{e, (1\,2\,3), (1\,3\,2)\}$ the two partitions are the same: both are $\{A_3, S_3 \setminus A_3\}$. Chapter 5 shows that this happens exactly for the normal subgroups.
+
+**Example (Fibres of the determinant).** Let $H = \mathrm{SL}_2(\mathbb{R}) \le \mathrm{GL}_2(\mathbb{R})$. Two matrices $A$ and $B$ are in the same left coset if and only if $A^{-1} B \in H$, that is, $\det B = \det A$. So the cosets are the sets $\{A : \det A = t\}$ for $t \in \mathbb{R}^\times$, and the cosets correspond to the elements of $\mathbb{R}^\times$. The index is infinite.
+
+**Example (Forbidden orders).** By Lagrange's theorem, a subgroup of $D_5$, of order $10$, has order $1$, $2$, $5$ or $10$. A subgroup of $S_4$, of order $24$, has order dividing $24$. The converse fails: $A_4$ has order $12$ and no subgroup of order $6$, as the next section proves.
+
+**Example (Lagrange's theorem in Lean).**
 
 <?lean MathlibHandbook/V05/C04/Examples.lean#lagrange?>
 
-**Example (The index).**
+**Example (The index in Lean).**
 
 <?lean MathlibHandbook/V05/C04/Examples.lean#index?>
 
-**Example (The order of an element).**
-
-<?lean MathlibHandbook/V05/C04/Examples.lean#order_dvd?>
-
-**Example (The power of the order).**
-
-<?lean MathlibHandbook/V05/C04/Examples.lean#pow_card?>
-
-**Example (A positive order).** In a finite group the junk value $0$ does not occur.
-
-<?lean MathlibHandbook/V05/C04/Examples.lean#order_pos?>
-
 ### The library around it
 
-Mathlib has two ways to count: `Fintype.card` needs an instance `Fintype`, and `Nat.card` works on each type. New lemmas prefer `Nat.card`. The cosets are in `Mathlib.GroupTheory.Coset.Defs`, with the relation `QuotientGroup.leftRel`. The right cosets use `MulOpposite`. The file `Mathlib.GroupTheory.OrderOfElement` also has `orderOf_pow`, the order of a power, and `IsOfFinOrder`, the predicate for an element of finite order. For an index, `Subgroup.index_dvd_card` and the tower law `Subgroup.relIndex_mul_index` are often useful.
+The theory of cosets is in `Mathlib.GroupTheory.Coset.Defs`, `Mathlib.GroupTheory.Coset.Basic` and `Mathlib.GroupTheory.Coset.Card`. The index and its many lemmas are in `Mathlib.GroupTheory.Index`. The lemma `Subgroup.index_eq_two_iff` characterizes subgroups of index $2$, and `Subgroup.index_ne_zero_of_finite` gives a nonzero index from a finite quotient. The left cosets `G ⧸ H` carry an action of `G`, the subject of Chapter 6. The map `QuotientGroup.mk : G → G ⧸ H` sends `g` to its coset, and the coercion `(g : G ⧸ H)` is this map.
+
+Common errors of a learner:
+
+- The theorem uses `Nat.card`, so for an infinite group it is a statement about `0`. A proof that divides by `Nat.card H` must first show that this number is not `0`, for example with `Nat.card_pos`.
+- The relation $\sim_H$ is $a^{-1} b \in H$, not $a b^{-1} \in H$. The second one is the right coset relation, which gives other classes when $H$ is not normal.
+- The type `G ⧸ H` is not a group for each `H`. It is a group only when `H` is normal, in Chapter 5.
 
 ### Exercises
 
-1. (A) Give the value of `orderOf x` when $x$ has infinite order.
-2. (A) Give the index of the bottom subgroup of a finite group $G$.
-3. (B) Show that a group of prime order is cyclic.
-4. (B) Show that a subgroup of index $2$ contains the square of each element.
-5. (L) Prove that $x^{\operatorname{orderOf}(x)} = 1$. The solution is `pow_order_example`.
-6. (L) Prove that $x^n = 1$ gives that the order of $x$ divides $n$. The solution is `order_dvd_example`.
-7. (L) Prove that the order of $x$ is $1$ if and only if $x = 1$. The solution is `order_one_example`.
-8. (L) Prove that the index of $H$ divides the order of $G$. The solution is `index_dvd_example`.
+1. (A) List the cosets of $\langle 4 \rangle$ in $\mathbb{Z}/12$.
+2. (A) Show that a group of prime order $p$ has only the subgroups $\{1\}$ and $G$.
+3. (A) Show that $g H = H$ if and only if $g \in H$.
+4. (B) Let $H$ and $K$ be subgroups of a finite group with coprime orders. Show that $H \cap K = \{1\}$. Hint: $H \cap K$ is a subgroup of both.
+5. (B) Let $H$ and $K$ be two distinct subgroups of order $7$ in a group $G$. Show that $H \cap K = \{1\}$, and that the set $H K$ has $49$ elements. Deduce that a group of order $35$ has at most one subgroup of order $7$. Hint: $h k = h' k'$ gives $h'^{-1} h = k' k^{-1} \in H \cap K$.
+6. (B) Find the left and the right cosets of $\{e, s\}$ in $D_4$, and check that they differ.
+7. (C) Prove the tower law for a group $G$ that may be infinite, when $[G : K]$ and $[K : H]$ are finite. Hint: show that the cosets $g_i k_j H$ are distinct and cover $G$.
+8. (L) Prove that the index of a subgroup divides the order of the group. The solution is `index_dvd_example`.
 
 ### Notes and history
 
-Lagrange proved a special case in 1771, for the permutations of the roots of a polynomial. The general form for abstract groups came much later, with the work of Galois, Cauchy and Jordan. The converse is false: the alternating group $A_4$ has order $12$ but no subgroup of order $6$.
+Lagrange proved in 1771, in his "Réflexions sur la résolution algébrique des équations", that the number of values of a rational function of $n$ variables under the permutations divides $n!$. In modern words, this is the theorem for subgroups of $S_n$. The general theorem for abstract groups, with cosets, is due to Galois and to Jordan, and the name "theorem of Lagrange" came later. Galois saw that a subgroup gives a partition into cosets, and that the left and right partitions agree for the subgroups he called proper decompositions, the normal subgroups of today.
+
+In Mathlib, the left cosets are a quotient by a `Setoid`, not a set of subsets. This makes `G ⧸ H` a type, and it lets Chapter 5 put a group structure on it with no new construction.
 
 ### Reference
 

@@ -1,3 +1,7 @@
 # Finite and infinite sets
 
-A statement often needs only the fact that a set is finite, not a finset that a program can use. The predicate `Set.Finite` and the class `Finite` give this fact as a proposition. This chapter shows how to prove that a set is finite or infinite, and how `Nat.card` and `Set.ncard` count with no data.
+A statement often needs only the fact that a set is finite, not a finset that a program can use. The class `Finite` and the predicate `Set.Finite` give this fact as a proposition, and `Infinite` and `Set.Infinite` are their negations. This chapter shows how to prove that a set is finite or infinite, and how to count a set with no instance.
+
+Section 1 gives the definitions, proves that a finite set has a unique finset with the same elements, and proves the closure rules for subsets, unions, intersections, images, products, preimages and power sets. It gives the three counts `Nat.card`, `Set.ncard` and `Set.encard`, and shows where the junk value $0$ of `ncard` on an infinite set needs care. Section 2 turns the hypothesis "infinite" into positive statements: an element outside each finset, finsets of each size, and an injection from $\mathbb{N}$. It proves that a set of natural numbers is infinite exactly when it is not bounded above, the theorem of Euclid on the primes, and the criterion of Dedekind by an injective map that is not surjective.
+
+The chapter needs Chapters 3 and 4. Chapter 7 uses finite sets for the support of a function, and Chapter 8 goes from the finite sets to the countable sets.

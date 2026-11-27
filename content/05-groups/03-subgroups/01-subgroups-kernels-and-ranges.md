@@ -7,7 +7,7 @@ modules:
   - Mathlib.Algebra.Group.Subgroup.Ker
 explains:
   E3: [Subgroup, MonoidHom.ker_eq_bot_iff]
-  E2: [Subgroup.closure, Subgroup.mem_closure, MonoidHom.ker, MonoidHom.range, Subgroup.mul_mem, Subgroup.inv_mem, Subgroup.one_mem]
+  E2: [Subgroup.closure, Subgroup.mem_closure, Subgroup.closure_le, MonoidHom.ker, MonoidHom.range, Subgroup.mul_mem, Subgroup.inv_mem, Subgroup.one_mem, Subgroup.div_mem, Subgroup.mem_inf]
   E1: auto
 families: []
 requires: [V05.C02]
@@ -26,44 +26,42 @@ reviewed_by: []
 
 ### Overview
 
-A subgroup is a subset of a group that is a group under the same product. In Mathlib, `Subgroup G` is a structure: a set with three proofs of closure. The subgroups of $G$ are ordered by inclusion, and they form a complete lattice. Two subgroups come with each homomorphism $f$: the kernel and the range. This section shows the structure, the lattice, the subgroup that a set generates, and the test for an injective homomorphism.
+A subgroup is a subset of a group that is a group under the same product. Subgroups are the first tool to study the structure of a group: the order of a subgroup divides the order of the group (Chapter 4), the normal subgroups give quotients (Chapter 5), and the Sylow theorems (Chapter 8) are statements about subgroups of prime power order.
+
+This section gives the definition, two tests that shorten the check of the axioms, and the subgroups that come from a homomorphism: the kernel and the range. The kernel gives a test for an injective homomorphism. The subgroups of a group are ordered by inclusion, and each set of elements generates a smallest subgroup that contains it. The section ends with the full list of the subgroups of $S_3$.
+
+In Mathlib, `Subgroup G` is a structure: a set with three proofs of closure. So a subgroup is a term, and the subgroups of $G$ form a type with a complete lattice structure.
 
 ### Definitions
 
-**Definition (Subgroup).** A subgroup of $G$ is a set $H \subseteq G$ with $1 \in H$, with $a \cdot b \in H$ for $a, b \in H$, and with $a^{-1} \in H$ for $a \in H$. In Mathlib, `H : Subgroup G` coerces to a set, and `x ∈ H` is the membership.
+**Definition (Subgroup).** Let $G$ be a group. A subgroup of $G$ is a set $H \subseteq G$ with these three properties:
 
-**Definition (Lattice of subgroups).** The order $H \le K$ is inclusion. The bottom subgroup $\bot$ is $\{1\}$, the top subgroup $\top$ is $G$, and the meet $H \sqcap K$ is the intersection. The join $H \sqcup K$ is the subgroup that $H \cup K$ generates.
+1. $1 \in H$;
+2. if $a, b \in H$, then $a b \in H$;
+3. if $a \in H$, then $a^{-1} \in H$.
 
-**Definition (Closure).** The closure of a set $s \subseteq G$ is the smallest subgroup that contains $s$. It is `Subgroup.closure s`.
-
-**Definition (Kernel and range).** For a homomorphism $f : G \to H$, the kernel is $\{x \in G : f(x) = 1\}$ and the range is $\{f(x) : x \in G\}$. They are `f.ker : Subgroup G` and `f.range : Subgroup H`.
-
-### Theorems and proofs
-
-**Theorem (Closure is the smallest).** If $s \subseteq K$ for a subgroup $K$, then the closure of $s$ is in $K$.
-
-*Proof.* The closure is the intersection of all subgroups that contain $s$. The subgroup $K$ is one of them. $\square$
-
-**Theorem (Kernel test).** A homomorphism $f$ is injective if and only if its kernel is $\{1\}$.
-
-*Proof.* If $f$ is injective and $f(x) = 1 = f(1)$, then $x = 1$. For the converse, let $f(a) = f(b)$. Then $f(a^{-1} \cdot b) = f(a)^{-1} \cdot f(b) = 1$, so $a^{-1} \cdot b = 1$ and $a = b$. $\square$
-
-**Theorem (Kernel and range are subgroups).** The kernel and the range of a homomorphism are subgroups.
-
-*Proof.* Each closure axiom follows from `map_one`, `map_mul` and `map_inv`. For example, $f(a) = 1$ and $f(b) = 1$ give $f(a \cdot b) = 1$. $\square$
+Then the product of $G$ restricts to a product on $H$, and $H$ is a group with it. Associativity holds in $H$ because it holds in $G$. The subgroups $\{1\}$ and $G$ are the trivial subgroup and the whole group. A subgroup $H \neq G$ is a proper subgroup.
 
 ::: mathlib
 `Subgroup` · `Mathlib.Algebra.Group.Subgroup.Defs`
 
-The structure extends `Submonoid G` with the field `inv_mem'`. Use the lemmas `Subgroup.one_mem`, `Subgroup.mul_mem` and `Subgroup.inv_mem` in a proof. Two subgroups with the same elements are equal by `Subgroup.ext`.
+The structure extends `Submonoid G` with the field `inv_mem'`. A term `H : Subgroup G` coerces to a set `(H : Set G)`, and `x ∈ H` is the membership. It also coerces to a type `↥H`, whose elements are pairs of an element of `G` and a proof that it is in `H`. That type has an instance of `Group`. Two subgroups with the same elements are equal by `Subgroup.ext`.
 
 <?decl Subgroup?>
 :::
 
 ::: mathlib
+`Subgroup.one_mem` · `Mathlib.Algebra.Group.Subgroup.Defs`
+
+The unit is in each subgroup. A `simp` call proves it with no argument.
+
+<?decl Subgroup.one_mem?>
+:::
+
+::: mathlib
 `Subgroup.mul_mem` · `Mathlib.Algebra.Group.Subgroup.Defs`
 
-The lemma is the closure under products. Its general form `MulMemClass.mul_mem` holds for each class of subobjects with `MulMemClass`.
+The closure under products. Its general form `MulMemClass.mul_mem` holds for each class of subobjects with a `MulMemClass` instance, so the same lemma name works for submonoids, subgroups and subrings.
 
 <?decl Subgroup.mul_mem?>
 :::
@@ -76,34 +74,84 @@ The closure under inverses. With `Subgroup.mul_mem` it gives `Subgroup.div_mem`.
 <?decl Subgroup.inv_mem?>
 :::
 
+**Definition (Order of subgroups).** For subgroups $H$ and $K$ of $G$, the relation $H \le K$ means $H \subseteq K$. The bottom subgroup $\bot$ is $\{1\}$ and the top subgroup $\top$ is $G$. The meet $H \sqcap K$ is the intersection $H \cap K$. The join $H \sqcup K$ is the smallest subgroup that contains $H \cup K$.
+
+**Definition (Closure).** The closure of a set $s \subseteq G$ is the intersection of all the subgroups of $G$ that contain $s$. It is the subgroup generated by $s$, written $\langle s \rangle$.
+
+**Definition (Kernel and range).** Let $f : G \to H$ be a homomorphism of groups. The kernel of $f$ is $\ker f = \{x \in G : f(x) = 1\}$. The range of $f$ is $f(G) = \{f(x) : x \in G\}$.
+
+### Theorems and proofs
+
+**Theorem (One-step test).** Let $H$ be a nonempty subset of a group $G$. If $a b^{-1} \in H$ for all $a, b \in H$, then $H$ is a subgroup.
+
+*Proof.* Choose $a \in H$. Then $1 = a a^{-1} \in H$. For $b \in H$, the pair $(1, b)$ gives $1 \cdot b^{-1} = b^{-1} \in H$. For $a, b \in H$, the element $b^{-1}$ is in $H$, so the pair $(a, b^{-1})$ gives $a (b^{-1})^{-1} = a b \in H$. $\square$
+
 ::: mathlib
-`Subgroup.one_mem` · `Mathlib.Algebra.Group.Subgroup.Defs`
+`Subgroup.div_mem` · `Mathlib.Algebra.Group.Subgroup.Defs`
 
-The unit is in each subgroup. A `simp` call proves it with no argument.
+The closure under $a b^{-1}$, which is `a / b` in a group. The converse direction, the one-step test, is the constructor `Subgroup.ofDiv`, which builds a subgroup from a nonempty set with this property.
 
-<?decl Subgroup.one_mem?>
+<?decl Subgroup.div_mem?>
 :::
+
+**Theorem (Finite test).** Let $H$ be a nonempty finite subset of a group $G$ that is closed under products. Then $H$ is a subgroup.
+
+*Proof.* Let $a \in H$. The powers $a, a^2, a^3, \ldots$ are in $H$ by closure under products. The set $H$ is finite, so two of them are equal: $a^i = a^j$ with $1 \le i < j$. Multiply by $a^{-i}$ to get $a^{j - i} = 1$. So $1 = a^{j-i} \in H$, since $j - i \ge 1$. If $j - i = 1$, then $a = 1$ and $a^{-1} = 1 \in H$. If $j - i \ge 2$, then $a^{-1} = a^{j - i - 1}$, because $a \cdot a^{j - i - 1} = 1$, and $a^{j-i-1} \in H$ since $j - i - 1 \ge 1$. $\square$
+
+**Theorem (Intersections).** The intersection of a nonempty family of subgroups of $G$ is a subgroup.
+
+*Proof.* Let $(H_i)_{i \in I}$ be the family and $K = \bigcap_i H_i$. Each $H_i$ contains $1$, so $1 \in K$. If $a, b \in K$, then $a, b \in H_i$ for each $i$, so $a b \in H_i$ and $a^{-1} \in H_i$ for each $i$. So $a b \in K$ and $a^{-1} \in K$. $\square$
+
+So the meet $H \cap K$ is a subgroup, and the closure $\langle s \rangle$ is a subgroup. The family that defines $\langle s \rangle$ is not empty, because it contains $G$.
+
+::: mathlib
+`Subgroup.mem_inf` · `Mathlib.Algebra.Group.Subgroup.Lattice`
+
+The membership in the meet: `x ∈ H ⊓ K ↔ x ∈ H ∧ x ∈ K`. The membership in an arbitrary infimum is `Subgroup.mem_iInf`, and the bottom subgroup unfolds with `Subgroup.mem_bot`.
+
+<?decl Subgroup.mem_inf?>
+:::
+
+**Theorem (Closure is the smallest subgroup).** Let $s \subseteq G$. Then $s \subseteq \langle s \rangle$, and for each subgroup $K$, $\langle s \rangle \le K$ if and only if $s \subseteq K$.
+
+*Proof.* Each subgroup in the family that defines $\langle s \rangle$ contains $s$, so their intersection contains $s$. If $s \subseteq K$, then $K$ is in the family, so the intersection is in $K$. If $\langle s \rangle \le K$, then $s \subseteq \langle s \rangle \subseteq K$. $\square$
 
 ::: mathlib
 `Subgroup.closure` · `Mathlib.Algebra.Group.Subgroup.Lattice`
 
-The closure is defined as the infimum of the subgroups that contain the set. The lemma `Subgroup.closure_le` is its universal property.
+The closure is defined as the infimum of the subgroups that contain the set, as above. The lemma `Subgroup.subset_closure` says that the set is in its closure.
 
 <?decl Subgroup.closure?>
 :::
 
 ::: mathlib
+`Subgroup.closure_le` · `Mathlib.Algebra.Group.Subgroup.Lattice`
+
+The universal property: `closure s ≤ K ↔ s ⊆ K`. It is a Galois connection between sets and subgroups. To prove that two subgroups are equal, a common route is two applications of this lemma.
+
+<?decl Subgroup.closure_le?>
+:::
+
+::: mathlib
 `Subgroup.mem_closure` · `Mathlib.Algebra.Group.Subgroup.Lattice`
 
-The lemma says that $x$ is in the closure of $s$ if and only if $x$ is in each subgroup that contains $s$. For a proof by induction on the words, use `Subgroup.closure_induction`.
+The lemma says that $x \in \langle s \rangle$ if and only if $x$ is in each subgroup that contains $s$. This is the definition, as a statement. For a proof by induction on the products, use `Subgroup.closure_induction` of the next section.
 
 <?decl Subgroup.mem_closure?>
 :::
 
+**Theorem (Closure as words).** Let $s \subseteq G$. Then $\langle s \rangle$ is the set $W$ of all products $x_1 x_2 \cdots x_n$ with $n \ge 0$, where each $x_k$ is in $s$ or has $x_k^{-1} \in s$. The empty product, with $n = 0$, is $1$.
+
+*Proof.* First, $W$ is a subgroup. It contains the empty product $1$. The product of two words is a word, by concatenation. The inverse of a word is $(x_1 \cdots x_n)^{-1} = x_n^{-1} \cdots x_1^{-1}$, by the rule for the inverse of a product. Each $x_k^{-1}$ is in $s$ or has inverse $x_k$ in $s$, so this is a word. Also $s \subseteq W$, with words of length $1$. So $\langle s \rangle \le W$ by the theorem above. Second, let $K$ be a subgroup with $s \subseteq K$. Each letter $x_k$ of a word is in $K$, because $x_k \in s$ or $x_k = (x_k^{-1})^{-1}$ with $x_k^{-1} \in K$. So the word is in $K$ by closure under products, by induction on $n$. So $W \subseteq K$ for each such $K$, and $W \le \langle s \rangle$. $\square$
+
+**Theorem (Kernel and range are subgroups).** Let $f : G \to H$ be a homomorphism. Then $\ker f$ is a subgroup of $G$ and $f(G)$ is a subgroup of $H$.
+
+*Proof.* For the kernel: $f(1) = 1$, so $1 \in \ker f$. If $f(a) = 1$ and $f(b) = 1$, then $f(a b) = f(a) f(b) = 1$ and $f(a^{-1}) = f(a)^{-1} = 1$. For the range: $1 = f(1)$ is in it. If $y = f(a)$ and $z = f(b)$, then $y z = f(a b)$ and $y^{-1} = f(a^{-1})$. $\square$
+
 ::: mathlib
 `MonoidHom.ker` · `Mathlib.Algebra.Group.Subgroup.Ker`
 
-The kernel of a homomorphism of groups. The lemma `MonoidHom.mem_ker` unfolds the membership.
+The kernel of a homomorphism of groups, as a `Subgroup`. The lemma `MonoidHom.mem_ker` unfolds the membership to `f x = 1`. For a homomorphism of monoids, the kernel is only a submonoid, and its name is `MonoidHom.mker`.
 
 <?decl MonoidHom.ker?>
 :::
@@ -116,53 +164,87 @@ The range as a subgroup of the target. The lemma `MonoidHom.mem_range` says that
 <?decl MonoidHom.range?>
 :::
 
+**Theorem (Kernel test).** A homomorphism $f : G \to H$ is injective if and only if $\ker f = \{1\}$.
+
+*Proof.* Assume that $f$ is injective. If $f(x) = 1 = f(1)$, then $x = 1$. So $\ker f = \{1\}$. Conversely, assume that $\ker f = \{1\}$, and let $f(a) = f(b)$. Then $f(a^{-1} b) = f(a)^{-1} f(b) = 1$. So $a^{-1} b \in \ker f$, which gives $a^{-1} b = 1$. Multiply on the left by $a$ to get $b = a$. $\square$
+
 ::: mathlib
 `MonoidHom.ker_eq_bot_iff` · `Mathlib.Algebra.Group.Subgroup.Ker`
 
-The kernel test for injective maps. It is the usual way to prove that a homomorphism is injective.
+The kernel test: `f.ker = ⊥ ↔ Function.Injective f`. It is the usual way to prove that a homomorphism is injective, because the right side needs two elements and the left side needs one.
 
 <?decl MonoidHom.ker_eq_bot_iff?>
 :::
 
+**Theorem (Union of two subgroups).** Let $H$ and $K$ be subgroups of $G$. The union $H \cup K$ is a subgroup if and only if $H \le K$ or $K \le H$.
+
+*Proof.* If $H \le K$, then $H \cup K = K$, and the case $K \le H$ is the same. Conversely, assume that $H \cup K$ is a subgroup and that neither inclusion holds. Choose $h \in H$ with $h \notin K$, and $k \in K$ with $k \notin H$. The product $h k$ is in $H \cup K$. If $h k \in H$, then $k = h^{-1}(h k) \in H$, which is false. If $h k \in K$, then $h = (h k) k^{-1} \in K$, which is false. This is a contradiction. $\square$
+
 ### Examples
 
-**Example (The closure axioms).**
+**Example (The subgroups of $\mathbb{Z}$ that one sees first).** For $n \in \mathbb{Z}$, the set $n\mathbb{Z}$ of the multiples of $n$ is a subgroup of $(\mathbb{Z}, +)$, by the one-step test: $a n - b n = (a - b) n$. The intersection $4\mathbb{Z} \cap 6\mathbb{Z}$ is $12\mathbb{Z}$, the multiples of $\operatorname{lcm}(4, 6)$. The join $4\mathbb{Z} \sqcup 6\mathbb{Z}$ contains $6 - 4 = 2$, so it contains $2\mathbb{Z}$. It is in $2\mathbb{Z}$ because $2\mathbb{Z}$ contains $4$ and $6$. So $4\mathbb{Z} \sqcup 6\mathbb{Z} = 2\mathbb{Z}$, the multiples of $\gcd(4, 6)$. The next section shows that each subgroup of $\mathbb{Z}$ is some $n\mathbb{Z}$.
+
+**Example (The subgroups of $S_3$).** Write the elements of $S_3$ as $e$, the transpositions $(1\,2)$, $(1\,3)$, $(2\,3)$, and the $3$-cycles $c = (1\,2\,3)$ and $c^2 = (1\,3\,2)$. Products act on the right first. Each transposition $t$ has $t^2 = e$, so $\{e, t\}$ is a subgroup, by the finite test. The set $A_3 = \{e, c, c^2\}$ is closed under products, since $c^3 = e$, so it is a subgroup. These are six subgroups with $\{e\}$ and $S_3$. There are no others, by three facts.
+
+1. Two distinct transpositions have a $3$-cycle as product. Two distinct transpositions of $\{1, 2, 3\}$ share one point $a$; write them $(a\,b)$ and $(a\,d)$ with $\{a, b, d\} = \{1, 2, 3\}$. The product $(a\,b)(a\,d)$ sends $a \mapsto d$, $d \mapsto a \mapsto b$, and $b \mapsto a$. So it is the $3$-cycle $(a\,d\,b)$.
+2. A subgroup that contains a $3$-cycle contains its square, so it contains $A_3$.
+3. A subgroup that contains $A_3$ and a transposition $t$ is $S_3$. The elements $t$, $t c$, $t c^2$ are distinct by cancellation. None of them is in $A_3$: if $t c^k = c^m$, then $t = c^{m - k} \in A_3$, but $t$ is not a power of $c$. So the subgroup has at least the $6$ elements $e, c, c^2, t, t c, t c^2$.
+
+So a subgroup with no $3$-cycle has at most one transposition, by fact 1, and it is $\{e\}$ or some $\{e, t\}$. A subgroup with a $3$-cycle is $A_3$ or $S_3$, by facts 2 and 3. The lattice has six elements.
+
+**Example (Kernels).** The kernel of $\det : \mathrm{GL}_2(\mathbb{R}) \to \mathbb{R}^\times$ is the special linear group $\mathrm{SL}_2(\mathbb{R})$ of the matrices with determinant $1$. In Mathlib this group is `Matrix.SpecialLinearGroup`, defined as a type, not as a kernel. The kernel of the reduction $\mathbb{Z} \to \mathbb{Z}/n$ is $n\mathbb{Z}$. The kernel of $\exp : (\mathbb{C}, +) \to \mathbb{C}^\times$ is $2 \pi i \mathbb{Z}$, so $\exp$ is not injective on $\mathbb{C}$. It is injective on $\mathbb{R}$, because its kernel there is $\{0\}$.
+
+**Counterexample (Closed under products, not a subgroup).** The set $\mathbb{N} \subseteq \mathbb{Z}$ contains $0$ and is closed under $+$. It is not a subgroup, since $-1 \notin \mathbb{N}$. So the finite test fails for an infinite set. The union $2\mathbb{Z} \cup 3\mathbb{Z}$ is not a subgroup: it contains $2$ and $3$ but not $5$. This agrees with the theorem on unions, because neither $2\mathbb{Z} \le 3\mathbb{Z}$ nor $3\mathbb{Z} \le 2\mathbb{Z}$.
+
+**Example (The closure axioms in Lean).**
 
 <?lean MathlibHandbook/V05/C03/Examples.lean#mem?>
 
-**Example (The lattice).** The bottom subgroup and the meet unfold with `Subgroup.mem_bot` and `Subgroup.mem_inf`.
+**Example (The lattice in Lean).** The bottom subgroup and the meet unfold with `Subgroup.mem_bot` and `Subgroup.mem_inf`.
 
 <?lean MathlibHandbook/V05/C03/Examples.lean#lattice?>
 
-**Example (The closure).**
+**Example (The closure in Lean).** This is `Subgroup.closure_le` in the direction that a proof uses most.
 
 <?lean MathlibHandbook/V05/C03/Examples.lean#closure?>
 
-**Example (The kernel).**
+**Example (The kernel in Lean).**
 
 <?lean MathlibHandbook/V05/C03/Examples.lean#ker?>
 
-**Example (Injective homomorphisms).**
+**Example (Injective homomorphisms in Lean).**
 
 <?lean MathlibHandbook/V05/C03/Examples.lean#injective?>
 
 ### The library around it
 
-The subgroups of $G$ are a `CompleteLattice`, so each lemma of Volume 1 about lattices applies to them. A subgroup `H` is also a group: the coercion `↥H` is the subtype of its elements, and it has an instance of `Group`. The map and the comap of a subgroup along a homomorphism are `Subgroup.map` and `Subgroup.comap`. The additive copy is `AddSubgroup`. To prove that $x$ is in a subgroup, `simp` with the membership lemmas often works.
+The subgroups of $G$ form a `CompleteLattice`, by the instance `Subgroup.instCompleteLattice`. So each lemma of Volume 1 about complete lattices applies to them. The join of two subgroups in a commutative group is the set of products, by `Subgroup.mem_sup`. In a group that is not commutative, the set $H K$ of products is in general not a subgroup; Chapter 5 shows that it is one when $K$ is normal. The image and the preimage of a subgroup along a homomorphism are `Subgroup.map` and `Subgroup.comap`, in the next section. The additive copy of the theory is `AddSubgroup`, with `AddSubgroup.zero_mem`, `AddSubgroup.add_mem` and `AddSubgroup.neg_mem`, and `AddMonoidHom.ker`.
+
+Common errors of a learner:
+
+- The statement `x ∈ H` is about an element of `G`. An element of the type `↥H` is a pair `⟨x, hx⟩`, and `(x : G)` is its value. A lemma about `↥H` needs the coercion `Subgroup.coe_mul` to become a statement in `G`.
+- The order on subgroups is `≤`, not `⊆`. The set inclusion `(H : Set G) ⊆ K` is the same fact, by `SetLike.coe_subset_coe`, but `simp` and `exact` see two forms.
+- The union `H ⊔ K` is the join, which is larger than the set union in general.
+- `MonoidHom.ker` needs a group as the source. For monoids the name is `MonoidHom.mker`.
 
 ### Exercises
 
-1. (A) Give the elements of the bottom subgroup of a group.
-2. (A) Explain why `↥H` is a group for `H : Subgroup G`.
-3. (B) Show that the union of two subgroups is a subgroup only if one of them contains the other.
-4. (B) Show that the closure of $\{a\}$ is the set of the powers $a^n$ with $n \in \mathbb{Z}$.
-5. (L) Prove that each element is in the top subgroup. The solution is `mem_top_example`.
-6. (L) Prove that $a, b \in H$ gives $a \cdot b^{-1} \in H$. The solution is `div_mem_example`.
-7. (L) Prove that $f(x)$ is in the range of $f$. The solution is `mem_range_example`.
+1. (A) Show that $\{1, -1, i, -i\}$ is a subgroup of $\mathbb{C}^\times$, by the finite test.
+2. (A) Explain why the type `↥H` is a group for `H : Subgroup G`, and why `(1 : ↥H)` has value `1` in `G`.
+3. (A) Show that $\{x \in \mathbb{R}^\times : x > 0\}$ is a subgroup of $\mathbb{R}^\times$ and that $\{x : x < 0\}$ is not.
+4. (B) Show that the center $Z(G)$ of Chapter 2 is a subgroup. Hint: if $z$ commutes with each $g$, multiply $z g = g z$ on both sides by $z^{-1}$.
+5. (B) Show that the closure of $\{a\}$ is the set of the powers $a^n$ with $n \in \mathbb{Z}$. Hint: use the theorem on words, and collect the letters with the laws of exponents.
+6. (B) Find all the subgroups of the Klein four group, and draw the lattice.
+7. (C) Show that a group is never the union of two proper subgroups. Then find a group that is the union of three proper subgroups. Hint: try the Klein four group.
+8. (L) Prove that each element is in the top subgroup. The solution is `mem_top_example`.
+9. (L) Prove that $a, b \in H$ gives $a b^{-1} \in H$. The solution is `div_mem_example`.
+10. (L) Prove that $f(x)$ is in the range of $f$. The solution is `mem_range_example`.
 
 ### Notes and history
 
-The lattice of subgroups was a theme of the work of Dedekind and of Ore in the 1930s. In Mathlib the lattice is a complete lattice by a general construction: each family of subgroups has an intersection, and that fact gives the join. The bundled `Subgroup` replaced the Lean 3 predicate `is_subgroup`.
+Galois used the word "groupe" for a set of permutations closed under products, and his groups were in fact subgroups of a symmetric group. The finite test is the reason he needed only closure under products. Frobenius and Dedekind wrote about subgroups of abstract groups in the 1880s and 1890s. Dedekind and later Ore studied the lattice of subgroups as an object of its own, and Ore showed in 1938 that a group is cyclic if and only if its lattice of subgroups is distributive, for finite groups.
+
+In Mathlib the lattice of subgroups is a complete lattice by a general construction: each family of subgroups has an intersection, and that fact gives the join. The bundled `Subgroup` replaced the Lean 3 predicate `is_subgroup`. The kernel of a group homomorphism is a `Subgroup` and the kernel of a monoid homomorphism is a `Submonoid`, so the two kernels have different names.
 
 ### Reference
 

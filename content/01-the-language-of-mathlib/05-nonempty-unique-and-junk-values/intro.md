@@ -1,3 +1,3 @@
 # Nonempty, Unique and junk values
 
-Each function in Mathlib is total, so division by zero and the logarithm of a negative number have a value. This chapter shows the classes that say a type has elements, and it lists the junk values that a reader must know.
+Some theorems need a type with an element, with exactly one element or with two different elements. This chapter gives the classes for these conditions and their relations. It then explains why every function in Mathlib is total, and lists the values at points such as $x / 0$ and $\log 0$.

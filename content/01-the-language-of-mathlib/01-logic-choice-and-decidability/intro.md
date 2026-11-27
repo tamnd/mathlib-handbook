@@ -1,3 +1,3 @@
 # Logic, choice and decidability
 
-Mathlib uses classical logic. This chapter shows where the classical axioms come in, what a decidable proposition is, and when a proof can run as a computation.
+A proposition is a type and a proof is a term. This chapter gives the rules of the connectives and the quantifiers, proves that the three classical principles are equivalent, and shows how the axiom of choice gives the excluded middle and makes every proposition decidable.
