@@ -1,6 +1,6 @@
-version 0.4.1
-mathlib 122d829d799a10b806d3de72a4eec840f110ec4d
-mathlib-lean 63eec572abd1eef7ec743c3974a9b05f2076cecb
+version 0.5.0
+mathlib 1ade9058e33365bf2c8a183ecc473edd78779116
+mathlib-lean 66f312f6d95c107148fd543fa4129f87bd3a19f6
 mathlib-commit e54979a532247ae4eb9d5578a8fd40a1bc332101
-mathlib-agent 89acae1e6c836c32f48c2b117f26a1bb689e4db4
+mathlib-agent dc6ac18b9a4eb3c27f14e5e0404ae4508d49e48d
 catalogue V00 V01 V02 V03 V04 V05 V06 V07 V08 V09 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20 V21 V22 V23 V24 V25 V26 V27 V28 V29 V30 V31 V32 V33 V34
