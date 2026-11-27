@@ -167,3 +167,10 @@ def test_log_missing(tmp_path):
         "Missing character: There is no ᗮ (U+15EE) in font LibertinusSerif-Regular:mode=node;!\n", encoding="utf-8")
     assert log_missing(str(tmp_path), {"ᗮ": 1}) == {"⨍": 2, "ᗮ": 2}
     assert log_missing(str(tmp_path / "none")) == {}
+
+
+def test_fallback_juliamono():
+    from mlhb.fonts import Fallback
+    fb = Fallback()
+    assert fb.letter("ᗮ") == "J"
+    assert fb.apply("x ᗮ") == r"x \hbfb{J}{ᗮ}" and not fb.missing
