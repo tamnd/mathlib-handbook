@@ -1,0 +1,7 @@
+# Summability criteria
+
+Chapter 4 defined the unconditional sum and proved its rules of computation. This chapter gives the tests that show that a family is summable. The tests fall into two groups. The first group uses an order: a family of nonnegative terms in an ordered group is summable when its finite sums are bounded, and its sum is then the supremum of the finite sums. The second group uses a norm or an absolute value: in $\mathbb{R}$ a family is summable exactly when the family of its absolute values is summable, and in a complete nonarchimedean group a family is summable exactly when its terms tend to $0$.
+
+Section 1 treats nonnegative terms. It proves the comparison of sums, the description of a sum as a supremum, the criterion of bounded partial sums in $\mathbb{R}$, and the sums in a complete lattice, which Chapter 6 applies to $[0, \infty]$. Section 2 treats absolute and conditional convergence. It proves that in $\mathbb{R}$ summability is absolute summability, explains the rearrangement theorem of Riemann in this language, proves the formula for the product of two sums and the Cauchy product, gives the criterion of nonarchimedean groups, and ends with sums of functions that converge uniformly.
+
+The chapter needs Chapter 4 and the tests for real series of Volume 15, Chapter 1. It does not prove again the ratio and root tests. Volume 16 gives the criteria for normed spaces, such as summability of a family whose norms are summable.

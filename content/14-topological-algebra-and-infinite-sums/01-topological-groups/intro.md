@@ -1,0 +1,7 @@
+# Topological groups
+
+A topological group is a group with a topology in which multiplication and inversion are continuous. Each translation is then a homeomorphism, so the neighbourhoods of the identity determine the whole topology. This chapter develops the basic theory and its form in Mathlib.
+
+Section 1 gives the definitions, with the classes `ContinuousMul`, `ContinuousInv` and `IsTopologicalGroup`. It proves that translations are homeomorphisms, treats products, and builds the topology on the units of a topological monoid. The Sorgenfrey line shows that a continuous addition does not give a continuous negation. Section 2 studies the neighbourhoods of the identity. It proves that a topological group is regular, that it is Hausdorff as soon as the identity is closed, that the closure of a subgroup is a subgroup, and that an open subgroup is closed. Section 3 forms the quotient $G/H$, proves that it is Hausdorff if and only if $H$ is closed, treats continuous homomorphisms, and studies the circle $\mathbb{R}/\mathbb{Z}$ and its dense subgroups.
+
+The chapter needs groups and quotients from Volume 5 and the general topology of Volume 13, Chapters 1, 2 and 4: open sets, filters and separation axioms. Chapter 3 builds the uniform structure of a topological group and its completion. The sums of Chapters 4 to 7 take place in topological groups.

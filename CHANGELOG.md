@@ -6,6 +6,7 @@ Each release has a section. The newest release is first.
 
 ### Added
 
+- The first drafts of V11 Fields and Galois theory (8 chapters, 19 sections, 134 exercises) and V14 Topological algebra and infinite sums (8 chapters, 19 sections, 136 exercises), with about 89,000 words. The status of each section is drafted, and each section has `lean: []`.
 - The first drafts of V09 Commutative algebra I: ideals, polynomials, factorization (7 chapters, 20 sections, 127 exercises) and V17 Differential calculus in normed spaces (8 chapters, 19 sections, 110 exercises), with about 89,000 words. The status of each section is drafted, and each section has `lean: []`.
 
 ## v0.4.0 - 2026-11-27

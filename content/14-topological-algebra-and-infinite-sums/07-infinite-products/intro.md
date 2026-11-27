@@ -1,0 +1,7 @@
+# Infinite products
+
+An infinite product $\prod_i f_i$ is the multiplicative form of an infinite sum. Mathlib defines it in the same way: a family $(f_i)_{i \in I}$ in a commutative topological monoid has the product $a$ when the finite products $\prod_{i \in F} f_i$ tend to $a$ as the finite set $F$ grows. The predicates `HasProd` and `Multipliable` and the function `tprod`, written `∏' i, f i`, are the multiplicative twins of `HasSum`, `Summable` and `tsum`. Mathlib states each lemma on products and generates the lemma on sums from it, so the whole theory of Chapters 4 and 5 holds for products with no new proof.
+
+The two theories differ at one point. The classical theory of products in $\mathbb{C}$ says that a product converges only when its partial products tend to a nonzero limit, and it treats the factors $0$ apart. Mathlib does not exclude $0$: a product with a factor $0$ has the product $0$, and a product whose partial products tend to $0$ has the product $0$. Section 1 defines products, proves their basic rules, and explains this difference. Section 2 relates products to sums through the exponential and the logarithm, proves that $\prod (1 + a_n)$ converges when $\sum |a_n|$ does, and gives the Euler product of the zeta function and the sine product as examples from the library.
+
+The chapter needs Chapters 4 and 5. Section 2 uses the real and complex logarithm of Volume 15.
