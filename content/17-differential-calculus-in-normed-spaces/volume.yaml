@@ -1,0 +1,9 @@
+number: 17
+title: Differential calculus in normed spaces
+subtitle: The Fréchet derivative, smoothness, the inverse and implicit function theorems, analytic functions and differential equations in Mathlib
+level: graduate
+prefixes:
+- Mathlib/Analysis/Calculus
+- Mathlib/Analysis/Analytic
+- Mathlib/Analysis/ODE
+- Mathlib/Analysis/ConstantSpeed

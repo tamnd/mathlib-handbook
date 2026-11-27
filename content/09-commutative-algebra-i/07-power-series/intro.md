@@ -1,0 +1,9 @@
+# Power series
+
+A formal power series is a polynomial that is allowed to go on forever: an expression $a_0 + a_1 X + a_2 X^2 + \cdots$ with infinitely many coefficients and no question of convergence. The power series over a commutative ring $R$ form a ring $R[[X]]$, which contains the polynomial ring $R[X]$. The new ring has more units than $R[X]$, since $1 - X$ becomes invertible with inverse $1 + X + X^2 + \cdots$, and its ideals are simpler: over a field $k$ the only nonzero ideals of $k[[X]]$ are the powers of $(X)$. So $k[[X]]$ is the first example of a local principal ideal domain, the algebraic model of the germs of functions at one point.
+
+Section 1 defines $R[[X]]$, proves that a power series is a unit exactly when its constant coefficient is a unit, defines the order of a series, and determines all ideals of $k[[X]]$. It uses power series as generating functions, with the Fibonacci numbers as an example. Section 2 turns to power series in several variables, proves the unit criterion and the domain property for them, builds the field $k((X))$ of Laurent series as the field of fractions of $k[[X]]$, and proves that $R[[X]]$ is Noetherian when $R$ is Noetherian.
+
+The chapter needs the ideals of Chapter 1, the localization of Chapter 2 for the Laurent series, the Noetherian rings of Chapter 3 for the last theorem of Section 2, and the polynomial rings of Volume 6, Chapter 5 and of Chapter 6. In Mathlib a power series in one variable is a power series in several variables indexed by the type with one element, so the two sections use one theory.
+
+Volume 10 uses $k[[X]]$ as the first example of a discrete valuation ring and of a complete local ring, and the Laurent series field $k((X))$ as the completion of the field of rational functions $k(X)$ at the place $X = 0$. Power series also return in the analysis volumes, where a series with a positive radius of convergence defines an analytic function.
