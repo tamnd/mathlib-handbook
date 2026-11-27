@@ -1,0 +1,25 @@
+number: 2
+title: Numbers
+subtitle: The natural numbers, the integers, the rationals, the reals and the casts between them
+level: undergraduate
+prefixes:
+- Mathlib/Data/Nat
+- Mathlib/Data/Int
+- Mathlib/Data/Rat
+- Mathlib/Data/NNRat
+- Mathlib/Data/PNat
+- Mathlib/Data/Fin
+- Mathlib/Data/ZMod
+- Mathlib/Data/Real
+- Mathlib/Data/Complex
+- Mathlib/Data/Num
+- Mathlib/Data/ENNReal
+- Mathlib/Data/NNReal
+- Mathlib/Data/EReal
+- Mathlib/Data/ENat
+- Mathlib/Data/Dyadic
+- Mathlib/Basic/Real
+- Mathlib/Basic/NNReal
+- Mathlib/Basic/ENNReal
+- Mathlib/Basic/Complex
+- Mathlib/Algebra/Order/CauSeq

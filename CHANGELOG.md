@@ -4,6 +4,10 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+### Added
+
+- The first drafts of V02 Numbers, V03 Sets, finite structures and big operators, V04 Order and lattices, and V05 Groups. Each volume has eight chapters with one section each, and the companion files of tamnd/mathlib-lean#16 and #17. The status of each section is drafted.
+
 ## v0.2.0 - 2026-11-27
 
 ### Added
