@@ -1,0 +1,7 @@
+# Minimality, transitivity and symbolic dynamics
+
+This chapter studies how the orbits of a system fill the space. An action is minimal when every orbit is dense, so that the space has no proper closed invariant piece, and topologically transitive when the action carries every open set into every other. Both notions are defined in Mathlib for any monoid action on a topological space, so they apply to single maps, to the flows of Chapter 2 and to group actions alike.
+
+Section 1 proves that minimality is the absence of closed invariant sets, that minimal sets exist on compact spaces by Zorn's lemma (a result the index lacks), that minimal actions are transitive, and that a transitive action on a Baire space with a countable base has a dense orbit. The irrational rotation is minimal, and the doubling map is transitive but not minimal. Section 2 turns to symbolic dynamics: the full shift on configurations $G \to A$, cylinders, patterns, and the subshifts given by forbidden patterns, with the golden mean shift and the coding of the doubling map by binary sequences. Section 3 treats Delone sets, the uniformly discrete and relatively dense point sets of a metric space that are the starting point of the theory of aperiodic order, with the integer lattice and Penrose tilings as examples.
+
+The chapter needs Volume 13 for compactness, the Baire theorem and product topologies, Volume 5 for actions, and Chapter 2 for invariant sets and semiconjugacies. Chapter 6 uses minimality to prove ergodicity, and Chapter 7 computes the entropy of shifts.
