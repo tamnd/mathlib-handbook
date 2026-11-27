@@ -4,13 +4,15 @@
     python -m mlhb number   [--write]
     python -m mlhb resolve  [--volume ID,...|all]
     python -m mlhb build    [--volume ID,...|all] [--formats html,tex,pdf,epub] [--out build]
+    python -m mlhb catalogue --data catalogue [--volume ID,...|all] [--formats pdf,epub] [--out build]
     python -m mlhb new volume V13
     python -m mlhb new section V13/C05 compact-metric
 
 A volume is named by its id or its number: V13 or 13. Each command takes --map PATH (default ../mathlib, or the
 environment variable MLHB_MAP), --lean PATH (default ../mathlib-lean, or MLHB_LEAN), --index PATH (or
 MLHB_INDEX; no default), --highlight PATH (the SubVerso JSON files of the companion, or MLHB_HIGHLIGHT; no
-default) and --content PATH (default content/).
+default) and --content PATH (default content/). The command catalogue reads the files C<NN>.jsonl.gz of mlib catalogue
+from --data (or MLHB_CATALOGUE).
 """
 
 from __future__ import annotations
@@ -19,6 +21,7 @@ import argparse
 import datetime
 import json
 import os
+import re
 import shutil
 import sys
 
@@ -155,6 +158,49 @@ def cmd_build(args):
     return 1 if bad else 0
 
 
+def cmd_catalogue(args):
+    """Set the Catalogue volumes (spec 06.4) from the files of mlib catalogue."""
+    from . import catalogue
+    if not args.data or not os.path.isdir(args.data):
+        raise SystemExit("give --data, the folder of the files C<NN>.jsonl.gz of mlib catalogue")
+    files = sorted(f for f in os.listdir(args.data) if re.fullmatch(r"C\d\d\.jsonl\.gz", f))
+    if args.volume != "all":
+        want = {"C%02d" % int(x.strip().lstrip("VvCc")) for x in args.volume.split(",") if x.strip()}
+        files = [f for f in files if f[:3] in want]
+        missing = want - {f[:3] for f in files}
+        if missing:
+            raise SystemExit(f"no file for {', '.join(sorted(missing))} in {args.data}")
+    ed = edition()
+    version, date = ed["version"], args.date or datetime.date.today().isoformat()
+    fmts = set(args.formats.split(","))
+    os.makedirs(args.out, exist_ok=True)
+    report, bad = {}, 0
+    for f in files:
+        h, rows = catalogue.load(os.path.join(args.data, f))
+        d = os.path.join(args.out, h["catalogue"])
+        info = {}
+        if "pdf" in fmts:
+            info.update(catalogue.build_pdf(h, rows, d, version, date))
+        if "epub" in fmts:
+            info.update(catalogue.build_epub(h, rows, d, version, date))
+        name = catalogue.out_name(h, version, ed.get("mathlib-tag", ""))
+        for ext in ("pdf", "epub"):
+            src = os.path.join(d, f"main.{ext}")
+            if ext in fmts and os.path.exists(src):
+                shutil.copy(src, os.path.join(args.out, f"{name}.{ext}"))
+                info[ext] = os.path.join(args.out, f"{name}.{ext}")
+        err = info.pop("error", None)
+        report[h["catalogue"]] = info
+        print(f"{h['catalogue']} {catalogue.title(h)}: " + json.dumps(info), file=sys.stderr)
+        if err:
+            print(err, file=sys.stderr)
+        if info.get("ok") is False or info.get("epub_ok") is False:
+            bad += 1
+    with open(os.path.join(args.out, "catalogue.json"), "w", encoding="utf-8") as fh:
+        json.dump(report, fh, indent=1)
+    return 1 if bad else 0
+
+
 def _volume_dir(book: Book, vid: str) -> str:
     for v in book.volumes:
         if v.id == vid:
@@ -235,6 +281,13 @@ def main(argv=None):
     b.add_argument("--formats", default="html,pdf,epub")
     b.add_argument("--out", default=os.path.join(ROOT, "build"))
     b.add_argument("--date", default="")
+    cg = sub.add_parser("catalogue", parents=[common])
+    cg.add_argument("--data", default=os.environ.get("MLHB_CATALOGUE", ""),
+                    help="the folder of the files C<NN>.jsonl.gz of mlib catalogue (default $MLHB_CATALOGUE)")
+    cg.add_argument("--volume", default="all")
+    cg.add_argument("--formats", default="pdf,epub")
+    cg.add_argument("--out", default=os.path.join(ROOT, "build"))
+    cg.add_argument("--date", default="")
     n = sub.add_parser("new", parents=[common])
     n.add_argument("what", choices=["volume", "section"])
     n.add_argument("target", help="V13 for a volume, V13/C05 for a section")
@@ -253,7 +306,7 @@ def main(argv=None):
     if args.cmd == "new" and args.what == "section" and not args.slug:
         ap.error("new section needs a slug")
     return {"check": cmd_check, "build": cmd_build, "number": cmd_number, "resolve": cmd_resolve,
-            "new": cmd_new}[args.cmd](args)
+            "new": cmd_new, "catalogue": cmd_catalogue}[args.cmd](args)
 
 
 if __name__ == "__main__":

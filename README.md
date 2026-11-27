@@ -101,6 +101,16 @@ A section file has the front matter of spec 07.7 and the parts of spec 07.3 as `
 
 A directive that does not resolve stops the build. A Mathlib box is the fenced div `::: mathlib`. Its first line is `` `Name` · `Module` ``, and the builder makes links to the declaration page of the site and to the Mathlib documentation.
 
+The Catalogue volumes C01 to C34 (spec 06.4) come from `mlib catalogue` of [mathlib-agent](https://github.com/tamnd/mathlib-agent). The command writes one file `C<NN>.jsonl.gz` for each main volume, and `mlhb catalogue` sets each file as a PDF in two columns and as an EPUB:
+
+```sh
+mlib index fetch -commit e54979a532 -out idx
+mlib catalogue -index idx -map ../mathlib -volume V01,V13 -out catalogue
+python -m mlhb catalogue --data catalogue --formats pdf,epub --out build
+```
+
+The line `catalogue` of `EDITION` gives the volumes that the CI sets, and the line `mathlib-agent` gives the commit of mlib. Each entry gives the Lean name, the kind, the attributes, the depth, the home section and one sentence. The sentence comes from a checked E1 record, then from the E0 family, then from the docstring of Mathlib. The preface of each Catalogue gives the count of each source.
+
 The output files are named `mathlib-handbook-<NN-slug>-<version>+mathlib-<tag>.pdf` and `.epub`. The fixture library of `tests/fixture` has one volume with one section. The CI builds it on each pull request.
 
 ## Licence
