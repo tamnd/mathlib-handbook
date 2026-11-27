@@ -1,0 +1,13 @@
+# Additive combinatorics
+
+Additive combinatorics studies the additive structure of finite sets in abelian groups. Its basic object is the sumset $A + B = \{a + b : a \in A,\ b \in B\}$. Its questions are of two kinds. The first kind asks how small $A + B$ can be, and what $A$ and $B$ look like when it is small. The second kind asks which patterns a dense set must contain, for example an arithmetic progression of length $3$. The two kinds meet in the proofs. This chapter proves the elementary theorems of each kind and the theorem of Roth.
+
+Section 1 proves the lower bound $|A + B| \ge |A| + |B| - 1$ for sets of integers, and the theorem of Cauchy and Davenport, $|A + B| \ge \min(p, |A| + |B| - 1)$ in $\mathbb{Z}/p\mathbb{Z}$, by the e-transform of Dyson. It states the general form of DeVos for arbitrary groups. It then proves the theorem of Erdős, Ginzburg and Ziv: among $2n - 1$ integers there are $n$ whose sum is divisible by $n$.
+
+Section 2 studies sets with small doubling, $|A + A| \le K|A|$. It proves the Ruzsa triangle inequality, the Ruzsa covering lemma, the Plünnecke-Petridis lemma and the Plünnecke-Ruzsa inequality $|mA - nA| \le K^{m+n}|A|$, all in full. It defines the additive energy and proves its relation to the sumset by the Cauchy-Schwarz inequality.
+
+Section 3 proves the theorem of Roth: a subset of $\{0, \dots, N - 1\}$ with no three-term arithmetic progression has $o(N)$ elements. The proof is the one of Ruzsa and Szemerédi, which is also the proof in Mathlib. The section defines the edge density and uniform pairs, states the regularity lemma of Szemerédi and outlines its proof, and proves the triangle counting lemma, the triangle removal lemma, the corners theorem and the theorem of Roth. It ends with the construction of Behrend, $r(N) \ge N e^{-4\sqrt{\log N}}$.
+
+Sections 1 and 2 need only Volume 3 and the groups of Volume 5, with $\mathbb{Z}/p\mathbb{Z}$ from Volume 12. Section 3 needs the graphs of Chapter 1 and the cliques of Chapter 3. The level of Section 1 is a first undergraduate course, and the level of Sections 2 and 3 is a first graduate course. The standard reference is Tao and Vu, *Additive Combinatorics*.
+
+In Mathlib, the sumset of two finsets is `s + t`, and it needs `open Pointwise`. The iterated sumset is `n • s`, not the dilate. Most declarations exist in a multiplicative form for arbitrary groups and in an additive form, and the multiplicative form is the primary one in the source. Most modules of this chapter are by Yaël Dillies and Bhavik Mehta, and the formal proof of the regularity lemma is one of the large formal proofs in combinatorics.

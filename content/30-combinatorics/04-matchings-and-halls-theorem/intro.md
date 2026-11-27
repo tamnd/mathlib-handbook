@@ -1,0 +1,9 @@
+# Matchings and Hall's theorem
+
+This chapter studies the problem of choosing distinct representatives and its form in graphs, the problem of matching. A family of finite sets has a system of distinct representatives exactly when any $k$ of the sets together contain at least $k$ elements. This is Hall's theorem. Its condition is clearly necessary, and the content of the theorem is that it is also sufficient.
+
+Section 1 proves Hall's theorem for a finite family by the induction of Halmos and Vaughan, which splits into the case where every proper subfamily has room to spare and the case where some subfamily is tight. It then proves the theorem for an infinite family of finite sets by compactness, in the form of an inverse system of finite sets, as Mathlib does. The applications are regular bipartite graphs and Latin rectangles.
+
+Section 2 turns to matchings in simple graphs. It defines matchings, perfect matchings and vertex covers, and states Hall's theorem for bipartite graphs in the form of the Mathlib file. It proves König's theorem, which the index of this edition does not contain, from Hall's theorem. Then it states Tutte's theorem for general graphs: a finite graph has a perfect matching if and only if no set of $k$ vertices leaves more than $k$ odd components. The easy direction is proved in full and the hard direction, which Mathlib proves by the method of Lovász, is given in outline.
+
+The chapter needs finite sets and finite types from Volume 3, Chapters 3 and 4, and the compactness of products from Volume 13, Chapter 5. Section 2 uses subgraphs from Chapter 1, connected components from Chapter 2, and cliques and bipartite graphs from Chapter 3. Chapter 6 of this volume uses the same counting style for sums of sets, and Chapter 7 returns to systems of sets with the methods of extremal set theory.
