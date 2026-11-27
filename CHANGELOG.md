@@ -4,6 +4,10 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+### Added
+
+- V23 Manifolds and bundles has a first draft: 8 chapters, 20 sections and 133 exercises. The text treats charted spaces, models with corners, smooth maps, the manifold derivative, vector bundles, partitions of unity, immersions and embeddings, vector fields and Lie groups.
+
 ## v0.6.1 - 2026-11-27
 
 ### Changed
