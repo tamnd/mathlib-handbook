@@ -1,0 +1,24 @@
+number: 6
+title: Rings, fields and ordered algebra
+subtitle: Rings, ideals, domains, fields, characteristic, factorization, ordered fields, algebras and continued fractions in Mathlib
+level: undergraduate
+prefixes:
+- Mathlib/Algebra/Ring
+- Mathlib/Algebra/Field
+- Mathlib/Algebra/CharP
+- Mathlib/Algebra/CharZero
+- Mathlib/Algebra/Star
+- Mathlib/Algebra/Algebra
+- Mathlib/Algebra/Order
+- Mathlib/Algebra/ContinuedFractions
+- Mathlib/Algebra/QuadraticAlgebra
+- Mathlib/Algebra/Quaternion
+- Mathlib/Algebra/QuaternionBasis
+- Mathlib/Algebra/DualNumber
+- Mathlib/Algebra/DualQuaternion
+- Mathlib/Algebra/TrivSqZeroExt
+- Mathlib/Algebra/RingQuot
+- Mathlib/Algebra/NonAssoc
+- Mathlib/Algebra/Jordan
+- Mathlib/Algebra/Central
+- Mathlib/Algebra/QuadraticDiscriminant

@@ -1,0 +1,12 @@
+number: 7
+title: Linear algebra
+subtitle: Modules, bases, dimension, matrices, determinants, eigenvalues, duality and modules over a PID in Mathlib
+level: undergraduate
+prefixes:
+- Mathlib/LinearAlgebra
+- Mathlib/Algebra/Module
+- Mathlib/Algebra/NoZeroSMulDivisors
+- Mathlib/Algebra/LinearRecurrence
+- Mathlib/Algebra/Colimit
+- Mathlib/Algebra/Order/Module
+- Mathlib/Data/Matrix

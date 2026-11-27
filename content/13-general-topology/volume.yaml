@@ -1,0 +1,36 @@
+number: 13
+title: General topology
+subtitle: Topological spaces, filters, compactness, connectedness, metric and uniform spaces, completion, Baire, Urysohn and Tietze in Mathlib
+level: undergraduate
+prefixes:
+- Mathlib/Topology/Defs
+- Mathlib/Topology/Basic
+- Mathlib/Topology/Closure
+- Mathlib/Topology/Neighborhoods
+- Mathlib/Topology/ClusterPt
+- Mathlib/Topology/Continuous
+- Mathlib/Topology/ContinuousOn
+- Mathlib/Topology/Constructions
+- Mathlib/Topology/Maps
+- Mathlib/Topology/Homeomorph
+- Mathlib/Topology/Order
+- Mathlib/Topology/Bases
+- Mathlib/Topology/Sequences
+- Mathlib/Topology/Separation
+- Mathlib/Topology/Compactness
+- Mathlib/Topology/Connected
+- Mathlib/Topology/Path
+- Mathlib/Topology/Homotopy
+- Mathlib/Topology/Baire
+- Mathlib/Topology/GDelta
+- Mathlib/Topology/DenseEmbedding
+- Mathlib/Topology/ContinuousMap
+- Mathlib/Topology/UniformSpace
+- Mathlib/Topology/MetricSpace
+- Mathlib/Topology/EMetricSpace
+- Mathlib/Topology/Bornology
+- Mathlib/Topology/Metrizable
+- Mathlib/Topology/UrysohnsLemma
+- Mathlib/Topology/TietzeExtension
+- Mathlib/Order/Filter
+- Mathlib/Data/Analysis
