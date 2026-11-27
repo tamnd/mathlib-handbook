@@ -1,0 +1,9 @@
+# Algebraic elements and minimal polynomials
+
+Chapter 1 attached the degree to an extension but did not compute it. This chapter computes it. The key is the minimal polynomial: for an element $\alpha$ that satisfies a polynomial equation over $K$, it is the monic polynomial of least degree with $\alpha$ as a root. It gives $[K(\alpha):K] = \deg m_\alpha$ and the basis $1, \alpha, \dots, \alpha^{n-1}$.
+
+Section 1 separates the elements of an extension into two kinds. An element is algebraic over $K$ if it is a root of a nonzero polynomial over $K$, and transcendental otherwise. The section proves that $\alpha$ is algebraic exactly when $K(\alpha)/K$ is finite. It shows that the algebraic elements form a field, that algebraic over algebraic is algebraic, and that the algebraic numbers are countable, so most real numbers are transcendental. Section 2 defines the minimal polynomial, proves that $K(\alpha) \cong K[X]/(m_\alpha)$, and gives tests for irreducibility: the rational root test, the criterion of Eisenstein and reduction modulo a prime. Section 3 studies the conjugates of $\alpha$, the other roots of $m_\alpha$. It defines the norm and the trace of an element as the determinant and the trace of a multiplication map, and expresses them through the conjugates.
+
+The chapter needs Chapter 1, polynomials and roots from Volume 6, Chapter 5, irreducible polynomials over a principal ideal domain from Volume 6, Chapter 6, and the determinant and the trace of a matrix from Volume 7, Chapter 5.
+
+Chapter 3 adjoins the roots of a polynomial one at a time. Each step is a simple extension $K(\alpha)$ as in Section 2. Chapter 4 asks when the minimal polynomial has distinct roots, and the count of embeddings in Section 3 becomes the separable degree. In Mathlib, the minimal polynomial is `minpoly K α`, with the junk value $0$ when $\alpha$ is not algebraic.

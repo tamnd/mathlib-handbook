@@ -1,0 +1,18 @@
+number: 11
+title: Fields and Galois theory
+subtitle: Field extensions, minimal polynomials, splitting fields, separability, the fundamental theorem of Galois theory, finite fields and radicals in Mathlib
+level: undergraduate to graduate
+prefixes:
+- Mathlib/FieldTheory
+- Mathlib/RingTheory/Algebraic
+- Mathlib/RingTheory/AlgebraicIndependent
+- Mathlib/RingTheory/NormalClosure
+- Mathlib/RingTheory/IsGaloisGroup
+- Mathlib/RingTheory/Norm
+- Mathlib/RingTheory/Trace
+- Mathlib/RingTheory/NormTrace
+- Mathlib/RingTheory/PowerBasis
+- Mathlib/RingTheory/RootsOfUnity
+- Mathlib/RingTheory/LittleWedderburn
+- Mathlib/Algebra/BrauerGroup
+- Mathlib/Algebra/CubicDiscriminant

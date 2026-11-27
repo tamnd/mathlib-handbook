@@ -1,0 +1,8 @@
+number: 14
+title: Topological algebra and infinite sums
+subtitle: Topological groups, rings and modules, the uniform structure of a group, completions, unconditional sums and products, and the extended reals in Mathlib
+level: graduate
+prefixes:
+- Mathlib/Topology/Algebra
+- Mathlib/Topology/Instances
+- Mathlib/Analysis/AbsoluteValue
