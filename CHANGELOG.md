@@ -4,6 +4,8 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+- V26 Homological algebra has a first draft: 8 chapters, 21 sections and 139 exercises. The text treats short complexes, exactness and the snake lemma, homological complexes and the long exact homology sequence, chain homotopies and the triangulated homotopy category, resolutions, derived functors, Ext and Tor, the derived category and its Ext groups, double complexes and spectral sequences, the concrete categories of algebra, and the homology and cohomology of groups.
+
 ## v0.6.3 - 2026-11-27
 
 ### Changed

@@ -1,0 +1,12 @@
+number: 26
+title: Homological algebra
+subtitle: Short complexes, chain complexes, homotopy, derived functors, the derived category, spectral sequences, concrete categories of algebra and group cohomology in Mathlib
+level: graduate
+prefixes:
+- Mathlib/Algebra/Homology
+- Mathlib/Algebra/Category
+- Mathlib/Algebra/Exact
+- Mathlib/Algebra/FiveLemma
+- Mathlib/RepresentationTheory/Homological
+- Mathlib/CategoryTheory/GradedObject
+- Mathlib/CategoryTheory/DifferentialObject
