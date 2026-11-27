@@ -1,0 +1,7 @@
+# Distributions
+
+A distribution, or law, is a probability measure on the space of values of a random variable. Chapter 1 defines the law of a variable as the image measure. This chapter presents the laws that appear most often in probability and statistics, gives their means, variances and generating functions, and shows how Mathlib defines them.
+
+Section 1 treats the discrete laws. Mathlib has a separate type `PMF α` for probability mass functions, with a monad structure that composes random experiments, and a function `PMF.toMeasure` that turns a mass function into a measure. The section presents the Bernoulli, binomial, geometric and Poisson laws, and proves the Poisson limit theorem for the binomial law. Section 2 treats the laws with a density. The density of a law is its Radon-Nikodym derivative with respect to the Lebesgue measure, and Volume 18, Measure and integration, proves the theorem that gives it. The section presents the uniform, exponential, gamma, beta, Pareto and Cauchy laws, and the density of a sum of independent variables. Section 3 treats the Gaussian law on $\mathbb{R}$ and on $\mathbb{R}^n$, its characteristic function, its closure under sums of independent variables, and the theorem that a jointly Gaussian pair with covariance $0$ is independent.
+
+The chapter needs Chapters 1 to 3. Several named laws have only a definition and a few lemmas in the index of this edition; the text says so where it computes a mean or a variance on paper.

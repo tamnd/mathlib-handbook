@@ -1,0 +1,6 @@
+number: 20
+title: Probability
+subtitle: Probability spaces, independence, expectation, the limit theorems, martingales and kernels in Mathlib
+level: graduate
+prefixes:
+- Mathlib/Probability
