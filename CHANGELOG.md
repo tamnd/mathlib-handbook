@@ -4,6 +4,12 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+## v0.5.1 - 2026-11-27
+
+### Changed
+
+- `EDITION` pins mathlib at `1660034bd0`, mathlib-lean at `d0fc806ca8` and mathlib-agent at `6ae6fe1737`, the commits of their release v0.5.1.
+
 ## v0.5.0 - 2026-11-27
 
 ### Changed
