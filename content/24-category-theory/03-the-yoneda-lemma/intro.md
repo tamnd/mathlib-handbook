@@ -1,0 +1,7 @@
+# The Yoneda lemma
+
+This chapter proves the first theorem of category theory that has no analogue in a single branch of algebra. The Yoneda lemma says that the natural transformations from the functor $\mathrm{Hom}(-, X)$ to a functor $F$ are the elements of $F(X)$. As a consequence, an object is known up to isomorphism by the morphisms into it, and each category embeds fully and faithfully in a category of functors to sets.
+
+Section 1 defines the functors of morphisms $\mathrm{Hom}(-, X)$ and $\mathrm{Hom}(X, -)$ and the Yoneda embedding. It proves the Yoneda lemma with its naturality, deduces that the embedding is fully faithful and that it detects isomorphisms, and recovers Cayley's theorem on groups. Section 2 studies representable functors: functors isomorphic to some $\mathrm{Hom}(-, X)$. It shows that a representation is the same as a universal element, that it is unique up to a unique isomorphism, and that it is an initial object of the category of elements. Its examples are the forgetful functors of groups and rings, the power set and the open sets of a space.
+
+The chapter needs Chapters 1 and 2, in particular functor categories and natural isomorphisms, and the examples of Volume 5 (groups), Volume 6 (polynomial rings) and Volume 13 (topological spaces). Chapter 4 defines limits as representing objects of functors of cones. Chapter 5 defines adjunctions by natural bijections of sets of morphisms, and the Yoneda lemma proves their uniqueness.
