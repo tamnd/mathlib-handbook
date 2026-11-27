@@ -4,6 +4,10 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+### Added
+
+- The first draft of V08 Multilinear algebra and forms (8 chapters, 20 sections, 133 exercises, about 44,000 words). The status of each section is drafted, and each section has `lean: []`.
+
 ## v0.5.1 - 2026-11-27
 
 ### Changed

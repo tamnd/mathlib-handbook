@@ -1,0 +1,9 @@
+# The exterior algebra and exterior powers
+
+The exterior algebra $\Lambda(M)$ of a module $M$ is the algebra in which every vector squares to zero. Its product $x_1 \wedge \dots \wedge x_k$ is alternating in the vectors, and for this reason the exterior algebra is the natural home of the determinant. This chapter builds $\Lambda(M)$ and its graded pieces $\Lambda^k(M)$, and shows that the determinant of a linear map is the factor by which the map scales the top power.
+
+Section 1 builds $\Lambda(M)$ as the quotient of the tensor algebra of Chapter 3 by the relations $x \otimes x = 0$. It proves the universal property, the rule $x \wedge y = -\, y \wedge x$, the grading by degree with the sign rule $u \wedge v = (-1)^{jk} v \wedge u$, and the theorem on bases: for a free module of rank $n$, the products $e_S$ over the subsets $S$ form a basis, so $\Lambda^k(M)$ has rank $\binom{n}{k}$ and $\Lambda(M)$ has rank $2^n$. In Mathlib the exterior algebra is the Clifford algebra of the zero quadratic form, and Chapter 7 comes back to this point. This chapter treats the exterior algebra on its own terms.
+
+Section 2 studies $\Lambda^k(M)$ as a module. It is the universal target of alternating maps. The coordinates of a product of vectors are the minors of their matrix, and on the top power a linear map acts as multiplication by its determinant. This gives a second proof of $\det(gf) = \det g \det f$. Over an ordered field the sign of the determinant defines the two orientations of a vector space. The section ends with the cross product in $\mathbb{R}^3$.
+
+The chapter needs the alternating maps of Chapter 1, the tensor algebra of Chapter 3, the determinant of Volume 7, Chapter 4, and the sign of a permutation of Volume 5, Chapter 7. Chapter 7 deforms the relation $x \wedge x = 0$ to $x^2 = Q(x)$ and uses this chapter to count the dimension of a Clifford algebra.
