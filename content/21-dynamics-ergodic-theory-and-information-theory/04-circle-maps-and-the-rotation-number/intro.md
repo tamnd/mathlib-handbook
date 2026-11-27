@@ -1,0 +1,7 @@
+# Circle maps and the rotation number
+
+A homeomorphism of the circle that keeps the orientation has one numerical invariant that controls much of its dynamics: the rotation number of Poincaré. It measures the average angle by which the map turns a point, and it is rational if and only if the map has a periodic orbit. This chapter defines the invariant through lifts to the real line and proves its main properties.
+
+Section 1 defines a lift of degree one, a monotone map $F$ of $\mathbb{R}$ with $F(x + 1) = F(x) + 1$, and proves the bounds on $F(x) - x$ and on compositions that the rest of the chapter uses. The lifts form a monoid under composition, its units are the bijective lifts, and the lifts form a lattice under the pointwise order. Section 2 defines the translation number as the limit of $F^n(x)/n$, proves that it exists and does not depend on $x$, and that it is invariant under semiconjugacy. It proves that a continuous lift has rational translation number $m/n$ if and only if some point satisfies $F^n(x) = x + m$, and it proves the theorem of Poincaré and Ghys: two actions of a group by lifts with the same translation numbers are semiconjugate.
+
+The chapter needs Volume 15 for the intermediate value theorem and for limits of sequences, and Volume 13 for continuity on the line. It uses the iterates and the semiconjugacies of Chapter 1. All the Mathlib material is in one file, `Mathlib.Dynamics.Circle.RotationNumber.TranslationNumber`, which works with the lifts only and never with the circle itself.

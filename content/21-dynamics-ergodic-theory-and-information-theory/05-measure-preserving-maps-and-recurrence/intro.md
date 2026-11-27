@@ -1,0 +1,7 @@
+# Measure preserving maps and recurrence
+
+This chapter starts the measured theory of dynamical systems. A map $f$ of a measure space preserves the measure $\mu$ if $\mu(f^{-1}(B)) = \mu(B)$ for each measurable set $B$. Such maps model systems that keep a volume, such as Hamiltonian flows, and the measure lets one ask how often an orbit visits a set. The first theorem of the subject is the recurrence theorem of Poincaré: in a finite measure space, almost every point of a set of positive measure comes back to the set infinitely often.
+
+Section 1 defines measure preserving and quasi measure preserving maps, proves their closure properties, and proves a pigeonhole form of recurrence. It shows that the Lebesgue decomposition of an invariant measure into a singular part and a part with a density is invariant, and it proves that the rotations, the doubling map and the Gauss map of continued fractions preserve explicit measures. Section 2 defines conservative maps, the maps for which no set of positive measure wanders off for ever, and proves the recurrence theorem for sets and, on a space with a countable base, for neighbourhoods of almost every point.
+
+The chapter needs Volume 18 for measures, null sets, image measures, the uniqueness of measures on a $\pi$-system and the Lebesgue decomposition. It uses the iterates of Chapter 1 and, in Section 2, the $\omega$-limit sets of Chapter 2. In Mathlib the notions live in the namespace `MeasureTheory`, and the file on conservative maps states recurrence for quasi measure preserving maps.

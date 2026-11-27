@@ -1,0 +1,8 @@
+number: 21
+title: Dynamics, ergodic theory and information theory
+subtitle: Fixed and periodic points, flows, minimal sets, circle maps, invariant measures, ergodicity, recurrence, the ergodic theorems, entropy and the Kullback-Leibler divergence in Mathlib
+level: graduate
+prefixes:
+- Mathlib/Dynamics
+- Mathlib/InformationTheory
+- Mathlib/Analysis/AperiodicOrder
