@@ -1,0 +1,17 @@
+number: 16
+title: Normed spaces and functional analysis
+subtitle: Normed spaces, bounded operators, Banach and Hilbert spaces, Hahn-Banach and Riesz representation in Mathlib
+level: graduate
+prefixes:
+- Mathlib/Analysis/Normed
+- Mathlib/Analysis/InnerProductSpace
+- Mathlib/Analysis/LocallyConvex
+- Mathlib/Analysis/CStarAlgebra
+- Mathlib/Analysis/VonNeumannAlgebra
+- Mathlib/Analysis/Convex
+- Mathlib/Analysis/RCLike
+- Mathlib/Analysis/Seminorm
+- Mathlib/Analysis/Matrix
+- Mathlib/Analysis/Quaternion
+- Mathlib/Analysis/FunctionalSpaces
+- Mathlib/Analysis/Hofer
