@@ -4,6 +4,7 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+- V33 Data structures and computation has a first draft: 8 chapters, 18 sections and 125 exercises. The text treats lists and their operations, sublists and orders on lists, permutations, sorting and cycles, association lists, finite maps and balanced trees, vectors and streams, lazy sequences and computations, functors, monads and traversable functors, general recursion with fixed points, W types and polynomial functors, fixed-width integers and bit vectors, and property-based testing.
 - V32 Logic, model theory and computability has a first draft: 8 chapters, 17 sections and 113 exercises. The text treats first-order languages, structures and semantics, compactness with ultraproducts, the theorems of Lowenheim and Skolem, definable sets and Fraisse limits, the model theory of algebraically closed fields and of Presburger arithmetic, regular expressions, finite automata and context-free grammars, primitive and partial recursive functions, undecidability and Turing degrees, Turing machines, and the Akra-Bazzi theorem.
 
 ## v0.6.5 - 2026-11-27

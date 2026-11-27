@@ -1,0 +1,8 @@
+number: 33
+title: Data structures and computation
+subtitle: Lists, permutations and cycles, finite maps, vectors and streams, lazy sequences, monads and traversable functors, W types and polynomial functors, and machine data in Mathlib
+level: foundation
+prefixes:
+- Mathlib/Data
+- Mathlib/Control
+- Mathlib/Testing
