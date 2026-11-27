@@ -1,0 +1,7 @@
+# Galois categories
+
+This chapter gives the Galois theory of Grothendieck in the language of categories. The Galois group of a field acts on the roots of polynomials, and the fundamental group of a space acts on the fibers of its coverings. In each case a category of objects is equivalent to a category of finite sets with an action of a group. A Galois category has axioms that make this possible, and a fiber functor sends each object to a finite set. The group is the group of the automorphisms of the fiber functor.
+
+Section 1 states the axioms of Galois categories and fiber functors. It proves that a morphism from a connected object is determined by its value at one point of the fiber, that each object is a finite coproduct of connected objects, and that the fiber of each object is represented by a Galois object. The example is the category of finite $G$-sets for a group $G$. Section 2 shows that the fiber functor is a filtered colimit of representable functors, and that its automorphism group is a profinite group. It proves the main theorem: the fiber functor gives an equivalence of the Galois category with the finite sets with a continuous action of this group. It ends with a criterion that identifies a given compact group with the fundamental group.
+
+The chapter needs Volume 5 for group actions, Volume 13 for compact spaces, Volume 14 for topological groups, and Volume 24 for limits, filtered colimits and the Yoneda lemma. The main application, the étale fundamental group of a scheme, is not in Mathlib in this edition.
