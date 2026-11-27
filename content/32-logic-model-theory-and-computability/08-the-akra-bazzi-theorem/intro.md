@@ -1,0 +1,7 @@
+# The Akra-Bazzi theorem
+
+This chapter has one section, on the recurrences that describe the running time of divide and conquer algorithms. Such a recurrence writes $T(n)$ as a sum of multiples of $T$ at sizes close to $b_i n$, plus a cost $g(n)$ for the split and the combination. The section defines the functions of polynomial growth, the structure of an Akra-Bazzi recurrence, the exponent $p$ with $\sum_i a_i b_i^{p} = 1$, and the sum transform. It proves that $p$ exists and is unique, proves the two estimates of the sum transform and the smoothing lemma, and gives the induction that proves $T = \Theta\big(n^{p}(1 + \sum_{u<n} g(u)/u^{p+1})\big)$. It then derives the three cases of the master theorem and works out merge sort, binary search and the Karatsuba recurrence.
+
+The chapter needs the asymptotic notation of analysis, that is, big O, little o and $\Theta$ along the filter `atTop`. It also needs the real powers $x^{q}$, the logarithm, the intermediate value theorem and the mean value theorem, and finite sums over a range of natural numbers. It does not use the automata of Chapter 5, nor the machine models of Chapters 6 and 7.
+
+The theorem measures the cost of an algorithm, while the earlier chapters ask what an algorithm can compute at all. The section states where the index of this edition has no declaration, in particular for the master theorem as a separate statement. Later volumes on analysis and on algorithms can use the theorem to bound the cost of recursive procedures.
