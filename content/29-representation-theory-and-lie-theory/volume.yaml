@@ -1,0 +1,12 @@
+number: 29
+title: Representation theory and Lie theory
+subtitle: Representations of groups, characters, induction, Lie algebras, semisimple Lie algebras, weights, root systems and Coxeter groups in Mathlib
+level: graduate
+prefixes:
+- Mathlib/RepresentationTheory
+- Mathlib/Algebra/Lie
+- Mathlib/Algebra/LieRinehartAlgebra
+- Mathlib/Algebra/Vertex
+- Mathlib/LinearAlgebra/RootSystem
+- Mathlib/LinearAlgebra/Reflection
+- Mathlib/GroupTheory/Coxeter

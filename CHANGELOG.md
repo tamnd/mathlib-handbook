@@ -4,6 +4,8 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+- V29 Representation theory and Lie theory has a first draft: 8 chapters, 18 sections and 113 exercises. The text treats representations of groups and the category Rep, the theorem of Maschke and characters, induction, coinduction and continuous representations, Lie algebras with their ideals, derivations and enveloping algebras, solvable, nilpotent and semisimple Lie algebras with the theorem of Engel and the Killing form, Cartan subalgebras, weights and roots, root systems with bases, Cartan matrices and G2, and Coxeter groups, Lie-Rinehart algebras and vertex operators.
+
 ## v0.6.4 - 2026-11-27
 
 ### Changed
