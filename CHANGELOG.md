@@ -6,6 +6,7 @@ Each release has a section. The newest release is first.
 
 ### Added
 
+- The first draft of V16 Normed spaces and functional analysis (7 chapters, 19 sections, 140 exercises, about 44,000 words). The status of each section is drafted, and each section has `lean: []`.
 - The first draft of V18 Measure and integration (8 chapters, 20 sections, 134 exercises, about 45,000 words). Chapters 1 to 6 hold the core of the reading path U. The status of each section is drafted, and each section has `lean: []`.
 - The first draft of V12 Number theory (8 chapters, 19 sections, 141 exercises, about 45,000 words). The status of each section is drafted, and each section has `lean: []`.
 - The first drafts of V11 Fields and Galois theory (8 chapters, 19 sections, 134 exercises) and V14 Topological algebra and infinite sums (8 chapters, 19 sections, 136 exercises), with about 89,000 words. The status of each section is drafted, and each section has `lean: []`.
