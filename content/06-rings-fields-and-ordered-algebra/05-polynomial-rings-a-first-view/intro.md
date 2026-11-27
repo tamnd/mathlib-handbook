@@ -1,0 +1,7 @@
+# Polynomial rings: a first view
+
+A polynomial over a commutative ring $R$ is a finite formal sum $a_0 + a_1 X + \dots + a_n X^n$ with coefficients in $R$. The polynomials form a ring $R[X]$, and this ring is the first ring that most of algebra builds on top of a given one. This chapter gives a first view of it. It does not try to be complete: Volume 9 studies polynomials in one and several variables in full, and Volume 11 studies the roots of polynomials over fields.
+
+Section 1 defines $R[X]$, the degree and the leading coefficient, and proves that $\deg(fg) = \deg f + \deg g$ over an integral domain, so that $R[X]$ is a domain when $R$ is. It then proves the universal property of $R[X]$: a ring homomorphism out of $R[X]$ is given by a ring homomorphism out of $R$ and the image of $X$. Evaluation is the main case. Section 2 proves division with remainder by a monic polynomial, the remainder theorem and the factor theorem, and the bound on the number of roots of a polynomial over a domain. As an application it proves that a finite subgroup of the multiplicative group of a field is cyclic.
+
+The chapter needs Chapters 1 to 3 (rings, homomorphisms, ideals, integral domains and fields) and uses $\mathbb{Z}/n$ and $\mathbb{F}_p$ from Chapter 4 for its examples. Chapter 6 uses division with remainder in $K[X]$ to show that $K[X]$ is a Euclidean domain, hence a principal ideal domain and a unique factorization domain. Chapter 8 uses evaluation again, as an algebra homomorphism.

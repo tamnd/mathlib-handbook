@@ -4,6 +4,10 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+### Added
+
+- The first drafts of V06 Rings, fields and ordered algebra (8 chapters, 22 sections), V07 Linear algebra (7 chapters, 17 sections), V13 General topology (8 chapters, 19 sections) and V15 Real analysis in one variable (7 chapters, 19 sections). The four volumes have about 208,000 words and 579 graded exercises. The status of each section is drafted. These volumes have no Lean blocks and no (L) exercises yet, and each section has `lean: []`.
+
 ### Changed
 
 - The line `catalogue` of `EDITION` gives all 35 volumes, V00 to V34. The CI sets the full Catalogue, C00 to C34, with each declaration of Mathlib in the volume of its home. A local build of C24, the largest new volume, gives 725 pages with 34,120 entries.

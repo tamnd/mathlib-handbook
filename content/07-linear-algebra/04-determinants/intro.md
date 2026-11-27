@@ -1,0 +1,5 @@
+# Determinants
+
+The determinant attaches one scalar to each square matrix. It is zero exactly when the matrix is singular, it measures the change of volume under a linear map, and it is the source of the characteristic polynomial of Chapter 5. This chapter develops the determinant over a commutative ring. Section 1 defines it by the formula of Leibniz, a sum over the permutations, and proves its properties as a function of the rows: it is multilinear and alternating, it is invariant under the transpose, and it has a Laplace expansion. Section 2 proves the multiplicativity $\det(A B) = \det A \det B$, defines the adjugate and proves $A \operatorname{adj} A = \det A \cdot I$. From these two results it characterizes the invertible matrices by their determinant, derives the rule of Cramer for linear systems, and defines the determinant of a linear endomorphism.
+
+The chapter needs the matrices of Chapter 3 and the sign of a permutation of Volume 5, Chapter 7. All the theorems hold over a commutative ring and not only over a field. This generality is necessary for Chapter 5, where the entries of the matrix $X I - A$ are polynomials.

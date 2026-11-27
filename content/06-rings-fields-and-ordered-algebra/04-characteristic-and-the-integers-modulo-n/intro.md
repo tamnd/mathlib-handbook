@@ -1,0 +1,7 @@
+# Characteristic and the integers modulo n
+
+This chapter studies the unique homomorphism $\mathbb{Z} \to R$ and the rings $\mathbb{Z}/n$ that it produces. Section 1 defines the characteristic of a ring as the generator of the kernel of this map, proves that the characteristic of an integral domain is $0$ or a prime, and shows that each field contains $\mathbb{Q}$ or $\mathbb{Z}/p$ as its prime field. It then proves the identity $(a + b)^p = a^p + b^p$ in characteristic $p$, so that the $p$-th power map is a ring homomorphism, the Frobenius. Section 2 treats $\mathbb{Z}/n$ as the quotient ring $\mathbb{Z}/n\mathbb{Z}$: its universal property, its ideals, the equivalence of "$n$ prime", "$\mathbb{Z}/n$ a domain" and "$\mathbb{Z}/n$ a field", the Chinese remainder theorem as a ring isomorphism, and the units, nilpotents and idempotents that the theorem computes.
+
+The chapter needs Chapter 2 for quotients and the isomorphism theorems, and Chapter 3 for domains, fields and the field of fractions. Volume 2, Chapter 6 built $\mathbb{Z}/n$ from residues and proved the theorems of Euler, Fermat and Wilson by counting; this chapter does not repeat those proofs, and gives a second proof of Fermat's theorem through the Frobenius.
+
+The Frobenius is the main tool of the theory of finite fields in Volume 11, where every finite field turns out to have $p^n$ elements and a cyclic group of units. Chapter 5 uses $\mathbb{Z}/p$ as the first example of polynomials over a finite field, and the Chinese remainder theorem for ideals of a general ring returns in Volume 9.

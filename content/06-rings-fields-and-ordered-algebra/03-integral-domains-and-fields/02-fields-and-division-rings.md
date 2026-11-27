@@ -1,0 +1,243 @@
+---
+title: Fields and division rings
+kind: theory
+modules:
+  - Mathlib.Algebra.Field.Defs
+  - Mathlib.Algebra.Field.Basic
+  - Mathlib.Algebra.Field.IsField
+  - Mathlib.Algebra.Field.Subfield.Defs
+  - Mathlib.Algebra.Field.Subfield.Basic
+  - Mathlib.Algebra.Field.Rat
+explains:
+  E3: [DivisionRing, Field, IsField]
+  E2: [Semifield, IsField.toField, Field.toIsField, Subfield, Subfield.closure, Field.isDomain, DivisionRing.isDomain, Rat.instField]
+  E1: auto
+families: []
+requires: [V06.C01, V06.C02]
+reads_with: ["MIL"]
+lean: []
+mathlib: e54979a532247ae4eb9d5578a8fd40a1bc332101
+status: drafted
+drafted_by: writer@claude-opus-5-5
+reviewed_by: []
+---
+
+## Fields and division rings
+
+### Overview
+
+A field is a commutative ring in which each nonzero element is a unit. The rational, real and complex numbers are fields, and so is $\mathbb{Z}/p$ for a prime $p$ (Chapter 4). A division ring has the same property without commutativity. The quaternions of Hamilton are the first example of a division ring that is not a field.
+
+This section defines fields, division rings and subfields, and proves four facts. A field is an integral domain. A finite integral domain is a field. A ring homomorphism from a field to a nonzero ring is injective. The set $\mathbb{Q}(\sqrt 2)$ is a subfield of $\mathbb{R}$. The section also explains the main surprise of fields in Mathlib: the inverse is a total function, and $0^{-1} = 0$.
+
+### Definitions
+
+**Definition (Division ring, field).** A *division ring* is a ring $D$ with $0 \ne 1$ in which each nonzero element is a unit. A *field* is a commutative division ring.
+
+So in a division ring the nonzero elements form a group $D^\times = D \setminus \{0\}$ under multiplication. In a field this group is commutative. The condition $0 \ne 1$ excludes the zero ring, in which $0$ would be the only element and the group of nonzero elements would be empty.
+
+::: mathlib
+`DivisionRing` · `Mathlib.Algebra.Field.Defs`
+
+`DivisionRing K` extends `Ring K`, `DivInvMonoid K` and `Nontrivial K`. It carries the inverse `x⁻¹` and the division `x / y` as functions defined on all of `K`, with the axioms `mul_inv_cancel : a ≠ 0 → a * a⁻¹ = 1` and `inv_zero : 0⁻¹ = 0`. It also carries the cast `ℚ → K` and the scalar action of `ℚ` as data, with axioms that fix their values. This data makes the cast from `ℚ` to `ℝ` and the action of `ℚ` on a field definitionally the expected ones, so instance search does not produce two different actions of `ℚ` on one type.
+
+<?decl DivisionRing?>
+:::
+
+::: mathlib
+`Field` · `Mathlib.Algebra.Field.Defs`
+
+`Field K` extends `CommRing K` and `DivisionRing K`. It is a class with data, not a mixin, because the inverse is data. A typical hypothesis is `[Field K]`, and then `K` is also a commutative ring, a domain, a group with zero and a division ring by instance search.
+
+<?decl Field?>
+:::
+
+::: mathlib
+`Semifield` · `Mathlib.Algebra.Field.Defs`
+
+A commutative semiring with inverses of nonzero elements. The nonnegative rationals `ℚ≥0` and the nonnegative reals `ℝ≥0` are semifields. Many lemmas about division are proved for a `Semifield` or a `DivisionSemiring`, so that they apply to these types too.
+
+<?decl Semifield?>
+:::
+
+**Definition (Field as a property).** A commutative ring $R$ *is a field* if $0 \ne 1$ in $R$ and each nonzero $a \in R$ has some $b$ with $a b = 1$.
+
+This is the same definition as above, read as a property of a ring and not as a structure with an inverse function. The two readings agree in mathematics, since the inverse is unique. They differ in a formal library, and Mathlib has both.
+
+::: mathlib
+`IsField` · `Mathlib.Algebra.Field.IsField`
+
+`IsField R` is a structure of propositions over a `Semiring R`: there are two distinct elements, the multiplication is commutative, and each nonzero element has a right inverse. It is a proposition, so it can appear inside an `↔`. The typical theorem of Chapter 2, "the quotient $R/M$ is a field if and only if $M$ is maximal", is stated with `IsField`.
+
+<?decl IsField?>
+:::
+
+::: mathlib
+`IsField.toField` · `Mathlib.Algebra.Field.IsField`
+
+The construction of a `Field` from a proof of `IsField`. It is a `noncomputable def`: it chooses the inverse of each element with the axiom of choice, and sets the inverse of $0$ to $0$. Use it with `letI := h.toField` inside a proof.
+
+<?decl IsField.toField?>
+:::
+
+::: mathlib
+`Field.toIsField` · `Mathlib.Algebra.Field.IsField`
+
+The other direction: a `Field` satisfies `IsField`.
+
+<?decl Field.toIsField?>
+:::
+
+**Definition (Subfield).** Let $K$ be a field. A *subfield* of $K$ is a subring $F \subseteq K$ such that $a^{-1} \in F$ for each nonzero $a \in F$. The *subfield generated* by a set $S \subseteq K$ is the intersection of all the subfields that contain $S$.
+
+A subfield is a field with the operations of $K$. An intersection of subfields is a subfield, by the same argument as for subrings in Chapter 1, so the subfield generated by $S$ is the smallest subfield that contains $S$.
+
+::: mathlib
+`Subfield` · `Mathlib.Algebra.Field.Subfield.Defs`
+
+`Subfield K` is a structure over a `DivisionRing K`. It extends `Subring K` with the field `inv_mem'`. Since the inverse of $0$ is $0$, the condition is stated for every element of the subfield, not only for the nonzero ones. The subfields of `K` form a complete lattice, as do the subrings.
+
+<?decl Subfield?>
+:::
+
+::: mathlib
+`Subfield.closure` · `Mathlib.Algebra.Field.Subfield.Basic`
+
+The subfield generated by a set. The main lemmas are `Subfield.subset_closure` and `Subfield.closure_le : closure s ≤ t ↔ s ⊆ t`, the Galois connection of Volume 4.
+
+<?decl Subfield.closure?>
+:::
+
+### Theorems and proofs
+
+**Theorem (A division ring is a domain).** Each division ring is a domain. In particular each field is an integral domain.
+
+*Proof.* A division ring $D$ has $0 \ne 1$ by definition. Let $a b = 0$ with $a \ne 0$. Then $a$ is a unit, and a unit is not a zero divisor by Section 1, so $b = 0$. $\square$
+
+::: mathlib
+`DivisionRing.isDomain` · `Mathlib.Algebra.Field.Basic`
+
+The theorem as an instance. For a field, the instance `Field.isDomain` gives the same, so every lemma for an integral domain applies to a field with no extra step.
+
+<?decl DivisionRing.isDomain?>
+:::
+
+::: mathlib
+`Field.isDomain` · `Mathlib.Algebra.Field.Basic`
+
+The instance `IsDomain K` for a field `K`.
+
+<?decl Field.isDomain?>
+:::
+
+**Theorem (A finite integral domain is a field).** Let $R$ be a finite integral domain. Then $R$ is a field.
+
+*Proof.* The ring $R$ is commutative and $0 \ne 1$, so it remains to find an inverse of each nonzero $a \in R$. Define $m_a : R \to R$ by $m_a(x) = a x$. The map $m_a$ is injective: if $a x = a y$, then $x = y$ by the cancellation law of Section 1, since $a \ne 0$. An injective map from a finite set to itself is surjective, because its image has as many elements as the set. So $1$ is in the image: there is $b \in R$ with $a b = 1$. Since $R$ is commutative, $b a = 1$ too, and $a$ is a unit. $\square$
+
+Finiteness is used once, to pass from injective to surjective. The same argument, with $x \mapsto x a$ for the left inverse, shows that a finite domain that is not commutative is a division ring. A theorem of Wedderburn (1905) says that each finite division ring is commutative, so each finite domain is a field.
+
+::: mathlib
+`Fintype.fieldOfDomain` · `Mathlib.RingTheory.IntegralDomain`
+
+The `Field` structure on a finite commutative domain, with a `Fintype` and a `DecidableEq` instance so that the inverse can be found by search over the elements. The form with Wedderburn's theorem is `Finite.isDomain_to_isField`, for a `Ring` that need not be commutative, in `Mathlib.RingTheory.LittleWedderburn`.
+
+<?decl Fintype.fieldOfDomain?>
+:::
+
+**Theorem (Homomorphisms from a field are injective).** Let $K$ be a division ring, let $S$ be a ring with $0 \ne 1$, and let $f : K \to S$ be a ring homomorphism. Then $f$ is injective.
+
+*Proof.* Since $f$ is additive, it is enough to show that $f(a) = 0$ implies $a = 0$: if $f(a) = f(b)$, then $f(a - b) = 0$, so $a = b$. Let $f(a) = 0$ and assume $a \ne 0$. Then
+$$1 = f(1) = f(a a^{-1}) = f(a) f(a^{-1}) = 0 \cdot f(a^{-1}) = 0$$
+in $S$, against $0 \ne 1$ in $S$. So $a = 0$. $\square$
+
+So a homomorphism of fields $K \to L$ identifies $K$ with a subfield of $L$. This is the start of the theory of field extensions in Volume 11. In the language of Chapter 2, the kernel of $f$ is an ideal of $K$ that does not contain $1$, and the only such ideal of a field is $\{0\}$.
+
+::: mathlib
+`RingHom.injective` · `Mathlib.RingTheory.SimpleRing.Basic`
+
+Mathlib states the theorem for a ring `R` that is simple, `[IsSimpleRing R]`, and a nontrivial codomain. A division ring is a simple ring by an instance, so `f.injective` works for a homomorphism from a field. The general form is the right one: the proof only needs that the kernel, a two-sided ideal, is $0$.
+
+<?decl RingHom.injective?>
+:::
+
+**Theorem (The field $\mathbb{Q}(\sqrt 2)$).** The set $\mathbb{Q}(\sqrt 2) = \{a + b \sqrt 2 : a, b \in \mathbb{Q}\}$ is a subfield of $\mathbb{R}$. The inverse of a nonzero element is
+$$(a + b \sqrt 2)^{-1} = \frac{a}{a^2 - 2 b^2} - \frac{b}{a^2 - 2 b^2} \sqrt 2.$$
+
+*Proof.* The set contains $0$ and $1$, and it is closed under addition and negation. It is closed under products:
+$$(a + b \sqrt 2)(c + d \sqrt 2) = (a c + 2 b d) + (a d + b c) \sqrt 2.$$
+So it is a subring. Let $x = a + b \sqrt 2 \ne 0$. First, $a^2 - 2 b^2 \ne 0$. Indeed, if $b = 0$, then $a \ne 0$ and $a^2 - 2b^2 = a^2 \ne 0$. If $b \ne 0$ and $a^2 = 2 b^2$, then $(a/b)^2 = 2$, and $\sqrt 2$ would be rational, which it is not (Volume 2, Chapter 4). Now
+$$(a + b \sqrt 2)(a - b \sqrt 2) = a^2 - 2 b^2,$$
+so $x \cdot (a - b \sqrt 2)/(a^2 - 2b^2) = 1$. The second factor is the element of the statement, and it is in $\mathbb{Q}(\sqrt 2)$. $\square$
+
+The proof uses the conjugate $a - b \sqrt 2$, as Section 1 did for the units of $\mathbb{Z}[\sqrt 2]$. There the norm $a^2 - 2b^2$ had to be $\pm 1$, since only $\pm 1$ are units of $\mathbb{Z}$. Here the norm only has to be nonzero, since each nonzero rational is a unit.
+
+### Examples
+
+**Example (An inverse in $\mathbb{Q}(\sqrt 2)$).** Let $x = 3 + \sqrt 2$. Its norm is $9 - 2 = 7$, so $x^{-1} = \frac{3}{7} - \frac{1}{7}\sqrt 2$. Check: $(3 + \sqrt 2)(3 - \sqrt 2) = 9 - 2 = 7$. The element $x$ is not a unit of the subring $\mathbb{Z}[\sqrt 2]$, since its norm is not $\pm 1$.
+
+**Example (A field with four elements).** Let $\mathbb{F}_4 = \{0, 1, \omega, \omega + 1\}$, with the addition of $(\mathbb{Z}/2)^2$ in the basis $1, \omega$ and the multiplication given by the distributive law and the rule $\omega^2 = \omega + 1$. Chapter 2 constructs this ring as $(\mathbb{Z}/2)[X]/(X^2 + X + 1)$, which gives the ring axioms. Since $1 + 1 = 0$,
+$$\omega (\omega + 1) = \omega^2 + \omega = (\omega + 1) + \omega = 1, \qquad (\omega + 1)^2 = \omega^2 + 1 = \omega.$$
+So $\omega$ and $\omega + 1$ are inverse to each other, and each nonzero element is a unit. The group $\mathbb{F}_4^\times = \{1, \omega, \omega^2\}$ is cyclic of order $3$. This field is not $\mathbb{Z}/4$: in $\mathbb{Z}/4$ the class $[2]$ satisfies $[2]^2 = [0]$, so $\mathbb{Z}/4$ is not even a domain.
+
+**Example (The quaternions).** Let $\mathbb{H}$ be the real vector space with basis $1, i, j, k$ and the product given by bilinearity and
+$$i^2 = j^2 = k^2 = -1, \quad i j = k = -j i, \quad j k = i = -k j, \quad k i = j = -i k.$$
+The product is associative (a check on the basis, or Volume 8 for a conceptual proof). It is not commutative, since $i j = k \ne -k = j i$. For $q = a + b i + c j + d k$ let $\bar q = a - b i - c j - d k$. The cross terms cancel in pairs, for example $b i \cdot (-c j) + c j \cdot (-b i) = -b c k + b c k = 0$, and
+$$q \bar q = a^2 + b^2 + c^2 + d^2 = \bar q q.$$
+If $q \ne 0$, this real number is positive, so $q^{-1} = \bar q / (a^2 + b^2 + c^2 + d^2)$. So $\mathbb{H}$ is a division ring and not a field. For example $(1 + i + j + k)^{-1} = \frac{1}{4}(1 - i - j - k)$.
+
+::: mathlib
+`Quaternion.instDivisionRing` · `Mathlib.Algebra.Quaternion`
+
+The quaternions `ℍ[R]` over a commutative ring `R` are a ring, and Mathlib makes them a division ring when `R` is a field with a linear order and `IsStrictOrderedRing R`. The order is needed so that $a^2 + b^2 + c^2 + d^2 = 0$ forces $a = b = c = d = 0$. Over $\mathbb{C}$ this fails, since $1^2 + i^2 = 0$, and the complex quaternions have zero divisors. The norm is `Quaternion.normSq : ℍ[R] →*₀ R`, a multiplicative map. Chapter 8 returns to the quaternions as an algebra and a star ring.
+
+<?decl Quaternion.instDivisionRing?>
+:::
+
+**Counterexample (Finiteness is needed).** The ring $\mathbb{Z}$ is an infinite integral domain and not a field: $2$ has no inverse. In the proof of the theorem on finite domains, $m_2(x) = 2x$ is injective on $\mathbb{Z}$ and not surjective. The same holds for the polynomial ring $\mathbb{Q}[X]$, an integral domain in which $X$ has no inverse (Chapter 5).
+
+**Counterexample (Homomorphisms into the zero ring).** The map $\mathbb{Q} \to \{0\}$ is a ring homomorphism and not injective. The hypothesis $0 \ne 1$ in the codomain is needed in the theorem on injectivity.
+
+**Example (The junk value $0^{-1} = 0$).** In Mathlib, `(0 : ℚ)⁻¹ = 0` and `(5 : ℚ) / 0 = 0`. The text form of a field has no inverse of $0$, and the library chooses the value $0$ so that the inverse is a total function. The choice changes no theorem about nonzero elements. It makes some identities true with no hypothesis: `inv_inv : a⁻¹⁻¹ = a`, `mul_inv : (a * b)⁻¹ = a⁻¹ * b⁻¹`, `add_div : (a + b) / c = a / c + b / c` and `inv_pow` hold for all elements. Other identities still need the hypothesis: `mul_inv_cancel₀ : a ≠ 0 → a * a⁻¹ = 1` and `div_mul_cancel₀` fail for $a = 0$. The rule of thumb: an identity that holds for $a = 0$ after the substitution $0^{-1} = 0$ has no hypothesis in Mathlib.
+
+::: mathlib
+`inv_zero` · `Mathlib.Algebra.GroupWithZero.Defs`
+
+The axiom `0⁻¹ = 0` of a group with zero, of which a division ring is an instance. The lemma `div_zero : a / 0 = 0` follows from it.
+
+<?decl inv_zero?>
+:::
+
+### The library around it
+
+The lemmas on division are in `Mathlib.Algebra.Field.Basic` and in the files on groups with zero of Volume 5. Their names describe the identity: `div_add_div`, `div_sub_div`, `div_div`, `div_mul_eq_mul_div`, `one_div`, `inv_eq_one_div`. The hypotheses are nonzero conditions such as `hb : b ≠ 0`. The tactic `field_simp` clears denominators with these lemmas and asks for the nonzero conditions, and Volume 34 explains it. The instance `Rat.instField` makes `ℚ` a field. The real numbers are a field by the construction of Volume 2, and the complex numbers by `Complex.instField`.
+
+A field `K` has `IsUnit a ↔ a ≠ 0` by `isUnit_iff_ne_zero`. The bundled map `Units.mk0 a ha : Kˣ` makes a unit from a nonzero element. Subfields have the API of subrings: `Subfield.mem_closure`, `Subfield.map`, `Subfield.comap` and the range `RingHom.fieldRange` of a homomorphism of fields.
+
+Common errors of a learner:
+
+- Assuming that `a / a = 1` holds with no hypothesis. It is `div_self : a ≠ 0 → a / a = 1`.
+- Writing `[Field K] [IsDomain K]`. The second instance is already there.
+- Writing a division in `ℕ` or `ℤ` and expecting the field division. In `ℕ` and `ℤ`, `/` is the floor division, and `7 / 2 = 3`. Cast to `ℚ` first.
+- Using `IsField` where a `Field` instance is needed, or the reverse. Convert with `IsField.toField` and `Field.toIsField`.
+
+### Exercises
+
+1. (A) Compute the inverse of $1 - 2 \sqrt 2$ in $\mathbb{Q}(\sqrt 2)$ and check it.
+2. (A) Write the multiplication table of $\mathbb{F}_4$ and check that each nonzero element has an inverse.
+3. (A) Show that the intersection of two subfields of a field is a subfield.
+4. (B) Show that $\mathbb{Q}(i) = \{a + b i : a, b \in \mathbb{Q}\}$ is a subfield of $\mathbb{C}$, and that it is the subfield generated by $i$.
+5. (B) Show that $\mathbb{Q}$ is the smallest subfield of $\mathbb{R}$: each subfield of $\mathbb{R}$ contains $\mathbb{Q}$. Hint: a subfield contains $1$, hence each integer, hence each quotient of integers.
+6. (B) Show that the only ring homomorphism $\mathbb{Q}(\sqrt 2) \to \mathbb{Q}(\sqrt 2)$ other than the identity is $a + b \sqrt 2 \mapsto a - b\sqrt 2$. Hint: a homomorphism fixes $\mathbb{Q}$ by Exercise 5's argument, and it sends $\sqrt 2$ to a square root of $2$.
+7. (B) Show that in a field $K$ the equation $x^2 = 1$ has only the solutions $\pm 1$. Show that $\mathbb{Z}/8$ has four solutions, and explain which hypothesis fails.
+8. (C) Let $R$ be an integral domain that is a finite dimensional vector space over a subfield $K$. Show that $R$ is a field. Hint: the map $x \mapsto a x$ is $K$-linear and injective.
+9. (C) Show that the quaternions with rational coefficients form a division ring, and that $x^2 = -1$ has infinitely many solutions in it. Hint: try $x = b i + c j + d k$ with $b^2 + c^2 + d^2 = 1$; this shows that Exercise 7 needs commutativity.
+
+### Notes and history
+
+The word *field* (Körper) is due to Dedekind, who used it in 1871 for the subfields of $\mathbb{C}$. Weber gave an abstract definition in 1893, and Steinitz studied general fields systematically in his paper *Algebraische Theorie der Körper* of 1910, the start of modern field theory. Hamilton found the quaternions on 16 October 1843 and carved the rule $i^2 = j^2 = k^2 = i j k = -1$ into Brougham Bridge in Dublin. Frobenius proved in 1878 that $\mathbb{R}$, $\mathbb{C}$ and $\mathbb{H}$ are the only finite dimensional associative division algebras over $\mathbb{R}$. Wedderburn proved in 1905 that a finite division ring is commutative.
+
+In Mathlib the convention $0^{-1} = 0$ follows the practice of earlier proof assistants such as Isabelle/HOL. The alternative, an inverse defined only on nonzero elements, makes every term with a division carry a proof, and the convention avoids this. The rational cast and the rational action inside `DivisionRing` were added later to remove diamonds between the instances of `ℚ`-algebras.
+
+### Reference
+
+<?reference?>

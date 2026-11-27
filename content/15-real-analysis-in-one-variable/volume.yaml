@@ -1,0 +1,32 @@
+number: 15
+title: Real analysis in one variable
+subtitle: Limits, continuity, derivatives, the elementary functions and asymptotics in Mathlib
+level: undergraduate
+prefixes:
+- Mathlib/Analysis/SpecialFunctions
+- Mathlib/Analysis/Real
+- Mathlib/Analysis/Asymptotics
+- Mathlib/Analysis/SpecificLimits
+- Mathlib/Analysis/PSeries
+- Mathlib/Analysis/SumIntegralComparisons
+- Mathlib/Analysis/SumIntegralExpDecay
+- Mathlib/Analysis/MeanInequalities
+- Mathlib/Analysis/MeanInequalitiesPow
+- Mathlib/Analysis/BoundedVariation
+- Mathlib/Analysis/Polynomial
+- Mathlib/Analysis/Rat
+- Mathlib/Analysis/Oscillation
+- Mathlib/Analysis/Subadditive
+- Mathlib/Analysis/Calculus/Deriv
+- Mathlib/Analysis/Calculus/MeanValue
+- Mathlib/Analysis/Calculus/LHopital
+- Mathlib/Analysis/Calculus/Darboux
+- Mathlib/Analysis/Calculus/DerivativeTest
+- Mathlib/Analysis/Calculus/IteratedDeriv
+- Mathlib/Analysis/Calculus/Monotone
+- Mathlib/Analysis/Calculus/AbsolutelyMonotone
+- Mathlib/Analysis/Calculus/DSlope
+- Mathlib/Analysis/Calculus/LogDeriv
+- Mathlib/Analysis/Calculus/LocalExtr
+- Mathlib/Topology/Instances/Real
+- Mathlib/Topology/Instances/Irrational
