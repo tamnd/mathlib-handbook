@@ -1,0 +1,24 @@
+number: 3
+title: Sets, finite structures and big operators
+subtitle: Sets, finite sets and finite types, and the sums and products over them
+level: undergraduate
+prefixes:
+- Mathlib/Data/Set
+- Mathlib/Data/Finset
+- Mathlib/Data/Multiset
+- Mathlib/Data/Fintype
+- Mathlib/Data/Finite
+- Mathlib/Data/Finsupp
+- Mathlib/Data/DFinsupp
+- Mathlib/Data/Sym
+- Mathlib/Data/FinEnum
+- Mathlib/Data/Countable
+- Mathlib/Data/SetLike
+- Mathlib/Basic/Finite
+- Mathlib/Basic/Countable
+- Mathlib/Basic/Denumerable
+- Mathlib/Basic/SetLike
+- Mathlib/Algebra/BigOperators
+- Mathlib/Algebra/FiniteSupport
+- Mathlib/Algebra/Order/BigOperators
+- Mathlib/Algebra/Order/Antidiag

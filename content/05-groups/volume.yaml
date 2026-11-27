@@ -1,0 +1,29 @@
+number: 5
+title: Groups
+subtitle: Monoids, groups, subgroups, quotients, actions and the Sylow theorems in Mathlib
+level: undergraduate
+prefixes:
+- Mathlib/GroupTheory
+- Mathlib/Algebra/Group
+- Mathlib/Algebra/GroupWithZero
+- Mathlib/Algebra/Free
+- Mathlib/Algebra/FreeMonoid
+- Mathlib/Algebra/FreeAbelianGroup
+- Mathlib/Algebra/PresentedMonoid
+- Mathlib/Algebra/Quandle
+- Mathlib/Algebra/Torsor
+- Mathlib/Algebra/Opposites
+- Mathlib/Algebra/Regular
+- Mathlib/Algebra/Divisibility
+- Mathlib/Algebra/NeZero
+- Mathlib/Algebra/Notation
+- Mathlib/Algebra/Pointwise
+- Mathlib/Algebra/Symmetrized
+- Mathlib/Algebra/Tropical
+- Mathlib/Algebra/AddConstMap
+- Mathlib/Algebra/AffineMonoid
+- Mathlib/Algebra/Prime
+- Mathlib/Algebra/IsPrimePow
+- Mathlib/Algebra/Squarefree
+- Mathlib/Algebra/Quotient
+- Mathlib/Geometry/Group

@@ -1,0 +1,26 @@
+number: 4
+title: Order and lattices
+subtitle: Orders, lattices, fixed points, intervals and ordered groups as Mathlib writes them
+level: undergraduate
+prefixes:
+- Mathlib/Order
+- Mathlib/Algebra/Order/Monoid
+- Mathlib/Algebra/Order/Group
+- Mathlib/Algebra/Order/Hom
+- Mathlib/Algebra/Order/Interval
+- Mathlib/Algebra/Order/Sub
+- Mathlib/Algebra/Order/Monovary
+- Mathlib/Algebra/Order/Rearrangement
+- Mathlib/Algebra/Order/Kleene
+- Mathlib/Algebra/Order/Quantale
+- Mathlib/Algebra/Order/SuccPred
+- Mathlib/Algebra/Order/UpperLower
+- Mathlib/Algebra/Order/Disjointed
+- Mathlib/Algebra/Order/PUnit
+- Mathlib/Algebra/Order/Pi
+- Mathlib/Algebra/Order/Sum
+- Mathlib/Algebra/Order/WithTop
+- Mathlib/Algebra/Order/AddGroupWithTop
+- Mathlib/Algebra/Order/IsBotOne
+- Mathlib/Algebra/Order/ZeroLEOne
+- Mathlib/Logic/Hydra
