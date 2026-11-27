@@ -1,0 +1,9 @@
+number: 32
+title: Logic, model theory and computability
+subtitle: First-order logic, compactness, Fraïssé limits, the model theory of fields, automata, recursive functions and Turing machines in Mathlib
+level: graduate
+prefixes:
+- Mathlib/ModelTheory
+- Mathlib/Computability
+- Mathlib/Logic/Godel
+- Mathlib/Logic/Encodable
