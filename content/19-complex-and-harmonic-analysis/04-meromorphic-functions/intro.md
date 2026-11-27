@@ -1,0 +1,7 @@
+# Meromorphic functions
+
+A holomorphic function can have isolated singularities. Chapter 3 removed the bounded ones. This chapter studies the next case, the poles, where $|f(z)| \to \infty$ in a controlled way. A function is meromorphic at a point when a power of $z - z_0$ times the function is analytic there. Near such a point the function is $(z - z_0)^n g(z)$ with $g$ analytic and $g(z_0) \ne 0$, and the integer $n$ is the order. Zeros have a positive order and poles have a negative order.
+
+Section 1 defines meromorphic functions in the form of Mathlib, which works over any nontrivially normed field. It defines the order with values in $\mathbb{Z} \cup \{\infty\}$, proves that the order of a product is the sum of the orders, and proves that the zeros and poles of a meromorphic function on a connected set are isolated. It ends with the normal form, which picks the natural value of the function at each point. Section 2 collects the orders into a divisor, proves that the logarithmic derivative turns products into sums, factors out the zeros and poles on a disc, and proves Jensen's formula, which relates the zeros in a disc to the average of $\log|f|$ on its boundary circle.
+
+The chapter needs the analytic functions and the identity theorem of Volume 17, Chapter 7, the Cauchy theory of Chapters 2 and 3, and the circle integrals of Volume 18. Chapter 5 uses Jensen's formula and the circle average, and Chapter 8 uses the poles of the Gamma function.

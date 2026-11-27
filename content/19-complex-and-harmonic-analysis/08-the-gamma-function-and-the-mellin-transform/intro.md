@@ -1,0 +1,7 @@
+# The gamma function and the Mellin transform
+
+The gamma function extends the factorial to the complex plane: $\Gamma(n + 1) = n!$ and $\Gamma(s + 1) = s \, \Gamma(s)$. It is the most frequent special function in analysis and number theory. It is the first example of a meromorphic function on $\mathbb{C}$ that is not rational, and the Mellin transform makes it the model of a transform along vertical lines.
+
+Section 1 defines $\Gamma$ by Euler's integral on the right half plane, proves the functional equation and continues $\Gamma$ to a meromorphic function with simple poles at $0, -1, -2, \dots$. It proves that $\log \Gamma$ is convex on $(0, \infty)$ and the Bohr-Mollerup theorem, which characterizes $\Gamma$ by this convexity. It ends with the digamma function. Section 2 proves the relation of $\Gamma$ with the beta integral, the Gauss limit, the reflection formula $\Gamma(s) \Gamma(1 - s) = \pi / \sin \pi s$ and the duplication formula. It deduces that $1/\Gamma$ is entire. Then it defines the Mellin transform, finds its strip of convergence and states the inversion formula. The zeta function appears only as an example.
+
+The chapter needs the meromorphic functions and the logarithmic derivative of Chapter 4, the removable singularities of Chapter 3 and the identity theorem of Volume 17. From Volume 18 it uses dominated convergence, Fubini's theorem, the Gaussian integral and Hölder's inequality.
