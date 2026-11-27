@@ -4,6 +4,12 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+## v0.4.1 - 2026-11-27
+
+### Changed
+
+- `EDITION` pins mathlib at `122d829d79`, mathlib-lean at `63eec572ab` and mathlib-agent at `89acae1e6c`, the commits of their release v0.4.1.
+
 ### Added
 
 - The first draft of V16 Normed spaces and functional analysis (7 chapters, 19 sections, 140 exercises, about 44,000 words). The status of each section is drafted, and each section has `lean: []`.
