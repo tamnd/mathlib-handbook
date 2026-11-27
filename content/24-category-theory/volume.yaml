@@ -1,0 +1,8 @@
+number: 24
+title: Category theory
+subtitle: Categories, functors, the Yoneda lemma, limits, adjunctions, equivalences, monads, monoidal and abelian categories in Mathlib
+level: graduate
+prefixes:
+- Mathlib/CategoryTheory
+- Mathlib/Combinatorics/Quiver
+- Mathlib/Order/Category

@@ -12,6 +12,7 @@ Each release has a section. The newest release is first.
 
 ### Added
 
+- The first draft of V24 Category theory (8 chapters, 20 sections, 128 exercises, about 48,000 words). The volume gives the core of a first graduate course. Its intro names the topics that V25, V26 and V27 take. The status of each section is drafted, and each section has `lean: []`.
 - The first draft of V21 Dynamics, ergodic theory and information theory (8 chapters, 21 sections, 125 exercises, about 43,000 words). The status of each section is drafted, and each section has `lean: []`.
 - The first draft of V22 Affine, Euclidean and convex geometry (8 chapters, 22 sections, 136 exercises, about 44,000 words). With V22, every volume of the reading path U has a draft. The status of each section is drafted, and each section has `lean: []`.
 - The first draft of V19 Complex and harmonic analysis (8 chapters, 22 sections, 127 exercises, about 44,000 words). The status of each section is drafted, and each section has `lean: []`.

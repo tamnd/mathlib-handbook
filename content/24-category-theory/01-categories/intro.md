@@ -1,0 +1,7 @@
+# Categories
+
+This chapter sets up the first notion of the volume. A category has objects, morphisms between them, an identity on each object and an associative composition. Groups with homomorphisms, rings with ring homomorphisms, modules with linear maps and topological spaces with continuous maps are all categories. A preorder, a monoid and a set are categories too, of a small and special kind. Each later chapter uses this language.
+
+Section 1 gives the axioms and the main constructions: the category of types, the category of a preorder, the one-object category of a monoid, discrete categories, opposite categories and products of categories. It also explains how Mathlib states the axioms, with the class `Category`, the composition `f ≫ g` in diagram order and the two universe levels. Section 2 studies the special morphisms. It defines isomorphisms, groupoids, monomorphisms and epimorphisms, split monomorphisms and split epimorphisms, and balanced categories. It shows that a monomorphism of groups is an injective homomorphism, and that the inclusion of the integers into the rationals is an epimorphism of rings that is not surjective.
+
+The chapter needs only the examples: Volume 4, Chapter 1 for preorders, Volume 5, Chapters 1 and 2 for groups and homomorphisms, Volume 6, Chapter 1 for rings, Volume 7, Chapter 1 for modules and Volume 13, Chapter 1 for topological spaces. Chapter 2 compares categories with functors and natural transformations. Chapter 3 proves the Yoneda lemma, which says that an object is known by the morphisms into it.
