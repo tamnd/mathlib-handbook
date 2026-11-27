@@ -21,7 +21,7 @@ import subprocess
 import time
 
 from .fonts import Fallback
-from .latex import break_names, run_tex
+from .latex import break_names, log_missing, run_tex
 from .paths import ROOT
 from .util import volume_hue
 
@@ -166,7 +166,7 @@ def build_pdf(h: dict, rows: list[dict], outdir: str, edition: str, date: str) -
     shutil.copytree(os.path.join(ROOT, "tex", "fonts"), os.path.join(outdir, "fonts"), dirs_exist_ok=True)
     t = time.time()
     r, passes = run_tex(outdir, max_passes=2)
-    info = {"rows": len(rows), "missing_glyphs": dict(sorted(fb.missing.items(), key=lambda x: -x[1])),
+    info = {"rows": len(rows), "missing_glyphs": log_missing(outdir, fb.missing),
             "tectonic_s": round(time.time() - t, 1), "passes": passes, "ok": r.returncode == 0}
     if r.returncode:
         info["error"] = (r.stdout + r.stderr)[-6000:]

@@ -157,3 +157,13 @@ def test_catalogue():
     md = catalogue.epub_md(h, rows, "0.2.0", "2026-11-27")
     assert "- **F-instance** (1 entries)." in md
     assert "- **`Metric.closedBall_subset`** *theorem · simp · E1 · V13.C05.S01*." in md
+
+
+def test_log_missing(tmp_path):
+    from mlhb.latex import log_missing
+    (tmp_path / "main.log").write_text(
+        "Missing character: There is no ⨍ (U+2A0D) in font LibertinusMath-Regular:mode=base;!\n"
+        "Missing character: There is no ⨍ in font LibertinusMath-Regular:mode=base;!\n"
+        "Missing character: There is no ᗮ (U+15EE) in font LibertinusSerif-Regular:mode=node;!\n", encoding="utf-8")
+    assert log_missing(str(tmp_path), {"ᗮ": 1}) == {"⨍": 2, "ᗮ": 2}
+    assert log_missing(str(tmp_path / "none")) == {}

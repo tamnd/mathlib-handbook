@@ -158,6 +158,22 @@ def run_tex(outdir: str, max_passes: int = 5):
     return r, passes
 
 
+_MISSING = re.compile(r"Missing character: There is no (.)(?: \(U\+[0-9A-Fa-f]+\))? in font")
+
+
+def log_missing(outdir: str, missing: dict | None = None) -> dict:
+    """Add to missing the characters that XeTeX reports in main.log as "Missing character", with their counts.
+
+    The scan of Fallback sees only the text outside mathematics. A glyph that the math font does not have,
+    as ⨍ in Libertinus Math, shows only in the log of the run."""
+    out = dict(missing or {})
+    p = os.path.join(outdir, "main.log")
+    if os.path.exists(p):
+        for m in _MISSING.finditer(open(p, encoding="utf-8", errors="replace").read()):
+            out[m.group(1)] = out.get(m.group(1), 0) + 1
+    return dict(sorted(out.items(), key=lambda x: -x[1]))
+
+
 def build(book: Book, vol: Volume, md: str, outdir: str, edition: str, date: str, pdf: bool = True) -> dict:
     os.makedirs(outdir, exist_ok=True)
     t0 = time.time()
@@ -193,6 +209,7 @@ def build(book: Book, vol: Volume, md: str, outdir: str, edition: str, date: str
         info["tectonic_s"] = round(time.time() - t2, 1)
         info["passes"] = passes
         info["ok"] = r.returncode == 0
+        info["missing_glyphs"] = log_missing(outdir, info["missing_glyphs"])
         if r.returncode:
             info["error"] = (r.stdout + r.stderr)[-6000:]
         pdfp = os.path.join(outdir, "main.pdf")
