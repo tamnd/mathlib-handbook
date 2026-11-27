@@ -1,0 +1,9 @@
+# Bump functions and partitions of unity
+
+Many constructions on a manifold are local: in one chart, a function, a section or a metric is easy to write down. Partitions of unity glue such local objects into global ones. A partition of unity is a family of smooth functions with values in $[0, 1]$ whose sum is $1$, such that each point has a neighbourhood where only finitely many of them are not zero. This chapter builds partitions of unity on finite dimensional real manifolds, from bump functions, and uses them to glue.
+
+Section 1 defines smooth bump functions on a manifold. A smooth bump function at a point $c$ is a bump function of the model space, moved to $M$ by the extended chart at $c$. The section proves that it is smooth, with support in the chart at $c$ and compact closure of the support, when $M$ is Hausdorff. It also proves that the closures of the supports of bump functions at $c$ form a basis of neighbourhoods of $c$. The line with two origins shows why the Hausdorff condition is needed.
+
+Section 2 constructs smooth partitions of unity subordinate to any open cover of a closed set, on a Hausdorff manifold that is $\sigma$-compact. It explains paracompactness, which is the topological reason for the result. It gives the applications: smooth functions that separate disjoint closed sets, open sets that are supports of smooth functions, the gluing of local smooth functions with values in convex sets, and smooth approximation of continuous functions.
+
+The chapter needs Chapters 2 and 3, the compact sets and separation axioms of Volume 13, and the bump functions of normed spaces of Volume 17, Chapter 4. It uses the vector bundles of Chapter 5 for one gluing theorem for sections. Chapter 7 uses the smooth bump coverings of Section 2 in the proof of the Whitney embedding theorem for compact manifolds.

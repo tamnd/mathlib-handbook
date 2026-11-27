@@ -1,0 +1,9 @@
+# Immersions, submersions and embeddings
+
+A smooth map between manifolds has a differential at each point, and the first questions about the map are questions about that linear map. Is it injective? Is it surjective? In finite dimension the answer controls the map near the point. The inverse function theorem of Volume 17, Chapter 6 shows that a map with an injective differential looks, in suitable charts, like the inclusion $x \mapsto (x, 0)$, and that a map with a surjective differential looks like the projection $(x, y) \mapsto x$. These two maps are the local normal forms of an immersion and of a submersion.
+
+Mathlib takes the normal forms as the definitions. A map is an immersion at a point if there are charts in which it is the inclusion of a factor of a product, followed by a linear isomorphism. A submersion is defined in the same way with the projection. This choice works on manifolds modelled on Banach spaces, where an injective differential does not give a normal form. Section 1 sets up the common frame for such local properties, proves that the sets of points where a map is an immersion or a submersion are open, and proves that an immersion has an injective differential with a continuous left inverse. It also proves the converse in finite dimension on paper, and says which parts the index of this edition lacks.
+
+Section 2 defines a smooth embedding as an immersion that is a topological embedding. It shows by examples why each of the two conditions is needed, and then proves the easy form of the theorem of Whitney: a compact manifold embeds in some Euclidean space. The proof uses the smooth bump coverings of Chapter 6.
+
+The chapter needs charts and maximal atlases (Chapter 2), smooth maps (Chapter 3), the differential `mfderiv` (Chapter 4) and bump functions (Chapter 6). Chapter 8 does not depend on the theorems of this chapter. Its integral curves of a vector field without zeros give more examples of immersed curves.

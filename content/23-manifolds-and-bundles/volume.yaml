@@ -1,0 +1,12 @@
+number: 23
+title: Manifolds and bundles
+subtitle: Charted spaces, models with corners, smooth maps, the derivative mfderiv, fiber and vector bundles, partitions of unity, immersions and Lie groups in Mathlib
+level: graduate
+prefixes:
+- Mathlib/Geometry/Manifold
+- Mathlib/Geometry/Diffeology
+- Mathlib/Topology/VectorBundle
+- Mathlib/Topology/FiberBundle
+- Mathlib/Data/Bundle
+- Mathlib/Analysis/Calculus/DifferentialForm
+- Mathlib/Analysis/Calculus/VectorField
