@@ -1,0 +1,7 @@
+# The Fourier transform and distributions
+
+Chapter 6 wrote a function on a circle as a series of characters. This chapter does the same for a function on $\mathbb{R}^n$, or on any finite-dimensional real inner product space, where the series becomes an integral: the Fourier transform $\mathcal{F}f(\xi) = \int e^{-2\pi i\langle x, \xi\rangle}f(x)\,dx$. The convention is the one of Mathlib, with $2\pi$ in the exponent and no constant in front, so the inverse transform only changes the sign.
+
+Section 1 defines the transform of an integrable function, proves that it is bounded and continuous, and proves the Riemann-Lebesgue lemma and the convolution theorem. Section 2 introduces the Schwartz space of smooth functions of rapid decay, proves that differentiation and multiplication by $x$ change places under the transform, and deduces that $\mathcal{F}$ maps the Schwartz space continuously into itself. Section 3 proves the inversion theorem with a Gaussian factor, Plancherel's theorem on $L^2$, and the Poisson summation formula, with the transformation of the theta function as an example. Section 4 defines distributions and tempered distributions, their derivatives, supports and Fourier transforms, and the Sobolev spaces defined by Fourier multipliers.
+
+The chapter needs the Bochner integral, the $L^p$ spaces and Fubini's theorem of Volume 18, the Hilbert spaces of Volume 16, Chapter 6, the derivatives of Volume 17, and the Gaussian integral of Volume 15. The proof of Poisson summation uses the uniform convergence theorem of Chapter 6, Section 2.

@@ -1,0 +1,7 @@
+# The complex plane
+
+Complex analysis studies functions of one complex variable. Before the first derivative appears, the field $\mathbb{C}$ itself needs a careful description: its norm, its topology, its conjugation, and the elementary functions that it carries. This chapter gives that description, in the form that Mathlib uses.
+
+Section 1 treats $\mathbb{C}$ as a normed field. It identifies $\mathbb{C}$ with $\mathbb{R}^2$ as a real normed space, proves that $\mathbb{C}$ is complete and proper, and studies conjugation, the topology of the real and imaginary parts, and the partial order that Mathlib puts on $\mathbb{C}$. It ends with the classification of the real linear isometries of $\mathbb{C}$: each one is a rotation or a rotation followed by conjugation. Section 2 defines the exponential by its power series and proves the addition formula. It then derives Euler's formula, the trigonometric and hyperbolic functions, the periodicity of $\exp$, the argument and the angle between two complex numbers, and the unit circle as a compact group.
+
+The chapter needs normed fields and normed spaces from Volume 16, Chapter 1, and compactness and completeness from Volume 13. The real exponential, the real sine and cosine and the number $\pi$ come from Volume 15, Chapters 5 and 6. Mathlib defines the real exponential from the complex one, so Section 2 also explains how the two volumes meet. Chapter 2 starts from here: complex differentiability uses the norm of Section 1, and the circle integrals of Chapter 2 are parametrized by the exponential of Section 2.

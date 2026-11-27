@@ -1,0 +1,13 @@
+number: 19
+title: Complex and harmonic analysis
+subtitle: Holomorphic functions, the Cauchy integral formula, meromorphic and harmonic functions, Fourier series, the Fourier transform, distributions and the Gamma function in Mathlib
+level: graduate
+prefixes:
+- Mathlib/Analysis/Complex
+- Mathlib/Analysis/Meromorphic
+- Mathlib/Analysis/Fourier
+- Mathlib/Analysis/Distribution
+- Mathlib/Analysis/MellinTransform
+- Mathlib/Analysis/MellinInversion
+- Mathlib/Analysis/PSeriesComplex
+- Mathlib/Analysis/SpecialFunctions/Gamma

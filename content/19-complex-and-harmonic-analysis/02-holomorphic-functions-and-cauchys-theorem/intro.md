@@ -1,0 +1,7 @@
+# Holomorphic functions and Cauchy's theorem
+
+A function of a complex variable is holomorphic when it has a complex derivative. The definition reads like the one from real analysis, but its consequences are much stronger. A holomorphic function on an open set is analytic, so it has derivatives of all orders and equals its Taylor series on every disc in its domain. This chapter proves this, through Cauchy's theorem and the Cauchy integral formula.
+
+Section 1 compares the complex derivative with the real derivative of a map of the plane. It derives the Cauchy-Riemann equations, shows how a complex derivative restricts to a real one along $\mathbb{R}$, and identifies holomorphic maps with nonzero derivative as conformal maps. Section 2 proves the Cauchy-Goursat theorem: the integral of a holomorphic function over the boundary of a rectangle is zero. It deduces the vanishing of circle integrals, the comparison of circle integrals across an annulus, and the existence of primitives on a disc. Section 3 proves the Cauchy integral formula on a disc, expands the Cauchy kernel in a geometric series, and concludes that holomorphic functions are analytic. It ends with the Taylor series of an entire function.
+
+The chapter needs Chapter 1, the Fréchet derivative of Volume 17, Chapters 1 and 2, power series from Volume 17, Chapter 7, and the interval integral of Volume 18, Chapter 8. Chapter 3 draws the consequences of the Cauchy formula: Liouville's theorem, the maximum modulus principle and the Weierstrass theorem on limits.

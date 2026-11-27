@@ -1,0 +1,7 @@
+# Consequences of the Cauchy formula
+
+The Cauchy integral formula of Chapter 2 gives the values of a holomorphic function inside a disc as an average of its values on the boundary. This chapter draws the classical consequences. They all follow the same pattern: an estimate on a circle, obtained from the formula, controls the function or its derivatives inside.
+
+Section 1 proves the Cauchy estimates for the derivatives at the centre of a disc. Liouville's theorem follows: a bounded entire function is constant. From Liouville the section deduces the fundamental theorem of algebra, and it proves the theorem of Gauss and Lucas on the roots of the derivative of a polynomial. Section 2 proves the maximum modulus principle, the open mapping theorem and the Schwarz lemma, three statements on the size of a holomorphic function and the shape of its image. Section 3 proves Riemann's theorem on removable singularities and the theorem of Weierstrass: a locally uniform limit of holomorphic functions is holomorphic, and the derivatives converge too. It applies this to series of holomorphic functions.
+
+The chapter needs Chapter 2, and from Volume 17, Chapter 7 the identity theorem and the isolated zeros of analytic functions. Connectedness comes from Volume 13. The next chapter uses the removable singularities to define poles and meromorphic functions, and Chapter 5 uses the maximum principle for harmonic functions.
