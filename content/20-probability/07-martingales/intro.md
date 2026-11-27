@@ -1,0 +1,7 @@
+# Martingales
+
+A martingale is a process whose expected next value, given the past, is its present value. Sums of independent centred variables, products of independent variables with mean $1$, the conditional expectations of one variable for a growing family of $\sigma$-algebras and the likelihood ratios of statistics are all martingales. The theory gives two main tools: the optional stopping theorem, which computes the expectation of a process at a random time, and the convergence theorem, which gives almost sure limits without independence.
+
+Section 1 defines filtrations, adapted and predictable processes, stopping times, the $\sigma$-algebra at a stopping time and hitting times. Section 2 defines martingales, submartingales and supermartingales, proves the optional stopping and optional sampling theorems for bounded stopping times, and gives the Doob decomposition and Doob's maximal inequality, with the gambler's ruin as the main example. Section 3 proves Doob's upcrossing inequality and the convergence theorems in the a.s. and $L^1$ forms, and applies them to Pólya's urn, to Lévy's upward theorem and to Lévy's extension of the Borel-Cantelli lemma.
+
+The chapter needs Chapters 1 to 6, in particular the conditional expectation of Chapter 6, and the convergence theorems and uniform integrability of Volume 18, Measure and integration. In Mathlib, the files are in `Mathlib/Probability/Process/` and `Mathlib/Probability/Martingale/`, and the names are in the namespace `MeasureTheory`.
