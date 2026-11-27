@@ -1,0 +1,5 @@
+# The distribution of primes
+
+Euclid proved that there are infinitely many primes. This chapter asks how many there are below a bound $x$, and how they fall into residue classes. Section 1 proves the elementary results: the sum of the reciprocals of the primes diverges, there are infinitely many primes $p \equiv 1 \pmod n$ for each $n$, the product of the primes up to $n$ is at most $4^n$, and Bertrand's postulate puts a prime between $n$ and $2n$. Section 2 defines the prime counting function $\pi(x)$ and the functions $\vartheta$ and $\psi$ of Chebyshev, proves the bounds of Chebyshev, and states the prime number theorem $\pi(x) \sim x / \log x$, which Mathlib proves from a Tauberian theorem. Section 3 proves the special cases $3 \bmod 4$ and $1 \bmod 4$ of Dirichlet's theorem by hand, and then gives the plan of the general proof with characters and L-series, as Mathlib carries it out.
+
+The chapter needs the von Mangoldt function of Chapter 2, the characters and L-series of Chapter 6, the logarithm of Volume 15, Chapter 5, and the asymptotic notation of Volume 15, Chapter 7.

@@ -1,0 +1,5 @@
+# Number fields and rings of integers
+
+A number field is a finite extension of $\mathbb{Q}$. Its ring of integers plays the role that $\mathbb{Z}$ plays for $\mathbb{Q}$. Volume 6 showed that $\mathbb{Z}[i]$ has unique factorization and that $\mathbb{Z}[\sqrt{-5}]$ does not. This chapter explains the difference. Section 1 defines number fields and rings of integers, computes the ring of integers of a quadratic field, and introduces the norm and the discriminant. Section 2 defines the class group, which measures the failure of unique factorization, states with the bound of Minkowski that it is finite, and computes the class number of $\mathbb{Q}(\sqrt{-5})$. It then studies the group of units: it states Dirichlet's unit theorem in the form of Mathlib and connects it with Pell's equation.
+
+The chapter needs the Gaussian integers and the factorization theory of Volume 6, Chapter 6, the bases of Volume 7, Chapter 2, the modules over a PID of Volume 7, Chapter 7, and Pell's equation from Chapter 4. Some facts on Dedekind domains and field extensions are stated without proof.

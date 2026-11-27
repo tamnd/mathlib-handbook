@@ -1,0 +1,5 @@
+# The p-adic numbers
+
+The real numbers complete $\mathbb{Q}$ for the usual absolute value. For each prime $p$ there is a second absolute value on $\mathbb{Q}$, for which a number is small when it is divisible by a high power of $p$. Its completion is the field $\mathbb{Q}_p$ of $p$-adic numbers. Section 1 defines the $p$-adic norm, proves the ultrametric inequality, builds $\mathbb{Q}_p$ as Mathlib builds it, and states the theorem of Ostrowski that the usual and the $p$-adic absolute values are the only ones on $\mathbb{Q}$, up to equivalence. Section 2 studies the ring $\mathbb{Z}_p$ of $p$-adic integers, its ideals and its maps to $\mathbb{Z}/p^n$, and proves Hensel's lemma: a simple root modulo $p$ lifts to a root in $\mathbb{Z}_p$.
+
+The chapter needs the $p$-adic valuation of Chapter 1, the metric spaces and the Cauchy sequences of Volume 13, Chapter 3, and the ideals of Volume 6, Chapter 2. Chapter 8 uses the same ideas for the primes of a number field.
