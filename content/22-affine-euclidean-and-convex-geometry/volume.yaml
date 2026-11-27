@@ -1,0 +1,29 @@
+number: 22
+title: Affine, Euclidean and convex geometry
+subtitle: Affine spaces, Euclidean geometry of triangles and spheres, convex sets, Carathéodory, Radon, Helly, extreme points and cones in Mathlib
+level: undergraduate
+prefixes:
+- Mathlib/Geometry/Euclidean
+- Mathlib/Geometry/Convex
+- Mathlib/Geometry/Polygon
+- Mathlib/LinearAlgebra/AffineSpace
+- Mathlib/LinearAlgebra/ConvexSpace
+- Mathlib/Algebra/AddTorsor
+- Mathlib/Algebra/Order/AddTorsor
+- Mathlib/Analysis/Convex/Caratheodory
+- Mathlib/Analysis/Convex/Radon
+- Mathlib/Analysis/Convex/KreinMilman
+- Mathlib/Analysis/Convex/Exposed
+- Mathlib/Analysis/Convex/Extreme
+- Mathlib/Analysis/Convex/Side
+- Mathlib/Analysis/Convex/Between
+- Mathlib/Analysis/Convex/BetweenList
+- Mathlib/Analysis/Convex/SimplicialComplex
+- Mathlib/Analysis/Convex/StdSimplex
+- Mathlib/Analysis/Convex/Visible
+- Mathlib/Analysis/Convex/Independent
+- Mathlib/Analysis/Convex/Intrinsic
+- Mathlib/Topology/Algebra/Affine
+- Mathlib/Topology/Algebra/AffineSubspace
+- Mathlib/Topology/Algebra/ContinuousAffineEquiv
+- Mathlib/Topology/Algebra/ContinuousAffineMap

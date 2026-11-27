@@ -1,0 +1,5 @@
+# Oriented angles in the plane
+
+The angles of Chapter 3 lie in $[0, \pi]$ and do not see the order of the two vectors. In a plane with an orientation there is a finer notion. The oriented angle from $x$ to $y$ lies in $\mathbb{R}/2\pi\mathbb{Z}$ and changes sign when $x$ and $y$ change places. Its main property is additivity: the angle from $x$ to $y$ plus the angle from $y$ to $z$ is the angle from $x$ to $z$. Because of this rule, many proofs in plane geometry need no study of the position of the points.
+
+Section 1 defines the oriented angle through a complex coordinate, proves its rules, and relates it to the unoriented angle. It also proves that the three oriented angles of a triangle have the same sign and add up to $\pi$ modulo $2\pi$. Section 2 studies the rotations of the plane, which are the linear isometries of positive determinant. The rotation by $\pi/2$ describes right angles and gives oriented forms of the trigonometry of a right-angled triangle. Chapter 5 uses these tools for circles.
