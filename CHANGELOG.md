@@ -4,6 +4,12 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+## v0.6.3 - 2026-11-27
+
+### Changed
+
+- `EDITION` pins mathlib at `ae1fba0e39`, mathlib-lean at `f79523aefc` and mathlib-agent at `6b8b88517f`, the commits of their release v0.6.3.
+
 ### Added
 
 - V25 Higher structures in categories has a first draft: 8 chapters, 20 sections and 127 exercises. The text treats preadditive, additive and linear categories, abelian categories and the diagram lemmas, classes of objects and morphisms, the small object argument, localization and the calculus of fractions, shifts and triangulated categories, sites, sheaves and sheafification, presentable, extensive and regular categories, and Galois categories with the fundamental group.
