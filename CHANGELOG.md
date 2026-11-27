@@ -4,6 +4,12 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+## v0.6.2 - 2026-11-27
+
+### Changed
+
+- `EDITION` pins mathlib at `76d1ee8441`, mathlib-lean at `581b85964c` and mathlib-agent at `e32acd494b`, the commits of their release v0.6.2.
+
 ### Added
 
 - V30 Combinatorics has a first draft: 8 chapters, 20 sections and 175 exercises. The text treats simple graphs and degrees, walks, connectivity and trees, colourings, cliques and the theorem of Turán, matchings and the theorems of Hall and Tutte, the theorems of Ramsey, Hales-Jewett, van der Waerden and Hindman, additive combinatorics up to the theorem of Roth, set families, and enumeration with Catalan numbers, partitions, Stirling numbers, Bell numbers and derangements.
