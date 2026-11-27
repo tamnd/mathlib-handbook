@@ -19,7 +19,8 @@ TEXT_FONTS = ["LibertinusSerif-Regular.otf", "LibertinusSerif-Italic.otf", "Libe
               "LibertinusSans-Regular.otf", "LibertinusSans-Bold.otf", "JuliaMono-Regular.ttf"]
 CHAIN = [("F", "LibertinusSerif-Regular.otf"), ("A", "LibertinusMath-Regular.otf"), ("B", "DejaVuSansMono.ttf"),
          ("C", "STIXTwoMath-Regular.otf"), ("D", "FreeSerif.otf"), ("E", "FandolSong-Regular.otf"),
-         ("G", "UnBatang.ttf"), ("H", "DejaVuSans.ttf")]
+         ("G", "UnBatang.ttf"), ("H", "DejaVuSans.ttf"), ("J", "JuliaMono-Regular.ttf")]
+# JuliaMono is last: it has some letters of Lean notation that no text font has, as ᗮ (U+15EE) of the orthogonal complement
 
 
 def _cache_dirs():
