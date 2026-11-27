@@ -1,0 +1,7 @@
+# Ordinary differential equations
+
+This chapter studies the initial value problem $x'(t) = v(t, x(t))$, $x(t_0) = x_0$, for a curve $x$ with values in a Banach space $E$. The tools are the ones of the earlier chapters: the derivative of a curve, the mean value inequality of Chapter 3 and the contraction principle, which Chapter 6 also uses for the inverse function theorem.
+
+Section 1 defines integral curves of a time-dependent vector field, proves Grönwall's inequality in the form that Mathlib uses, and deduces that a solution is unique when $v$ is Lipschitz in $x$. The example $x' = \sqrt{|x|}$ shows that the Lipschitz condition cannot be dropped. Section 2 proves the theorem of Picard-Lindelöf: a field that is continuous in $t$, Lipschitz in $x$ and bounded on a ball has a local solution, on a time interval that the bound controls. The examples compute the Picard iterates of $x' = x$, which are the partial sums of $e^t$, and the time of existence for $x' = x^2$.
+
+The chapter needs Chapter 1 for the derivative of a curve, Chapter 3 for the mean value inequality, Volume 15 for the exponential function, and Volume 13 for complete metric spaces. The proof of existence uses the integral of a continuous curve and the fundamental theorem of calculus, which Volume 18 treats; the section recalls the two facts that it needs. By the mean value inequality, a $C^1$ field satisfies the hypotheses of both theorems near each point. The integral curves of vector fields on manifolds in Volume 23 start from here.

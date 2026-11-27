@@ -1,0 +1,7 @@
+# The inverse and implicit function theorems
+
+This chapter proves that the derivative keeps the most important property of a linear map: when the derivative is invertible, the map itself is invertible near the point, and its inverse is as smooth as the map. This is the inverse function theorem. Its companion, the implicit function theorem, says when an equation $f(x, y) = 0$ can be solved for $y$ as a function of $x$. Both theorems hold in Banach spaces, with proofs that do not use coordinates.
+
+Section 1 contains the analytic core. It studies maps that differ from an invertible linear map $A$ by a map with a small Lipschitz constant, and proves with the contraction principle that such a map is injective, open and surjective onto explicit balls, with a Lipschitz inverse. Section 2 shows that a strictly differentiable map with an invertible derivative is approximately linear on a small ball, and so deduces the inverse function theorem, the formula $D(f^{-1})(f(a)) = Df(a)^{-1}$ and the $C^k$ version. Section 3 deduces the implicit function theorem and proves the rule of Lagrange multipliers.
+
+The chapter needs the derivative and the partial derivatives of Chapters 1 and 2, strict differentiability and the mean value inequality of Chapter 3, and the class $C^k$ of Chapter 4. It uses complete metric spaces from Volume 13 and the open mapping theorem from Volume 16. Chapter 7 uses the inverse function theorem to invert analytic maps, and Chapter 8 uses the contraction principle again for differential equations.
