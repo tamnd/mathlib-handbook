@@ -1,0 +1,9 @@
+# Families of finite sets
+
+This chapter studies families of subsets of a finite set $X$ with $n$ elements. A family is a set of subsets. The questions are extremal. How small can the shadow of a family of $r$-sets be? How large can a family be when no member contains another? How large can it be when any two members meet? Each answer is a short inequality between binomial coefficients, and each proof is a counting argument or an argument by compression.
+
+Section 1 defines the shadow of a family, the colexicographic order on finite sets of natural numbers, and the compressions that move a family towards an initial segment of this order. It proves the Kruskal-Katona theorem: among the families of $m$ sets of size $r$, the first $m$ sets in the colexicographic order have the smallest shadow. It deduces the form of Lovász with binomial coefficients. Section 2 proves the local LYM inequality by double counting, the LYM inequality in two ways (by maximal chains and by shadows), and the theorem of Sperner on antichains. Section 3 studies intersecting families. It proves the Erdős-Ko-Rado theorem with the cyclic orders of Katona, the Harris-Kleitman inequality for upper sets, and the lemma of Pajor and the Sauer-Shelah lemma on shattered sets. It states the four functions theorem and the FKG inequality as Mathlib has them.
+
+The chapter needs Volume 3: the card of a finset, the subsets of a given size and the binomial coefficients (Chapter 3), and double counting (Chapter 6). It uses the language of orders and lattices of Volume 4, Chapters 1 and 3: antichains, upper sets and lower sets, distributive lattices. It does not need the graphs of Chapters 1 to 6.
+
+In Mathlib a family is a value of `Finset (Finset α)`, and the ground set is the type `α`, often `Fin n`. A family whose members all have $r$ elements is `Set.Sized r`. The notation `∂` for the shadow lives in the scope `FinsetFamily`.

@@ -1,0 +1,6 @@
+number: 30
+title: Combinatorics
+subtitle: Graphs, matchings, Ramsey theory, additive combinatorics, set families and enumeration in Mathlib
+level: undergraduate to graduate
+prefixes:
+- Mathlib/Combinatorics

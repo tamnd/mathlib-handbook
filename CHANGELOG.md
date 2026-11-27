@@ -6,6 +6,7 @@ Each release has a section. The newest release is first.
 
 ### Added
 
+- V30 Combinatorics has a first draft: 8 chapters, 20 sections and 175 exercises. The text treats simple graphs and degrees, walks, connectivity and trees, colourings, cliques and the theorem of Turán, matchings and the theorems of Hall and Tutte, the theorems of Ramsey, Hales-Jewett, van der Waerden and Hindman, additive combinatorics up to the theorem of Roth, set families, and enumeration with Catalan numbers, partitions, Stirling numbers, Bell numbers and derangements.
 - V31 Set theory has a first draft: 7 chapters, 19 sections and 142 exercises. The text treats cardinals, the theorems of Cantor and König, ordinals and Burali-Forti, ordinal arithmetic and the Cantor normal form, normal functions, the epsilon numbers and the Veblen hierarchy, the alephs, cofinality, regular and inaccessible cardinals, and the model of ZFC in Lean.
 - V23 Manifolds and bundles has a first draft: 8 chapters, 20 sections and 133 exercises. The text treats charted spaces, models with corners, smooth maps, the manifold derivative, vector bundles, partitions of unity, immersions and embeddings, vector fields and Lie groups.
 
