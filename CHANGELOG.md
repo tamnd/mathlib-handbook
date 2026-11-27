@@ -4,6 +4,12 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+## v0.6.0 - 2026-11-27
+
+### Changed
+
+- `EDITION` pins mathlib at `1bb68c1a43`, mathlib-lean at `bf65eeb7fa` and mathlib-agent at `f71764a6aa`, the commits of their release v0.6.0.
+
 ### Added
 
 - The first draft of V08 Multilinear algebra and forms (8 chapters, 20 sections, 133 exercises, about 44,000 words). The status of each section is drafted, and each section has `lean: []`.
