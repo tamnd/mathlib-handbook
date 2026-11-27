@@ -12,6 +12,7 @@ Each release has a section. The newest release is first.
 
 ### Added
 
+- The first draft of V10 Commutative algebra II (8 chapters, 19 sections, 142 exercises, about 43,000 words). The status of each section is drafted, and each section has `lean: []`.
 - The first draft of V20 Probability (8 chapters, 21 sections, 157 exercises, about 45,000 words). Chapters 1 to 5 hold the core of the reading path U. The status of each section is drafted, and each section has `lean: []`.
 - The first draft of V16 Normed spaces and functional analysis (7 chapters, 19 sections, 140 exercises, about 44,000 words). The status of each section is drafted, and each section has `lean: []`.
 - The first draft of V18 Measure and integration (8 chapters, 20 sections, 134 exercises, about 45,000 words). Chapters 1 to 6 hold the core of the reading path U. The status of each section is drafted, and each section has `lean: []`.

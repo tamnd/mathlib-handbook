@@ -1,0 +1,9 @@
+# Integral extensions
+
+This chapter studies an algebra $A$ over a commutative ring $R$ in which every element is a root of a monic polynomial with coefficients in $R$. Such an element is integral over $R$. Integrality is the ring version of algebraicity over a field, and it is the main tool of the volume: the ring of integers of a number field is the set of integral elements, a Dedekind domain is integrally closed by definition, and the prime ideals of an integral extension behave like those of the base.
+
+Section 1 defines integral elements and proves the criterion by finite modules: $x$ is integral over $R$ if and only if $R[x]$ is a finitely generated $R$-module, if and only if $x$ lies in a subring that is a finite $R$-module. It follows that sums and products of integral elements are integral and that integrality is transitive. Section 2 defines the integral closure of $R$ in $A$ and integrally closed domains, proves that a unique factorization domain is integrally closed, and computes the integral closure of $\mathbb{Z}$ in a quadratic field. Section 3 proves the theorems of Cohen and Seidenberg on the prime ideals of an integral extension: lying over, going up and incomparability.
+
+The chapter needs commutative rings, ideals, quotients and fields of fractions from Volume 6, and modules, the determinant and the adjugate matrix from Volume 7, Chapters 1 and 4. Localization and Noetherian rings are in Volume 9, Commutative algebra I. Chapter 3 uses integral closure to prove that a valuation ring is integrally closed, Chapter 4 puts it into the definition of a Dedekind domain, and Chapter 7 uses going up to prove that an integral extension does not change the Krull dimension.
+
+In Mathlib, `IsIntegral R x` is the predicate on one element, `Algebra.IsIntegral R A` is the class that says every element is integral, `integralClosure R A` is a subalgebra, and `IsIntegrallyClosed R` is a class on a domain.
