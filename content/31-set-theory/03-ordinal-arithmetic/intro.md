@@ -1,0 +1,9 @@
+# Ordinal arithmetic
+
+Chapter 2 built the ordinals as the order types of well-orders and proved that they are well-ordered. This chapter gives them an arithmetic: addition, multiplication, exponentiation, subtraction on the left, division with remainder and a logarithm. The operations extend those of the natural numbers, but they are not commutative. The sum $1 + \omega$ is $\omega$, and $\omega + 1$ is larger. A learner of the subject must keep the order of the arguments in view at each step.
+
+Section 1 defines the sum and the product by order types, proves the recursive equations at successors and limits, and derives associativity, left distributivity, left cancellation and division with remainder. Section 2 defines the power by recursion, proves the laws of exponents and the normality of $\beta \mapsto \alpha^\beta$, introduces the logarithm, and characterizes the pairs of ordinals that commute for addition. Section 3 repeats the division by powers to get the Cantor normal form, and builds the ordinal notations below $\varepsilon_0$, with which Mathlib computes.
+
+The chapter needs Chapter 2 of this volume and the orders and well-founded relations of Volume 4. Mathlib states the arithmetic in the files `Mathlib.SetTheory.Ordinal.Arithmetic`, `Exponential`, `Commute`, `CantorNormalForm` and `Notation`. They give the ordinals the structure of a monoid with a left distributive law, but no commutative structure, so the tactics for commutative rings do not apply.
+
+The maps $\beta \mapsto \alpha + \beta$, $\alpha \beta$ and $\alpha^\beta$ are strictly increasing and continuous. Chapter 4 studies such normal functions in general, with their fixed points, the epsilon numbers and the Veblen hierarchy. Cardinal arithmetic, which is a different arithmetic, is the subject of Chapter 5.

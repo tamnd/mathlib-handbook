@@ -6,6 +6,7 @@ Each release has a section. The newest release is first.
 
 ### Added
 
+- V31 Set theory has a first draft: 7 chapters, 19 sections and 142 exercises. The text treats cardinals, the theorems of Cantor and König, ordinals and Burali-Forti, ordinal arithmetic and the Cantor normal form, normal functions, the epsilon numbers and the Veblen hierarchy, the alephs, cofinality, regular and inaccessible cardinals, and the model of ZFC in Lean.
 - V23 Manifolds and bundles has a first draft: 8 chapters, 20 sections and 133 exercises. The text treats charted spaces, models with corners, smooth maps, the manifold derivative, vector bundles, partitions of unity, immersions and embeddings, vector fields and Lie groups.
 
 ## v0.6.1 - 2026-11-27

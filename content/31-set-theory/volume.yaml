@@ -1,0 +1,7 @@
+number: 31
+title: Set theory
+subtitle: Cardinals, ordinals, cofinality and the model of ZFC in Mathlib
+level: graduate
+prefixes:
+- Mathlib/SetTheory
+- Mathlib/Algebra/AlgebraicCard
