@@ -20,6 +20,7 @@ Each release has a section. The newest release is first.
 
 ### Changed
 
+- A volume that does not pass the release rule of spec 12.6 is a draft. Its files get `-draft` after the version, for example `mathlib-handbook-00-how-to-read-mathlib-0.2.0-draft.pdf`. Its copyright page says why it is a draft and gives its C-home and C-depth from `records/coverage.json` of tamnd/mathlib.
 - The monospace font of the PDF is JuliaMono 0.63.2 (decision Q-08 of tamnd/mathlib). JuliaMono has a glyph for each of the 130 characters in the Lean blocks and the inline code of V00, V01 and V34. The fonts and the SIL Open Font License are in `tex/fonts`. DejaVu Sans Mono stays in the chain of fallback fonts.
 - `EDITION` has two new lines. The line `mathlib-agent` pins mathlib-agent at `ed6297adfb`, and the line `catalogue` gives the Catalogue volumes of the books.
 - The CI gets the index of Mathlib with `mlib index fetch`.
