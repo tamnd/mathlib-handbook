@@ -1,0 +1,13 @@
+number: 8
+title: Multilinear algebra and forms
+subtitle: Multilinear and alternating maps, tensor products, tensor and exterior algebras, bilinear and quadratic forms, Clifford algebras and projective spaces in Mathlib
+level: graduate
+prefixes:
+- Mathlib/LinearAlgebra/TensorProduct
+- Mathlib/LinearAlgebra/Multilinear
+- Mathlib/LinearAlgebra/ExteriorAlgebra
+- Mathlib/LinearAlgebra/ExteriorPower
+- Mathlib/LinearAlgebra/CliffordAlgebra
+- Mathlib/LinearAlgebra/BilinearForm
+- Mathlib/LinearAlgebra/BilinearMap
+- Mathlib/LinearAlgebra/QuadraticForm

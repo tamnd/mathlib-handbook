@@ -1,0 +1,9 @@
+# Tensor products of modules
+
+A bilinear map is linear in each argument, but it is not a linear map on the product module. The tensor product $M \otimes_R N$ repairs this. It is the module that receives the universal bilinear map $(m, n) \mapsto m \otimes n$, so that bilinear maps out of $M \times N$ are the same as linear maps out of $M \otimes_R N$. The construction works over each commutative ring, and its elements are finite sums of pure tensors $m \otimes n$. Torsion can make it small: $\mathbb{Z}/2 \otimes \mathbb{Z}/3 = 0$.
+
+Section 1 builds the tensor product, proves its universal property and its first rules, and computes $\mathbb{Z}/m \otimes \mathbb{Z}/n \cong \mathbb{Z}/\gcd(m, n)$. Section 2 makes the tensor product a functor in each argument and proves the associativity, unit and direct sum isomorphisms. It proves that the tensor product is right exact, and it shows that it is not left exact. Section 3 treats free modules: a tensor product of bases is a basis, so $\mathbb{R}^2 \otimes \mathbb{R}^3$ has dimension $6$ and is the space of $2 \times 3$ matrices. The rank of a tensor is the rank of its matrix, the matrix of $f \otimes g$ is a Kronecker product, and $M^* \otimes N \cong \operatorname{Hom}(M, N)$ for finite free $M$, with the trace as a contraction. Section 4 treats the extension of scalars $S \otimes_R M$ and the tensor product $A \otimes_R B$ of two algebras, with $\mathbb{C} \otimes_{\mathbb{R}} \mathbb{C} \cong \mathbb{C} \times \mathbb{C}$.
+
+The chapter needs bilinear maps from Chapter 1, modules, bases, matrices and duality from Volume 7, and algebras from Volume 6, Chapter 8.
+
+Chapters 3 and 4 take tensor products of several modules: tensor powers, the tensor algebra and the symmetric algebra in Chapter 3, and the exterior algebra in Chapter 4. Chapter 5 studies bilinear and sesquilinear forms, which are linear forms on $M \otimes M$.
