@@ -28,7 +28,7 @@ jobs:
   build:
     name: test and build
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -61,8 +61,6 @@ jobs:
           python-version: "3.12"
       - name: install
         run: pip install ".[test]"
-      - name: test
-        run: python -m pytest -q tests
       - name: pandoc and tectonic
         run: |
           curl -fsSL -o pandoc.deb "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb"
@@ -75,6 +73,9 @@ jobs:
           rm -f pandoc.deb tectonic.tar.gz tectonic
           pandoc --version | head -1
           tectonic --version
+      # The tests run after the install of pandoc and Tectonic, because the test of the fallback font runs Tectonic.
+      - name: test
+        run: python -m pytest -q tests
       - name: build the fixture
         run: |
           f=tests/fixture
