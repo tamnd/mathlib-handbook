@@ -3,6 +3,7 @@ title: The Boolean algebra of sets, images and preimages
 kind: theory
 modules:
   - Mathlib.Data.Set.Image
+  - Mathlib.Basic.SetLike.Basic
 explains:
   E3: [Set.image_subset_iff]
   E2: [Set.image_preimage_subset, Set.subset_preimage_image, Set.image_inter_subset, Set.preimage_union, Set.image_union]
@@ -34,7 +35,7 @@ In this section $\alpha$ and $\beta$ are types, $s, s_1, s_2$ are sets of $\alph
 
 **Definition (Union, intersection, complement, difference).** The union, the intersection, the complement and the difference are the sets $$s_1 \cup s_2 = \{x \mid x \in s_1 \lor x \in s_2\}, \quad s_1 \cap s_2 = \{x \mid x \in s_1 \land x \in s_2\}, \quad s^c = \{x \mid x \notin s\}, \quad s_1 \setminus s_2 = \{x \mid x \in s_1 \land x \notin s_2\}.$$
 
-The complement is taken in the type $\alpha$. There is no "universe" outside the type. This is one place where Mathlib differs from a text that works inside one large set. The difference is not a new operation: $s_1 \setminus s_2 = s_1 \cap s_2^c$, and Mathlib proves this as `Set.diff_eq`.
+The complement is taken in the type $\alpha$. There is no "universe" outside the type. This is one place where Mathlib differs from a text that works inside one large set. The difference is not a new operation: $s_1 \setminus s_2 = s_1 \cap s_2^c$, and Mathlib proves this as `Set.sdiff_eq`.
 
 **Definition (Inclusion and equality).** The set $s_1$ is a subset of $s_2$, written $s_1 \subseteq s_2$, when each $x \in s_1$ is in $s_2$. Two sets are equal when they have the same elements. This is the principle of extensionality, and in Lean the tactic `ext x` starts a proof of it.
 
@@ -161,6 +162,8 @@ A learner often writes $f^{-1}$ and thinks of an inverse function. The preimage 
 ### The library around it
 
 Each operation has a membership lemma: `Set.mem_union`, `Set.mem_inter_iff`, `Set.mem_compl_iff`, `Set.mem_sdiff`, `Set.mem_image`, `Set.mem_preimage` and `Set.mem_range`. The older name `Set.mem_diff` is deprecated in favour of `Set.mem_sdiff`. The lemmas for the image have the prefix `Set.image_`, and the lemmas for the preimage have the prefix `Set.preimage_`: `Set.image_empty`, `Set.image_singleton`, `Set.image_univ`, `Set.preimage_inter`, `Set.preimage_compl` and `Set.preimage_mono`. The lemma `Set.image_comp` gives $(g \circ f)(s) = g(f(s))$, and `Set.preimage_comp` gives $(g \circ f)^{-1}(u) = f^{-1}(g^{-1}(u))$. The laws of a Boolean algebra, such as `Set.compl_union` and `compl_compl`, come from the instance of a complete Boolean algebra on `Set α`, so the general lemmas of Volume 4 for lattices also apply, for example `inf_sup_left` for the distributive law. The image of a nonempty set is nonempty, `Set.Nonempty.image`. The indexed operations `⋃ i, s i` and `⋂ i, s i` are the subject of the next section. The table at the end of the section lists the declarations.
+
+Many types of Mathlib are sets with more structure: finsets, subgroups, submodules and subrings. The file `Mathlib.Basic.SetLike.Basic` gives them one interface. A type $A$ has an instance `SetLike A B` when it has a coercion `SetLike.coe` to `Set B` that is injective, by `SetLike.coe_injective`. The instance gives a membership relation, with `SetLike.mem_coe` for $x \in (p : \mathrm{Set}\ B) \leftrightarrow x \in p$, and a coercion of $p$ to a type, with `SetLike.coe_mem` for the elements of that type. Two elements with the same members are equal, by `SetLike.ext`. The order comes from the inclusion of sets: `PartialOrder.ofSetLike` makes $A$ a partial order, the classes `IsMemLE` and `IsConcreteLE` say that an order on $A$ agrees with the inclusion, `SetLike.le_def` unfolds $p \le q$ to the inclusion of members, `SetLike.coe_subset_coe` turns an inclusion of the coerced sets into $p \le q$, and `SetLike.exists_of_lt` gives an element of $q$ that is not in $p$ when $p < q$. So each rule of this section for sets applies to a set-like type after one rewrite with `SetLike.mem_coe`.
 
 ### Exercises
 

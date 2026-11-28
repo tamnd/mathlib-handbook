@@ -5,6 +5,17 @@ modules:
   - Mathlib.Data.Set.Finite.Basic
   - Mathlib.Basic.Finite.Defs
   - Mathlib.Data.Set.Card
+  - Mathlib.Basic.Finite.Prod
+  - Mathlib.Basic.Finite.Set
+  - Mathlib.Basic.Finite.Sigma
+  - Mathlib.Basic.Finite.Sum
+  - Mathlib.Data.Finite.Card
+  - Mathlib.Data.Finite.Defs
+  - Mathlib.Data.Finite.Prod
+  - Mathlib.Data.Finite.Set
+  - Mathlib.Data.Finite.Sigma
+  - Mathlib.Data.Finite.Sum
+  - Mathlib.Data.Finite.Vector
 explains:
   E3: [Set.Finite, Nat.card]
   E2: [Set.Infinite, Finite, Set.ncard, Set.Finite.subset, Set.Finite.toFinset, Set.Finite.union, Set.Finite.image, Set.encard, Set.ncard_union_add_ncard_inter, Finite.of_injective, Finite.of_surjective, Set.finite_coe_iff, Fintype.ofFinite, Set.Finite.induction_on]
@@ -195,6 +206,8 @@ A third error is to read `Set.ncard s = 0` as "the set is empty". It means "the 
 ### The library around it
 
 The file `Mathlib.Basic.Finite.Defs` has the classes `Finite` and `Infinite`, the predicates `Set.Finite` and `Set.Infinite`, and the translation lemmas `Set.finite_coe_iff`, `Set.infinite_coe_iff` and `not_finite_iff_infinite`. The file `Mathlib.Data.Set.Finite.Basic` has the closure rules, the instances `Finite` for the subtypes of the constructions (so that `Set.toFinite` proves the finiteness of a union of two finite sets in a finite type), the conversions `Set.Finite.toFinset` and `Set.Finite.exists_finset_coe`, and the base sets `Set.finite_empty`, `Set.finite_singleton` and `Set.Finite.insert`. The rules for indexed unions are in `Mathlib.Data.Set.Finite.Lattice`: `Set.finite_iUnion` for a union indexed by a finite type, and `Set.Finite.biUnion`, `Set.Finite.sUnion`. The file `Mathlib.Data.Set.Card` has the API of `Set.encard` and `Set.ncard`: the insert rule `Set.ncard_insert_of_notMem`, the order rule `Set.ncard_le_ncard`, `Set.ncard_coe_finset` for a finset, and `Set.ncard_eq_toFinset_card` for the passage to a finset. Most of its lemmas have an `autoParam` hypothesis of finiteness. The reference table lists the declarations of the section.
+
+The file `Mathlib.Basic.Finite.Prod` gives the finiteness of products of sets. The rule `Set.Finite.prod` says that $s \times t$ is finite when $s$ and $t$ are finite, and `Set.Finite.toFinset_prod` computes its finset as the product of the two finsets. The converse needs care with the empty set: `Set.finite_prod` says that $s \times t$ is finite exactly when each factor is finite or the other factor is empty, because $s \times \emptyset = \emptyset$ for each $s$. The same idea gives `Set.infinite_prod` and the one-sided rules `Set.Finite.of_prod_left` and `Set.Infinite.prod_left`, each with a hypothesis `Nonempty` on the other factor. For types, `Prod.finite_iff` and the instances `Finite.prod_left` and `Finite.prod_right` play the same role. The rule `Set.Finite.image2` covers the image of $s \times t$ under a map of two arguments, and `Set.Finite.offDiag` covers the pairs $(a, b)$ of $s$ with $a \ne b$. The small files `Mathlib.Basic.Finite.Sigma` and `Mathlib.Basic.Finite.Sum` give `Set.Finite.sigma` for a dependent product of sets, and `Finite.sum_left` and `Finite.sum_right`, which recover the finiteness of $\alpha$ and $\beta$ from that of $\alpha \oplus \beta$. The file `Mathlib.Basic.Finite.Set` gives `Finite.Set.finite_of_finite_image`: a set is finite when its image under a map that is injective on it is finite. The files `Mathlib.Data.Finite.Card`, `Mathlib.Data.Finite.Defs`, `Mathlib.Data.Finite.Prod`, `Mathlib.Data.Finite.Set`, `Mathlib.Data.Finite.Sigma`, `Mathlib.Data.Finite.Sum` and `Mathlib.Data.Finite.Vector` are deprecated modules with no declarations. Each one only imports the new file: `Mathlib.Basic.Finite.Defs` and its neighbours for most of them, `Mathlib.Data.Fintype.Vector` for the vectors, and `Mathlib.SetTheory.Cardinal.NatCard`, a file of the volume on set theory, for `Mathlib.Data.Finite.Card`. A new file imports the new path.
 
 ### Exercises
 

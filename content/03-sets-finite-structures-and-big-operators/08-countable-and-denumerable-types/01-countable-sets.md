@@ -4,6 +4,11 @@ kind: theory
 modules:
   - Mathlib.Data.Set.Countable
   - Mathlib.Basic.Countable.Defs
+  - Mathlib.Basic.Countable.Basic
+  - Mathlib.Basic.Countable.Small
+  - Mathlib.Data.Countable.Basic
+  - Mathlib.Data.Countable.Defs
+  - Mathlib.Data.Countable.Small
 explains:
   E3: [Countable, Set.Countable, Set.countable_iUnion]
   E2: [Countable.exists_injective_nat, Function.Injective.countable, Function.Surjective.countable, Countable.of_equiv, Set.countable_coe_iff, Set.Countable.mono, Set.Countable.image, Set.Countable.union, Set.countable_iff_exists_surjective, Set.Countable.exists_eq_range, Set.Finite.countable, Set.countable_ofPred_finite_subset]
@@ -190,6 +195,8 @@ The general form: for a countable set `s`, the set `{t | t.Finite ∧ t ⊆ s}` 
 ### The library around it
 
 The file `Mathlib.Basic.Countable.Defs` has the classes `Countable` and `Uncountable` and the transfer rules along maps: `Function.Injective.countable`, `Function.Surjective.countable`, `Countable.of_equiv` and `Countable.exists_injective_nat`. The file `Mathlib.Basic.Countable.Basic` adds the instances for the standard types, for example `instCountableInt`. The file `Mathlib.Data.Set.Countable` has the predicate `Set.Countable` and its closure rules, all named in the pattern `Set.Countable.op` or `Set.countable_op`: `mono`, `image`, `union`, `insert`, `prod`, `biUnion`, `sUnion`, `of_sdiff`, and `Set.countable_iUnion`, `Set.countable_range`, `Set.countable_singleton`, `Set.countable_univ`. The bridges to the type form are `Set.countable_coe_iff`, `Set.Countable.to_subtype` and `Set.to_countable`, and the bridge to the surjective form is `Set.countable_iff_exists_surjective`. The bridge to cardinals is `Cardinal.mk_le_aleph0_iff`, in the volume on set theory. The table at the end lists the declarations of this section.
+
+Besides the instances, `Mathlib.Basic.Countable.Basic` gives the form of countability with embeddings: `countable_iff_nonempty_embedding` says that $\alpha$ is countable exactly when there is an embedding $\alpha \hookrightarrow \mathbb{N}$, and `uncountable_iff_isEmpty_embedding` is the negation. The lemmas `Function.Embedding.countable` and `Function.Embedding.uncountable` move the two properties along an embedding, in opposite directions. The rules for the constructions read in both directions: `Option.countable_iff` says that `Option α` is countable exactly when $\alpha$ is, and `countable_left_of_prod_of_nonempty` recovers the countability of $\alpha$ from that of $\alpha \times \beta$ when $\beta$ is nonempty. For uncountable types, `Sigma.uncountable` says that a sigma type with one uncountable fiber is uncountable. The file `Mathlib.Basic.Countable.Small` gives the instance `Countable.toSmall`: a countable type is small in every universe, because it embeds in $\mathbb{N}$. Its contrapositive is `Uncountable.of_not_small`. The files `Mathlib.Data.Countable.Basic`, `Mathlib.Data.Countable.Defs` and `Mathlib.Data.Countable.Small` are deprecated modules with no declarations. Each one only imports the file of the same name under `Mathlib.Basic.Countable`, and a new file imports that path.
 
 ### Exercises
 
