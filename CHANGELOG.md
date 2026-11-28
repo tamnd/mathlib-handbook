@@ -4,6 +4,8 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+- The build workflow installs pandoc and Tectonic before it runs the tests, because the test of the fallback font runs Tectonic. Since v0.6.1 the test failed in CI, so the releases v0.6.1 to v0.8.1 have no books. The job has a time limit of 90 minutes, because the volumes are now larger.
+
 ## v0.8.1 - 2026-11-28
 
 ### Changed
