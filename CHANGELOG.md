@@ -4,6 +4,12 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+## v0.7.1 - 2026-11-28
+
+### Changed
+
+- `EDITION` pins mathlib at `2b1e246d82`, mathlib-lean at `9778750799` and mathlib-agent at `d043946813`, the commits of their release v0.7.1.
+
 - The lifting classes of V25, Chapter 3, Section 3 are now written with rlp and llp. The PDF of v0.7.0 had no glyph for the old symbol.
 - V27 Algebraic topology and condensed mathematics has a first draft: 8 chapters, 20 sections and 134 exercises. The text treats homotopy, the fundamental groupoid and higher homotopy groups, covering spaces and the fundamental group of the circle, the simplex category, simplicial objects and simplicial sets, nerves, quasicategories and Kan complexes, anodyne extensions, singular homology and the axioms of Eilenberg and Steenrod, the Dold-Kan correspondence, model categories, CW complexes, the categories of compact Hausdorff, profinite and Stonean spaces, the theorem of Nobeling, and condensed and light condensed sets.
 ## v0.7.0 - 2026-11-27
