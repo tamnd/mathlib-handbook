@@ -15,7 +15,9 @@ A fault fails the check:
 7. a requires id that does not exist, or a cycle of requires;
 8. a reads_with key that is not in books/;
 9. an en dash, an em dash, the word "we" and the banned words in the prose, and an exercise with no grade (A),
-   (B), (C) or (L).
+   (B), (C) or (L);
+10. a lower field (04.4) that is not a map of a name to a reason, a lowered name with an empty reason, a
+   lowered name that the same section lists at E3, and (with an index) a lowered name that is not in the index.
 
 The checks 2 and 3 run only with an index (--index), and the check 4 only with the companion (--lean).
 
@@ -286,6 +288,19 @@ class Checker:
             key = r.strip().split()[0] if r.strip() else ""
             if key not in self.map.books:
                 f.append(f"{rel}: the reads_with key '{key}' is not in books/")
+        # 10. lower
+        low = s.lower
+        if not isinstance(low, dict):
+            f.append(f"{rel}: lower must be a map of a name to a reason (04.4)")
+        else:
+            e3 = set(s.explains.get("E3", []))
+            for n, why in low.items():
+                n = str(n)
+                if not isinstance(why, str) or not why.strip():
+                    f.append(f"{rel}: lower {n} has no reason (04.4)")
+                if n in e3:
+                    f.append(f"{rel}: {n} is at E3 and in lower in the same section")
+                self.name(rel, "lower", n, s)
         # 9. the style and the grades
         style(rel, body, f)
         n_ex = grades(rel, body, offset, f)

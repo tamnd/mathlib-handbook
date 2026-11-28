@@ -81,6 +81,7 @@ def test_check_faults(tmp_path):
     t = t.replace("reads_with: [\"Rud76 §2.C\"]", "reads_with: [\"Mun00 §28\"]")
     t = t.replace("  - Mathlib.Topology.MetricSpace.Bounded\n", "  - Mathlib.Topology.MetricSpace.Bounded\n  - Mathlib.Algebra.Group.Defs\n")
     t = t.replace("E3: [Metric.isCompact_iff_isClosed_bounded]", "E3: [Metric.isCompact_iff_isClosed_bounded, Metric.bounded_closedBall, Gone]")
+    t = t.replace("families:", "lower: {Metric.isCompact_iff_isClosed_bounded: \"a step\", Lost: \"\"}\nfamilies:", 1)
     t = t.replace("#closedUnitBall", "#gone")
     t = t.replace("This section states", "We state")
     t = t.replace("3. (B) Show", "3. Show")
@@ -99,6 +100,9 @@ def test_check_faults(tmp_path):
     assert "style: the word 'we'" in text
     assert "an exercise with no grade" in text
     assert "no part '### Notes and history'" in text
+    assert "Metric.isCompact_iff_isClosed_bounded is at E3 and in lower in the same section" in text
+    assert "lower Lost has no reason" in text
+    assert "lower: Lost is not in the index" in text
 
 
 def test_out_name():

@@ -93,6 +93,11 @@ class Section:
         return isinstance(ex, dict) and ex.get("E1") == "auto"
 
     @property
+    def lower(self):
+        """The lower map of spec 04.4: a declaration name to the reason why the section does not give it E3."""
+        return self.fm.get("lower") or {}
+
+    @property
     def families(self) -> list[str]:
         return as_list(self.fm.get("families"))
 
