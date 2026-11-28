@@ -7,6 +7,7 @@ modules:
   - Mathlib.RingTheory.DedekindDomain.AdicValuation.Valuation
   - Mathlib.RingTheory.RamificationInertia.Ramification
   - Mathlib.RingTheory.RamificationInertia.Basic
+  - Mathlib.RingTheory.RamificationInertia.Inertia
 explains:
   E3: [Ideal.uniqueFactorizationMonoid, Ideal.dvd_iff_le, IsDedekindDomain.HeightOneSpectrum, IsDedekindDomain.HeightOneSpectrum.intValuation, Ideal.ramificationIdx]
   E2: [Ideal.prod_normalizedFactors_eq_self, Ideal.isPrime_of_prime, Ideal.prime_of_isPrime, Ideal.finprod_heightOneSpectrum_factorization, IsDedekindDomain.HeightOneSpectrum.maxPowDividing, IsDedekindDomain.quotientEquivPiFactors, IsDedekindDomain.exists_eq_span_pair, IsDedekindDomain.HeightOneSpectrum.valuation, IsDedekindDomain.HeightOneSpectrum.intValuation_le_pow_iff_dvd, Ideal.inertiaDeg, Ideal.IsDedekindDomain.ramificationIdx_eq_normalizedFactors_count, Ideal.sum_ramification_inertia_eq_finrank]
@@ -132,6 +133,8 @@ The two factorizations of the element $6$ group the same four prime ideals in tw
 ### The library around it
 
 The theory is spread over `DedekindDomain/Ideal/Basic.lean` (inverses, the monoid structure, "to contain is to divide"), `DedekindDomain/Ideal/Lemmas.lean` (factors, the Chinese remainder theorem, the height one spectrum), `DedekindDomain/Factorization.lean` (factorization of ideals and fractional ideals as finite products over the height one spectrum, with `FractionalIdeal.count` for the exponents), and `DedekindDomain/AdicValuation/` (the valuations and the completions, used for the adeles of Volume 12). Ramification and inertia are in `Mathlib/RingTheory/RamificationInertia/`.
+
+The module `Mathlib.RingTheory.RamificationInertia.Inertia` has the residue degree. For a prime `q` of `S`, `q.inertiaDeg R` is the degree of the residue field of `q` over the residue field of the prime `Ideal.under R q`, by `Ideal.inertiaDeg_def`. It is $0$ when `q` is not prime, `Ideal.inertiaDeg_of_not_isPrime`. When the primes are maximal, `Ideal.inertiaDeg_eq_of_isMaximal` gives the degree of $S/q$ over $R/p$, and `Ideal.inertiaDeg_eq_of_isFractionRing` treats the zero ideal through fraction fields. The degree is multiplicative in a tower, `Ideal.inertiaDeg_tower`, and the degree in a tower divides the total degree, `Ideal.inertiaDeg_below_dvd` and `Ideal.inertiaDeg_above_dvd`. It is invariant under a group action, `Ideal.inertiaDeg_smul`. For finite residue fields, `Ideal.absNorm_pow_inertiaDeg` says that $N(p)^f = N(q)$, and `Ideal.pow_inertiaDeg` is the case $R = \mathbb{Z}$, where $N(q) = p^f$.
 
 Common errors of a learner:
 

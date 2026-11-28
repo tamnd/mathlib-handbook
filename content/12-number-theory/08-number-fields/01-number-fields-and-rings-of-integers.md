@@ -6,6 +6,8 @@ modules:
   - Mathlib.NumberTheory.NumberField.Norm
   - Mathlib.NumberTheory.NumberField.Discriminant.Defs
   - Mathlib.NumberTheory.NumberField.Discriminant.Basic
+  - Mathlib.NumberTheory.FundamentalDiscriminant
+  - Mathlib.NumberTheory.KummerDedekind
 explains:
   E3: [NumberField, NumberField.RingOfIntegers, NumberField.RingOfIntegers.norm, NumberField.discr]
   E2: [NumberField.RingOfIntegers.isIntegral_coe, NumberField.isAlgebraic, NumberField.RingOfIntegers.instIsDedekindDomain, NumberField.RingOfIntegers.rank, NumberField.RingOfIntegers.basis, NumberField.integralBasis, Rat.ringOfIntegersEquiv, NumberField.RingOfIntegers.coe_norm, NumberField.RingOfIntegers.isUnit_norm, NumberField.discr_eq_discr, NumberField.abs_discr_gt_two, NumberField.abs_discr_ge, NumberField.finite_of_discr_bdd, IsCyclotomicExtension.Rat.discr_prime]
@@ -128,6 +130,10 @@ The proofs use Minkowski's theorem on convex bodies in the space $\mathbb{R}^{r_
 ### The library around it
 
 The cyclotomic fields have their own files: `Mathlib.NumberTheory.NumberField.Cyclotomic.Basic` proves that $\mathcal{O}_K = \mathbb{Z}[\zeta_{p^k}]$ for $K = \mathbb{Q}(\zeta_{p^k})$, and computes the discriminant, for example `IsCyclotomicExtension.Rat.discr_prime`: $d_K = (-1)^{(p-1)/2}p^{p-2}$ for $K = \mathbb{Q}(\zeta_p)$. The general theory of Dedekind domains and of the ideal norm `Ideal.absNorm` is in `Mathlib.RingTheory`.
+
+The module `Mathlib.NumberTheory.FundamentalDiscriminant` defines `Int.IsFundamentalDiscr D`, the fundamental discriminants, which for $D \neq 1$ are the discriminants of the quadratic fields: by `Int.isFundamentalDiscr_iff_squarefree`, $D$ is fundamental when $D \equiv 1 \pmod 4$ and $D$ is squarefree, or $D = 4m$ with $m$ squarefree and $m \equiv 2, 3 \pmod 4$, and `Int.isFundamentalDiscr_four_mul`, `Int.isFundamentalDiscr_four_mul_add_one` and `Int.isFundamentalDiscr_iff_forall_prime` are other forms of this test.
+
+The module `Mathlib.NumberTheory.KummerDedekind` gives the factorization of a prime in a monogenic part of the ring of integers: for $\mathcal{O}_K \supseteq \mathbb{Z}[\alpha]$ and a prime $p$ prime to the conductor of $\mathbb{Z}[\alpha]$, `KummerDedekind.normalizedFactorsMapEquivNormalizedFactorsMinPolyMk` matches the prime factors of $p\mathcal{O}_K$ with the irreducible factors of the minimal polynomial of $\alpha$ modulo $p$, `KummerDedekind.emultiplicity_factors_map_eq_emultiplicity` says that the exponents agree, and `KummerDedekind.quotMapEquivQuotQuotMap` is the isomorphism $\mathcal{O}_K/p\mathcal{O}_K \cong \mathbb{F}_p[X]/(\bar{f})$ behind it; Section 7 applies this to number fields.
 
 Common errors of a learner:
 

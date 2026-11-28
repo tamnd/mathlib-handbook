@@ -8,6 +8,9 @@ modules:
   - Mathlib.NumberTheory.EulerProduct.DirichletLSeries
   - Mathlib.NumberTheory.LSeries.Dirichlet
   - Mathlib.NumberTheory.LSeries.Nonvanishing
+  - Mathlib.NumberTheory.ZetaValues
+  - Mathlib.NumberTheory.NumberField.DedekindZeta
+  - Mathlib.NumberTheory.NumberField.HeckeLFunction
 explains:
   E3: [LSeries, EulerProduct.eulerProduct_completely_multiplicative_tprod, DirichletCharacter.LSeries_eulerProduct_tprod, DirichletCharacter.LFunction_ne_zero_of_one_le_re]
   E2: [LSeries.term, LSeriesSummable, LSeries.abscissaOfAbsConv, LSeries.abscissaOfAbsConv_le_of_le_const, LSeries_convolution', EulerProduct.eulerProduct_tprod, riemannZeta_eulerProduct_tprod, DirichletCharacter.LSeriesSummable_iff, DirichletCharacter.LSeries_ne_zero_of_one_lt_re, DirichletCharacter.LSeries.mul_mu_eq_one, ArithmeticFunction.LSeries_zeta_eq_riemannZeta, DirichletCharacter.LFunction, DirichletCharacter.LFunction_eq_LSeries, riemannZeta_ne_zero_of_one_le_re, DirichletCharacter.LFunction_apply_one_ne_zero, riemannZeta_residue_one]
@@ -163,6 +166,16 @@ At $s = 1$ the series converges conditionally to $\pi/4$ by the series of Leibni
 ### The library around it
 
 The folder `Mathlib.NumberTheory.LSeries` has the general theory, with holomorphy in `Deriv` and uniqueness of coefficients in `Injectivity`. The functions on all of `ℂ` come from `HurwitzZeta`, `RiemannZeta` and `DirichletContinuation`, with the functional equations. `Mathlib.NumberTheory.LSeries.Nonvanishing` proves the nonvanishing on $\operatorname{Re}s \ge 1$ for all characters. The file `Mathlib.NumberTheory.EulerProduct.Basic` gives Euler products in general.
+
+The module `Mathlib.NumberTheory.ZetaValues` computes $\zeta(2k)$ by Fourier analysis. `bernoulliFun k` is the Bernoulli polynomial $B_k(x)$ as a function `ℝ → ℝ`, with `bernoulliFun_eval_zero` giving the Bernoulli number at $0$, `deriv_bernoulliFun` giving $B_k' = k B_{k-1}$, and `integral_bernoulliFun_eq_zero` giving $\int_0^1 B_k = 0$ for $k \neq 0$. `periodizedBernoulli k` is its periodic extension on the unit circle. Its Fourier coefficients are `bernoulliFourierCoeff k n`, and `bernoulliFourierCoeff_eq` computes them as $-k!/(2\pi i n)^k$ for $n \neq 0$ by integration by parts. For $k \geq 2$ the Fourier series converges absolutely, and evaluation at $x = 0$ gives `hasSum_zeta_nat`:
+$$\sum_{n \geq 1} \frac{1}{n^{2k}} = \frac{(-1)^{k+1} 2^{2k-1} \pi^{2k} B_{2k}}{(2k)!}, \qquad k \geq 1.$$
+The special cases are `hasSum_zeta_two`, with sum $\pi^2/6$, and `hasSum_zeta_four`, with sum $\pi^4/90$. The cosine and sine series `hasSum_one_div_nat_pow_mul_cos` and `hasSum_one_div_nat_pow_mul_sin` give the values at other points $x \in [0, 1]$, and `hasSum_L_function_mod_four_eval_three` is the value $\pi^3/32$ of the L-series of the nontrivial character modulo $4$ at $s = 3$. These are statements with `HasSum` on real series, not values of `riemannZeta`.
+
+For a number field $K$, `Mathlib.NumberTheory.NumberField.DedekindZeta` defines `NumberField.dedekindZeta K` as the L-series of $n \mapsto$ the number of ideals of the ring of integers of norm $n$. Its main result is the residue at $s = 1$, `NumberField.tendsto_sub_one_mul_dedekindZeta_nhdsGT`: $(s - 1)\zeta_K(s)$ tends to `NumberField.dedekindZeta_residue K` as the real number $s$ tends to $1$ from above. The value is the class number formula, `NumberField.dedekindZeta_residue_def`:
+$$\operatorname{Res}_{s=1} \zeta_K(s) = \frac{2^{r_1}(2\pi)^{r_2} R_K h_K}{w_K \sqrt{\lvert d_K \rvert}},$$
+with $r_1$ and $r_2$ the numbers of real and complex places, $R_K$ the regulator, $h_K$ the class number, $w_K$ the number of roots of unity and $d_K$ the discriminant, all from Chapter 8. `NumberField.dedekindZeta_residue_pos` and `NumberField.dedekindZeta_residue_ne_zero` follow. The proof counts ideals of bounded norm in each ideal class through the lattice points of the mixed space.
+
+The module `Mathlib.NumberTheory.NumberField.HeckeLFunction` defines Hecke characters and their L-functions as formal Dirichlet series. For a Dedekind domain $R$ with fraction field $K$, `NumberField.HeckeCharacter R K` is the type of continuous homomorphisms from the idele class group to `ℂ`. At a finite place $v$, `NumberField.HeckeCharacter.restrict` gives a character of the completion $K_v$, and `NumberField.HeckeCharacter.IsUnramifiedAt` says that it is trivial on the units of the integers of $K_v$, by `NumberField.HeckeCharacter.isUnramifiedAt_iff`. Then `NumberField.HeckeCharacter.localValue` is the value at a uniformizer, which does not depend on the choice at an unramified place, by `NumberField.HeckeCharacter.IsUnramifiedAt.localValue_eq`. The local polynomial `NumberField.HeckeCharacter.localPolynomial` is $1 - \chi_v(\varpi_v) T$ at unramified places and $1$ otherwise, `NumberField.HeckeCharacter.localPowerSeries` is its inverse, and `NumberField.HeckeCharacter.localEulerFactor` turns it into an arithmetic function with `ArithmeticFunction.ofPowerSeries` at the size of the residue field. Finally `NumberField.HeckeCharacter.LFunction` is the Euler product of these factors in the sense of `ArithmeticFunction.eulerProduct` of Section 3, and `NumberField.HeckeCharacter.LSeries` is its L-series. The module has no analytic results on these L-series.
 
 Common errors of a learner:
 

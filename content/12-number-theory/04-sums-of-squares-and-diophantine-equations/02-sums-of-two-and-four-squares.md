@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.NumberTheory.SumTwoSquares
   - Mathlib.NumberTheory.SumFourSquares
+  - Mathlib.NumberTheory.Zsqrtd.GaussianInt
 explains:
   E3: [Nat.sq_add_sq_mul, ZMod.isSquare_neg_one_iff', Nat.Prime.sum_four_squares, Nat.sum_four_squares]
   E2: [sq_add_sq_mul, Nat.Prime.sq_add_sq, ZMod.isSquare_neg_one_of_eq_sq_add_sq_of_coprime, ZMod.isSquare_neg_one_of_eq_sq_add_sq_of_isCoprime, Nat.mod_four_ne_three_of_mem_primeFactors_of_isSquare_neg_one, ZMod.isSquare_neg_one_iff_forall_mem_primeFactors_mod_four_ne_three, ZMod.isSquare_neg_one_mul, euler_four_squares, Nat.euler_four_squares, Int.exists_sq_add_sq_add_one_eq_mul, Int.sq_add_sq_of_two_mul_sq_add_sq, Int.lt_of_sum_four_squares_eq_mul]
@@ -174,6 +175,8 @@ The theorem of Lagrange for every `n : ℕ`, by induction on the prime factoriza
 ### The library around it
 
 The file `Mathlib.NumberTheory.SumTwoSquares` has the identity, the prime case and the lemmas `ZMod.isSquare_neg_one_*`. The file `Mathlib.NumberTheory.SumFourSquares` has Euler's identity, the lemmas of the descent and the two theorems.
+
+`Mathlib.NumberTheory.Zsqrtd.GaussianInt` gives a second route to the prime case through the Gaussian integers. `GaussianInt` is the abbreviation `ℤ√(-1)`, so an element has fields `re` and `im`, and `Zsqrtd.norm x` is $a^2 + b^2$ for $x = a + bi$. The ring hom `GaussianInt.toComplex` embeds it in `ℂ`, with `GaussianInt.toComplex_def`, `GaussianInt.toComplex_injective` and one simp lemma per ring operation, and `GaussianInt.intCast_real_norm` says that the norm is `Complex.normSq` of the image. Division `GaussianInt.div_def` rounds the real and imaginary parts of $x \bar y / N(y)$ to the nearest integers, so `GaussianInt.normSq_div_sub_div_lt_one` holds and `GaussianInt.norm_mod_lt` says that the remainder has smaller norm. This gives the instance `GaussianInt.instEuclideanDomain`, hence unique factorization. The bridge to this section is `GaussianInt.sq_add_sq_of_nat_prime_of_not_irreducible`: a prime $p$ that is not irreducible in `GaussianInt` is a sum of two squares, because a proper factor $x$ of $p$ has norm $p$. The other lemmas, such as `GaussianInt.norm_nonneg`, `GaussianInt.norm_eq_zero` and `GaussianInt.natAbs_norm_eq`, move between the integer norm and its absolute value.
 
 Common errors of a learner:
 

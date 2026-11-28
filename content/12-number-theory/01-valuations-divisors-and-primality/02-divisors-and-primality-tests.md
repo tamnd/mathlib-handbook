@@ -8,6 +8,10 @@ modules:
   - Mathlib.NumberTheory.CarmichaelNumber
   - Mathlib.NumberTheory.LucasPrimality
   - Mathlib.NumberTheory.LucasLehmer
+  - Mathlib.NumberTheory.Basic
+  - Mathlib.NumberTheory.Wilson
+  - Mathlib.NumberTheory.PowModTotient
+  - Mathlib.NumberTheory.TsumDivisorsAntidiagonal
 explains:
   E3: [Nat.divisors, Nat.Perfect, Nat.fermatNumber, Nat.FermatPsp, Nat.IsCarmichael, lucas_primality, lucas_lehmer_sufficiency]
   E2: [Nat.properDivisors, Nat.mem_divisors, Nat.perfect_iff_sum_divisors_eq_two_mul, Nat.sum_divisors_prime_pow, Nat.prod_fermatNumber, Nat.coprime_fermatNumber_fermatNumber, Nat.pepin_primality, Nat.ProbablePrime, Nat.exists_infinite_pseudoprimes, Nat.isCarmichael_iff_korselt, Nat.isCarmichael_561, Nat.prime_of_pow_sub_one_prime, LucasLehmer.LucasLehmerTest, lucas_lehmer_necessity]
@@ -157,6 +161,14 @@ The proof of necessity uses Chapter 3 and is not given here.
 ### The library around it
 
 `Mathlib.NumberTheory.Divisors` also has `Nat.divisorsAntidiagonal`, the pairs $(a, b)$ with $ab = n$, for Chapter 2. `Nat.exists_infinite_pseudoprimes` gives arbitrarily large pseudoprimes to each base $b \geq 1$.
+
+The small module `Mathlib.NumberTheory.Basic` has one lemma, `dvd_sub_pow_of_dvd_sub`: in a commutative ring, if $p \mid a - b$ then $p^{k+1} \mid a^{p^k} - b^{p^k}$ for each $k$.
+
+`Mathlib.NumberTheory.Wilson` gives Wilson's theorem and its converse. `ZMod.wilsons_lemma` says that $(p-1)! = -1$ in `ZMod p` for a prime $p$, and `ZMod.prod_Ico_one_prime` says the same with the product $\prod_{1 \leq x < p} x$. The converse `Nat.prime_of_fac_equiv_neg_one` gives a primality test, and `Nat.prime_iff_fac_equiv_neg_one` combines the two directions for $n \neq 1$. The test is exact but slow, because $(n-1)!$ has about $n \log n$ digits. For odd $p$, `ZMod.factorial_eq_neg_one_pow_mul_half_factorial_sq` writes $(p-1)!$ as $(-1)^{(p-1)/2}$ times the square of $((p-1)/2)!$, and `ZMod.half_factorial_sq_eq_neg_one` concludes that $((p-1)/2)!^2 = -1$ when $p \bmod 4 \neq 3$. This gives an explicit square root of $-1$ modulo such a prime, which is the first step of the two squares theorem of Section 4.2.
+
+`Mathlib.NumberTheory.PowModTotient` states Euler's theorem in the form that a computation needs, with `%` on natural numbers. `Nat.pow_totient_mod_eq_one` says that $x^{\varphi(n)} \bmod n = 1$ when $1 < n$ and $x$ is coprime to $n$. `Nat.pow_totient_mod` reduces the exponent: $x^k \bmod n = x^{k \bmod \varphi(n)} \bmod n$. `Nat.pow_add_totient_mod_eq` and `Nat.pow_add_mul_totient_mod_eq` add $\varphi(n)$ or a multiple of it to the exponent. All four lemmas need the coprimality hypothesis: for $x = 2$ and $n = 4$ the power $2^{\varphi(4)} = 4$ is $0$ modulo $4$.
+
+`Mathlib.NumberTheory.TsumDivisorsAntidiagonal` connects divisor sums with power series, in the form that the $q$-expansions of Eisenstein series use. The equivalence `sigmaAntidiagonalEquivProd` identifies the pairs $(n, (a, b))$ with $ab = n$ with the pairs $(a, b)$ of positive integers, and `divisorsAntidiagonalFactors` turns a divisor pair of $n$ into a pair in `ℕ+ × ℕ+`. For $\|r\| < 1$ in a complete normed field, `tsum_prod_pow_eq_tsum_sigma` says that $\sum_{d \geq 1} \sum_{c \geq 1} c^k r^{dc} = \sum_{e \geq 1} \sigma_k(e) r^e$, and `tsum_pow_div_one_sub_eq_tsum_sigma` gives the Lambert series form $\sum_{n \geq 1} n^k r^n / (1 - r^n) = \sum_{e \geq 1} \sigma_k(e) r^e$. The summability lemmas `summable_prod_mul_pow` and `summable_norm_pow_mul_geometric_div_one_sub` justify the rearrangements, and `tendsto_zero_geometric_tsum_pnat` says that $\sum_{n \geq 1} r^{nm}$ tends to $0$ as $m \to \infty$.
 
 Common errors of a learner:
 

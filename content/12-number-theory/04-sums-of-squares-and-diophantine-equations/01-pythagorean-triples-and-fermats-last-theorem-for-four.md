@@ -6,6 +6,8 @@ modules:
   - Mathlib.NumberTheory.FLT.Basic
   - Mathlib.NumberTheory.FLT.Four
   - Mathlib.NumberTheory.FLT.Three
+  - Mathlib.NumberTheory.FLT.MasonStothers
+  - Mathlib.NumberTheory.FLT.Polynomial
 explains:
   E3: [PythagoreanTriple, PythagoreanTriple.coprime_classification', not_fermat_42, fermatLastTheoremFour]
   E2: [PythagoreanTriple.classification, PythagoreanTriple.coprime_classification, PythagoreanTriple.even_odd_of_coprime, Int.sq_ne_two_mod_four, circleEquivGen, FermatLastTheoremWith, FermatLastTheoremFor, FermatLastTheorem, FermatLastTheoremFor.mono, not_fermatLastTheoremFor_two, Fermat42, Fermat42.Minimal, Fermat42.exists_minimal, Fermat42.not_minimal, FermatLastTheorem.of_odd_primes, fermatLastTheoremThree]
@@ -188,6 +190,8 @@ For $(21, 20, 29)$ the proof gives $u = 25$, $v = 4$, so $m = 5$, $n = 2$.
 ### The library around it
 
 The file `Mathlib.NumberTheory.FLT.Basic` gives the translations `fermatLastTheoremFor_iff_int` and `fermatLastTheoremFor_iff_rat` between `ℕ`, `ℤ` and `ℚ`.
+
+For polynomials, Fermat's equation has an elementary proof. The module `Mathlib.NumberTheory.FLT.MasonStothers` proves the Mason and Stothers theorem `Polynomial.abc`: if $a, b, c$ are nonzero polynomials over a field, $a$ and $b$ are coprime and $a + b + c = 0$, then each of $\deg a$, $\deg b$, $\deg c$ is less than the degree of the radical $\operatorname{rad}(abc)$, the product of the distinct irreducible factors, or else the three derivatives vanish. The second case is needed in characteristic $p$, where $a = X^p$ has derivative $0$. The proof bounds the degree of the Wronskian $ab' - a'b$, which $abc/\operatorname{rad}(abc)$ divides. The module `Mathlib.NumberTheory.FLT.Polynomial` deduces `Polynomial.flt`: for $n \geq 3$ with $n \neq 0$ in the field, coprime nonzero polynomials with $a^n + b^n = c^n$ are constant. In outline, $\operatorname{rad}(a^n b^n c^n)$ has degree at most $\deg a + \deg b + \deg c$, and the theorem gives $n \deg a < \deg a + \deg b + \deg c$ and the same for $b$ and $c$; the sum of the three inequalities fails for $n \geq 3$. The general form `Polynomial.flt_catalan` treats $ua^p + vb^q + wc^r = 0$ with $\frac1p + \frac1q + \frac1r \leq 1$, and `fermatLastTheoremWith'_polynomial` states the result as `FermatLastTheoremWith' k[X] n`, without the coprimality hypothesis: each solution is a common factor times units.
 
 Common errors of a learner:
 
