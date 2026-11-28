@@ -8,6 +8,8 @@ Section 2 proves the Hilbert basis theorem: if $R$ is Noetherian, then so is $R[
 
 Section 3 proves the Lasker-Noether theorem: every proper ideal of a Noetherian ring is an intersection of finitely many primary ideals. The radicals of the primary ideals in a minimal decomposition depend only on the ideal, and the minimal ones are the minimal primes over it. So an ideal of a Noetherian ring has only finitely many minimal primes.
 
+Section 4 studies the primes of an algebra that lie over a given prime, the theorems of lying over, going up, incomparability and going down for integral and flat algebras, the height of a prime, Krull's height theorem, and the criterion that a Noetherian domain is a unique factorization domain if and only if each prime of height one is principal.
+
 The chapter needs the ideals and quotient rings of Volume 6, Chapter 2, the factorization theory of Volume 6, Chapter 6, and the modules of Volume 7, Chapter 1. From this volume it uses the radicals and ideal quotients of Chapter 1 and the localizations of Chapter 2. Chapter 4 uses the results of this chapter to compare Noetherian and Artinian rings, and Chapter 7 proves the analogue of the Hilbert basis theorem for power series.
 
 In Mathlib the central classes are `IsNoetherian R M` and `IsNoetherianRing R`, and most results of the chapter are instances that instance search finds with no work.

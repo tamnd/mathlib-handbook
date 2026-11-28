@@ -1,7 +1,11 @@
 ---
 title: Derivatives, multiple roots and adjoining a root
 kind: theory
-modules: []
+modules:
+  - Mathlib.RingTheory.Polynomial.Radical
+  - Mathlib.RingTheory.Polynomial.SeparableDegree
+  - Mathlib.RingTheory.Polynomial.Wronskian
+  - Mathlib.RingTheory.Polynomial.Nilpotent
 explains:
   E3: [Polynomial.derivative, Polynomial.one_lt_rootMultiplicity_iff_isRoot, AdjoinRoot, AdjoinRoot.lift]
   E2: [Polynomial.derivative_mul, Polynomial.derivative_X_pow, Polynomial.derivative_pow, Polynomial.derivative_comp, Polynomial.rootMultiplicity, Polynomial.le_rootMultiplicity_iff, Polynomial.rootMultiplicity_pos, Polynomial.derivative_rootMultiplicity_of_root, Polynomial.isRoot_of_isRoot_of_dvd_derivative_mul, AdjoinRoot.mk, AdjoinRoot.root, AdjoinRoot.of, AdjoinRoot.mk_eq_zero, AdjoinRoot.isRoot_root, AdjoinRoot.lift_root, AdjoinRoot.instField, AdjoinRoot.powerBasis, AdjoinRoot.liftAlgHom, AdjoinRoot.of.injective_of_degree_ne_zero]
@@ -133,6 +137,8 @@ Induction on the degree gives a field in which $f$ splits into linear factors. V
 **Counterexample (Characteristic $p$).** Part 2 of the theorem on square factors fails in characteristic $p$. Let $k = \mathbb{F}_p(t)$ and $f = X^p - t \in k[X]$. Then $f' = p X^{p-1} = 0$, so $\gcd(f, f') = f \ne 1$. But $f$ is irreducible, hence squarefree: $f$ is monic and Eisenstein at the prime $t$ of the unique factorization domain $\mathbb{F}_p[t]$, so it is irreducible over $\mathbb{F}_p(t)$ by Section 2. Over $L = k[X]/(f)$ with root $\beta$, $f = (X - \beta)^p$.
 
 ### The library around it
+
+The Wronskian $W(a, b) = a b' - a' b$ of two polynomials is `Polynomial.wronskian a b`, in `Mathlib.RingTheory.Polynomial.Wronskian`. It is bilinear and alternating (`Polynomial.wronskianBilin`, `Polynomial.isAlt_wronskianBilin`), its degree is less than the sum of the degrees, `Polynomial.degree_wronskian_lt_add`, and for coprime $a, b$ over a domain it vanishes exactly when both derivatives vanish, `IsCoprime.wronskian_eq_zero_iff`. The module `Mathlib.RingTheory.Polynomial.Radical` connects the Wronskian with multiple roots over a field: the quotient of $a$ by its radical divides $a'$, `divRadical_dvd_derivative`, and also $W(a, b)$, `divRadical_dvd_wronskian_left`. These facts are the core of the proof of the Mason and Stothers theorem. The module `Mathlib.RingTheory.Polynomial.SeparableDegree` treats the case $f' = 0$ in characteristic $p$: an irreducible $f$ has the form $g(X^{q^m})$ with $g$ separable, `Irreducible.hasSeparableContraction`, and the degree of $g$ is the separable degree `Polynomial.HasSeparableContraction.degree`, which divides the degree of $f$, `Polynomial.HasSeparableContraction.dvd_degree`. The module `Mathlib.RingTheory.Polynomial.Nilpotent` describes the units and the nilpotent elements of $R[X]$ for a commutative ring $R$: a polynomial is nilpotent exactly when all its coefficients are nilpotent, `Polynomial.isNilpotent_iff`, and it is a unit exactly when its constant term is a unit and its other coefficients are nilpotent, `Polynomial.isUnit_iff_coeff_isUnit_isNilpotent`. Over a reduced ring no polynomial of positive degree is a unit, `Polynomial.not_isUnit_of_degree_pos_of_isReduced`.
 
 `Polynomial.isRoot_of_isRoot_of_dvd_derivative_mul` is a variant of the multiple root theorem. `Polynomial.Separable.squarefree` and, over a perfect field, `PerfectField.separable_iff_squarefree` link the two notions, with their home in Volume 11. `IsAdjoinRoot` is a predicate for rings presented as `AdjoinRoot f`. A common error of a learner: `AdjoinRoot.of f` is injective only under a hypothesis such as `f.degree ≠ 0` over a field, since for $f = 1$ the quotient is the zero ring.
 

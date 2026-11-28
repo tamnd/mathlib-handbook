@@ -1,7 +1,11 @@
 ---
 title: Ideals in polynomial rings and monomial orders
 kind: theory
-modules: []
+modules:
+  - Mathlib.RingTheory.MvPolynomial.MonomialOrder
+  - Mathlib.RingTheory.MvPolynomial.MonomialOrder.DegLex
+  - Mathlib.RingTheory.MvPolynomial.Groebner
+  - Mathlib.RingTheory.MvPolynomial.Ideal
 explains:
   E3: [MvPolynomial.zeroLocus, MvPolynomial.vanishingIdeal, MonomialOrder.div, MonomialOrder.degree]
   E2: [MvPolynomial.mem_zeroLocus_iff, MvPolynomial.mem_vanishingIdeal_iff, MvPolynomial.zeroLocus_anti_mono, MvPolynomial.vanishingIdeal_anti_mono, MvPolynomial.zeroLocus_vanishingIdeal_le, MvPolynomial.le_vanishingIdeal_zeroLocus, MvPolynomial.le_zeroLocus_iff_le_vanishingIdeal, MvPolynomial.zeroLocus_vanishingIdeal_galoisConnection, MvPolynomial.zeroLocus_span, MonomialOrder.reduce, MonomialOrder.degree_reduce_lt, MonomialOrder.subLTerm, MonomialOrder.degree_sub_LTerm_lt, MonomialOrder.leadingCoeff, MonomialOrder.leadingTerm, MonomialOrder.degree_mul, MonomialOrder.degree_add_le]
@@ -130,6 +134,8 @@ Expanding $(x + y)(xy - 1) + (y^2 - 1) + x + y + 1$ gives $f$ back.
 **Counterexample (The remainder is not a test without a Gröbner basis).** With the same order, divide $f = x y^2 - x$ by $f_1 = xy + 1$ and $f_2 = y^2 - 1$. The first step gives $q_1 = y$ and $p = -x - y$, and neither $x$ nor $y$ is divisible by $xy$ or $y^2$, so $r = -x - y \ne 0$. But $f = x(y^2 - 1) \in (f_1, f_2)$. In the order $f_2, f_1$ the division gives $q_2 = x$ and $r = 0$. So the remainder depends on the order of the divisors.
 
 ### The library around it
+
+The leading terms live in `Mathlib.RingTheory.MvPolynomial.MonomialOrder`. For a monomial order `m`, the functions `MonomialOrder.degree`, `MonomialOrder.leadingCoeff` and `MonomialOrder.leadingTerm` give the multidegree, the leading coefficient and the leading term, and `MonomialOrder.withBotDegree` is a variant in which the zero polynomial has degree $\bot$. Degrees are compared through `MonomialOrder.toSyn`, the order isomorphism to a linearly ordered type, so the rules read `MonomialOrder.degree_add_le` and `MonomialOrder.degree_mul_le`. Over a ring without zero divisors the degree is additive, `MonomialOrder.degree_mul`, and the leading coefficient and the leading term are multiplicative, `MonomialOrder.leadingCoeff_mul` and `MonomialOrder.leadingTerm_mul`. The module also defines `MonomialOrder.Monic` and the S-polynomial `MonomialOrder.sPolynomial`, with `MonomialOrder.sPolynomial_leadingTerm_mul` for the cancellation of leading terms. The module `Mathlib.RingTheory.MvPolynomial.MonomialOrder.DegLex` relates the degree for `MonomialOrder.degLex` to the total degree, `MvPolynomial.degLex_totalDegree_monotone`. The module `Mathlib.RingTheory.MvPolynomial.Groebner` holds the division algorithm: one step is `MonomialOrder.reduce`, which lowers the degree, `MonomialOrder.degree_reduce_lt`, and the full statements are `MonomialOrder.div` for a family and `MonomialOrder.div_set` for a set of divisors with unit leading coefficients. The module `Mathlib.RingTheory.MvPolynomial.Ideal` describes monomial ideals: a polynomial lies in the ideal spanned by a set of monomials exactly when each monomial of its support is divisible by one of them, `MvPolynomial.mem_ideal_span_monomial_image`. The ideal of the variables, `MvPolynomial.idealOfVars`, is prime, `MvPolynomial.isPrime_idealOfVars`, and its $n$-th power is spanned by the monomials of degree $n$, `MvPolynomial.pow_idealOfVars_eq_span`. The ideal of leading terms of a set with unit leading coefficients is a monomial ideal, `MonomialOrder.span_leadingTerm_eq_span_monomial`, and S-polynomials of elements of an ideal stay in it, `MonomialOrder.sPolynomial_mem_ideal`.
 
 Dickson's lemma is the instance `Finsupp.wellQuasiOrderedLE` of Volume 3: for finite `σ` the order on `σ →₀ ℕ` is a well quasi-order. A common error of a learner: `m.degree f` is a monomial `σ →₀ ℕ`, not a number.
 

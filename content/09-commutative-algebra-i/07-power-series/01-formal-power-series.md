@@ -6,6 +6,7 @@ modules:
   - Mathlib.RingTheory.PowerSeries.Inverse
   - Mathlib.RingTheory.PowerSeries.Order
   - Mathlib.RingTheory.PowerSeries.NoZeroDivisors
+  - Mathlib.RingTheory.Binomial
 explains:
   E3: [PowerSeries, PowerSeries.isUnit_iff_constantCoeff, PowerSeries.order, PowerSeries.maximalIdeal_eq_span_X]
   E2: [PowerSeries.coeff, PowerSeries.mk, PowerSeries.X, PowerSeries.C, PowerSeries.constantCoeff, PowerSeries.coeff_mul, PowerSeries.ext, PowerSeries.X_pow_dvd_iff, PowerSeries.sub_const_eq_X_mul_shift, PowerSeries.invOfUnit, PowerSeries.mul_invOfUnit, PowerSeries.inv, PowerSeries.order_eq_nat, PowerSeries.min_order_le_order_add, PowerSeries.order_mul, PowerSeries.X_pow_order_mul_divXPowOrder, PowerSeries.instIsDomain, PowerSeries.prime_X, PowerSeries.instIsDiscreteValuationRing, Polynomial.coeToPowerSeries, PowerSeries.mk_one_mul_one_sub_eq_one]
@@ -160,6 +161,8 @@ where $F_0 = 0$, $F_1 = 1$ and $F_{n+1} = F_n + F_{n-1}$ are the Fibonacci numbe
 The files are in `Mathlib/RingTheory/PowerSeries/`. `Basic` defines the ring, `coeff`, `mk`, `C`, `X`, `constantCoeff`, the coercion `Polynomial.coeToPowerSeries` from `R[X]` and the map `PowerSeries.map` along a ring homomorphism. `Inverse` holds the unit criterion and the local ring `k⟦X⟧`, `Order` the order, `NoZeroDivisors` the domain property, `WellKnown` the geometric series, and `Trunc` the truncation to a polynomial. The lemma `coeff_mul` expands the coefficient of a product as a sum over `antidiagonal n`. A proof that two series are equal usually starts with `ext n`.
 
 `PowerSeries.X` and `Polynomial.X` are different terms, related by the lemma `Polynomial.coe_X`.
+
+The binomial series $(1 + X)^r = \sum_k \binom{r}{k} X^k$ needs the coefficients $\binom{r}{k}$ for $r$ in the ring of coefficients. The module `Mathlib.RingTheory.Binomial` defines a binomial ring, the class `BinomialRing`: a ring without additive torsion where each value $r(r+1)\cdots(r+k-1)$ is divisible by $k!$. The quotient is `Ring.multichoose r k`, and the binomial coefficient is `Ring.choose r k`, with $k! \binom{r}{k} = r(r-1)\cdots(r-k+1)$ by `Ring.descPochhammer_eq_factorial_smul_choose`. The instances cover $\mathbb{Z}$, $\mathbb{N}$ and every $\mathbb{Q}$-algebra, `Int.instBinomialRing`, `Nat.instBinomialRing` and `instBinomialRingOfModuleNNRat`. The lemma `Ring.choose_natCast` says that the definition agrees with `Nat.choose`, `Ring.choose_succ_succ` is the Pascal rule, and `Ring.add_choose_eq` is the Vandermonde identity $\binom{r+s}{k} = \sum_{i+j=k} \binom{r}{i}\binom{s}{j}$.
 
 ### Exercises
 

@@ -1,7 +1,12 @@
 ---
 title: The Chinese remainder theorem and prime avoidance
 kind: theory
-modules: []
+modules:
+  - Mathlib.RingTheory.Idempotents
+  - Mathlib.RingTheory.Ideal.Quotient.ChineseRemainder
+  - Mathlib.RingTheory.ZMod
+  - Mathlib.RingTheory.ZMod.Torsion
+  - Mathlib.RingTheory.ZMod.UnitsCyclic
 explains:
   E3: [Ideal.quotientInfRingEquivPiQuotient, Ideal.subset_union_prime]
   E2: [Ideal.prod_eq_iInf_of_pairwise_isCoprime, Ideal.quotientInfToPiQuotient, Ideal.quotientInfToPiQuotient_surj, Ideal.quotientInfToPiQuotient_inj, Ideal.exists_forall_sub_mem_ideal, Ideal.isCoprime_biInf, Ideal.subset_union, Ideal.subset_union_prime_finite, "Ideal.subset_union_prime'", Ideal.IsPrime.prod_le, Ideal.IsPrime.inf_le, "Ideal.IsPrime.inf_le'", CompleteOrthogonalIdempotents]
@@ -126,6 +131,12 @@ $$f = \tfrac{1}{2}(x - 1)(x - 2) - 3 x (x - 2) + \tfrac{7}{2} x (x - 1) = x^2 + 
 **Counterexample (Prime avoidance needs primes).** Let $R = \mathbb{F}_2[x, y]/(x, y)^2$ and $\mathfrak{m} = (x, y)/(x, y)^2 = \{0, x, y, x + y\}$. Each product of two elements of $\mathfrak{m}$ is $0$, so $(x) = \{0, x\}$, $(y) = \{0, y\}$ and $(x + y) = \{0, x + y\}$. Then $\mathfrak{m} = (x) \cup (y) \cup (x + y)$, but $\mathfrak{m}$ lies in none of the three. None of the three is prime: $y \cdot y = 0 \in (x)$ and $y \notin (x)$. With three exceptional ideals the theorem fails.
 
 ### The library around it
+
+The module `Mathlib.RingTheory.Idempotents` holds the theory of idempotents behind the decomposition of a ring into a product. `OrthogonalIdempotents e` says that the `e i` are idempotent with $e_i e_j = 0$ for $i \ne j$, and `CompleteOrthogonalIdempotents e` adds $\sum_i e_i = 1$. The lemmas `OrthogonalIdempotents.mul_eq`, `completeOrthogonalIdempotents_iff` and `CompleteOrthogonalIdempotents.pair_iff` unfold the definitions, and `CompleteOrthogonalIdempotents.of_isIdempotentElem` gives the pair $e, 1 - e$. For a commutative ring, `CompleteOrthogonalIdempotents.bijective_pi` says that $R \to \prod_i R / (1 - e_i)$ is bijective, and `CompleteOrthogonalIdempotents.ringEquivOfComm` writes $R$ as the product of the corners $e_i R$, built with `IsIdempotentElem.Corner`. A second family of results lifts idempotents along a map whose kernel is nil: `existsUnique_isIdempotentElem_eq_of_ker_isNilpotent` lifts one idempotent uniquely in the commutative case, and `CompleteOrthogonalIdempotents.lift_of_isNilpotent_ker` lifts a complete family. The proof uses the explicit element of `isIdempotentElem_one_sub_one_sub_pow_pow`: if $(x - x^2)^n = 0$, then $1 - (1 - x^n)^n$ is idempotent. These results return in Chapter 4 for Artinian rings, whose nilradical is nilpotent.
+
+The module `Mathlib.RingTheory.Ideal.Quotient.ChineseRemainder` gives the theorem for modules. For pairwise coprime ideals $I_i$ indexed by a finite type, `Ideal.pi_tensorProductMk_quotient_surjective` says that $M \to \prod_i (R / I_i) \otimes_R M$ is surjective, and `Ideal.ker_tensorProductMk_quotient` says that its kernel is $(\bigcap_i I_i) M$.
+
+Three modules treat the rings $\mathbb{Z}/n$, the first examples of the theorem. `Mathlib.RingTheory.ZMod` proves `isReduced_zmod`: $\mathbb{Z}/n$ is reduced if and only if $n$ is squarefree or $n = 0$. By the Chinese remainder theorem $\mathbb{Z}/n$ is the product of the rings $\mathbb{Z}/p^k$ over the prime powers $p^k \| n$, and $\mathbb{Z}/p^k$ has the nonzero nilpotent $p$ when $k \ge 2$. The same module has `ZMod.ringHom_eq_of_ker_eq`: two homomorphisms to $\mathbb{Z}/n$ with the same kernel are equal. `Mathlib.RingTheory.ZMod.Torsion` has one instance, `ZMod.instHasEnoughRootsOfUnityHSubNatOfNat`: the field $\mathbb{Z}/p$ has all $(p - 1)$-th roots of unity. `Mathlib.RingTheory.ZMod.UnitsCyclic` decides when the unit group $(\mathbb{Z}/n)^\times$ is cyclic. The answer, `ZMod.isCyclic_units_iff`, is $n \in \{0, 1, 2, 4\}$ or $n = p^m$ or $n = 2 p^m$ for an odd prime $p$ and $m \ge 1$. The proof uses the Chinese remainder theorem twice. If $n = m n'$ with $m, n'$ odd, coprime and larger than $1$, then $(\mathbb{Z}/n)^\times \cong (\mathbb{Z}/m)^\times \times (\mathbb{Z}/n')^\times$ is a product of two groups of even order and is not cyclic, `ZMod.not_isCyclic_units_of_mul_coprime`. For $p$ odd the group $(\mathbb{Z}/p^m)^\times$ is cyclic, `ZMod.isCyclic_units_of_prime_pow`, since $1 + p$ has order $p^{m - 1}$ by `ZMod.orderOf_one_add_prime`. For powers of $2$, the element $5$ has order $2^n$ in $\mathbb{Z}/2^{n + 2}$, `ZMod.orderOf_five`, and $(\mathbb{Z}/2^n)^\times$ is cyclic exactly for $n \le 2$, `ZMod.isCyclic_units_two_pow_iff`.
 
 Common errors:
 

@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.RingTheory.Localization.Ideal
   - Mathlib.RingTheory.Localization.AtPrime.Basic
+  - Mathlib.RingTheory.ZMod.LocalRing
 explains:
   E3: [IsLocalization.orderIsoOfPrime, IsLocalization.isPrime_iff_isPrime_disjoint, Localization.AtPrime.isLocalRing]
   E2: [IsLocalization.map_under, IsLocalization.under_map_of_isPrime_disjoint, IsLocalization.isPrime_of_isPrime_disjoint, IsLocalization.mem_map_algebraMap_iff, IsLocalization.map_algebraMap_ne_top_iff_disjoint, "IsLocalization.mk'_mem_iff", IsLocalization.disjoint_under_iff, IsLocalization.AtPrime.isLocalRing, IsLocalization.AtPrime.map_eq_maximalIdeal, IsLocalization.AtPrime.to_map_mem_maximal_iff, IsLocalization.AtPrime.isUnit_to_map_iff, IsLocalization.AtPrime.orderIsoOfPrime, IsLocalization.AtPrime.equivQuotMaximalIdeal, IsLocalization.map_radical, IsLocalization.instQuotientIdealAlgebraMapSubmonoidMapRingHomAlgebraMap, nonunits, Ideal.under]
@@ -140,6 +141,8 @@ Part (2) as `R ⧸ p ≃ₐ[R] Rₚ ⧸ IsLocalRing.maximalIdeal Rₚ` for a max
 **Counterexample (Only complements of primes give local rings).** Let $S = \mathbb{Z} \setminus ((2) \cup (3))$, a multiplicative set. The primes of $S^{-1} \mathbb{Z}$ correspond to the primes of $\mathbb{Z}$ inside $(2) \cup (3)$. By prime avoidance (Chapter 1, Section 3) such a prime lies in $(2)$ or in $(3)$, so it is $0$, $(2)$ or $(3)$. Hence $S^{-1} \mathbb{Z}$ has the two maximal ideals $2 S^{-1} \mathbb{Z}$ and $3 S^{-1} \mathbb{Z}$, and it is not local.
 
 ### The library around it
+
+The module `Mathlib.RingTheory.ZMod.LocalRing` gives a small example of a local ring. For $r \neq 0$ the reduction $\mathbb{Z}/n^r \to \mathbb{Z}/n$ is a local homomorphism, `ZMod.isLocalHom_castHom_pow`, and so `ZMod (p ^ r)` is a local ring for a prime $p$, by the instance `ZMod.instIsLocalRingHPowNatOfFactPrimeOfNeZero`. Its maximal ideal is $(p)$.
 
 `Mathlib.RingTheory.Localization.Ideal` holds the correspondence of ideals, and `Mathlib.RingTheory.Localization.AtPrime.Basic` the local ring $R_{\mathfrak{p}}$. Common errors:
 

@@ -4,6 +4,15 @@ kind: theory
 modules:
   - Mathlib.RingTheory.Nilpotent.Lemmas
   - Mathlib.RingTheory.Ideal.MinimalPrime.Basic
+  - Mathlib.RingTheory.Ideal.MinimalPrime.Colon
+  - Mathlib.RingTheory.Ideal.MinimalPrime.Localization
+  - Mathlib.RingTheory.Ideal.MinimalPrime.Noetherian
+  - Mathlib.RingTheory.Jacobson.Ideal
+  - Mathlib.RingTheory.Jacobson.Radical
+  - Mathlib.RingTheory.Nilpotent.Defs
+  - Mathlib.RingTheory.Nilpotent.Basic
+  - Mathlib.RingTheory.Nilpotent.Exp
+  - Mathlib.RingTheory.Nilpotent.GeometricallyReduced
 explains:
   E3: [Ideal.radical, nilradical, Ideal.jacobson]
   E2: [Ideal.IsRadical, Ideal.mem_radical_iff, Ideal.radical_eq_sInf, nilradical_eq_sInf, mem_nilradical, Ideal.exists_le_prime_disjoint, Ideal.radical_idem, Ideal.IsPrime.isRadical, Ideal.radical_mul, Ideal.radical_inf, Ideal.radical_pow, Ideal.le_radical, Ideal.mem_jacobson_iff, Ring.mem_jacobson_iff, Ring.jacobson, Ideal.jacobson_bot, Ideal.radical_le_jacobson, Ideal.exists_minimalPrimes_le, Ideal.minimalPrimes, Ideal.sInf_minimalPrimes, nilradical_eq_bot_iff, Ideal.sInf_isPrime_of_isChain]
@@ -139,7 +148,17 @@ Each maximal ideal is prime, so the intersection of all primes lies in the inter
 
 ### The library around it
 
-The nilradical is in `Mathlib.RingTheory.Nilpotent.Lemmas` and the Jacobson radical in `Mathlib.RingTheory.Jacobson.Ideal`. The name `IsJacobsonRing` is a different notion, used in Chapter 6. Common errors:
+The nilradical is in `Mathlib.RingTheory.Nilpotent.Lemmas` and the Jacobson radical in `Mathlib.RingTheory.Jacobson.Ideal`. The name `IsJacobsonRing` is a different notion, used in Chapter 6.
+
+The module `Mathlib.RingTheory.Jacobson.Radical` defines the Jacobson radical `Module.jacobson R M` of a module, the intersection of its maximal submodules, and `Ring.jacobson R` as the case $M = R$. The ring need not be commutative: `Ring.jacobson R` is the intersection of the maximal left ideals, `Ring.jacobson_eq_sInf_isMaximal`, and the instance `Ring.instIsTwoSidedJacobson` says that it is a two-sided ideal. The lemma `Ring.jacobson_quotient_jacobson` gives $J(R / J(R)) = 0$, and `Submodule.FG.jacobson_smul_lt` says that $J(R) N \subsetneq N$ for a nonzero finitely generated submodule $N$, a form of Nakayama's lemma. The module `Mathlib.RingTheory.Jacobson.Ideal` treats the relative radical `Ideal.jacobson I`, the intersection of the maximal ideals that contain $I$. Its lemmas are `Ideal.le_jacobson`, `Ideal.jacobson_idem`, `Ideal.jacobson_mono`, `Ideal.jacobson_radical_eq_jacobson` and `Ideal.isUnit_of_sub_one_mem_jacobson`: an element $r$ with $r - 1 \in J(R)$ is a unit. A surjective map $g$ is a local homomorphism if and only if $\ker g \subseteq J(R)$, by `RingHom.isLocalHom_iff_ker_le_jacobson`. The class `Ideal.IsLocal` says that `Ideal.jacobson I` is maximal.
+
+Three modules extend the theory of minimal primes. `Mathlib.RingTheory.Ideal.MinimalPrime.Localization` moves minimal primes along maps: `Ideal.minimalPrimes_eq_comap` describes the minimal primes of $I$ as the contractions of the minimal primes of $R / I$, and `IsLocalization.minimalPrimes_map` and `IsLocalization.minimalPrimes_comap` do the same for a localization. It also proves that each element of a minimal prime is a zero divisor, `Ideal.disjoint_nonZeroDivisors_of_mem_minimalPrimes`, and that the union of the minimal primes of $I$ is described by `Ideal.iUnion_minimalPrimes`. `Mathlib.RingTheory.Ideal.MinimalPrime.Noetherian` proves that a Noetherian ring has finitely many minimal primes over each ideal, `Ideal.finite_minimalPrimes_of_isNoetherianRing`. `Mathlib.RingTheory.Ideal.MinimalPrime.Colon` has one result, `Submodule.exists_eq_colon_of_mem_minimalPrimes`: over a Noetherian ring, a minimal prime of $(N : x)$ is itself of the form $(N : x')$.
+
+The modules `Mathlib.RingTheory.Nilpotent.Defs` and `Mathlib.RingTheory.Nilpotent.Basic` hold the theory of single nilpotent elements behind the nilradical. `IsNilpotent x` says that $x^n = 0$ for some $n$, and `nilpotencyClass x` is the least such $n$, with `pow_nilpotencyClass` and `nilpotencyClass_eq_succ_iff`. A homomorphism sends nilpotent elements to nilpotent elements, by `IsNilpotent.map`. The class `IsReduced R` says that $0$ is the only nilpotent element. The test `isReduced_iff_pow_one_lt` needs only one exponent $k > 1$, `isReduced_of_injective` passes the property to a subring, and instances cover products, opposite rings and the type of functions `instIsReducedForall`. The predicate `IsRadical y` says that $y \mid x^n$ implies $y \mid x$. A prime is radical by `Prime.isRadical`, and `zero_isRadical_iff` says that $0$ is radical exactly when the ring is reduced. In a ring that need not be commutative, the sum of two commuting nilpotent elements is nilpotent, `Commute.isNilpotent_add`. The proof is the binomial theorem: if $x^m = 0$ and $y^n = 0$, each term $x^i y^j$ of $(x + y)^{m + n - 1}$ has $i \ge m$ or $j \ge n$; this is `Commute.add_pow_eq_zero_of_add_le_succ_of_pow_eq_zero`. The commutative forms for finite sums are `isNilpotent_sum` and `isNilpotent_finsum`. A nilpotent element is not a unit in a nonzero ring, `IsNilpotent.not_isUnit`, and $1 + r$ and $1 - r$ are units, `IsNilpotent.isUnit_one_add` and `IsNilpotent.isUnit_one_sub`, with the inverse $1 - r + r^2 - \cdots \pm r^{n-1}$ of Exercise 2. More generally `IsNilpotent.isUnit_add_left_of_commute` says that $u + r$ is a unit when $u$ is a unit that commutes with $r$.
+
+The module `Mathlib.RingTheory.Nilpotent.Exp` defines the exponential `IsNilpotent.exp a` of an element of a $\mathbb{Q}$-algebra. For a nilpotent $a$ with $a^k = 0$ it is the finite sum $\sum_{i < k} a^i / i!$, by `IsNilpotent.exp_eq_sum`. It satisfies `IsNilpotent.exp_zero`, the rule $\exp(a + b) = \exp(a) \exp(b)$ for commuting nilpotent $a$ and $b$, `IsNilpotent.exp_add_of_commute`, and `IsNilpotent.isUnit_exp`. The module `Mathlib.RingTheory.Nilpotent.GeometricallyReduced` defines the class `Algebra.IsGeometricallyReduced R A`: the algebra stays reduced after base change to the algebraic closure of each residue field of $R$. Over a field $k$ this means that $\bar{k} \otimes_k A$ is reduced, `Algebra.isGeometricallyReduced_field_iff`, and then $A$ itself is reduced, `Algebra.isReduced_of_isGeometricallyReduced`. The property can be checked on finitely generated subalgebras, `Algebra.IsGeometricallyReduced.of_forall_fg`.
+
+Common errors:
 
 - `Ideal.exists_le_prime_disjoint` takes a `Submonoid`, not a set. For the powers of `x` use `Submonoid.powers x`.
 - `Ring.mem_jacobson_iff` states the unit condition with `x * y + 1`, not `1 - x * y`.

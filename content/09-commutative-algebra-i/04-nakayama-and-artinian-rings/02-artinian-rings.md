@@ -5,6 +5,9 @@ modules:
   - Mathlib.RingTheory.Artinian.Defs
   - Mathlib.RingTheory.Artinian.Module
   - Mathlib.RingTheory.Artinian.Ring
+  - Mathlib.RingTheory.Artinian.Algebra
+  - Mathlib.RingTheory.Artinian.Instances
+  - Mathlib.RingTheory.Jacobson.Artinian
 explains:
   E3: [IsArtinian, IsArtinianRing, IsArtinianRing.isField_of_isDomain, IsArtinianRing.setOfPred_isMaximal_finite, IsArtinianRing.isNilpotent_jacobson]
   E2: [isArtinianRing_iff, set_has_minimal_iff_artinian, monotone_stabilizes_iff_artinian, IsArtinian.set_has_minimal, IsArtinian.induction, isArtinian_of_range_eq_ker, isArtinian_of_quotient_of_artinian, isArtinian_of_fg_of_artinian, IsArtinianRing.isPrime_iff_isMaximal, IsArtinianRing.isMaximal_of_isPrime, IsArtinianRing.instFiniteMaximalSpectrum, IsArtinianRing.isNilpotent_nilradical, IsArtinianRing.jacobson_eq_radical, IsArtinianRing.of_finite, Function.Surjective.isArtinianRing, IsArtinianRing.localization_artinian, IsArtinian.surjective_of_injective_endomorphism, IsArtinianRing.isUnit_iff_mem_nonZeroDivisors]
@@ -138,6 +141,8 @@ The statement `IsNilpotent (Ring.jacobson R)`, which holds for noncommutative Ar
 ### The library around it
 
 Instance search finds that finite rings, fields, quotients `R ⧸ I` of an Artinian ring and finite algebras over an Artinian ring are Artinian. The lemma `IsArtinianRing.of_finite` gives the last, and `Function.Surjective.isArtinianRing` gives images. Localizations of an Artinian ring are Artinian by `IsArtinianRing.localization_artinian`.
+
+Three small modules complete the picture. `Mathlib.RingTheory.Artinian.Algebra` proves that in an algebra $A$ over an Artinian ring, an integral element is a unit if and only if it is not a zero divisor, `IsArtinianRing.isUnit_iff_nonZeroDivisor_of_isIntegral`. `Mathlib.RingTheory.Artinian.Instances` gives the instance `IsArtinianRing.instDecompositionMonoid` for a reduced Artinian ring and the strong rank condition `StrongRankCondition.of_isArtinian`. `Mathlib.RingTheory.Jacobson.Artinian` compares finiteness conditions for an algebra $A$ of finite type over $R$: if $R$ is Artinian, then `Module.finite_iff_isArtinianRing` says that $A$ is a finite $R$-module if and only if $A$ is Artinian, and `Module.finite_iff_krullDimLE_zero` says the same with dimension zero in place of Artinian. Over a Jacobson ring of Chapter 6, `Module.finite_of_isArtinianRing` gives the finiteness from the Artinian condition alone.
 
 Common errors of a learner:
 

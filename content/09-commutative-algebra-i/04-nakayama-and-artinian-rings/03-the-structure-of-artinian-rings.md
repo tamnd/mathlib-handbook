@@ -3,6 +3,7 @@ title: The structure of Artinian rings
 kind: theory
 modules:
   - Mathlib.RingTheory.HopkinsLevitzki
+  - Mathlib.RingTheory.Jacobson.Semiprimary
 explains:
   E3: [isArtinianRing_iff_isNoetherianRing_krullDimLE_zero, instIsNoetherianRingOfIsArtinianRing, IsArtinianRing.quotNilradicalPowEquivPi, isArtinianRing_iff_isNilpotent_maximalIdeal]
   E2: [isArtinianRing_iff_krullDimLE_zero, IsNoetherianRing.isArtinianRing_of_krullDimLE_zero, IsArtinianRing.tfae, isNoetherian_of_finite_isArtinian, IsSemiprimaryRing, IsSemiprimaryRing.isNoetherian_iff_isArtinian, IsArtinianRing.equivPi, IsArtinianRing.quotNilradicalEquivPi, IsArtinianRing.isSemisimpleRing_of_isReduced]
@@ -114,6 +115,8 @@ the factorization of the Chinese remainder theorem of $\mathbb{Z}$. The factor $
 ### The library around it
 
 Mathlib proves the comparison through semiprimary rings, which covers noncommutative rings. This section gives the commutative proof. A second form of the structure theorem uses localizations: when the prime spectrum is discrete, as for an Artinian ring, `MaximalSpectrum.toPiLocalizationEquiv` in `Mathlib.RingTheory.Spectrum.Prime.Topology` gives $R \cong \prod_m R_m$.
+
+The class `IsSemiprimaryRing` is in `Mathlib.RingTheory.Jacobson.Semiprimary`. By `isSemiprimaryRing_iff`, a ring is semiprimary when $R / J(R)$ is semisimple and $J(R)$ is nilpotent. The same module proves that the Jacobson radical of a semisimple module is zero, `IsSemisimpleModule.jacobson_eq_bot`, and so `IsSemisimpleRing.jacobson_eq_bot` holds for a semisimple ring. The instance `instIsReducedOfIsSemisimpleRing` says that a commutative semisimple ring is reduced.
 
 Common errors of a learner:
 

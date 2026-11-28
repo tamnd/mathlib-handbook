@@ -4,6 +4,8 @@ kind: theory
 modules:
   - Mathlib.RingTheory.Nakayama
   - Mathlib.RingTheory.Noetherian.Orzech
+  - Mathlib.RingTheory.Ideal.IdempotentFG
+  - Mathlib.RingTheory.Ideal.Pure
 explains:
   E3: [Submodule.le_of_le_smul_of_le_jacobson, LinearMap.surjective_of_surjective_comp_mkQ, IsNoetherian.injective_of_surjective_endomorphism]
   E2: [Submodule.smul_le_of_le_smul_of_le_jacobson, Submodule.le_of_map_mkQ_le_map_mkQ_of_le_jacobson, Submodule.sup_eq_sup_smul_of_le_smul_of_le_jacobson, Submodule.exists_sub_one_mem_and_smul_le_of_fg_of_le_sup, Submodule.exists_injOn_mkQ_image_span_eq_of_span_eq_map_mkQ_of_le_jacobson, Submodule.top_ne_ideal_smul_of_le_jacobson_annihilator, IsNoetherian.bijective_of_surjective_endomorphism, IsNoetherianRing.orzechProperty]
@@ -113,6 +115,8 @@ The theorem for a Noetherian module over any ring, proved in Chapter 3, Section 
 ### The library around it
 
 The Nakayama lemmas take submodules of one ambient module and the ideal `Ring.jacobson R`. For a module, use `N' = ⊤` and `Module.Finite.fg_top`.
+
+Nakayama's lemma describes the idempotent ideals. If $I$ is finitely generated and $I^2 = I$, then $I = (e)$ for an idempotent $e$: this is `Ideal.isIdempotentElem_iff_of_fg` in `Mathlib.RingTheory.Ideal.IdempotentFG`, and `Ideal.isIdempotentElem_iff_eq_bot_or_top` gives the case of a domain, where only $0$ and $R$ remain. The module `Mathlib.RingTheory.Ideal.Pure` treats pure ideals, the ideals $I$ with $R / I$ flat over $R$, written `Ideal.Pure`. For a pure ideal, `Ideal.inf_eq_mul_of_pure` gives $I \cap J = I J$ for each ideal $J$, so `Ideal.isIdempotentElem_of_pure` gives $I^2 = I$. Conversely `Ideal.Pure.of_isIdempotentElem` says that a finitely generated idempotent ideal is pure, and `Ideal.zeroLocus_inj_of_pure` says that a pure ideal is determined by its zero locus in the prime spectrum.
 
 Common errors of a learner:
 

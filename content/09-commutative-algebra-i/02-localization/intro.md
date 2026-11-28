@@ -8,4 +8,8 @@ Section 2 compares the ideals of $R$ and of $S^{-1} R$. Every ideal of $S^{-1} R
 
 Section 3 puts a topology on the set of prime ideals, the Zariski topology on $\operatorname{Spec} R$. Its closed sets are the sets $V(I)$ and its basic open sets are the sets $D(f)$, which correspond to the localizations $R_f$. The section proves that $\operatorname{Spec} R$ is quasi-compact and describes its closed and irreducible subsets with the radicals of Chapter 1.
 
+Section 4 is a guide to the predicates on ring homomorphisms, such as finite, flat, smooth and étale, and to the conditions of stability under composition, base change and localization that they satisfy.
+
+Section 5 collects the general API of `IsLocalization`: localization away from an element and gluing over a cover of the unit ideal, fraction rings and their universal property, integer elements and common denominators, reduced fractions over a unique factorization domain, saturation, cardinality and finite products. Section 6 connects the localization of rings with the localization of modules and algebras: localization as base change, linear independence and bases, localized algebra maps and their kernels, local criteria for finite generation, integrality, localization of a localization, norm and trace, and primes of an extension at a prime.
+
 The chapter needs Chapter 1, Volume 6, Chapters 2 and 3, and the definition of a topological space from Volume 13. In Mathlib, localization is the predicate `IsLocalization`, local rings are `IsLocalRing`, and the spectrum is `PrimeSpectrum`. Volume 10 develops local rings and the spectrum further, and Chapter 3 of this volume uses localization to study Noetherian rings.
