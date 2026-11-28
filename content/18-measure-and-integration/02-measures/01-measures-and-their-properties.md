@@ -11,6 +11,8 @@ modules:
   - Mathlib.MeasureTheory.Measure.Typeclasses.Probability
   - Mathlib.MeasureTheory.Measure.Typeclasses.SFinite
   - Mathlib.MeasureTheory.OuterMeasure.BorelCantelli
+  - Mathlib.MeasureTheory.Category.MeasCat
+  - Mathlib.MeasureTheory.Function.Intersectivity
 explains:
   E3: [MeasureTheory.Measure, MeasureTheory.measure_iUnion, MeasureTheory.tendsto_measure_iUnion_atTop, MeasureTheory.tendsto_measure_iInter_atTop, MeasureTheory.measure_limsup_atTop_eq_zero, MeasureTheory.Measure.dirac, MeasureTheory.Measure.count, MeasureTheory.IsFiniteMeasure, MeasureTheory.IsProbabilityMeasure, MeasureTheory.SigmaFinite]
   E2: [MeasureTheory.Measure.ext, MeasureTheory.measure_union, MeasureTheory.measure_mono, MeasureTheory.measure_iUnion_le, MeasureTheory.measure_sdiff, MeasureTheory.measure_union_add_inter, MeasureTheory.Measure.count_apply, MeasureTheory.SFinite]
@@ -210,6 +212,10 @@ For `s : ℕ → Set α` and `hs : ∑' i, μ (s i) ≠ ∞`, `μ (limsup s atTo
 ### The library around it
 
 Most lemmas on measures have the prefix `measure_` and are in the namespace `MeasureTheory`: `measure_empty`, `measure_union_le`, `measure_compl`, `measure_biUnion_finset`, `measure_iUnion_null` (a countable union of null sets is null) and `measure_mono_null`.
+
+A finite measure cannot give a fixed positive mass to infinitely many sets that are almost disjoint. The lemma of Bergelson, `bergelson`, makes this precise: if $\mu$ is finite and $\mu(s_i) \ge r > 0$ for infinitely many measurable sets $s_i$, then there is an infinite set $t$ of indices such that $\mu\big(\bigcap_{i \in u} s_i\big) > 0$ for every finite $u \subseteq t$. The variant `bergelson'` is the form for sequences. Additive combinatorics uses it to prove theorems of intersectivity.
+
+The file `Mathlib.MeasureTheory.Category.MeasCat` puts measurable spaces in the language of categories. The category `MeasCat` has measurable spaces as objects and measurable maps as morphisms. The functor `MeasCat.Measure` sends a space to the space of its measures, with the σ-algebra that makes the evaluation maps $\mu \mapsto \mu(s)$ measurable. With the Dirac measures as unit and integration as multiplication, this functor is the monad of Giry, `MeasCat.Giry`. The algebra `MeasCat.Integral` is the space $[0, \infty]$ with the lower integral. The functor `Borel` sends a topological space to its Borel measurable space.
 
 Common errors of a learner:
 

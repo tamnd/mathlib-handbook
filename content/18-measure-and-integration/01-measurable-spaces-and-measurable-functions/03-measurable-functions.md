@@ -8,6 +8,7 @@ modules:
   - Mathlib.MeasureTheory.Constructions.BorelSpace.Order
   - Mathlib.MeasureTheory.Constructions.BorelSpace.Metrizable
   - Mathlib.MeasureTheory.Constructions.BorelSpace.Metric
+  - Mathlib.MeasureTheory.Constructions.SimpleGraph
 explains:
   E3: [Measurable, Continuous.measurable, measurable_of_tendsto_metrizable, MeasurableSpace.comap, MeasurableSpace.prod]
   E2: [Measurable.comp, measurable_generateFrom, measurable_iff_comap_le, MeasurableSpace.map, measurable_of_Iio, Measurable.iSup, Measurable.limsup, Measurable.max, Measurable.prodMk, measurable_pi_iff, MeasurableEmbedding, MeasurableEquiv]
@@ -211,6 +212,8 @@ An equivalence `α ≃ β` with `measurable_toFun` and `measurable_invFun`. It i
 :::
 
 Other lemmas: `Measurable.piecewise`, `measurableSet_le`, `measurableSet_lt` and `Monotone.measurable`.
+
+Random graphs need a σ-algebra on graphs. The file `Mathlib.MeasureTheory.Constructions.SimpleGraph` gives `SimpleGraph V` the instance `SimpleGraph.instMeasurableSpace`, the σ-algebra that makes each adjacency $u \sim v$ measurable. The lemma `SimpleGraph.measurable_iff_adj` says that a map $G : \Omega \to$ `SimpleGraph V` is measurable if and only if $\omega \mapsto (G\,\omega).\mathrm{Adj}\, u\, v$ is measurable for all $u$ and $v$. The map to the edge set is measurable, `SimpleGraph.measurable_edgeSet`, and it is a measurable embedding when $V$ is countable, `SimpleGraph.measurableEmbedding_edgeSet`.
 
 Common errors of a learner:
 

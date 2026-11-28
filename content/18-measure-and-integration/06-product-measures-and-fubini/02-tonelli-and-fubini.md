@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.MeasureTheory.Integral.Prod
   - Mathlib.MeasureTheory.Integral.Pi
+  - Mathlib.MeasureTheory.Integral.Marginal
 explains:
   E3: [MeasureTheory.lintegral_prod, MeasureTheory.integral_prod, MeasureTheory.integrable_prod_iff, MeasureTheory.integral_integral_swap, MeasureTheory.integral_fintype_prod_eq_prod]
   E2: [MeasureTheory.lintegral_prod_symm, MeasureTheory.lintegral_lintegral_swap, MeasureTheory.lintegral_prod_mul, MeasureTheory.integrable_prod_iff', MeasureTheory.integral_prod_symm, MeasureTheory.integral_prod_mul, MeasureTheory.setIntegral_prod, MeasureTheory.Integrable.integral_prod_left, MeasureTheory.Integrable.prod_right_ae, MeasureTheory.Integrable.swap, MeasureTheory.integral_fintype_prod_eq_pow]
@@ -117,6 +118,8 @@ Mathlib states $\int e^{-b x^2} \, dx = \sqrt{\pi / b}$ as `integral_gaussian`. 
 :::
 
 The lemma `setIntegral_prod` is Fubini on a rectangle $s \times t$, and `Integrable.swap` moves integrability through the swap map.
+
+The module `Mathlib.MeasureTheory.Integral.Marginal` integrates out some of the variables of a function on a finite product. For $f : \prod_i X_i \to [0, \infty]$ and a finite set $s$ of indices, the marginal `MeasureTheory.lmarginal μ s f`, written `∫⋯∫⁻_s, f ∂μ`, is again a function on $\prod_i X_i$: at a point $x$ it integrates $f$ over the coordinates in $s$ and keeps the coordinates of $x$ outside $s$. So $\int \cdots \int_\emptyset f = f$ (`MeasureTheory.lmarginal_empty`), and for all indices it is the integral of Tonelli for the product measure, `MeasureTheory.lintegral_eq_lmarginal_univ`. The rule `MeasureTheory.lmarginal_union` integrates over $s \cup t$ in two steps when $s$ and $t$ are disjoint, and `MeasureTheory.lmarginal_insert` adds one variable: $(\int \cdots \int_{s \cup \{i\}} f)(x) = \int (\int \cdots \int_s f)(x[i \mapsto y]) \, d\mu_i(y)$ for $i \notin s$. Both rules are the theorem of Tonelli for the product of the coordinates in $s$ and $t$. The lemmas `MeasureTheory.lmarginal_mono`, `MeasureTheory.lmarginal_le_of_subset` and `MeasureTheory.lintegral_le_of_lmarginal_le` support proofs by induction on the number of variables, such as the proof of the Gagliardo-Nirenberg-Sobolev inequality in Mathlib.
 
 Common errors of a learner:
 

@@ -1,0 +1,7 @@
+# Finite measures and weak convergence
+
+This chapter studies the convergence of measures. A sequence of finite measures on a topological space converges weakly when the integrals of all bounded continuous functions converge. Mathlib gives the finite measures and the probability measures their own types, `MeasureTheory.FiniteMeasure` and `MeasureTheory.ProbabilityMeasure`, with the topology of this convergence.
+
+Section 1 defines the two types and their topology, proves that a finite measure is determined by the integrals of a separating algebra of functions, and treats products and point masses. Section 2 proves the theorem of Portmanteau, which describes weak convergence by the measures of closed sets, open sets and sets with a null boundary, and defines the Lévy-Prokhorov metric. Section 3 defines tight sets of measures, proves the theorem of Prokhorov and defines the total variation distance between finite measures. Section 4 defines the characteristic function of a measure, proves that it determines the measure and proves the convergence theorem of Lévy.
+
+The chapter needs the topology of Volume 13, the integrals of Chapters 4 and 5 and the products of Chapter 6. Section 3 uses the signed measures of Chapter 12, and Section 4 uses the convolution of Chapter 9 and the derivatives of Volume 15. Probability theory uses these results for convergence in distribution and the central limit theorem.

@@ -5,6 +5,7 @@ modules:
   - Mathlib.MeasureTheory.Integral.DominatedConvergence
   - Mathlib.MeasureTheory.Function.Egorov
   - Mathlib.MeasureTheory.Function.ConvergenceInMeasure
+  - Mathlib.MeasureTheory.Function.ConvergenceInDistribution
 explains:
   E3: [MeasureTheory.tendsto_integral_of_dominated_convergence, MeasureTheory.integral_tsum, MeasureTheory.tendstoUniformlyOn_of_ae_tendsto, MeasureTheory.TendstoInMeasure]
   E2: [MeasureTheory.tendsto_integral_filter_of_dominated_convergence, MeasureTheory.hasSum_integral_of_dominated_convergence, MeasureTheory.integral_tsum_of_summable_integral_norm, intervalIntegral.continuous_of_dominated_interval, MeasureTheory.tendstoInMeasure_of_tendsto_ae, MeasureTheory.TendstoInMeasure.exists_seq_tendsto_ae]
@@ -135,6 +136,8 @@ Part (a), with `[IsFiniteMeasure μ]` and `AEStronglyMeasurable` functions. Part
 ### The library around it
 
 The file `Mathlib.MeasureTheory.Integral.DominatedConvergence` holds the theorem, its forms for series and for interval integrals, and the continuity of parameter integrals over intervals. Differentiation under the integral sign is in `Mathlib.Analysis.Calculus.ParametricIntegral`. It rests on dominated convergence for the difference quotients.
+
+Convergence in measure has a weaker relative for random variables. The predicate `MeasureTheory.TendstoInDistribution X l Z μ` says that the laws of the functions $X_n$ under the probability measures $\mu_n$ converge weakly to the law of $Z$: the integrals of every bounded continuous function converge. The functions may live on different spaces. Convergence in measure implies convergence in distribution, by `MeasureTheory.TendstoInMeasure.tendstoInDistribution`, and convergence almost everywhere does too, by `MeasureTheory.tendstoInDistribution_of_ae_tendsto`. The continuous mapping theorem is `MeasureTheory.TendstoInDistribution.continuous_comp`. The lemma `MeasureTheory.tendstoInDistribution_of_tendstoInMeasure_sub` says that if $X_n \to Z$ in distribution and $Y_n - X_n \to 0$ in measure, then $Y_n \to Z$ in distribution. The theorem of Slutsky, `MeasureTheory.TendstoInDistribution.prodMk_of_tendstoInMeasure_const`, follows: if $Y_n \to c$ in measure for a constant $c$, then $(X_n, Y_n) \to (Z, c)$ in distribution. The limit law is unique, by `MeasureTheory.tendstoInDistribution_unique`.
 
 Common errors of a learner:
 
