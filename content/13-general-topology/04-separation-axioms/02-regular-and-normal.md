@@ -5,6 +5,9 @@ modules:
   - Mathlib.Topology.Separation.Regular
   - Mathlib.Topology.Separation.SeparatedNhds
   - Mathlib.Topology.Separation.CompletelyRegular
+  - Mathlib.Topology.Separation.GDelta
+  - Mathlib.Topology.Separation.PerfectlyNormal
+  - Mathlib.Topology.Separation.NotNormal
 explains:
   E3: [RegularSpace, NormalSpace, SeparatedNhds]
   E2: [T3Space, T4Space, T5Space, regularSpace_iff, closed_nhds_basis, RegularSpace.of_exists_mem_nhds_isClosed_subset, instT3Space, T4Space.t3Space, instT4SpaceOfT1SpaceOfNormalSpace, NormalSpace.normal, normal_separation, NormalSpace.of_regularSpace_secondCountableTopology, Metric.infDist, Metric.continuous_infDist_pt, IsClosed.notMem_iff_infDist_pos, instNormalSpaceOfPseudoMetrizableSpace, instT4SpaceOfMetrizableSpace, CompletelyRegularSpace, T35Space]
@@ -250,6 +253,8 @@ A completely normal $T_1$ space: separated sets have disjoint neighbourhoods.
 
 <?decl T5Space?>
 :::
+
+A normal space is perfectly normal if each closed set is a $G_\delta$ set, a countable intersection of open sets. This is `PerfectlyNormalSpace` in `Mathlib.Topology.Separation.GDelta`, and with T0 it gives `T6Space`. A perfectly normal space is completely normal (`PerfectlyNormalSpace.toCompletelyNormalSpace`), and in it each closed set is a $G_\delta$ set (`IsClosed.isGδ`). A space is perfectly normal if and only if each closed set is the zero set of a continuous function to $[0,1]$ (`perfectlyNormalSpace_iff_forall_isClosed_preimage_zero`). Each metric space is perfectly normal. In a first countable T1 space each point is a $G_\delta$ set (`IsGδ.singleton`). The module `Mathlib.Topology.Separation.NotNormal` gives the lemma of Jones: in a separable normal space a closed discrete subset has cardinality less than the continuum (`IsClosed.mk_lt_continuum`). So a separable space with a closed discrete subset of cardinality at least the continuum is not normal (`IsClosed.not_normal_of_continuum_le_mk`). The Sorgenfrey plane is the standard example.
 
 The reference table at the end of the section lists the declarations of the modules.
 

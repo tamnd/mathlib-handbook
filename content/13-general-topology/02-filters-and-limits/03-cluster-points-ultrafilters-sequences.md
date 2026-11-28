@@ -7,6 +7,9 @@ modules:
   - Mathlib.Topology.Ultrafilter
   - Mathlib.Topology.Sequences
   - Mathlib.Topology.Defs.Sequences
+  - Mathlib.Topology.Defs.Ultrafilter
+  - Mathlib.Order.Filter.Ultrafilter.Basic
+  - Mathlib.Order.Filter.Ultrafilter.Cardinality
 explains:
   E3: [ClusterPt, Ultrafilter, FrechetUrysohnSpace]
   E2: [MapClusterPt, ClusterPt.neBot, clusterPt_principal_iff, mem_closure_iff_clusterPt, mem_closure_iff_nhds, isClosed_iff_clusterPt, Ultrafilter.mem_or_compl_mem, Ultrafilter.em, Ultrafilter.of, Ultrafilter.of_le, Filter.exists_ultrafilter_le, Ultrafilter.map, Ultrafilter.clusterPt_iff, mem_closure_iff_ultrafilter, FirstCountableTopology.frechetUrysohnSpace, mem_closure_iff_seq_limit, tendsto_nhds_iff_seq_tendsto, IsSeqClosed, SequentialSpace, isSeqClosed_iff_isClosed]
@@ -282,6 +285,10 @@ The same space shows that the sequential criterion for continuity fails. The ide
 Cluster points are in `Mathlib.Topology.ClusterPt`, ultrafilters in `Mathlib.Order.Filter.Ultrafilter.Defs`, and their topological properties in `Mathlib.Topology.Ultrafilter`. Sequences are in `Mathlib.Topology.Sequences`, with the definitions in `Mathlib.Topology.Defs.Sequences`. Mathlib prefers the filter statements and proves the sequence forms only under a hypothesis such as `FrechetUrysohnSpace` or `FirstCountableTopology`.
 
 A frequent pattern in Mathlib proofs: to prove a property of all limits of a filter, take an ultrafilter below it with `Ultrafilter.of`, use `Ultrafilter.em` or `mem_or_compl_mem` to make a decision, and pass to a limit with `Ultrafilter.clusterPt_iff`. Chapter 5 uses this pattern for the Tychonoff theorem.
+
+The module `Mathlib.Topology.Defs.Ultrafilter` holds one definition, `Ultrafilter.lim`: a chosen limit of an ultrafilter, when a limit exists, and an arbitrary point otherwise. Chapter 5 uses it with `Ultrafilter.le_nhds_lim`, which says that on a compact space the chosen point is a limit.
+
+The module `Mathlib.Order.Filter.Ultrafilter.Basic` gives more rules for ultrafilters. A finite union is in an ultrafilter if and only if one of its sets is in it (`Ultrafilter.finite_sUnion_mem_iff`, `Ultrafilter.finite_biUnion_mem_iff`). A map tends to a filter if and only if it tends to it along each ultrafilter below the source (`Filter.tendsto_iff_ultrafilter`). Each ultrafilter is a point filter or lies below the cofinite filter (`Ultrafilter.le_cofinite_or_eq_pure`). On an infinite type, `Filter.hyperfilter α` is an ultrafilter below the cofinite filter (`Filter.hyperfilter_le_cofinite`), so it contains no finite set (`Set.Finite.notMem_hyperfilter`); on $\mathbb{N}$ it lies below `atTop` (`Nat.hyperfilter_le_atTop`). The module `Mathlib.Order.Filter.Ultrafilter.Cardinality` counts them: on an infinite type $\alpha$ there are $2^{2^{|\alpha|}}$ filters and as many ultrafilters (`Cardinal.mk_filter_of_infinite`, `Cardinal.mk_ultrafilter_of_infinite`), and on a finite type each ultrafilter is a point filter (`Cardinal.mk_ultrafilter_of_finite`).
 
 The reference table at the end of the section lists the declarations of the modules.
 

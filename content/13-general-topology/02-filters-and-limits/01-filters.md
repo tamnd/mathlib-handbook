@@ -8,6 +8,7 @@ modules:
   - Mathlib.Order.Filter.Cofinite
   - Mathlib.Order.Filter.Bases.Basic
   - Mathlib.Order.Filter.Map
+  - Mathlib.Data.Analysis.Filter
 explains:
   E3: [Filter, Filter.principal, Filter.atTop, Filter.Eventually, Filter.NeBot, Filter.map, Filter.HasBasis]
   E2: [Filter.univ_mem, Filter.inter_mem, Filter.mem_of_superset, Filter.cofinite, Filter.mem_cofinite, Filter.Frequently, Filter.not_frequently, Filter.le_def, Filter.mem_principal, Filter.HasBasis.mem_iff, Filter.atTop_basis, Filter.Eventually.mono, Filter.Eventually.and, Filter.Eventually.of_forall, Filter.mem_atTop_sets, Nat.cofinite_eq_atTop, Filter.comap, Filter.mem_map, Filter.mem_comap, Filter.generate, Filter.mem_bot, Filter.principal_neBot_iff, Filter.instCompleteLatticeFilter]
@@ -331,6 +332,8 @@ The core definitions are in `Mathlib.Order.Filter.Defs`, the lattice structure a
 A Mathlib proof about filters rarely touches the sets directly. It works with the quantifier `∀ᶠ` and the lemmas `Eventually.mono`, `Eventually.and`, `Eventually.of_forall` and `Eventually.exists`, the last for a proper filter. The tactic `filter_upwards [h₁, h₂] with x hx₁ hx₂` combines several eventual facts and leaves the pointwise goal. It is the formal form of "for $n \ge \max(N_1, N_2)$ both facts hold".
 
 The relation "equal eventually", `f =ᶠ[l] g`, and "less eventually", `f ≤ᶠ[l] g`, are defined with `Eventually`. They state, for example, that two functions agree near a point.
+
+The module `Mathlib.Data.Analysis.Filter` gives a computable description of a filter. A `CFilter` is a family of sets indexed by a type $\sigma$, closed under a chosen intersection operation, and `CFilter.toFilter` is the filter that it generates. A `Filter.Realizer` for $f$ is such a family whose filter is $f$; then $a \in f$ if and only if $a$ contains a set of the family (`Filter.Realizer.mem_sets`). The module builds realizers for the principal filter, the cofinite filter, `map`, `comap`, products, $\sqcap$ and $\sqcup$, and it states `Filter.Realizer.tendsto_iff`, a form of the limit with indices in place of sets.
 
 The reference table at the end of the section lists the declarations of the modules.
 

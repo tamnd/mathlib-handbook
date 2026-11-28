@@ -5,6 +5,8 @@ modules:
   - Mathlib.Topology.Defs.Filter
   - Mathlib.Topology.Neighborhoods
   - Mathlib.Order.Filter.Tendsto
+  - Mathlib.Topology.Filter
+  - Mathlib.Topology.Germ
 explains:
   E3: [nhds, Filter.Tendsto, ContinuousAt]
   E2: [nhds_def, mem_nhds_iff, nhds_basis_opens, isOpen_iff_mem_nhds, tendsto_nhds, tendsto_const_nhds, Filter.tendsto_def, Filter.Tendsto.comp, Filter.tendsto_iff_comap, Filter.map_le_iff_le_comap, Filter.tendsto_id, Filter.Tendsto.mono_left, Filter.Tendsto.congr', Filter.Tendsto.eventually, Filter.HasBasis.tendsto_iff, Filter.tendsto_atTop, Filter.tendsto_atTop_atTop, continuousAt_def, continuous_iff_continuousAt, Continuous.tendsto, nhdsWithin, ContinuousWithinAt, Metric.tendsto_atTop, Metric.tendsto_nhds_nhds]
@@ -267,6 +269,10 @@ The definitions of `𝓝`, `𝓝[s]`, `ContinuousAt` and `ContinuousWithinAt` ar
 - `Filter.Tendsto.mono_left`: a limit along `l₁` gives a limit along a finer `l₁' ≤ l₁`. For example, a limit along `𝓝 a` gives a limit along `𝓝[s] a`.
 - `Filter.Tendsto.eventually`: a limit transfers an eventual property of the target to the source.
 - `Filter.tendsto_atTop`: `Tendsto m f atTop` means that `b ≤ m a` eventually, for each `b`.
+
+The type `Filter α` is itself a topological space, by the instance `Filter.instTopologicalSpace` in `Mathlib.Topology.Filter`. The sets $\{l \mid s \in l\}$, which are the intervals `Set.Iic (Filter.principal s)`, form a basis, `Filter.isTopologicalBasis_Iic_principal`. For this topology a filter $l$ specializes to $l'$ exactly when $l \le l'$, `Filter.specializes_iff_le`, and the map `nhds : X → Filter X` is inducing, `Filter.isInducing_nhds`. The lemma `Filter.tendsto_nhds` says that $f$ tends to $l$ in this topology when each $s \in l$ is eventually in $f(a)$. The space is useful as a target: it turns statements about families of filters into statements about continuity.
+
+The module `Mathlib.Topology.Germ` studies germs at a point, that is, elements of the type `(nhds x).Germ Y` of functions modulo equality near $x$. The value of a germ at its point is well defined, `Filter.Germ.value`, and it is a ring morphism when $Y$ is a ring, `Filter.Germ.valueRingHom`. The predicate `RestrictGermPredicate P A` restricts a property of germs to the points of a set $A$, and `forall_restrictGermPredicate_iff` says that it holds at each point if and only if $P$ holds near $A$, along `nhdsSet A`. A function whose germs are all constant is locally constant, `IsLocallyConstant.of_germ_isConstant`.
 
 The algebra of limits, such as `Filter.Tendsto.add` and `Filter.Tendsto.mul`, needs a topological group or ring and is in Volume 14.
 

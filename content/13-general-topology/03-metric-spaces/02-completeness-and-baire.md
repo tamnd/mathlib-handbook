@@ -5,7 +5,10 @@ modules:
   - Mathlib.Topology.MetricSpace.Cauchy
   - Mathlib.Topology.Baire.Lemmas
   - Mathlib.Topology.Baire.CompleteMetrizable
+  - Mathlib.Topology.Baire.LocallyCompactRegular
+  - Mathlib.Topology.Baire.BaireMeasurable
   - Mathlib.Topology.GDelta.Basic
+  - Mathlib.Topology.GDelta.MetrizableSpace
 explains:
   E3: [BaireSpace, IsGδ, IsNowhereDense, IsMeagre]
   E2: [Metric.cauchySeq_iff, Metric.cauchySeq_iff', Metric.complete_of_cauchySeq_tendsto, Metric.complete_of_convergent_controlled_sequences, BaireSpace.baire_property, BaireSpace.of_completelyPseudoMetrizable, PseudoMetricSpace.toIsCompletelyPseudoMetrizableSpace, BaireSpace.of_t2Space_locallyCompactSpace, dense_iInter_of_isOpen_nat, dense_iInter_of_isOpen, dense_sInter_of_isOpen, nonempty_interior_of_iUnion_of_closed, dense_iUnion_interior_of_closed, Dense.inter_of_Gδ, isGδ_iff_eq_iInter_nat, residual]
@@ -239,6 +242,8 @@ The Baire property for a countable set of open sets.
 The class `BaireSpace` is in `Mathlib.Topology.Defs.Basic`. Its consequences are in `Mathlib.Topology.Baire.Lemmas`, and the two instances are in `Mathlib.Topology.Baire.CompleteMetrizable` and `Mathlib.Topology.Baire.LocallyCompactRegular`. The notions $G_\delta$, nowhere dense and meagre are in `Mathlib.Topology.GDelta.Basic`, with the metrizable facts, such as the $G_\delta$ property of the set of continuity points `IsGδ.setOfPred_continuousAt`, in `Mathlib.Topology.GDelta.MetrizableSpace`.
 
 Mathlib states the Baire theorem for `IsCompletelyPseudoMetrizableSpace`, a property of a topology: it has some complete compatible pseudometric. This makes the theorem apply to open subsets of complete spaces, which are completely metrizable for another metric. The open interval $(0, 1)$ is not complete for the metric of $\mathbb{R}$, but it is homeomorphic to $\mathbb{R}$, so it is a Baire space.
+
+The module `Mathlib.Topology.Baire.BaireMeasurable` defines `BaireMeasurableSet s`: the set $s$ differs from an open set by a meagre set. The criterion is `BaireMeasurableSet.iff_residualEq_isOpen`: $s$ and some open set $u$ agree on a residual set. The relation has the scoped notation $s =^{b} u$. Open sets, meagre sets and Borel sets are Baire measurable (`IsOpen.baireMeasurableSet`, `IsMeagre.baireMeasurableSet`, `MeasurableSet.baireMeasurableSet`), and the Baire measurable sets are closed under complements and countable unions and intersections (`BaireMeasurableSet.compl`, `BaireMeasurableSet.iUnion`, `BaireMeasurableSet.iInter`). The preimage under a continuous open map keeps the property, by `BaireMeasurableSet.preimage`. The module `Mathlib.Topology.Baire.LocallyCompactRegular` also gives `IsGδ.baireSpace_of_t2Space_locallyCompactSpace`: a $G_\delta$ subset of a locally compact $R_1$ space is a Baire space.
 
 The reference table at the end of the section lists the declarations of the modules.
 

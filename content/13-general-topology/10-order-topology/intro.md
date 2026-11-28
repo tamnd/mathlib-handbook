@@ -1,0 +1,7 @@
+# Topology and order
+
+Many spaces of analysis carry an order and a topology at the same time: the real line, the extended reals, the ordinals, a complete lattice. Chapter 5 uses the order topology of $\mathbb{R}$ for the compactness of intervals, and Chapter 6 uses it for the intermediate value theorem. This chapter treats the interplay of order and topology in general, as the library does.
+
+Section 1 defines the order-closed topologies and the order topology, and proves the squeeze theorem and the separation properties of linear orders. Section 2 treats one-sided neighbourhoods, closures of intervals and the topological meaning of suprema. Section 3 treats monotone functions, the monotone convergence theorem and limits superior and inferior. Section 4 treats local extrema, one-sided limits and càdlàg functions. Section 5 treats semicontinuous functions and hemicontinuous correspondences, with the selection theorem of Michael and the minimax theorem of Sion. Section 6 treats the topologies that an order defines: the upper set, lower, upper, Scott and Lawson topologies. Section 7 treats sober and spectral spaces, Noetherian spaces and the ordered spaces of Priestley and Esakia duality.
+
+The chapter needs Chapters 1 to 6. Section 5 also uses uniform spaces from Chapter 7 and paracompact spaces from Chapter 8. The sections are independent of each other, unless a section says otherwise.

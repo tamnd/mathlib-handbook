@@ -4,6 +4,9 @@ kind: theory
 modules:
   - Mathlib.Topology.Compactness.Compact
   - Mathlib.Topology.Order.Compact
+  - Mathlib.Topology.Maps.Proper.Basic
+  - Mathlib.Topology.Maps.Proper.CompactlyGenerated
+  - Mathlib.Topology.Maps.Proper.UniversallyClosed
 explains:
   E3: [IsCompact, CompactSpace]
   E2: [isCompact_iff_finite_subcover, IsCompact.elim_finite_subcover, isCompact_iff_finite_subfamily_closed, IsCompact.exists_clusterPt, isCompact_iff_compactSpace, IsCompact.of_isClosed_subset, IsClosed.isCompact, IsCompact.image, isCompact_singleton, Set.Finite.isCompact, IsCompact.union, IsCompact.isClosed, SeparatedNhds.of_isCompact_isCompact, NormalSpace.of_compactSpace_r1Space, Continuous.isClosedMap, Continuous.homeoOfEquivCompactToT2, IsCompact.exists_isMinOn, IsCompact.exists_isMaxOn]
@@ -219,6 +222,8 @@ The maximum.
 The definition is in `Mathlib.Topology.Defs.Filter`, and the general theory in `Mathlib.Topology.Compactness.Compact`. The extreme value theorem and the compactness of intervals are in `Mathlib.Topology.Order.Compact`. Local compactness, `LocallyCompactSpace`, and σ-compactness are in the same folder `Mathlib.Topology.Compactness`. The homeomorphism criterion is in `Mathlib.Topology.Homeomorph.Lemmas`.
 
 Mathlib proves most results on compactness with the filter definition, or with one of the induction principles `IsCompact.induction_on`, which proves a property of a compact set from its local form. The open cover form is used when a statement is about covers.
+
+A proper map is the relative form of a compact space. The structure `IsProperMap f` says that $f : X \to Y$ is continuous and that each filter $\mathcal{F}$ on $X$ whose image clusters at $y$ clusters at some point $x$ with $f(x) = y$ (`IsProperMap.clusterPt_of_mapClusterPt`). The definition is in `Mathlib.Topology.Maps.Proper.Basic`, with its main consequences: a proper map is closed (`IsProperMap.isClosedMap`), the preimage of a compact set is compact (`IsProperMap.isCompact_preimage`), and the range is closed (`IsProperMap.isClosed_range`). The characterization `isProperMap_iff_isClosedMap_and_compact_fibers` says that $f$ is proper if and only if it is continuous, closed, and has compact fibres. The ultrafilter form `isProperMap_iff_ultrafilter` follows the ultrafilter definition of compactness. Proper maps compose (`IsProperMap.comp`), form products (`IsProperMap.prodMap`, `IsProperMap.pi_map`) and restrict to closed sets (`IsProperMap.restrict`). Closed embeddings and homeomorphisms are proper (`Topology.IsClosedEmbedding.isProperMap`, `Homeomorph.isProperMap`), and a continuous map from a compact space to a Hausdorff space is proper (`Continuous.isProperMap`). A constant map is proper exactly when its domain is compact (`isProperMap_const_iff`). The same module proves the closed graph theorem for a compact Hausdorff target: `continuous_iff_isClosed_graph`. The module `Mathlib.Topology.Maps.Proper.CompactlyGenerated` gives the classical definition for a Hausdorff compactly coherent target: `isProperMap_iff_isCompact_preimage` says that $f$ is proper if and only if it is continuous and preimages of compact sets are compact. The module `Mathlib.Topology.Maps.Proper.UniversallyClosed` proves that $f$ is proper if and only if it is continuous and $f \times \mathrm{id}_Z$ is closed for each space $Z$ (`isProperMap_iff_universally_closed`).
 
 The reference table at the end of the section lists the declarations of the modules.
 

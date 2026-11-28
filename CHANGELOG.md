@@ -20,6 +20,8 @@ Each release has a section. The newest release is first.
 
 - V25 has a home section for each of its modules. 31 new sections of the kind `api` treat them. They treat idempotent completion, Grothendieck abelian categories, Serre classes, the properties of objects and morphisms, the localization of products and derivability structures, shifts and t-structures, the small object argument and the functoriality of sites. New chapters treat the morphisms and points of sites (Chapter 9) and hypercovers, descent and sheaf cohomology (Chapter 10) (#72).
 
+- V13 has a home section for each of its modules. 50 new sections of the kind `api` treat them. They treat the filters `atTop` and `atBot`, the products and germs of filters, partial homeomorphisms, the pseudometric API and Lipschitz maps, local compactness and compactifications, the constructions of uniform spaces and hyperspaces, and metrizable spaces. New chapters treat metric geometry (Chapter 9), the order topology (Chapter 10) and the spaces of continuous maps (Chapter 11) (#73).
+
 ## v0.8.1 - 2026-11-28
 
 ### Changed

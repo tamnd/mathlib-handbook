@@ -1,6 +1,6 @@
 number: 13
 title: General topology
-subtitle: Topological spaces, filters, compactness, connectedness, metric and uniform spaces, completion, Baire, Urysohn and Tietze in Mathlib
+subtitle: Topological spaces, filters, compactness, connectedness, metric and uniform spaces, completion, Baire, Urysohn and Tietze, metric geometry, the order topology and spaces of continuous maps in Mathlib
 level: undergraduate
 prefixes:
 - Mathlib/Topology/Defs
