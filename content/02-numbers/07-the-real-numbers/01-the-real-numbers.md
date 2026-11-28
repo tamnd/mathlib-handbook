@@ -5,6 +5,14 @@ modules:
   - Mathlib.Basic.Real.Basic
   - Mathlib.Algebra.Order.CauSeq.Basic
   - Mathlib.Algebra.Order.CauSeq.Completion
+  - Mathlib.Algebra.Order.CauSeq.BigOperators
+  - Mathlib.Basic.Real.Sign
+  - Mathlib.Basic.Real.Star
+  - Mathlib.Data.Real.Basic
+  - Mathlib.Data.Real.Sign
+  - Mathlib.Data.Real.Star
+  - Mathlib.Data.Real.StarOrdered
+  - Mathlib.Data.Real.Sqrt
 explains:
   E3: [Real, CauSeq]
   E2: [Real.ofCauchy, Real.mk, Real.mk_le, Real.ind_mk, CauSeq.Pos, CauSeq.LimZero, CauSeq.trichotomy, Real.mk_eq]
@@ -165,6 +173,10 @@ To prove $C(x)$ for each real $x$, it is enough to prove $C([f])$ for each Cauch
 ### The library around it
 
 `Mathlib.Algebra.Order.CauSeq.Basic` has `IsCauSeq`, `CauSeq`, `CauSeq.LimZero`, `CauSeq.Pos` and the lemmas of this section, such as `CauSeq.bounded`, `CauSeq.mul_equiv_mul` and `CauSeq.abv_pos_of_not_limZero`. `Mathlib.Algebra.Order.CauSeq.Completion` builds the quotient `CauSeq.Completion.Cauchy` and defines `CauSeq.IsComplete` and `CauSeq.lim`. `Mathlib.Basic.Real.Basic` defines `Real` with `Real.mk_eq`, `Real.mk_lt` and `Real.ratCast_lt`.
+
+`Mathlib.Algebra.Order.CauSeq.BigOperators` gives tests for Cauchy sequences of partial sums, for an absolute value `abv` in the sense of `IsAbsoluteValue`. A monotone bounded sequence in an archimedean field is Cauchy: `IsCauSeq.of_mono_bounded` and `IsCauSeq.of_decreasing_bounded`. The comparison test is `IsCauSeq.of_abv_le`: if $\operatorname{abv}(f_m) \leq a_m$ for large $m$ and the partial sums of $a$ are Cauchy, the partial sums of $f$ are Cauchy. `IsCauSeq.of_abv` is the test of absolute convergence. The geometric series $\sum x^n$ with $\operatorname{abv}(x) < 1$ gives `IsCauSeq.geo_series` and `IsCauSeq.geo_series_const`, and `IsCauSeq.series_ratio_test` is the ratio test. The theorem `cauchy_product` treats the Cauchy product $\sum_n \sum_{m \leq n} f_m g_{n-m}$. If the series of $\operatorname{abv}(f_n)$ and the series of $g$ have Cauchy partial sums, the difference between the product of the partial sums and the partial sums of the Cauchy product tends to $0$. The definition of the exponential function uses these tests.
+
+`Mathlib.Basic.Real.Sign` defines `Real.sign r` as $-1$, $0$ or $1$ by the sign of $r$, with the value lemmas `Real.sign_of_pos`, `Real.sign_of_neg` and `Real.sign_zero`. The lemmas `Real.sign_neg`, `Real.sign_inv` and `Real.inv_sign` give its behaviour under negation and inversion, `Real.sign_mul_nonneg` states $0 \leq \operatorname{sign}(r) \cdot r$, and `Real.sign_intCast` compares it with the sign of an integer. `Mathlib.Basic.Real.Star` gives the trivial star structure on `ℝ`, `instStarRingReal` with `instTrivialStarReal`, so `star r = r`. The module `Mathlib.Basic.NNReal.Star` does the same for `ℝ≥0`.
 
 ### Exercises
 

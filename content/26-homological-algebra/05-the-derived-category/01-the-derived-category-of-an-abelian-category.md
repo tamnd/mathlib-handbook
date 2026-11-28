@@ -9,6 +9,9 @@ modules:
   - Mathlib.Algebra.Homology.DerivedCategory.ShortExact
   - Mathlib.Algebra.Homology.DerivedCategory.HomologySequence
   - Mathlib.Algebra.Homology.DerivedCategory.Plus
+  - Mathlib.Algebra.Homology.DerivedCategory.Fractions
+  - Mathlib.Algebra.Homology.DerivedCategory.FullyFaithful
+  - Mathlib.Algebra.Homology.DerivedCategory.Linear
 explains:
   E3: [HomologicalComplexUpToQuasiIso, HomologicalComplexUpToQuasiIso.Q_map_eq_of_homotopy, HomotopyCategory.quasiIso, HomotopyCategory.subcategoryAcyclic, HomotopyCategory.quasiIso_eq_trW_subcategoryAcyclic, HasDerivedCategory, DerivedCategory, DerivedCategory.Q, DerivedCategory.Qh, DerivedCategory.triangleOfSES_distinguished, DerivedCategory.homologyFunctor, DerivedCategory.isIso_iff, DerivedCategory.Plus.Qh_map_bijective_of_isKInjective]
   E2: [HomologicalComplexUpToQuasiIso.Q, HomologicalComplexUpToQuasiIso.Qh, ComplexShape.QFactorsThroughHomotopy, HomotopyCategory.mem_subcategoryAcyclic_iff, HasDerivedCategory.standard, DerivedCategory.mem_distTriang_iff, DerivedCategory.mappingCone_triangle_distinguished, DerivedCategory.singleFunctor, DerivedCategory.isIso_Q_map_iff_quasiIso, DerivedCategory.Q_map_eq_of_homotopy, DerivedCategory.triangleOfSES, DerivedCategory.triangleOfSESδ, CategoryTheory.ShortComplex.ShortExact.singleTriangle, CategoryTheory.ShortComplex.ShortExact.singleTriangle_distinguished, DerivedCategory.homologyFunctorFactors, DerivedCategory.HomologySequence.δ, DerivedCategory.HomologySequence.exact₂, DerivedCategory.HomologySequence.exact₃, DerivedCategory.Plus.Q, DerivedCategory.Plus.Qh, HomotopyCategory.Plus.subcategoryAcyclic, HomotopyCategory.Plus.quasiIso_eq_subcategoryAcyclic_trW]
@@ -176,6 +179,8 @@ The bounded below derived category `DerivedCategory.Plus C` is the full subcateg
 
 <?decl DerivedCategory.Plus.Qh_map_bijective_of_isKInjective?>
 :::
+
+The module `Mathlib.Algebra.Homology.DerivedCategory.Fractions` makes the calculus of fractions explicit. By `DerivedCategory.left_fac`, each morphism $Q(X) \to Q(Y)$ is $Q(s)^{-1} \circ Q(g)$ for maps of complexes $g : X \to Y'$ and $s : Y \to Y'$ with $Q(s)$ an isomorphism, and `DerivedCategory.right_fac` gives the form $Q(g) \circ Q(s)^{-1}$. The variants `DerivedCategory.left_fac_of_isStrictlyGE` and `DerivedCategory.right_fac_of_isStrictlyLE` keep the bounds of the complexes. The lemma `DerivedCategory.subsingleton_hom_of_isStrictlyLE_of_isStrictlyGE` says that there is at most one morphism from a complex strictly zero above $a$ to a complex strictly zero below $b$ when $a < b$. The module `Mathlib.Algebra.Homology.DerivedCategory.FullyFaithful` shows that `DerivedCategory.singleFunctor` is full and faithful in each degree $n$, and `DerivedCategory.singleFunctorCompHomologyFunctorIso` says that the homology in degree $n$ of the single complex is the original object. The module `Mathlib.Algebra.Homology.DerivedCategory.Linear` gives the instance `DerivedCategory.instLinear`: for an $R$-linear abelian category, the derived category is $R$-linear, and the functors `DerivedCategory.Q`, `DerivedCategory.Qh`, the shifts and the single functors are linear.
 
 Common errors of a learner:
 

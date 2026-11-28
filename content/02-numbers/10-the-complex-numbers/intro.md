@@ -1,0 +1,3 @@
+# The complex numbers
+
+Mathlib builds `ℂ` as the pairs $(x, y)$ of real numbers, with the product $(a, b)(c, d) = (ac - bd, ad + bc)$. The section of this chapter gives the structure `Complex` with its two projections, the cast from `ℝ`, the imaginary unit `Complex.I`, the conjugation, the function `Complex.normSq`, and the proof that `ℂ` is a field of characteristic zero. It also shows the lemmas that move a finite sum across the real part, the imaginary part and the cast. The absolute value, the exponential function and the theorem that `ℂ` is algebraically closed come later, in the volumes on analysis and on fields.

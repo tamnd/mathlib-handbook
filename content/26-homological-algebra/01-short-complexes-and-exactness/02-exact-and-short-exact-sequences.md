@@ -8,6 +8,8 @@ modules:
   - Mathlib.Algebra.Homology.ShortComplex.ModuleCat
   - Mathlib.Algebra.Homology.ShortComplex.Ab
   - Mathlib.Algebra.Exact.Basic
+  - Mathlib.Algebra.Exact
+  - Mathlib.Algebra.Exact.Sequence
 explains:
   E3: [CategoryTheory.ShortComplex.Exact, CategoryTheory.ShortComplex.ShortExact, CategoryTheory.ShortComplex.Splitting, CategoryTheory.ShortComplex.HomologyData.ofAbelian, CategoryTheory.ShortComplex.moduleCat_exact_iff, Function.Exact, LinearMap.exact_iff, Function.Exact.split_tfae]
   E2: [CategoryTheory.ShortComplex.exact_iff_isZero_homology, CategoryTheory.ShortComplex.exact_of_iso, CategoryTheory.ShortComplex.Exact.op, CategoryTheory.ShortComplex.Exact.map, CategoryTheory.ShortComplex.exact_iff_epi_toCycles, CategoryTheory.ShortComplex.exact_iff_mono_fromOpcycles, CategoryTheory.ShortComplex.exact_iff_kernel_ι_comp_cokernel_π_zero, CategoryTheory.ShortComplex.exact_iff_mono, CategoryTheory.ShortComplex.exact_iff_epi, CategoryTheory.ShortComplex.Exact.lift, CategoryTheory.ShortComplex.Exact.fIsKernel, CategoryTheory.ShortComplex.Exact.gIsCokernel, CategoryTheory.ShortComplex.Splitting.exact, CategoryTheory.ShortComplex.Splitting.isoBinaryBiproduct, CategoryTheory.ShortComplex.Splitting.ofExactOfRetraction, CategoryTheory.ShortComplex.Splitting.ofExactOfSection, CategoryTheory.ShortComplex.ShortExact.mk', CategoryTheory.ShortComplex.Splitting.shortExact, CategoryTheory.ShortComplex.isIso₂_of_shortExact_of_isIso₁₃, CategoryTheory.ShortComplex.ShortExact.splittingOfInjective, CategoryTheory.ShortComplex.ShortExact.splittingOfProjective, CategoryTheory.ShortComplex.LeftHomologyData.ofAbelian, CategoryTheory.ShortComplex.RightHomologyData.ofAbelian, CategoryTheory.categoryWithHomology_of_abelian, CategoryTheory.ShortComplex.homologyIsoImageICyclesCompPOpcycles, CategoryTheory.ShortComplex.moduleCat_exact_iff_range_eq_ker, CategoryTheory.ShortComplex.ShortExact.moduleCat_injective_f, CategoryTheory.ShortComplex.ShortExact.moduleCat_surjective_g, CategoryTheory.ShortComplex.moduleCatHomologyIso, CategoryTheory.ShortComplex.ab_exact_iff, CategoryTheory.ShortComplex.ab_exact_iff_function_exact, CategoryTheory.ShortComplex.abHomologyIso, LinearMap.exact_subtype_mkQ, LinearMap.exact_zero_iff_injective, AddMonoidHom.exact_iff]
@@ -169,6 +171,8 @@ This is the splitting lemma for modules. For linear maps with `Function.Exact f 
 
 <?decl Function.Exact.split_tfae?>
 :::
+
+The module `Mathlib.Algebra.Exact` is deprecated, and it only imports `Mathlib.Algebra.Exact.Basic`. The module `Mathlib.Algebra.Exact.Sequence` proves that the alternating sum of the dimensions in an exact sequence $0 \to V_0 \to \cdots \to V_{n+1} \to 0$ of finite dimensional vector spaces is zero (`Module.sum_neg_one_pow_finrank_eq_zero_of_exact`), with the case of six spaces in `Module.sum_neg_one_pow_finrank_eq_zero_of_exact_six`.
 
 Common errors of a learner:
 

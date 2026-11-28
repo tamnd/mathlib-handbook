@@ -8,6 +8,10 @@ modules:
   - Mathlib.Data.Int.Cast.Basic
   - Mathlib.Data.Int.Cast.Lemmas
   - Mathlib.Data.Rat.Cast.Defs
+  - Mathlib.Data.Int.Cast.Defs
+  - Mathlib.Data.Int.Cast.Pi
+  - Mathlib.Data.Int.Cast.Prod
+  - Mathlib.Data.Int.CharZero
 explains:
   E3: [Nat.cast_le, Nat.castRingHom, Int.castRingHom]
   E2: [Nat.cast_add, Nat.cast_mul, Nat.cast_pow, Int.cast_inj, Rat.cast_natCast, Int.cast_natCast, RingHom.ext_int, map_intCast, Nat.cast_succ]
@@ -228,6 +232,8 @@ Without the hypothesis the statement is false, because the subtraction of $\math
 ### The library around it
 
 The names follow one pattern: the prefix is the source type (`Nat.cast_`, `Int.cast_`, `Rat.cast_`) and the suffix is the operation (`add`, `mul`, `pow`, `sub`, `le`, `lt`, `inj`). The lemmas `Rat.cast_add` and `Rat.cast_mul` are in `Mathlib.Data.Rat.Cast.CharZero`, because they need `CharZero`. The attribute `norm_cast` is how `push_cast`, `norm_cast` and `exact_mod_cast` find these lemmas.
+
+The cast from `ℤ` lives in the class `AddGroupWithOne` of `Mathlib.Data.Int.Cast.Defs`: an additive group with a one, a cast from `ℕ` and a cast `IntCast` from `ℤ`. Its fields `AddGroupWithOne.intCast_ofNat` and `AddGroupWithOne.intCast_negSucc` fix the cast: a natural number $n$ goes to its cast from `ℕ`, and $-(n + 1)$ goes to $-(n + 1)$. So the cast is unique, and a structure that has a cast from `ℕ` and a negation gets the default cast `Int.castDef`. The commutative version is `AddCommGroupWithOne`. `Mathlib.Data.Int.Cast.Pi` and `Mathlib.Data.Int.Cast.Prod` give the casts into functions and pairs, which act on each coordinate: `Pi.intCast_apply`, `Prod.fst_intCast` and `Prod.snd_intCast`. `Mathlib.Data.Int.CharZero` has `RingHom.injective_int`: each ring map from `ℤ` to a ring of characteristic zero is injective. It also has `Int.cast_div_charZero`, which states $\uparrow(m / n) = \uparrow m / \uparrow n$ in a division ring of characteristic zero when $n \mid m$.
 
 ### Exercises
 

@@ -4,6 +4,19 @@ kind: theory
 modules:
   - Mathlib.Data.Int.Init
   - Mathlib.Data.Int.Lemmas
+  - Mathlib.Data.Int.Basic
+  - Mathlib.Data.Int.Notation
+  - Mathlib.Data.Int.Order.Basic
+  - Mathlib.Data.Int.Order.Lemmas
+  - Mathlib.Data.Int.Order.Units
+  - Mathlib.Data.Int.NatAbs
+  - Mathlib.Data.Int.DivMod
+  - Mathlib.Data.Int.WithZero
+  - Mathlib.Data.Int.AbsoluteValue
+  - Mathlib.Data.Int.Star
+  - Mathlib.Data.Int.SuccPred
+  - Mathlib.Data.Int.LeastGreatest
+  - Mathlib.Data.Int.ConditionallyCompleteOrder
 explains:
   E3: [Int.induction_on, Int.ediv_emod_unique'']
   E2: [Int.inductionOn', Int.emod_two_eq_zero_or_one, Int.natAbs_sq, Int.sign_mul_self_eq_natAbs]
@@ -134,6 +147,12 @@ The statement is `n % 2 = 0 ∨ n % 2 = 1`. A proof by cases uses `rcases Int.em
 ### The library around it
 
 The type `ℤ` and the lemmas of the Euclidean division are in the core of Lean, for example `Int.ediv_add_emod` and `Int.emod_emod_of_dvd`. Mathlib adds `Mathlib.Data.Int.Init` and `Mathlib.Data.Int.Lemmas` with the forms of induction, the lemmas of the sign and of `Int.natAbs`, and `Int.ediv_emod_unique''`. The units are $\pm 1$: `Int.isUnit_iff`. The tactic `omega` decides linear statements over `ℤ` with `/` and `%` by literals.
+
+`Mathlib.Data.Int.Notation` defines the notation `ℤ` for `Int`. `Mathlib.Data.Int.Basic` adds a few lemmas that need Mathlib: `Int.natCast_dvd` and `Int.dvd_natCast` move a divisibility between `ℤ` and `ℕ` through the absolute value, `Int.natAbs_le_of_dvd_ne_zero` states that a divisor of $n \neq 0$ has $\lvert m \rvert \leq \lvert n \rvert$, `Int.gcd_emod` states $\gcd(m \bmod n, n) = \gcd(m, n)$, and `Int.pow_right_injective` states that $x \mapsto a^x$ is injective for $\lvert a \rvert > 1$.
+
+`Mathlib.Data.Int.Order.Basic` gives the instances `Int.instLinearOrder` and `Int.instPartialOrder`, the elimination rules `Int.le.elim` and `Int.lt.elim` (a proof of $a \leq b$ gives $n \in \mathbb{N}$ with $a + n = b$), and the sign rules of a product, such as `Int.mul_pos_iff` and `Int.mul_nonneg_iff`: $0 \leq a b$ if and only if $a$ and $b$ have the same sign or one of them is $0$. `Mathlib.Data.Int.Order.Lemmas` compares absolute values through squares: `Int.natAbs_le_iff_mul_self_le` states $\lvert a \rvert \leq \lvert b \rvert \iff a^2 \leq b^2$, and `Int.abs_le_sqrt` states $\lvert a \rvert \leq \operatorname{sqrt}(b) \iff a^2 \leq b$ for $b \geq 0$. `Mathlib.Data.Int.Order.Units` proves that a unit $u$ of `ℤ` satisfies $u^2 = 1$ (`Int.units_sq`), so $u^{-1} = u$ (`Int.units_inv_eq_self`) and $u^n = u^{n \bmod 2}$ (`Int.units_pow_eq_pow_mod_two`). It also gives `Int.isUnit_iff_abs_eq` and the small fact `Int.sq_eq_one_of_sq_lt_four`.
+
+`Mathlib.Data.Int.NatAbs` makes the absolute value a monoid map with zero, `Int.natAbsHom`, and computes $\lvert a - b \rvert$ for natural numbers in `Int.natAbs_natCast_sub_natCast_of_ge` and `Int.natAbs_natCast_sub_natCast_of_le`. `Mathlib.Data.Int.DivMod` has three lemmas on division, for example `Int.emod_eq_sub_self_emod` ($a \bmod b = (a - b) \bmod b$) and `Int.fdiv_fdiv_eq_fdiv_mul` for the floor division. `Mathlib.Data.Int.WithZero` defines `WithZeroMulInt.toNNReal`, the map from `WithZero (Multiplicative ℤ)` to `ℝ≥0` that sends $0$ to $0$ and the element of exponent $n$ to $e^n$ for a fixed $e \neq 0$. It is strictly monotone for $e > 1$ (`WithZeroMulInt.toNNReal_strictMono`), and valuations use it to take real values.
 
 ### Exercises
 
