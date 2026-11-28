@@ -1,6 +1,6 @@
 number: 9
 title: "Commutative algebra I: ideals, polynomials, factorization"
-subtitle: Radicals, localization, Noetherian and Artinian rings, Gauss's lemma, polynomials in several variables, the Nullstellensatz and power series in Mathlib
+subtitle: Radicals, localization, Noetherian and Artinian rings, Gauss's lemma, polynomials in several variables, the Nullstellensatz, power series, Hahn series and the one-variable polynomial library in Mathlib
 level: undergraduate to graduate
 prefixes:
 - Mathlib/Algebra/Polynomial

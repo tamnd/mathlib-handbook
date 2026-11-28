@@ -8,6 +8,8 @@ Section 2 defines Artinian modules and rings, and proves the three basic facts a
 
 Section 3 proves that an Artinian ring is a finite product of local Artinian rings, and the theorem of Akizuki and Hopkins: a ring is Artinian exactly when it is Noetherian and every prime ideal is maximal. So Artinian rings are the Noetherian rings of dimension $0$, the rings whose spectrum is a finite discrete set of points.
 
+Section 4 is a guide to the library on simple and semisimple modules over any ring: Schur's lemma, the isotypic components and the theorem of Wedderburn and Artin, which writes a semisimple ring as a finite product of matrix rings over division rings.
+
 The chapter needs the Jacobson radical, the nilradical and the Chinese remainder theorem of Chapter 1, the local rings and the spectrum of Chapter 2, and the Noetherian rings and primary decomposition of Chapter 3. It also uses Volume 7, Chapters 1, 2 and 4. Volume 10 continues with the Krull dimension, the length of a module and the Krull intersection theorem.
 
 In Mathlib the Nakayama lemmas are stated for submodules with the ideal `Ring.jacobson R`, and the Artinian theory copies the Noetherian one with `WellFoundedLT` in place of `WellFoundedGT`.

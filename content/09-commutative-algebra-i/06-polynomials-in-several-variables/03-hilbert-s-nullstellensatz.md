@@ -1,7 +1,10 @@
 ---
 title: Hilbert's Nullstellensatz
 kind: theory
-modules: []
+modules:
+  - Mathlib.RingTheory.Jacobson.Ring
+  - Mathlib.RingTheory.Jacobson.Polynomial
+  - Mathlib.RingTheory.Nullstellensatz
 explains:
   E3: [MvPolynomial.vanishingIdeal_zeroLocus_eq_radical, MvPolynomial.isMaximal_iff_eq_vanishingIdeal_singleton, MvPolynomial.IsPrime.vanishingIdeal_zeroLocus, finite_of_finite_type_of_isJacobsonRing]
   E2: [MvPolynomial.radical_le_vanishingIdeal_zeroLocus, MvPolynomial.mem_vanishingIdeal_singleton_iff, MvPolynomial.pointToPoint, MvPolynomial.vanishingIdeal_pointToPoint, MvPolynomial.pointToPoint_zeroLocus_le, IsJacobsonRing, isJacobsonRing_iff, MvPolynomial.isJacobsonRing, Ideal.radical_eq_jacobson]
@@ -120,6 +123,10 @@ Zariski's lemma in a general form: for a Jacobson ring `R` and a field `S` that 
 The proof of `vanishingIdeal_zeroLocus_eq_radical` avoids Rabinowitsch's trick. As `MvPolynomial σ k` is a Jacobson ring, `Ideal.radical_eq_jacobson` writes $\sqrt{J}$ as the intersection of the maximal ideals over $J$, each the ideal of a point of $V(J)$. Behind both steps is the integrality statement `MvPolynomial.comp_C_integral_of_surjective_of_isJacobsonRing`.
 
 `MvPolynomial.pointToPoint` sends a point to the prime ideal of `PrimeSpectrum (MvPolynomial σ k)` given by its vanishing ideal. With `vanishingIdeal_pointToPoint` and `pointToPoint_zeroLocus_le` it links the sets of this section to the Zariski topology of Chapter 2, Section 3.
+
+The class `IsJacobsonRing` and its stability results are in `Mathlib.RingTheory.Jacobson.Ring`. The criterion `isJacobsonRing_iff_prime_eq` checks only prime ideals. A quotient of a Jacobson ring is Jacobson by `isJacobsonRing_quotient`, an integral extension by `isJacobsonRing_of_isIntegral`, and a localization at one element by `isJacobsonRing_localization`. The main theorem of the module is `Polynomial.isJacobsonRing_polynomial_iff_isJacobsonRing`: $R[X]$ is a Jacobson ring if and only if $R$ is one. By induction on the number of variables it gives `MvPolynomial.isJacobsonRing`, and then `isJacobsonRing_of_finiteType` for each algebra of finite type over a Jacobson ring. Fields, $\mathbb{Z}$ and Artinian rings are Jacobson rings, the last by the instance `instIsJacobsonRingOfIsArtinianRing`. The module `Mathlib.RingTheory.Jacobson.Polynomial` has the step for the radical of the polynomial ring: `Ring.jacobson_polynomial_eq_bot_of_jacobson_eq_bot` says that $J(R[X]) = 0$ when $J(R) = 0$.
+
+All the statements of this section about $V$ and $I$ are in `Mathlib.RingTheory.Nullstellensatz`. The module defines `MvPolynomial.zeroLocus` and `MvPolynomial.vanishingIdeal`, proves that they form a Galois connection, `MvPolynomial.zeroLocus_vanishingIdeal_galoisConnection`, and that the vanishing ideal of a point is maximal, the instance `MvPolynomial.instIsMaximalVanishingIdealSingletonForallSet`. The main results need an algebraically closed field and a finite type of variables: the strong form `MvPolynomial.vanishingIdeal_zeroLocus_eq_radical`, its version for primes `MvPolynomial.IsPrime.vanishingIdeal_zeroLocus`, and the description of the maximal ideals `MvPolynomial.isMaximal_iff_eq_vanishingIdeal_singleton`.
 
 The index of this edition has no declaration for the weak form as a separate statement about proper ideals. It follows from `vanishingIdeal_zeroLocus_eq_radical`, `zeroLocus_top` and `vanishingIdeal_empty`, as in part 3 of the corollary.
 

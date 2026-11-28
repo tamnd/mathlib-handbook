@@ -5,6 +5,9 @@ modules:
   - Mathlib.RingTheory.Ideal.IsPrimary
   - Mathlib.RingTheory.IsPrimary
   - Mathlib.RingTheory.Lasker
+  - Mathlib.RingTheory.Ideal.AssociatedPrime.Basic
+  - Mathlib.RingTheory.Ideal.AssociatedPrime.Finiteness
+  - Mathlib.RingTheory.Ideal.AssociatedPrime.Localization
 explains:
   E3: [Ideal.IsPrimary, IsLasker, Submodule.isLasker, InfIrred.isPrimary, Submodule.IsMinimalPrimaryDecomposition]
   E2: [Ideal.isPrimary_iff, Ideal.isPrime_radical, Ideal.isPrimary_of_isMaximal_radical, Ideal.IsPrime.isPrimary, Ideal.IsPrimary.inf, Ideal.isPrimary_finsetInf, Submodule.IsPrimary, Submodule.IsLasker.exists_isMinimalPrimaryDecomposition, Submodule.IsMinimalPrimaryDecomposition.image_radical_eq_associated_primes, Ideal.IsMinimalPrimaryDecomposition.minimalPrimes_subset_image_radical, Submodule.associatedPrimes]
@@ -128,6 +131,8 @@ An element $xg$ of $(x)$ lies in $(x^2, y)$, or in $(x, y)^2$, exactly when $g \
 ### The library around it
 
 Mathlib states the theory for submodules, and ideals are the case `M = R`. The radical of a primary submodule `J` is `(J.colon Set.univ).radical`.
+
+The associated primes have their own modules. `Mathlib.RingTheory.Ideal.AssociatedPrime.Basic` defines `IsAssociatedPrime I M`: the ideal $I$ is prime and equals the annihilator of one element of $M$. The set of these primes is `associatedPrimes R M`. Over a Noetherian ring, each nonzero element has an annihilator below an associated prime, `exists_le_isAssociatedPrime_of_isNoetherianRing`, so `associatedPrimes.nonempty` holds for a nontrivial module, and `biUnion_associatedPrimes_eq_zero_divisors` says that the union of the associated primes is the set of zero divisors on $M$. An injective linear map gives an inclusion of the sets, `associatedPrimes.subset_of_injective`, and an exact sequence $0 \to M' \to M \to M''$ gives `associatedPrimes.subset_union_of_exact`. `Mathlib.RingTheory.Ideal.AssociatedPrime.Finiteness` proves that a finite module over a Noetherian ring has finitely many associated primes, `associatedPrimes.finite`. The proof builds a chain $0 = M_0 \subset \dots \subset M_n = M$ with each quotient $M_{i+1}/M_i \cong R/\mathfrak{p}_i$ for a prime $\mathfrak{p}_i$, `IsNoetherianRing.exists_relSeries_isQuotientEquivQuotientPrime`, and each associated prime is one of the $\mathfrak{p}_i$. `Mathlib.RingTheory.Ideal.AssociatedPrime.Localization` compares the associated primes of $M$ and of a localization $S^{-1} M$, and proves that the minimal primes of the annihilator of a finite module are associated, `Module.associatedPrimes.minimalPrimes_annihilator_subset_associatedPrimes`.
 
 Common errors of a learner:
 

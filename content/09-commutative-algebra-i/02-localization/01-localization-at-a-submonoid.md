@@ -3,6 +3,11 @@ title: Localization at a submonoid
 kind: theory
 modules:
   - Mathlib.RingTheory.Localization.Defs
+  - Mathlib.RingTheory.OreLocalization.Basic
+  - Mathlib.RingTheory.OreLocalization.Ring
+  - Mathlib.RingTheory.OreLocalization.OreSet
+  - Mathlib.RingTheory.OreLocalization.NonZeroDivisors
+  - Mathlib.RingTheory.OreLocalization.Cardinality
 explains:
   E3: [IsLocalization, "IsLocalization.mk'", IsLocalization.lift]
   E2: [IsLocalization.map_units, IsLocalization.surj, IsLocalization.exists_of_eq, "IsLocalization.mk'_spec", "IsLocalization.mk'_surjective", "IsLocalization.mk'_eq_iff_eq", IsLocalization.lift_eq, IsLocalization.lift_unique, IsLocalization.lift_comp, IsLocalization.map_eq_zero_iff, "IsLocalization.mk'_eq_zero_iff", IsLocalization.algEquiv, Localization.isLocalization, "Localization.mk_eq_mk'", Localization.add_mk, IsLocalization.Away, IsLocalization.Away.invSelf, IsLocalization.Away.mul_invSelf, IsLocalization.Away.algebraMap_isUnit, IsLocalization.Away.surj, IsLocalization.Away.lift, Localization.AtPrime, IsLocalization.AtPrime, Ideal.primeCompl, IsLocalization.injective, IsLocalization.uniqueOfZeroMem, IsLocalization.to_map_eq_zero_iff]
@@ -122,6 +127,8 @@ The two rings are different: $1/3 \in \mathbb{Z}_{(2)}$ and $1/3 \notin \mathbb{
 Now compute $S^{-1} R$. The kernel of $\iota$ is the set of $r$ with $2 r = 0$ or $4 r = 0$, that is, $\{0, 3\}$. Also $\iota(2)^2 = \iota(4) = \iota(1)$, since $4 - 1 = 3$ lies in the kernel. So $\iota(2)$ is its own inverse, each $a/s$ equals $\iota(a s)$, and $\iota$ is surjective. Hence $S^{-1} R \cong (\mathbb{Z}/6)/\{0, 3\} \cong \mathbb{Z}/3$.
 
 ### The library around it
+
+For a noncommutative ring the construction needs the Ore condition: for $r \in R$ and $s \in S$ there are $r'$ and $s' \in S$ with $s' r = r' s$, so that a left fraction can be rewritten as a right fraction. The class is `OreLocalization.OreSet`, the localization is `OreLocalization S R`, and its elements are the fractions `OreLocalization.oreDiv`, written `r /ₒ s`. The modules `Mathlib.RingTheory.OreLocalization.Basic` and `Mathlib.RingTheory.OreLocalization.Ring` put the additive group, the ring and the module structures on it (`OreLocalization.instRing`, `OreLocalization.instCommRing`, `OreLocalization.instModule`). The sum of two fractions brings them to a common denominator, `OreLocalization.oreDiv_add_oreDiv`. The map $r \mapsto r /ₒ 1$ is `OreLocalization.numeratorRingHom`, it is injective when $S$ has no left zero divisors (`OreLocalization.numeratorHom_inj`), and `OreLocalization.universalHom` is the universal property. The localization is the zero ring exactly when $0 \in S$, by `OreLocalization.subsingleton_iff` and `OreLocalization.nontrivial_iff`. The module `Mathlib.RingTheory.OreLocalization.OreSet` gives Ore sets from cancellation: `OreLocalization.oreSetOfIsCancelMulZero`, `OreLocalization.oreSetOfNoZeroDivisors`, and the criterion `OreLocalization.nonempty_oreSet_iff`. For a domain in which the nonzero elements form an Ore set, `Mathlib.RingTheory.OreLocalization.NonZeroDivisors` makes the localization a division ring, `OreLocalization.instDivisionRingNonZeroDivisors`, and a field in the commutative case, `OreLocalization.instFieldNonZeroDivisors`. The module `Mathlib.RingTheory.OreLocalization.Cardinality` proves `OreLocalization.cardinalMk`: the localization at a set of left non-zero-divisors has the cardinality of $R$.
 
 The predicate and the basic API sit in `Mathlib.RingTheory.Localization.Defs`, and the field of fractions is `IsFractionRing R K := IsLocalization (nonZeroDivisors R) K`. Common errors:
 

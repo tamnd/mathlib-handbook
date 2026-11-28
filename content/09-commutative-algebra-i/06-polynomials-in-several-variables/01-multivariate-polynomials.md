@@ -1,7 +1,17 @@
 ---
 title: Multivariate polynomials
 kind: theory
-modules: []
+modules:
+  - Mathlib.RingTheory.FreeCommRing
+  - Mathlib.RingTheory.FreeRing
+  - Mathlib.RingTheory.MvPolynomial
+  - Mathlib.RingTheory.MvPolynomial.Basic
+  - Mathlib.RingTheory.MvPolynomial.Expand
+  - Mathlib.RingTheory.MvPolynomial.FreeCommRing
+  - Mathlib.RingTheory.MvPolynomial.Tower
+  - Mathlib.RingTheory.MvPolynomial.Localization
+  - Mathlib.RingTheory.MvPolynomial.IrreducibleQuadratic
+  - Mathlib.RingTheory.MvPolynomial.DeterminantalIdeal
 explains:
   E3: [MvPolynomial, MvPolynomial.aeval, MvPolynomial.finSuccEquiv, MvPolynomial.funext]
   E2: [MvPolynomial.X, MvPolynomial.C, MvPolynomial.monomial, MvPolynomial.support, MvPolynomial.coeff_mul, MvPolynomial.monomial_mul_monomial, MvPolynomial.as_sum, MvPolynomial.ext, MvPolynomial.induction_on, MvPolynomial.totalDegree, MvPolynomial.totalDegree_mul, MvPolynomial.totalDegree_mul_of_isDomain, MvPolynomial.degreeOf, MvPolynomial.eval₂Hom, MvPolynomial.eval, MvPolynomial.aeval_X, MvPolynomial.aeval_unique, MvPolynomial.algHom_ext, MvPolynomial.rename, MvPolynomial.rename_injective, MvPolynomial.exists_finset_rename, MvPolynomial.optionEquivLeft, MvPolynomial.IsHomogeneous, MvPolynomial.homogeneousComponent, MvPolynomial.sum_homogeneousComponent, MvPolynomial.instIsDomainOfIsCancelAdd]
@@ -119,6 +129,10 @@ Here $f_d g_e$ is nonzero by the corollary and homogeneous of degree $d + e$. $\
 ### The library around it
 
 Besides `degrees` and `vars` (the variables that occur), the library has weighted homogeneous polynomials, `IsWeightedHomogeneous`, and symmetric polynomials, `IsSymmetric` and `esymm`, in `Mathlib/RingTheory/MvPolynomial/`.
+
+The free commutative ring `FreeCommRing α` on a type $\alpha$ is the polynomial ring over $\mathbb{Z}$ in the variables $\alpha$, and `freeCommRingEquivMvPolynomialInt` is the isomorphism with `MvPolynomial α ℤ`. The module `Mathlib.RingTheory.FreeCommRing` gives it the universal property `FreeCommRing.lift : (α → R) ≃ (FreeCommRing α →+* R)` for each commutative ring $R$, the generators `FreeCommRing.of`, the induction principle `FreeCommRing.induction_on`, and the predicate `FreeCommRing.IsSupported` for the elements built from a subset of the variables. The module `Mathlib.RingTheory.FreeRing` builds the free ring `FreeRing α`, the noncommutative polynomials over $\mathbb{Z}$, with `FreeRing.lift` for every ring $R$. The map `FreeRing.toFreeCommRing` makes the variables commute, and `freeRingPUnitEquivPolynomialInt` identifies the free ring on one generator with $\mathbb{Z}[X]$.
+
+Several modules in `Mathlib/RingTheory/MvPolynomial/` treat $R[\sigma]$ as a module and as an algebra. The module `Mathlib.RingTheory.MvPolynomial.Basic` gives the basis of monomials, `MvPolynomial.basisMonomials`, so $R[\sigma]$ is free, the instance `MvPolynomial.instFree`, and the variables are linearly independent, `MvPolynomial.linearIndependent_X`. It defines the submodules `MvPolynomial.restrictTotalDegree` and `MvPolynomial.restrictDegree` of polynomials of bounded total degree and of bounded degree in each variable, which are finite when $\sigma$ is finite, and the more general `MvPolynomial.restrictSupport` with its basis `MvPolynomial.basisRestrictSupport`. The module `Mathlib.RingTheory.MvPolynomial` computes the rank, `MvPolynomial.rank_eq`, and shows that a proper quotient of $K[\sigma]$ contains $K$, `MvPolynomial.quotient_mk_comp_C_injective`. In characteristic $p$ the module `Mathlib.RingTheory.MvPolynomial.Expand` proves that the Frobenius applied to the coefficients of $f(x_1^p, \dots, x_n^p)$ gives $f^p$, `MvPolynomial.map_frobenius_expand`, and over a finite field with $q$ elements `FiniteField.MvPolynomial.expand_card` gives $f(x_1^q, \dots, x_n^q) = f^q$. The module `Mathlib.RingTheory.MvPolynomial.Tower` has the lemmas on towers of algebras, such as `MvPolynomial.aeval_algebraMap_apply` and `MvPolynomial.aeval_algebraMap_eq_zero_iff_of_injective`, and `Mathlib.RingTheory.MvPolynomial.Localization` proves that $S[\sigma]$ is a localization of $R[\sigma]$ when $S$ is a localization of $R$, the instance `MvPolynomial.isLocalization`. The module `Mathlib.RingTheory.MvPolynomial.IrreducibleQuadratic` gives criteria of irreducibility: a primitive polynomial of total degree $1$ over a domain is irreducible, `MvPolynomial.irreducible_of_totalDegree_eq_one`, and so is the bilinear form $\sum_i c_i x_i y_i$ with at least two nonzero coprime coefficients, `MvPolynomial.irreducible_sumSMulXSMulY`. The module `Mathlib.RingTheory.MvPolynomial.DeterminantalIdeal` defines the ideal `MvPolynomial.determinantalIdeal` of the generic $m \times n$ matrix spanned by its minors of a given size, `MvPolynomial.determinantalIdeal_eq_span_determinantalMinors`, with the minors `Matrix.mvPolynomialMinor`; it is finitely generated, `MvPolynomial.fg_determinantalIdeal`. Finally `Mathlib.RingTheory.MvPolynomial.FreeCommRing` builds the generic polynomial `FirstOrder.Ring.genericPolyMap` used in model theory, where the coefficients are free variables.
 
 A common error of a learner: `MvPolynomial (Fin 2) R` and `Polynomial (Polynomial R)` are different types, and results move between them only through `finSuccEquiv` or `optionEquivLeft`.
 

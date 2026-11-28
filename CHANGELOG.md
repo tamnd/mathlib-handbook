@@ -6,6 +6,8 @@ Each release has a section. The newest release is first.
 
 - The build workflow installs pandoc and Tectonic before it runs the tests, because the test of the fallback font runs Tectonic. Since v0.6.1 the test failed in CI, so the releases v0.6.1 to v0.8.1 have no books. The job has a time limit of 90 minutes, because the volumes are now larger.
 
+- V09 has a home section for each of its modules. 44 new sections of the kind `api` treat them. They treat two-sided ideals, quotient rings, the localization API, Euclidean domains and unique factorization, cyclotomic and classical polynomials, monoid algebras, Hahn series and the substitution of power series. The new Chapter 8 treats the polynomial library in one variable.
+
 ## v0.8.1 - 2026-11-28
 
 ### Changed

@@ -6,6 +6,10 @@ modules:
   - Mathlib.RingTheory.Noetherian.Basic
   - Mathlib.RingTheory.Ideal.Quotient.Noetherian
   - Mathlib.RingTheory.Noetherian.UniqueFactorizationDomain
+  - Mathlib.RingTheory.Ideal.Oka
+  - Mathlib.RingTheory.Noetherian.Filter
+  - Mathlib.RingTheory.Noetherian.Nilpotent
+  - Mathlib.RingTheory.Noetherian.OfPrime
 explains:
   E3: [IsNoetherian, IsNoetherianRing, set_has_maximal_iff_noetherian, isNoetherian_of_range_eq_ker]
   E2: [isNoetherian_iff, isNoetherian_def, isNoetherianRing_iff_ideal_fg, monotone_stabilizes_iff_noetherian, IsNoetherian.induction, isNoetherian_of_isNoetherianRing_of_finite, isNoetherian_quotient, isNoetherian_pi, isNoetherian_of_le, Ideal.Quotient.isNoetherianRing, isNoetherianRing_of_surjective, IsLocalization.isNoetherianRing, IsNoetherianRing.wfDvdMonoid]
@@ -144,6 +148,10 @@ is strictly increasing. To see that $x_{n+1} \notin (x_1, \dots, x_n)$, let $\va
 ### The library around it
 
 Most results are instances: instance search finds that `ℤ`, fields, principal ideal rings, `R ⧸ I` and `R[X]` are Noetherian. The module lemmas have the pattern `isNoetherian_of_*`, for example `isNoetherian_of_surjective`. For one ideal, `Ideal.fg_of_isNoetherianRing I` gives its finite generation.
+
+The module `Mathlib.RingTheory.Ideal.Oka` gives a general form of the argument that an ideal maximal among the ideals that are not finitely generated is prime. A predicate $P$ on ideals is an Oka predicate, `Ideal.IsOka P`, when $P(R)$ holds and $P(I + (a))$ and $P(I : a)$ together give $P(I)$. Then `Ideal.IsOka.isPrime_of_maximal_not` says that an ideal maximal for not satisfying $P$ is prime, and `Ideal.IsOka.forall_of_forall_prime` says that $P$ holds for all ideals when it holds for all primes and Zorn's lemma applies to the ideals without $P$. Finite generation and principality are Oka predicates. So a ring is Noetherian when all its primes are finitely generated, and a principal ideal ring when all its primes are principal.
+
+Three small modules complete the basic theory. `Mathlib.RingTheory.Noetherian.Filter` restates the ascending chain condition with filters: a monotone sequence of submodules of a Noetherian module is eventually constant, `eventuallyConst_of_isNoetherian`. `Mathlib.RingTheory.Noetherian.Nilpotent` proves that the nilradical of a Noetherian ring is nilpotent, `IsNoetherianRing.isNilpotent_nilradical`. The proof uses `Ideal.FG.isNilpotent_iff_le_nilradical`: a finitely generated ideal $(a_1, \ldots, a_k)$ inside the nilradical has $a_i^{n} = 0$ for some $n$ and all $i$, so $I^{k(n-1)+1} = 0$ because each product of that many generators has some $a_i$ at least $n$ times. `Mathlib.RingTheory.Noetherian.OfPrime` proves the theorem of Cohen of Exercise 6: if every prime ideal is finitely generated, the ring is Noetherian, `IsNoetherianRing.of_prime`, and it is enough to check the nonzero primes, `IsNoetherianRing.of_prime_ne_bot`. The proof uses the Oka families of ideals, `Ideal.IsOka`: the finitely generated ideals form one, `Ideal.isOka_fg`, and an ideal that is maximal outside an Oka family is prime.
 
 Common errors of a learner:
 

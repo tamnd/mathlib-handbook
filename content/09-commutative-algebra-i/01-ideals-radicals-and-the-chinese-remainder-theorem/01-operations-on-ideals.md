@@ -3,6 +3,8 @@ title: Operations on ideals
 kind: theory
 modules:
   - Mathlib.RingTheory.Ideal.Colon
+  - Mathlib.RingTheory.Ideal.Operations
+  - Mathlib.RingTheory.Ideal.Maps
 explains:
   E3: [Ideal.gc_map_comap, Submodule.colon, Ideal.pow_sup_pow_eq_top]
   E2: [Ideal.map_le_iff_le_comap, Ideal.le_comap_map, Ideal.map_comap_le, Ideal.map_mul, Ideal.map_sup, Ideal.comap_inf, Ideal.map_span, Ideal.comap_map_of_surjective, Ideal.map_isPrime_of_surjective, Ideal.mul_sup, Ideal.sup_mul, Ideal.mul_le, Ideal.span_mul_span, Ideal.add_eq_sup, Submodule.mem_colon, Ideal.mem_colon_span_singleton, Ideal.colon_span, Ideal.isCoprime_iff_sup_eq, Ideal.isCoprime_iff_exists]
@@ -158,6 +160,10 @@ Part (2) as `I ⊔ J = ⊤ → I ^ m ⊔ J ^ n = ⊤`. The predicate `IsCoprime 
 **Counterexample (The extension of a prime need not be prime).** Let $f : \mathbb{Z} \to \mathbb{Z}[i]$ be the inclusion. The prime $(5)$ extends to $5 \mathbb{Z}[i]$, which is not prime: $(2 + i)(2 - i) = 5$, but $2 + i \notin 5 \mathbb{Z}[i]$. The contraction of $(2 + i)$ is a prime ideal of $\mathbb{Z}$ that contains $5$, so it is $(5)$. Hence $(5)^e = 5 \mathbb{Z}[i] \subsetneq (2 + i)$.
 
 ### The library around it
+
+The module `Mathlib.RingTheory.Ideal.Operations` gives `Ideal R` the structure of an idempotent commutative semiring, the instance `Ideal.instIdemCommSemiring`, so that $I + J = I \sqcup J$ (`Ideal.add_eq_sup`) and $1 = \top$ (`Ideal.one_eq_top`). Its lemmas compare the product with the meet: `Ideal.mul_le_inf` gives $I J \subseteq I \cap J$, `Ideal.mul_eq_inf_of_isCoprime` gives equality when $I$ and $J$ are coprime, and `Ideal.prod_eq_iInf_of_pairwise_isCoprime` extends this to a finite family. For principal ideals, `Ideal.span_singleton_mul_span_singleton` gives $(r)(s) = (rs)$ and `Ideal.span_singleton_dvd_span_singleton_iff_dvd` gives $(a) \mid (b) \iff a \mid b$. A prime $P$ contains a finite product exactly when it contains a factor, `Ideal.IsPrime.prod_le`, and `Ideal.isCoprime_tfae` lists five equivalent forms of coprimality. The radical `Ideal.radical`, the prime avoidance lemma `Ideal.subset_union_prime` and the products of submodules by ideals, such as `Submodule.mem_ideal_smul_span_iff_exists_sum`, are also in this module.
+
+The module `Mathlib.RingTheory.Ideal.Maps` defines `Ideal.map` and `Ideal.comap` with their Galois insertion `Ideal.giMapComap` for a surjective map, and the kernel `RingHom.ker` with `RingHom.mem_ker` and `RingHom.injective_iff_ker_eq_bot`. For a surjective $f$, `Ideal.mem_map_iff_of_surjective` describes the elements of the extension, `Ideal.map_eq_top_or_isMaximal_of_surjective` sends maximal ideals to maximal ideals or to $\top$, and `Ideal.relIsoOfSurjective` is the order isomorphism between the ideals of $S$ and the ideals of $R$ above the kernel. The lemma `Ideal.map_eq_bot_iff_le_ker` says that $I^e = 0$ if and only if $I \subseteq \ker f$. The module also holds the annihilator `Module.annihilator` of a module, the order isomorphism `Ideal.piOrderIso` between the ideals of a finite product and the families of ideals, and the lifting `RingHom.liftOfRightInverse` of a map through a surjection with a section.
 
 Products and coprimality are in `Mathlib.RingTheory.Ideal.Operations`, `Ideal.map` and `Ideal.comap` in `Mathlib.RingTheory.Ideal.Maps`, the ideal quotient in `Mathlib.RingTheory.Ideal.Colon`. Common errors:
 
