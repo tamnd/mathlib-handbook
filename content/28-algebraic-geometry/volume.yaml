@@ -1,0 +1,8 @@
+number: 28
+title: Algebraic geometry
+subtitle: Sheaves on spaces, locally ringed spaces, schemes, morphisms of schemes, Grothendieck topologies, rational maps and elliptic curves in Mathlib
+level: graduate
+prefixes:
+- Mathlib/AlgebraicGeometry
+- Mathlib/Topology/Sheaves
+- Mathlib/Geometry/RingedSpace
