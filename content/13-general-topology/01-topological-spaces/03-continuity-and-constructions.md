@@ -7,6 +7,11 @@ modules:
   - Mathlib.Topology.Defs.Induced
   - Mathlib.Topology.Constructions
   - Mathlib.Topology.Constructions.SumProd
+  - Mathlib.Topology.List
+  - Mathlib.Topology.Hom.ContinuousEval
+  - Mathlib.Topology.Hom.ContinuousEvalConst
+  - Mathlib.Topology.WithTopology
+  - Mathlib.Topology.PreorderRestrict
 explains:
   E3: [Continuous, Homeomorph, TopologicalSpace.induced, TopologicalSpace.coinduced]
   E2: [continuous_def, Continuous.comp, continuous_iff_isClosed, continuous_id, continuous_const, continuous_induced_rng, continuous_coinduced_dom, continuous_iff_le_induced, continuous_iff_coinduced_le, continuous_subtypeVal, Continuous.subtype_mk, instTopologicalSpaceProd, continuous_fst, continuous_snd, Continuous.prodMk, isOpen_prod_iff, Pi.topologicalSpace, continuous_pi, continuous_apply, continuous_quot_mk, continuous_quot_lift, Topology.IsEmbedding, IsOpenMap, Homeomorph.isOpen_preimage]
@@ -328,6 +333,12 @@ The second projection is continuous.
 The lemmas on continuity are in `Mathlib.Topology.Continuous`, and the constructions in `Mathlib.Topology.Constructions` and `Mathlib.Topology.Constructions.SumProd`. Each construction has its universal property and a family of lemmas `continuous_*` for the maps that it comes with: `continuous_fst`, `continuous_snd`, `continuous_inl`, `continuous_inr`, `continuous_apply`, `continuous_subtypeVal`, `continuous_quot_mk`. The dot notation lemmas `Continuous.fst`, `Continuous.snd`, `Continuous.prodMk`, `Continuous.comp` and `Continuous.subtype_mk` combine them. Most of these lemmas carry the attribute `fun_prop`, and the tactic `fun_prop` proves a goal `Continuous (fun x ↦ ...)` by breaking the term into these pieces. The tactic `continuity` is an older tool for the same task.
 
 A homeomorphism is data `X ≃ₜ Y`; the property "this map is a homeomorphism" is `IsHomeomorph f`. Embeddings, open embeddings and closed embeddings are `IsEmbedding`, `IsOpenEmbedding` and `IsClosedEmbedding` in the namespace `Topology`. The quotient topology on `Quotient s` and the quotient of a type by a setoid both come with instances.
+
+The module `Mathlib.Topology.List` gives a topology on `List α`, the instance `instTopologicalSpaceList`, and on the vectors `List.Vector α n`. A list near $[a_1, \dots, a_n]$ is a list of the same length whose entries are near the $a_i$: the neighbourhood filters satisfy `nhds_nil` and `nhds_cons`. The list operations are continuous, for example `List.continuous_cons` and `List.continuous_insertIdx`, and the length is locally constant, `List.continuousAt_length`.
+
+Two classes in `Mathlib.Topology.Hom.ContinuousEvalConst` and `Mathlib.Topology.Hom.ContinuousEval` treat a type `F` of bundled maps $X \to Y$ with a topology of its own, such as `C(X, Y)`. The class `ContinuousEvalConst F X Y` says that the evaluation $f \mapsto f(x)$ at each fixed point is continuous, and `ContinuousEval F X Y` says that the joint evaluation $(f, x) \mapsto f(x)$ is continuous. The lemmas `Continuous.eval_const` and `Continuous.eval` then give the continuity of $z \mapsto f_z(x)$ and of $z \mapsto f_z(g(z))$, and `ContinuousEval.of_continuous_forget` transfers the class along a continuous forgetful map. These classes let one lemma serve each type of continuous maps with a good topology.
+
+The module `Mathlib.Topology.WithTopology` gives a type synonym `WithTopology X t` that carries a chosen topology $t$ on $X$ as its instance, even when $X$ has an instance already. The maps `WithTopology.toTopology` and `WithTopology.ofTopology` go to the synonym and back, they are bijective (`WithTopology.toTopology_bijective`), and `WithTopology.isOpen_iff` describes the open sets. The constructible topology of Chapter 10 uses this synonym. The module `Mathlib.Topology.PreorderRestrict` proves that the restriction of a function on a preorder to the elements below $a$ is continuous for the product topologies (`Preorder.continuous_restrictLe`, `Preorder.continuous_frestrictLe`).
 
 Common errors of a learner:
 

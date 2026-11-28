@@ -5,6 +5,9 @@ modules:
   - Mathlib.Topology.Path
   - Mathlib.Topology.Connected.PathConnected
   - Mathlib.Topology.Connected.LocallyPathConnected
+  - Mathlib.Topology.Subpath
+  - Mathlib.Topology.Connected.PathComponentOne
+  - Mathlib.Topology.Connected.LocPathConnected
 explains:
   E3: [Path, IsPathConnected, PathConnectedSpace]
   E2: [Path.refl, Path.symm, Path.trans, Path.map, Joined, JoinedIn, pathComponent, IsPathConnected.isConnected, PathConnectedSpace.connectedSpace, IsPathConnected.image, IsPathConnected.union, isPathConnected_iff_pathConnectedSpace, IsOpen.isConnected_iff_isPathConnected, LocallyPathConnectedSpace]
@@ -119,7 +122,9 @@ Suppose a path $\gamma = (\gamma_1, \gamma_2)$ in $S$ goes from $(0, 0)$ to $(1,
 
 ### The library around it
 
-Paths and their operations are in `Mathlib.Topology.Path`. The relations `Joined` and `JoinedIn`, path components and path connected sets are in `Mathlib.Topology.Connected.PathConnected`. Local path connectedness is in `Mathlib.Topology.Connected.LocallyPathConnected`. Homotopies of paths and the fundamental group build on `Path` in the volume on algebraic topology.
+Paths and their operations are in `Mathlib.Topology.Path`. The relations `Joined` and `JoinedIn`, path components and path connected sets are in `Mathlib.Topology.Connected.PathConnected`. Local path connectedness is in `Mathlib.Topology.Connected.LocallyPathConnected`. The module `Mathlib.Topology.Connected.LocPathConnected` is a deprecated alias of this module and contains no declarations of its own. For a locally path connected topological group $G$, the module `Mathlib.Topology.Connected.PathComponentOne` makes the path component of the identity an open normal subgroup, `OpenNormalSubgroup.pathComponentOne G`, with carrier `pathComponent 1` by `OpenNormalSubgroup.pathComponentOne_carrier`. The additive form is `OpenNormalAddSubgroup.pathComponentZero`. Homotopies of paths and the fundamental group build on `Path` in the volume on algebraic topology.
+
+The module `Mathlib.Topology.Subpath` restricts a path $\gamma$ to a subinterval. The path `Path.subpath γ t₀ t₁` runs from $\gamma(t_0)$ to $\gamma(t_1)$ along $\gamma$, and its range is the image of the interval between $t_0$ and $t_1$ (`Path.range_subpath`). Its reverse is the subpath in the other direction (`Path.symm_subpath`), and a subpath on one point is constant (`Path.subpath_self`). The function `Path.concat` joins a finite chain of paths. Two adjacent subpaths join to a path homotopic to the subpath on the union of the intervals (`Path.Homotopic.subpath_trans_subpath`), and `Path.Homotopy.concatSubpath` is the form for a finite subdivision of $[0,1]$.
 
 The reference table at the end of the section lists the declarations of the modules.
 

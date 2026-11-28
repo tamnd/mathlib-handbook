@@ -4,6 +4,14 @@ kind: theory
 modules:
   - Mathlib.Topology.Separation.Basic
   - Mathlib.Topology.Separation.Hausdorff
+  - Mathlib.Topology.SeparatedMap
+  - Mathlib.Topology.NatEmbedding
+  - Mathlib.Topology.Separation.Connected
+  - Mathlib.Topology.Separation.CountableSeparatingOn
+  - Mathlib.Topology.Separation.DisjointCover
+  - Mathlib.Topology.Separation.Lemmas
+  - Mathlib.Topology.Separation.Profinite
+  - Mathlib.Topology.SmallInductiveDimension
 explains:
   E3: [T0Space, T1Space, T2Space]
   E2: [Inseparable, t0Space_iff_inseparable, T1Space.t1, isClosed_singleton, t1Space_iff_exists_open, T1Space.t0Space, instT1SpaceCofiniteTopology, t2_separation, t2Space_iff_disjoint_nhds, disjoint_nhds_nhds, T2Space.t1Space, tendsto_nhds_unique, Filter.Tendsto.limUnder_eq, t2_iff_isClosed_diagonal, isClosed_diagonal, T2Space.of_injective_continuous, instT2SpaceSubtype, Prod.t2Space, Pi.t2Space]
@@ -256,6 +264,10 @@ An arbitrary product of Hausdorff spaces is Hausdorff.
 The axioms $T_0$ and $T_1$ and the weaker axioms $R_0$ and $R_1$ are in `Mathlib.Topology.Separation.Basic`, and $T_2$ is in `Mathlib.Topology.Separation.Hausdorff`. The axiom $R_1$ says that two points either have disjoint neighbourhood filters or satisfy $\mathcal{N}(x) \le \mathcal{N}(y)$; it is the "Hausdorff up to inseparability" axiom, and a space is $T_2$ if and only if it is $R_1$ and $T_0$ (`instT2SpaceOfR1SpaceOfT0Space`). Mathlib states many results with these weaker axioms, so a reader sees `R1Space` where a textbook writes "Hausdorff".
 
 Each metric space is Hausdorff by instance, so the uniqueness of limits applies to `ℝ` and `ℂ` without a hypothesis. The space `SeparationQuotient X` is the $T_0$ quotient of any space.
+
+The module `Mathlib.Topology.SeparatedMap` gives the relative forms of the Hausdorff axiom for a map $f : X \to Y$. The map is separated if two distinct points with the same image have disjoint neighbourhoods (`IsSeparatedMap`, with `isSeparatedMap_iff_disjoint_nhds`), and locally injective if each point has a neighbourhood on which $f$ is injective (`IsLocallyInjective`, with `isLocallyInjective_iff_nhds`). The two notions say that the diagonal of the fibre product $X \times_Y X$ is closed or open (`isSeparatedMap_iff_isClosed_diagonal`, `isLocallyInjective_iff_isOpen_diagonal`). A space is Hausdorff if and only if its map to a point is separated (`t2space_iff_isSeparatedMap`). For a separated and locally injective map $p$, two continuous lifts of the same map from a connected space that agree at one point agree everywhere (`IsSeparatedMap.eqOn_of_comp_eqOn`). This is the uniqueness of lifts in the theory of covering spaces.
+
+Some small modules add facts that mix separation with other properties. An infinite Hausdorff space contains an infinite discrete subspace (`exists_infinite_discreteTopology`) and a copy of $\mathbb{N}$ (`exists_topology_isEmbedding_nat`), in `Mathlib.Topology.NatEmbedding`. A nontrivial preconnected T1 space is infinite (`PreconnectedSpace.infinite`), and a totally disconnected space is T1 (`TotallyDisconnectedSpace.t1Space`), in `Mathlib.Topology.Separation.Connected`. The module `Mathlib.Topology.Separation.CountableSeparatingOn` gives countable separating families of open or closed sets in spaces with a countable basis. The module `Mathlib.Topology.Separation.DisjointCover` proves that each open cover of a compact zero-dimensional space has a finite refinement by disjoint clopen sets (`TopologicalSpace.IsOpenCover.exists_finite_nonempty_disjoint_clopen_cover`), and that a continuous map on a compact totally disconnected Hausdorff space is near a locally constant map (`ContinuousMap.exists_finite_approximation_of_mem_nhds_diagonal`).
 
 The reference table at the end of the section lists the declarations of the modules.
 

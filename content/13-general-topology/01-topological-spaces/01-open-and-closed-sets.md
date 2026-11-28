@@ -5,6 +5,7 @@ modules:
   - Mathlib.Topology.Defs.Basic
   - Mathlib.Topology.Basic
   - Mathlib.Topology.Closure
+  - Mathlib.Topology.Perfect
 explains:
   E3: [TopologicalSpace, IsOpen, IsClosed, closure, interior]
   E2: [isOpen_univ, IsOpen.inter, isOpen_sUnion, isOpen_iUnion, isClosed_compl_iff, isClosed_sInter, IsClosed.union, closure_compl, interior_compl, subset_closure, interior_subset, IsClosed.closure_subset_iff, closure_union, Dense, dense_iff_inter_open, frontier, CofiniteTopology, CofiniteTopology.isOpen_iff, CofiniteTopology.isClosed_iff, TopologicalSpace.le_def]
@@ -319,6 +320,8 @@ The closure of a union of two sets is the union of the closures. For an infinite
 The definitions of this section are in `Mathlib.Topology.Defs.Basic`, a file with few imports. The lemmas are in `Mathlib.Topology.Basic` and `Mathlib.Topology.Closure`. The names follow the pattern `isOpen_*` and `isClosed_*` for a statement that a set is open or closed (`isOpen_iUnion`, `isClosed_iInter`, `isClosed_empty`), and `IsOpen.*` and `IsClosed.*` for a lemma that takes a proof of openness as its first explicit argument (`IsOpen.inter`, `IsOpen.union`, `IsClosed.inter`, `IsClosed.preimage`). The closure and the interior have the monotonicity lemmas `closure_mono` and `interior_mono`, the idempotence lemmas `closure_closure` and `interior_interior`, and the lemmas `closure_empty`, `closure_univ`, `interior_univ`, `interior_empty`. The attribute `simp` is on the idempotence lemmas and on the lemmas for `∅` and `univ`.
 
 A clopen set is `IsClopen s`, defined as `IsClosed s ∧ IsOpen s`; note the order of the two parts. The discrete topology is the class `DiscreteTopology X`, which says that the instance is `⊥`; `isOpen_discrete` then makes every set open.
+
+The module `Mathlib.Topology.Perfect` treats sets with no isolated points. A set $C$ is preperfect if each point of $C$ is an accumulation point of $C$ (`Preperfect`, with the criterion `preperfect_iff_nhds`), and it is perfect if it is also closed (`Perfect`). A space is perfect if the whole space is preperfect (`PerfectSpace`). In a T1 space a set is preperfect if and only if its closure is perfect (`preperfect_iff_perfect_closure`). A nonempty perfect set in a T2.5 space splits into two disjoint nonempty perfect subsets (`Perfect.splitting`), which is the first step of the construction of a Cantor set inside it. In a second countable space each closed set is the union of a countable set and a perfect set (`exists_countable_union_perfect_of_isClosed`), so an uncountable closed set contains a nonempty perfect set (`exists_perfect_nonempty_of_isClosed_of_not_countable`). This is the Cantor-Bendixson theorem.
 
 Common errors of a learner:
 

@@ -4,6 +4,9 @@ kind: theory
 modules:
   - Mathlib.Topology.UniformSpace.Completion
   - Mathlib.Topology.UniformSpace.UniformEmbedding
+  - Mathlib.Topology.UniformSpace.AbstractCompletion
+  - Mathlib.Topology.UniformSpace.CompareReals
+  - Mathlib.Topology.UniformSpace.CompleteSeparated
 explains:
   E3: [UniformSpace.Completion, uniformly_extend_exists]
   E2: [CauchyFilter, UniformSpace.Completion.completeSpace, UniformSpace.Completion.denseRange_coe, UniformSpace.Completion.isUniformEmbedding_coe, UniformSpace.Completion.coe_injective, UniformSpace.Completion.extension, UniformSpace.Completion.extension_coe, UniformSpace.Completion.uniformContinuous_extension, UniformSpace.Completion.extension_unique, UniformSpace.Completion.map, IsUniformInducing, IsUniformEmbedding, uniformContinuous_uniformly_extend, uniformly_extend_spec, Continuous.ext_on]
@@ -105,6 +108,12 @@ Mathlib carries out this construction in `Mathlib.Topology.UniformSpace.Completi
 ### The library around it
 
 The construction and the universal property are in `Mathlib.Topology.UniformSpace.Completion`. The general extension theorem for a uniformly inducing map with dense range is in `Mathlib.Topology.UniformSpace.UniformEmbedding`. Metric completions are in `Mathlib.Topology.MetricSpace.Completion`, and the volumes on topological algebra extend the group and ring operations to the completion with the same universal property.
+
+The module `Mathlib.Topology.UniformSpace.AbstractCompletion` states the universal property without a fixed construction. A term of `AbstractCompletion α` is a package: a complete $T_0$ space `AbstractCompletion.space` with a uniformly inducing map `AbstractCompletion.coe` of dense range. The fields are `AbstractCompletion.complete`, `AbstractCompletion.separation`, `AbstractCompletion.isUniformInducing` and `AbstractCompletion.dense`. Each package has the extension `AbstractCompletion.extend`, with `AbstractCompletion.extend_coe` and `AbstractCompletion.uniformContinuous_extend`, the functorial map `AbstractCompletion.map`, and the two-variable forms `AbstractCompletion.extend₂` and `AbstractCompletion.map₂`. Two packages of the same space are uniformly equivalent, by `AbstractCompletion.compareEquiv`. The proof is the usual one: the maps `AbstractCompletion.compare` in the two directions extend the identity of $\alpha$, so their composites are the identity on a dense set, and so everywhere. A complete $T_0$ space is its own completion, `AbstractCompletion.ofComplete`, and `AbstractCompletion.prod` gives the completion of a product.
+
+The module `Mathlib.Topology.UniformSpace.CompareReals` uses this to compare two constructions of the real numbers. The type `CompareReals.Bourbakiℝ` is the completion of the rationals as a uniform space, through the package `CompareReals.bourbakiPkg`. The package `rationalCauSeqPkg` presents $\mathbb{R}$, built from Cauchy sequences, as a completion of $\mathbb{Q}$. The uniform equivalence `CompareReals.compareEquiv` then identifies the two.
+
+The module `Mathlib.Topology.UniformSpace.CompleteSeparated` holds three facts that need the $T_0$ axiom. A complete subset of a $T_0$ space is closed, `IsComplete.isClosed`. A uniform embedding of a complete space into a $T_0$ space is a closed embedding, `IsUniformEmbedding.isClosedEmbedding`. The lemma `IsDenseInducing.continuous_extend_of_cauchy` extends a map along a dense inducing map when the images of the Cauchy filters converge.
 
 The reference table at the end of the section lists the declarations of the modules.
 

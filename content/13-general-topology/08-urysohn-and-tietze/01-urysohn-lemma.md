@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.Topology.UrysohnsLemma
   - Mathlib.Topology.Separation.CompletelyRegular
+  - Mathlib.Topology.UrysohnsBounded
 explains:
   E3: [exists_continuous_zero_one_of_isClosed]
   E2: [exists_continuous_zero_one_of_isCompact, Urysohns.CU, Urysohns.CU.lim, Urysohns.CU.continuous_lim, Urysohns.CU.lim_eq_midpoint, NormalSpace.instCompletelyRegularSpace, T4Space.instT35Space]
@@ -106,6 +107,8 @@ The corollary, in a regular locally compact space. It is the starting point of t
 ### The library around it
 
 The lemma and its locally compact version are in `Mathlib.Topology.UrysohnsLemma`. Completely regular spaces and their embedding into the Stone-Čech compactification are in `Mathlib.Topology.Separation.CompletelyRegular`. The normality of metric spaces and compact Hausdorff spaces, which the corollary uses, is in the files of Chapter 4 and Chapter 5.
+
+The module `Mathlib.Topology.UrysohnsBounded` restates the lemma with bounded continuous functions, the form that the proof of the theorem of Tietze uses. In a normal space, `exists_bounded_zero_one_of_closed` gives a bounded continuous $f : X \to \mathbb{R}$ with $f = 0$ on $s$, $f = 1$ on $t$ and $0 \le f \le 1$. The lemma `exists_bounded_mem_Icc_of_closed_of_le` gives the same with any two values $a \le b$ in place of $0$ and $1$.
 
 The reference table at the end of the section lists the declarations of the modules.
 

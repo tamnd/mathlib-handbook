@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.Topology.Bases
   - Mathlib.Topology.Order
+  - Mathlib.Data.Analysis.Topology
 explains:
   E3: [TopologicalSpace.IsTopologicalBasis, TopologicalSpace.generateFrom, SecondCountableTopology]
   E2: [TopologicalSpace.IsTopologicalBasis.isOpen_iff, TopologicalSpace.isTopologicalBasis_of_isOpen_of_nhds, TopologicalSpace.IsTopologicalBasis.mem_nhds_iff, TopologicalSpace.GenerateOpen, TopologicalSpace.isOpen_generateFrom_of_mem, TopologicalSpace.isTopologicalBasis_of_subbasis, FirstCountableTopology, TopologicalSpace.SeparableSpace, TopologicalSpace.exists_countable_dense, TopologicalSpace.IsTopologicalBasis.secondCountableTopology, OrderTopology, DiscreteTopology]
@@ -217,7 +218,9 @@ Common errors of a learner:
 - `SecondCountableTopology` asks for a countable generating family, not a countable basis. The two are equivalent, but a proof that unfolds the class gets the subbasis form.
 - The ordering of topologies is reversed, so `generateFrom g` is the largest topology in which each set of `g` is open.
 
-The reference table at the end of the section lists the declarations of the two modules.
+The module `Mathlib.Data.Analysis.Topology` gives the same computable description for a topology. A `Ctop` is a family of sets indexed by a type, with a top element and an intersection operation that is contained in both sets, and `Ctop.toTopsp` is the topology that it generates, with the family as a basis (`Ctop.toTopsp_isTopologicalBasis`). A `Ctop.Realizer` for a topological space is such a family that gives its topology. Then a set is open if and only if it contains a basic set around each of its points (`Ctop.Realizer.isOpen_iff`), and `Ctop.Realizer.nhds` gives a realizer of each neighbourhood filter. The structures `LocallyFinite.Realizer` and `Compact.Realizer` carry the same kind of data for locally finite families and compact sets, and `locallyFinite_iff_exists_realizer` connects the first with `LocallyFinite`.
+
+The reference table at the end of the section lists the declarations of the three modules.
 
 ### Exercises
 

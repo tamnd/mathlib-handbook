@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.Topology.Order.Compact
   - Mathlib.Topology.UnitInterval
+  - Mathlib.Topology.IsClosedRestrict
 explains:
   E3: [CompactIccSpace]
   E2: [CompactIccSpace.isCompact_Icc, ConditionallyCompleteLinearOrder.toCompactIccSpace, unitInterval, isCompact_iff_ultrafilter_le_nhds, Ultrafilter.le_nhds_lim, nhds_pi, tendsto_pi_nhds, isCompact_univ_pi, isCompact_pi_infinite, Pi.compactSpace, IsCompact.prod]
@@ -167,6 +168,8 @@ The case of two factors: `s ×ˢ t` is compact.
 ### The library around it
 
 The compactness of intervals is in `Mathlib.Topology.Order.Compact`, with the general instance for conditionally complete linear orders. The Tychonoff theorem is in `Mathlib.Topology.Compactness.Compact`, together with the ultrafilter characterisation. The product filter `Filter.pi` is in `Mathlib.Order.Filter.Pi`, and the neighbourhoods in a product are described by `nhds_pi`.
+
+The module `Mathlib.Topology.IsClosedRestrict` studies the restriction of functions on a product to a set of coordinates. For a set $S$ of indices, the restriction $\prod_{i} \alpha_i \to \prod_{i \in S} \alpha_i$ is `S.domRestrict`. If each $\alpha_i$ is compact, this restriction is a closed map, `isClosedMap_restrict_of_compactSpace`. Without compact factors, the image of a compact closed set is still closed, `IsCompact.isClosed_image_restrict`, and the form for one coordinate is `IsClosed.isClosed_image_eval`. For the proof, let $K$ be the image of $s$ in $\prod_{i \notin S} \alpha_i$; it is compact. The homeomorphism `Homeomorph.preimageImageRestrict` identifies the points whose restriction to the complement of $S$ lies in $K$ with the product $K \times \prod_{i \in S} \alpha_i$. The projection of this product onto its second factor is a closed map because $K$ is compact, and the image of $s$ is the projection of a closed subset.
 
 The reference table at the end of the section lists the declarations of the modules.
 
