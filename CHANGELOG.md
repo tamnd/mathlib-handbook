@@ -4,6 +4,7 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+- V27 Algebraic topology and condensed mathematics has a first draft: 8 chapters, 20 sections and 134 exercises. The text treats homotopy, the fundamental groupoid and higher homotopy groups, covering spaces and the fundamental group of the circle, the simplex category, simplicial objects and simplicial sets, nerves, quasicategories and Kan complexes, anodyne extensions, singular homology and the axioms of Eilenberg and Steenrod, the Dold-Kan correspondence, model categories, CW complexes, the categories of compact Hausdorff, profinite and Stonean spaces, the theorem of Nobeling, and condensed and light condensed sets.
 ## v0.7.0 - 2026-11-27
 
 ### Changed

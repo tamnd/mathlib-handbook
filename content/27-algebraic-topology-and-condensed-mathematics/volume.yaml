@@ -1,0 +1,11 @@
+number: 27
+title: Algebraic topology and condensed mathematics
+subtitle: Homotopy, covering spaces, simplicial sets, Kan complexes and quasicategories, the Dold-Kan correspondence, model categories, categories of spaces and condensed sets in Mathlib
+level: graduate to research
+prefixes:
+- Mathlib/AlgebraicTopology
+- Mathlib/Condensed
+- Mathlib/Topology/Homotopy
+- Mathlib/Topology/CWComplex
+- Mathlib/Topology/Covering
+- Mathlib/Topology/Category
