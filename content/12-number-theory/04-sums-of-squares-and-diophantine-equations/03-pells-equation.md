@@ -5,6 +5,10 @@ modules:
   - Mathlib.NumberTheory.Pell
   - Mathlib.NumberTheory.Zsqrtd.Basic
   - Mathlib.NumberTheory.DiophantineApproximation.Basic
+  - Mathlib.NumberTheory.DiophantineApproximation.ContinuedFractions
+  - Mathlib.NumberTheory.DiophantineApproximation.Hurwitz
+  - Mathlib.NumberTheory.PellMatiyasevic
+  - Mathlib.NumberTheory.Zsqrtd.ToReal
 explains:
   E3: [Pell.Solution₁, Pell.exists_of_not_isSquare, Pell.IsFundamental, Pell.existsUnique_pos_generator]
   E2: [Pell.is_pell_solution_iff_mem_unitary, Pell.Solution₁.x_mul, Pell.Solution₁.y_mul, Pell.Solution₁.x_inv, Pell.Solution₁.y_inv, Pell.exists_iff_not_isSquare, Pell.Solution₁.exists_pos_of_not_isSquare, Pell.IsFundamental.exists_of_not_isSquare, Pell.pos_generator_iff_fundamental, Pell.IsFundamental.subsingleton, Real.exists_int_int_abs_mul_sub_le, Real.infinite_rat_abs_sub_lt_one_div_den_sq_of_irrational, Real.exists_rat_eq_convergent]
@@ -155,6 +159,12 @@ and a search by $y$ would take more than $2 \cdot 10^8$ steps. The continued fra
 ### The library around it
 
 The file `Mathlib.NumberTheory.Pell` has three layers: the group `Pell.Solution₁ d` with its coordinate lemmas, existence (`Pell.exists_of_not_isSquare`, `Pell.Solution₁.exists_pos_of_not_isSquare`), and the fundamental solution (`Pell.IsFundamental.exists_of_not_isSquare`, `Pell.IsFundamental.subsingleton`). The file `Mathlib.NumberTheory.PellMatiyasevic` treats the case $d = a^2 - 1$ with explicit recursions.
+
+In `Mathlib.NumberTheory.PellMatiyasevic` the parameter is a natural number $a$ with a proof `a1 : 1 < a`, and the solutions are indexed by $n$. `Pell.pellZd a1 n` is the $n$-th power of $a + \sqrt{a^2 - 1}$ in `ℤ√(a * a - 1)`, and `Pell.xn a1 n` and `Pell.yn a1 n` are its coordinates as natural numbers, with integer copies `Pell.xz` and `Pell.yz`. `Pell.pell_eq` says that $x_n^2 - (a^2 - 1) y_n^2 = 1$. The predicate `Pell.IsPell` on `ℤ√d` is the norm one condition, with `Pell.isPell_norm`, `Pell.isPell_mul` and `Pell.isPell_iff_mem_unitary`. The addition formulas `Pell.xn_add` and `Pell.yn_add`, the second order recursions `Pell.xn_succ_succ` and `Pell.yn_succ_succ`, and the bounds `Pell.xn_ge_a_pow` and `Pell.yn_ge_n` give the growth. The divisibility results are the key to the main theorem: `Pell.y_dvd_iff` says that $y_m \mid y_n$ if and only if $m \mid n$, `Pell.ysq_dvd_yy` and `Pell.dvd_of_ysq_dvd` control $y_n^2$, and `Pell.xy_modEq_of_modEq` says that the sequences depend on $a$ only modulo $c$ when computed modulo $c$. With `Pell.x_sub_y_dvd_pow`, these give `Pell.matiyasevic`, which describes the relation $x = x_k(a), y = y_k(a)$ by a system of polynomial equations in extra variables. This is the step of the theorem of Matiyasevich that shows exponentiation is Diophantine, as in Section 4.4.
+
+`Mathlib.NumberTheory.Zsqrtd.ToReal` defines `Zsqrtd.toReal`, the ring hom `ℤ√d →+* ℝ` for `0 ≤ d` that sends $a + b\sqrt d$ to the real number $a + b\sqrt d$ (`Zsqrtd.toReal_apply`). `Zsqrtd.toReal_injective` says that it is injective when $d$ is not a square. Through it, an order question on Pell solutions becomes a question on real numbers.
+
+The module `Mathlib.NumberTheory.DiophantineApproximation.ContinuedFractions` joins the convergents `Real.convergent` of the Basic module to the continued fractions `GenContFract.of` of the library: `Real.convs_eq_convergent` says that the two sequences agree, and `Real.exists_convs_eq_rat` gives Legendre's criterion, that a rational $q$ with $|\xi - q| < 1/(2\,\mathrm{den}(q)^2)$ is a convergent of $\xi$. The module `Mathlib.NumberTheory.DiophantineApproximation.Hurwitz` proves Hurwitz's theorem, `Real.infinite_rat_abs_sub_lt_one_div_sqrt_five_mul_den_sq_of_irrational`: an irrational $\xi$ has infinitely many rationals $x/y$ with $|\xi - x/y| < 1/(\sqrt5\,y^2)$. The proof works with Farey pairs, `Real.Hurwitz.IsFarey ξ p q r s`, two fractions $p/q < \xi < r/s$ with $qr - ps = 1$. The lemma `Real.Hurwitz.IsFarey.isGoodApprox_or` says that one of $p/q$, $r/s$ and the mediant $(p + r)/(q + s)$ is a good approximation in the sense of `Real.Hurwitz.IsGoodApprox`, and `Real.Hurwitz.exists_isFarey_large` gives Farey pairs with large denominators. The constant $\sqrt5$ is optimal, as the golden ratio shows.
 
 Common errors of a learner:
 

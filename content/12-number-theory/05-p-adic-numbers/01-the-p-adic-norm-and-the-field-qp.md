@@ -5,6 +5,7 @@ modules:
   - Mathlib.NumberTheory.Padics.PadicNorm
   - Mathlib.NumberTheory.Padics.PadicNumbers
   - Mathlib.NumberTheory.Ostrowski
+  - Mathlib.NumberTheory.RatFunc.Ostrowski
 explains:
   E3: [padicNorm, padicNorm.nonarchimedean, Padic, Rat.AbsoluteValue.equiv_real_or_padic]
   E2: [padicNorm.mul, padicNorm.add_eq_max_of_ne, padicNorm.dvd_iff_norm_le, padicNorm.values_discrete, padicNorm.padicNorm_p_of_prime, padicNorm.int_lt_one_iff, padicNormE, PadicSeq, PadicSeq.stationary, Padic.complete, Padic.rat_dense, Padic.valuation, Padic.norm_eq_zpow_neg_valuation, Padic.add_eq_max_of_ne, Rat.AbsoluteValue.padic, Rat.AbsoluteValue.real, Rat.AbsoluteValue.equiv_real_of_unbounded, Rat.AbsoluteValue.equiv_padic_of_bounded]
@@ -147,6 +148,8 @@ For $p = 2$ it reads $-1 = 1 + 2 + 4 + \cdots$.
 ### The library around it
 
 Mathlib has three norms in this area: `padicNorm p` on `ℚ`, `padicNormE` on `ℚ_[p]` with rational values, and the real norm `‖x‖`. The completion `CauSeq.Completion` also builds `ℝ`, so `ℚ_[p]` and `ℝ` come from one construction. The valuation has the lemmas `Padic.valuation_mul` and `Padic.le_valuation_add`.
+
+`Mathlib.NumberTheory.RatFunc.Ostrowski` proves the analogue of Ostrowski's theorem for the field of rational functions `RatFunc K` over a field $K$. Here the objects are valuations `v` that are trivial on $K$ (`Valuation.IsTrivialOn K v`) and nontrivial. `RatFunc.valuation_isEquiv_infty_or_adic` says that exactly one of two cases holds: `v` is equivalent to the valuation at infinity `RatFunc.inftyValuation K`, or `v` is equivalent to the adic valuation of a height one prime of `Polynomial K`, that is, of a monic irreducible polynomial. The value of `v` on `RatFunc.X` decides the case. If $v(X) > 1$, then `RatFunc.valuation_isEquiv_inftyValuation_of_one_lt_valuation_X` gives the place at infinity, because `RatFunc.valuation_eq_valuation_X_zpow_intDegree_of_one_lt_valuation_X` computes $v(f) = v(X)^{\deg f}$. If $v(X) \leq 1$, then the polynomials with value less than $1$ form a prime ideal `RatFunc.valuationIdeal`, its generator of least degree is `RatFunc.uniformizingPolynomial`, and `RatFunc.valuation_isEquiv_adic_of_valuation_X_le_one` gives the adic case. `RatFunc.adicValuation_ne_inftyValuation` and `RatFunc.adicValuation_not_isEquiv_infty_valuation` show that the two cases do not overlap. This is the same picture as for `ℚ`, with the place at infinity in the role of the real absolute value.
 
 Common errors of a learner:
 

@@ -6,6 +6,7 @@ modules:
   - Mathlib.Analysis.SumOverResidueClass
   - Mathlib.NumberTheory.LSeries.Dirichlet
   - Mathlib.NumberTheory.LSeries.WeakPNT
+  - Mathlib.NumberTheory.NumberField.DirichletDensity
 explains:
   E3: [ArithmeticFunction.vonMangoldt.residueClass, ArithmeticFunction.vonMangoldt.not_summable_residueClass_prime_div, Nat.infinite_setOfPred_prime_and_modEq, summable_indicator_mod_iff]
   E2: [ArithmeticFunction.vonMangoldt.residueClass_eq, ArithmeticFunction.vonMangoldt.residueClass_le, ArithmeticFunction.vonMangoldt.LSeries_residueClass_eq, ArithmeticFunction.vonMangoldt.LSeries_residueClass_lower_bound, ArithmeticFunction.vonMangoldt.LFunctionResidueClassAux, ArithmeticFunction.vonMangoldt.continuousOn_LFunctionResidueClassAux, ArithmeticFunction.vonMangoldt.summable_residueClass_non_primes_div, DirichletCharacter.LSeries_twist_vonMangoldt_eq, ArithmeticFunction.LSeries_vonMangoldt_eq_deriv_riemannZeta_div, Nat.infinite_setOfPred_prime_and_eq_mod, Nat.forall_exists_prime_gt_and_modEq, Nat.frequently_atTop_prime_and_modEq, Nat.isEquivalent_card_prime_modEq, Chebyshev.tendsto_sum_log_prime_modEq_div_atTop, not_summable_of_antitone_of_neg, not_summable_indicator_mod_of_antitone_of_neg, summable_indicator_mod_iff_summable_indicator_mod, Finset.sum_indicator_mod]
@@ -156,6 +157,8 @@ For $n = 9$, $\Lambda(9) = \log 3$, $\chi_0(9) = \chi_{-4}(9) = 1$, so $\Lambda_
 ### The library around it
 
 `Mathlib.Analysis.SumOverResidueClass` also has `Nat.sumByResidueClasses`, which writes $\sum f$ as the sum over the classes. The file `Mathlib.NumberTheory.LSeries.PrimesInAP` builds on `Mathlib.NumberTheory.LSeries.Nonvanishing` for $L(\chi, s) \ne 0$ on $\operatorname{Re}s \ge 1$, and on `Mathlib.NumberTheory.LSeries.DirichletContinuation` for the continuation. The orthogonality is `DirichletCharacter.sum_char_inv_mul_char_eq` of Section 6.1.
+
+For a number field $K$, `Mathlib.NumberTheory.NumberField.DirichletDensity` gives the notion of density that results of this kind use for prime ideals. For a set $S$ of nonzero primes of the ring of integers, `NumberField.Set.primeIdealZetaSum S s` is the sum $\sum_{\mathfrak p \in S} N(\mathfrak p)^{-s}$, written with `tsum` (`NumberField.Set.primeIdealZetaSum_def`). `NumberField.Set.HasDirichletDensity S δ` says that the ratio of this sum to the sum over all primes tends to $\delta$ as the real number $s$ tends to $1$ from above, and `NumberField.Set.dirichletDensity S` is the limit, with the junk value $0$ when it does not exist (`NumberField.Set.dirichletDensity_eq_zero_of_not_hasDirichletDensity`). The module proves only the basic facts: `NumberField.Set.dirichletDensity_nonneg`, `NumberField.Set.dirichletDensity_le_one`, `NumberField.Set.hasDirichletDensity_empty`, and the bound `NumberField.Set.primeIdealZetaSum_le_card_of_finite` for a finite $S$. Since the sum over all primes tends to infinity as $s \to 1^+$, a finite set has density $0$. The theorem that the primes in an arithmetic progression have density $1/\varphi(q)$ is not in this form in the library.
 
 Common errors of a learner:
 

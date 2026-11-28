@@ -1,6 +1,6 @@
 number: 12
 title: Number theory
-subtitle: Valuations, arithmetic functions, quadratic reciprocity, sums of squares, Pell's equation, p-adic numbers, Dirichlet characters, the distribution of primes and number fields in Mathlib
+subtitle: Valuations, arithmetic functions, quadratic reciprocity, sums of squares, p-adic numbers, L-series and zeta functions, the distribution of primes, number fields, modular forms and transcendence in Mathlib
 level: undergraduate to graduate
 prefixes:
 - Mathlib/NumberTheory

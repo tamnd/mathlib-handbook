@@ -7,6 +7,8 @@ modules:
   - Mathlib.RingTheory.KrullDimension.Regular
   - Mathlib.RingTheory.KrullDimension.LocalRing
   - Mathlib.RingTheory.LocalRing.MaximalIdeal.Square
+  - Mathlib.RingTheory.Depth.Basic
+  - Mathlib.RingTheory.Depth.Rees
 explains:
   E3: [IsRegularLocalRing, IsRegularRing, IsRegularLocalRing.iff_finrank_cotangentSpace, ringKrullDim_quotient_span_singleton_succ_eq_ringKrullDim_of_mem_nonZeroDivisors]
   E2: [isRegularLocalRing_iff, IsRegularLocalRing.of_spanFinrank_maximalIdeal_le, IsRegularLocalRing.instOfIsLocalRingOfIsDomainOfIsPrincipalIdealRing, instIsRegularRingOfIsDedekindDomain, isRegularRing_iff, IsRegularLocalRing.of_isRegularRing_of_isLocalRing, Polynomial.isRegularRing_of_isRegularRing, MvPolynomial.isRegularRing_of_isRegularRing, ringKrullDim_quotient_span_singleton_succ_eq_ringKrullDim, IsLocalRing.maximalIdeal_sq_lt_of_ringKrullDim_ne_zero, IsDiscreteValuationRing.ringKrullDim_eq_one, ringKrullDim_eq_one_iff_of_isLocalRing_isDomain]
@@ -124,6 +126,8 @@ The index of this edition has no declaration for the theorem that every regular 
 The definitions of regular local rings and regular rings are in `Mathlib/RingTheory/RegularLocalRing/Defs.lean`, and `RegularLocalRing/Polynomial.lean` proves `Polynomial.isRegularRing_of_isRegularRing` and `MvPolynomial.isRegularRing_of_isRegularRing`: polynomial rings in finitely many variables over a regular ring are regular. The dimension theory of quotients by regular elements and regular sequences is in `KrullDimension/Regular.lean`. The heights, the principal ideal theorem and the height theorem are in Volume 9, and the cotangent space is in `Mathlib/RingTheory/Ideal/Cotangent.lean`, also in Volume 9.
 
 The index of this edition has no declaration for the Hilbert-Samuel function of a local ring or for the theorem that its degree is the dimension. Mathlib has the Hilbert polynomials of graded modules, which are in Volume 9.
+
+Depth, the second invariant of a local ring next to its dimension, is in `Mathlib/RingTheory/Depth/Basic.lean`. For two modules $N$ and $M$, `ModuleCat.depth` is the least $n$ with $\operatorname{Ext}^n(N, M) \ne 0$, as a value in `ℕ∞` that is $\top$ if all the groups `CategoryTheory.Abelian.Ext` vanish. Then `Ideal.depth` is the grade of $M$ at an ideal $I$, defined as the depth of $R/I$ against $M$, and `IsLocalRing.depth` is the grade at the maximal ideal. The lemma `ModuleCat.depth_eq_zero_iff_nontrivial_linearMap` says that the depth is zero exactly when a nonzero linear map $N \to M$ exists, and lemmas such as `ModuleCat.depth_min_fst_trd_le_snd_right` give the depth inequalities for a short exact sequence. The file `Depth/Rees.lean` proves the Rees theorem `ModuleCat.exists_isRegular_tfae`: over a Noetherian ring, for a finite module $M$ with $IM < M$, the groups $\operatorname{Ext}^i(R/I, M)$ vanish for $i < n$ if and only if $I$ contains an $M$-regular sequence of length $n$, in the sense of `RingTheory.Sequence.IsRegular`. From it, `Ideal.depth_eq_sSup_length_isRegular` and `IsLocalRing.depth_eq_sSup_length_isRegular` identify the depth with the supremum of the lengths of regular sequences, and `IsLocalRing.ideal_depth_le_depth` bounds the grade of a proper ideal by the depth. The index has no declaration that bounds the depth by the dimension, and this edition has no definition of Cohen-Macaulay rings.
 
 Common errors of a learner:
 

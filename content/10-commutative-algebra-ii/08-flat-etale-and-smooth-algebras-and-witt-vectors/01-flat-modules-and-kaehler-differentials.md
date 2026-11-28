@@ -9,6 +9,8 @@ modules:
   - Mathlib.RingTheory.LocalRing.Module
   - Mathlib.RingTheory.Kaehler.Basic
   - Mathlib.RingTheory.Kaehler.Polynomial
+  - Mathlib.RingTheory.Kaehler.TensorProduct
+  - Mathlib.RingTheory.Kaehler.JacobiZariski
 explains:
   E3: [Module.Flat, Module.Flat.iff_rTensor_injective', Module.free_of_flat_of_isLocalRing, KaehlerDifferential, KaehlerDifferential.D]
   E2: [Module.Flat.of_free, Module.Flat.self, Module.Flat.of_projective, Module.Flat.trans, Module.Flat.baseChange, IsLocalization.flat, Module.Flat.localizedModule, Module.Flat.instOfIsDedekindDomainOfIsTorsionFree, Module.Flat.torsion_eq_bot, Module.FaithfullyFlat, Derivation, Derivation.liftKaehlerDifferential, KaehlerDifferential.linearMapEquivDerivation, KaehlerDifferential.ideal, KaehlerDifferential.span_range_derivation, KaehlerDifferential.mvPolynomialBasis, KaehlerDifferential.exact_mapBaseChange_map, KaehlerDifferential.exact_kerCotangentToTensor_mapBaseChange]
@@ -143,6 +145,10 @@ For $f = Y^2 - X^3$ at the origin, both partial derivatives vanish, so $\Omega_{
 ### The library around it
 
 The folder `Mathlib/RingTheory/Flat/` has the definition and the criteria (`Basic.lean`, `Tensor.lean`, the equational criterion in `EquationalCriterion.lean`), stability (`Stability.lean`), the torsion free criterion over Dedekind domains and Bézout domains (`TorsionFree.lean`, with `Module.Flat.instOfIsDedekindDomainOfIsTorsionFree` and `Module.Flat.torsion_eq_bot`), and faithful flatness (`FaithfullyFlat/`). The Kähler differentials are in `Mathlib/RingTheory/Kaehler/`, with the polynomial case and the behaviour under base change. Tensor products are in Volume 8.
+
+The module `Mathlib.RingTheory.Kaehler.TensorProduct` treats base change. For a pushout square of $R \to A$ and $R \to S$ with $B = S \otimes_R A$, the map $S \otimes_R \Omega_{A/R} \to \Omega_{B/S}$ is an isomorphism, `KaehlerDifferential.tensorKaehlerEquivBase`, and `KaehlerDifferential.tensorKaehlerEquiv` is the form $B \otimes_A \Omega_{A/R} \cong \Omega_{B/S}$. The lemma `KaehlerDifferential.isBaseChange` states the same in the language of base change, and the instance `KaehlerDifferential.isLocalizedModule` says that $\Omega_{S^{-1}A/S^{-1}R}$ is the localization of $\Omega_{A/R}$.
+
+The module `Mathlib.RingTheory.Kaehler.JacobiZariski` extends the first exact sequence to the left. For a tower $R \to S \to T$ the connecting map `Algebra.H1Cotangent.δ R S T` goes from $H_1(L_{T/S})$ to $T \otimes_S \Omega_{S/R}$, and the sequence $H_1(L_{T/R}) \to H_1(L_{T/S}) \to T \otimes_S \Omega_{S/R} \to \Omega_{T/R} \to \Omega_{T/S} \to 0$ is exact, by `Algebra.H1Cotangent.exact_map_δ` and `Algebra.H1Cotangent.exact_δ_mapBaseChange`. For a flat $T$ over $S$, `Algebra.H1Cotangent.exact_liftBaseChange_map_of_flat` adds the term $T \otimes_S H_1(L_{S/R})$ on the left. This is the Jacobi Zariski sequence of the naive cotangent complex of Section 6, and the forms for chosen generators are in the namespace of `Algebra.Generators.H1Cotangent.δ`.
 
 Common errors of a learner:
 

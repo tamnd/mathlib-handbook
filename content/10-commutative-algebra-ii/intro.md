@@ -12,6 +12,12 @@ The chapters are in order of dependence.
 - Chapter 6, completions and adic topologies: filtrations, the Artin-Rees lemma, the Krull intersection theorem, the adic completion and Henselian rings.
 - Chapter 7, Krull dimension: the dimension of a ring, its behavior under quotients and polynomial rings, and the regular local rings.
 - Chapter 8, flat, étale and smooth algebras and Witt vectors: flat modules, Kähler differentials, the infinitesimal lifting criteria, and the Witt vectors of a perfect field.
+- Chapter 9, finiteness conditions: finite modules, modules of finite length, and algebras of finite type and of finite presentation.
+- Chapter 10, graded algebras: graded algebras and their maps, homogeneous ideals and submodules, and homogeneous localization.
+- Chapter 11, divided powers, formal groups and Azumaya algebras: divided power structures, one-dimensional formal group laws, and Azumaya algebras.
+- Chapter 12, the prime spectrum and local properties: the Zariski topology, maps of spectra and Chevalley's theorem, and the properties that can be checked locally.
+- Chapter 13, Witt vectors and perfect rings: the Frobenius, the Verschiebung and the Teichmüller lifts, truncated Witt vectors and isocrystals, and perfections, tilts and Fontaine's map $\theta$.
+- Chapter 14, matrix algebras and other constructions: matrix algebras and Morita equivalence, the Orzech property, linear disjointness, quadratic algebras, polynomial laws and Grassmannians.
 
 Each section states the definitions and theorems with proofs in the usual mathematical form, and then shows the Mathlib names for them. The names are given in boxes, each with the module in which it is declared. Where a result is not in Mathlib, the text says that the index of this edition has no declaration for it.
 

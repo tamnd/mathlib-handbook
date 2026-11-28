@@ -7,6 +7,7 @@ modules:
   - Mathlib.RingTheory.KrullDimension.PID
   - Mathlib.RingTheory.KrullDimension.Polynomial
   - Mathlib.RingTheory.KrullDimension.Zero
+  - Mathlib.RingTheory.KrullDimension.NonZeroDivisors
 explains:
   E3: [ringKrullDim, Ring.KrullDimLE, ringKrullDim_le_of_surjective, Polynomial.ringKrullDim_of_isNoetherianRing, IsPrincipalIdealRing.ringKrullDim_eq_one]
   E2: [ringKrullDim_quotient_le, ringKrullDim_eq_zero_of_isField, ringKrullDim_eq_zero_of_field, Ring.krullDimLE_iff, ringKrullDim_eq_of_ringEquiv, ringKrullDim_eq_bot_iff_subsingleton, ringKrullDim_nonneg_of_nontrivial, Polynomial.ringKrullDim_le, ringKrullDim_succ_le_ringKrullDim_polynomial, MvPolynomial.ringKrullDim_of_isNoetherianRing_of_finite, MvPolynomial.ringKrullDim_of_isNoetherianRing, IsPrincipalIdealRing.krullDimLE_one, Ring.krullDimLE_zero_iff, IsArtinianRing.instKrullDimLEOfNatNat, PrimeSpectrum.topologicalKrullDim_eq_ringKrullDim]
@@ -120,6 +121,8 @@ The index of this edition has no declaration for the equality of dimensions in a
 ### The library around it
 
 The folder `Mathlib/RingTheory/KrullDimension/` has the definition and the basic facts (`Basic.lean`), fields, PIDs, zero-dimensional rings (`Zero.lean`), local rings, polynomial rings, and the relation with nonzerodivisors and regular sequences used in Section 2. The heights of ideals and Krull's height theorem are in `Mathlib/RingTheory/Ideal/Height.lean` and `Mathlib/RingTheory/Ideal/KrullsHeightTheorem.lean`, in Volume 9. The order-theoretic dimension of a poset is in Volume 4.
+
+The module `Mathlib.RingTheory.KrullDimension.NonZeroDivisors` has the bounds that come from a nonzerodivisor. If $r$ is a nonzerodivisor, then $\dim R/(r) + 1 \le \dim R$, `ringKrullDim_quotient_succ_le_of_nonZeroDivisor`, because $r$ lies in no minimal prime, so a chain of primes that contain $r$ extends by a minimal prime below it. The form for a surjection $f$ that kills a nonzerodivisor is `ringKrullDim_succ_le_of_surjective`, and `ringKrullDim_quotient` gives $\dim R/I$ as the dimension of the zero locus of $I$. Since $X$ is a nonzerodivisor of $R[X]$ with quotient $R$, the module proves $\dim R + 1 \le \dim R[X]$, `ringKrullDim_succ_le_ringKrullDim_polynomial`, and the same bound for power series, `ringKrullDim_succ_le_ringKrullDim_powerseries`. For polynomials in a set $\sigma$ of variables, `ringKrullDim_add_natCard_le_ringKrullDim_mvPolynomial` gives $\dim R + |\sigma| \le \dim R[\sigma]$, and `ringKrullDim_mvPolynomial_of_infinite` says that the dimension is infinite for infinitely many variables over a nontrivial ring.
 
 Common errors of a learner:
 

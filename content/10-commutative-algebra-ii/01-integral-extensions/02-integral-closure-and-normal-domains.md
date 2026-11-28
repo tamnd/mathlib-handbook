@@ -6,6 +6,8 @@ modules:
   - Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Defs
   - Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
   - Mathlib.RingTheory.IntegralClosure.IntegrallyClosed
+  - Mathlib.RingTheory.IntegralClosure.Algebra.Ideal
+  - Mathlib.RingTheory.IntegralClosure.IsIntegral.AlmostIntegral
 explains:
   E3: [integralClosure, IsIntegralClosure, IsIntegrallyClosed, isIntegrallyClosed_of_isLocalization]
   E2: [mem_integralClosure_iff, integralClosure_idem, integralClosure.isIntegralClosure, IsIntegralClosure.equiv, IsIntegrallyClosedIn, isIntegrallyClosed_iff, IsIntegrallyClosed.isIntegral_iff, integralClosure.isIntegrallyClosedOfFiniteExtension, Field.instIsIntegrallyClosed]
@@ -136,6 +138,10 @@ with $(A - B)/2 \in \mathbb{Z}$, so $x \in \mathbb{Z}[(1 + \sqrt{d})/2]$. Conver
 The files `Mathlib/RingTheory/IntegralClosure/IsIntegralClosure/` and `IntegrallyClosed.lean` contain the theory. The lemma `IsIntegrallyClosed.isIntegral_iff` is the form to use in a proof: under `[IsIntegrallyClosed R]` and `[IsFractionRing R K]`, an element `x : K` is integral if and only if it comes from `R`. The instance `Field.instIsIntegrallyClosed` says that a field is integrally closed. The theorem `integralClosure.isIntegrallyClosedOfFiniteExtension` says that the integral closure of a domain in a finite extension of its fraction field is integrally closed. The proof is the idempotence of the closure, together with the fact that the closure has the large field as its field of fractions.
 
 The ring of integers of a number field is `NumberField.RingOfIntegers K`, written `𝓞 K`, in Volume 12, Number theory. It has an instance of `IsIntegralClosure (𝓞 K) ℤ K`.
+
+The module `Mathlib.RingTheory.IntegralClosure.Algebra.Ideal` treats integrality over an ideal. Let $S$ be an integral $R$-algebra and $I$ an ideal of $R$. Each $x \in IS$ is a root of a monic polynomial whose coefficients other than the leading one lie in $I$: this is `Polynomial.exists_monic_aeval_eq_zero_forall_mem_of_mem_map`. The stronger form `Polynomial.exists_monic_aeval_eq_zero_forall_mem_pow_of_mem_map` puts the coefficient of $X^i$ in $I^{n-i}$, where $n$ is the degree. The proof applies integrality to $x$ viewed over the Rees algebra $R[IX]$, and `Polynomial.coeff_mem_pow_of_mem_adjoin_C_mul_X` says that the coefficient of $X^i$ of an element of $R[IX]$ lies in $I^i$.
+
+The module `Mathlib.RingTheory.IntegralClosure.IsIntegral.AlmostIntegral` defines almost integral elements. An element $s$ of an $R$-algebra $S$ is almost integral, `IsAlmostIntegral R s`, if there is a non-zero-divisor $r$ of $R$ with $r s^n \in R$ for all $n$. The almost integral elements form the subalgebra `completeIntegralClosure R S`, with membership lemma `mem_completeIntegralClosure`. An integral element is almost integral under the hypotheses of `IsIntegral.isAlmostIntegral_of_exists_smul_mem_range`, so `integralClosure_le_completeIntegralClosure` holds for a fraction ring. Over a Noetherian ring the converse holds, `IsAlmostIntegral.isIntegral`, and the two closures agree, `completeIntegralClosure_eq_integralClosure`. A ring that is equal to its complete integral closure is called completely integrally closed.
 
 Common errors of a learner:
 

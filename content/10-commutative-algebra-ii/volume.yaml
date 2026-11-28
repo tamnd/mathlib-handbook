@@ -1,6 +1,6 @@
 number: 10
 title: "Commutative algebra II: valuations, Dedekind domains, local algebra"
-subtitle: Integral extensions, local rings, valuations, discrete valuation rings, Dedekind domains, the class group, completions, Krull dimension, flat and étale algebras and Witt vectors in Mathlib
+subtitle: Integral extensions, local rings, valuations, Dedekind domains, the class group, completions, Krull dimension, flat, étale and smooth algebras, finiteness conditions, graded algebras, the prime spectrum and Witt vectors in Mathlib
 level: graduate
 prefixes:
 - Mathlib/RingTheory

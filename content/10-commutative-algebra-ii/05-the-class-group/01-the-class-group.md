@@ -5,6 +5,7 @@ modules:
   - Mathlib.RingTheory.ClassGroup.Basic
   - Mathlib.RingTheory.ClassGroup.ExtendedHom
   - Mathlib.RingTheory.DedekindDomain.PID
+  - Mathlib.RingTheory.ClassGroup
 explains:
   E3: [ClassGroup, ClassGroup.mk0, card_classGroup_eq_one_iff, ClassGroup.extendedHom, IsPrincipalIdealRing.of_isDedekindDomain_of_uniqueFactorizationMonoid]
   E2: [toPrincipalIdeal, ClassGroup.mk, ClassGroup.equiv, ClassGroup.mk_eq_one_iff, ClassGroup.mk0_eq_one_iff, card_classGroup_eq_one, instFintypeClassGroupOfIsPrincipalIdealRing, ClassGroup.isPrincipal_pow_card, ClassGroup.exists_pow_isPrincipal, ClassGroup.mulEquiv, IsPrincipalIdealRing.of_finite_primes, Ideal.IsPrincipal.of_isPrincipal_pow_of_coprime]
