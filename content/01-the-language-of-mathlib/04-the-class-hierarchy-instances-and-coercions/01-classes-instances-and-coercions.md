@@ -3,6 +3,7 @@ title: Structures, classes and instances
 kind: theory
 modules:
   - Mathlib.Algebra.HierarchyDesign
+  - Mathlib.Data.Bracket
 explains:
   E1: [LibraryNote.lower_instance_priority, LibraryNote.the_algebraic_hierarchy, div_mul_cancel₀, Rat.instField, Field.toCommRing, Field.toDivisionRing, CommRing.toCommSemiring, Field, GroupWithZero, Monoid, Group, mul_one, add_zero]
 families: []

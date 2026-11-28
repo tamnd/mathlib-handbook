@@ -1,7 +1,8 @@
 ---
 title: The naming convention
 kind: theory
-modules: []
+modules:
+  - Mathlib.Deprecated.Aliases
 explains:
   E1: [le_of_lt, lt_of_lt_of_le, two_mul, add_le_add, sub_nonneg, mul_pos, mul_inv_eq_one, sub_eq_zero, mul_left_cancel, mul_right_cancel, ne_of_gt, mul_self_nonneg, Nat.exists_infinite_primes, Real.pi_gt_three, LT.lt.le, LE.le.trans]
 families: []
@@ -107,6 +108,8 @@ The four names come from the four statements by the rules: the conclusion, then 
 The rules are written in the Mathlib documentation, in the page "Naming conventions". Two search tools help when a guess fails. The tactic `exact?` searches the library for a lemma that closes the goal, and the tactic `apply?` lists lemmas that apply. The website search tools search by natural language or by a pattern of the statement, such as `_ * _ ≤ _ * _`.
 
 The namespace of a lemma is the type or the structure of the main object: `Nat.Prime.two_le` is about prime natural numbers, and `Finset.card_union_le` is about finsets. With dot notation, `h.trans h'` calls `LE.le.trans` when `h : a ≤ b`. So the namespace is also a part of the name to guess.
+
+When a lemma gets a new name, the old name stays for a time as a deprecated alias, and Lean prints a warning with the new name at each use. The module `Mathlib.Deprecated.Aliases` collects such aliases when their original modules no longer need them; it has no live declarations.
 
 #### Common errors
 

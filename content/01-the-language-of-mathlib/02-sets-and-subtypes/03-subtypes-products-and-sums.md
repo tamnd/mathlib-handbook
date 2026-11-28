@@ -6,6 +6,18 @@ modules:
   - Mathlib.Data.Prod.Basic
   - Mathlib.Data.Sum.Basic
   - Mathlib.Data.Sigma.Basic
+  - Mathlib.Basic.SProd
+  - Mathlib.Data.SProd
+  - Mathlib.Data.Prod.TProd
+  - Mathlib.Data.Pi.Interval
+  - Mathlib.Data.Sigma.Interval
+  - Mathlib.Data.Sum.Interval
+  - Mathlib.Data.Prod.Lex
+  - Mathlib.Data.Sigma.Lex
+  - Mathlib.Data.Sigma.Order
+  - Mathlib.Data.PSigma.Order
+  - Mathlib.Data.Sum.Lattice
+  - Mathlib.Data.Sum.Order
 explains:
   E3: [Subtype.val_injective, Prod.mk_inj]
   E2: [Subtype.coe_injective, Subtype.prop, Subtype.coe_mk, Sum.inl_injective, Sum.inr_injective, Sigma.mk.inj_iff, Sigma.forall, Prod.fst_surjective, Prod.swap_injective]
@@ -138,6 +150,14 @@ The statement is `⟨a₁, b₁⟩ = ⟨a₂, b₂⟩ ↔ a₁ = a₂ ∧ b₁ �
 The module `Mathlib.Data.Subtype` has the basic lemmas: `Subtype.val_injective`, `Subtype.coe_injective`, `Subtype.coe_mk` and `Subtype.prop`. The core library has `Subtype.ext`, `Subtype.forall` and `Subtype.exists`. The coercion from sets to types is `Set.Elem`, in `Mathlib.Data.Set.CoeSort`. For an inclusion $s \subseteq t$, the map `Set.inclusion h : s → t` sends an element of $s$ to the same element as an element of $t$, and `Set.inclusion_injective` states that it is injective.
 
 The modules `Mathlib.Data.Prod.Basic`, `Mathlib.Data.Sum.Basic` and `Mathlib.Data.Sigma.Basic` have the lemmas for products, sums and dependent pairs. The function `Sum.elim f g : α ⊕ β → γ` is the definition by cases. The notation `α × β` is `Prod α β`, `α ⊕ β` is `Sum α β`, and `(a : α) × β a` is `Sigma β`.
+
+The module `Mathlib.Basic.SProd` defines the class `SProd` and its notation `s ×ˢ t`, through the function `SProd.sprod`. The class lets one notation stand for several products of collections: for sets $s \subseteq \alpha$ and $t \subseteq \beta$, the term `s ×ˢ t` is `Set.prod s t`, the set $s \times t \subseteq \alpha \times \beta$, and for finite sets it is `Finset.product`. The type of the result is an output of the class, so Lean finds it from the types of `s` and `t`.
+
+The module `Mathlib.Data.Prod.TProd` defines the iterated product `List.TProd α l` of a family `α : ι → Type v` along a list `l` of indices. For $l = [i_1, \ldots, i_n]$ it is $\alpha_{i_1} \times (\alpha_{i_2} \times \cdots \times \mathrm{PUnit})$. The function `List.TProd.mk` turns a dependent function into such a tuple, and `List.TProd.elim` reads the component at an index $i \in l$; the lemma `List.TProd.elim_mk` states that the two operations agree. When `l` has no duplicates and contains every index, `List.TProd.piEquivTProd` is an equivalence between the dependent functions `(i : ι) → α i` and the tuples. The set `Set.tprod l t` is the product of sets along the list, and `Set.mk_preimage_tprod` and `Set.elim_preimage_pi` compare it with the product set `Set.pi`.
+
+The modules `Mathlib.Data.Pi.Interval`, `Mathlib.Data.Sigma.Interval` and `Mathlib.Data.Sum.Interval` give the finite intervals of the orders on these constructions. An order is *locally finite* when every closed interval $[a, b]$ is finite; the class is `LocallyFiniteOrder`, and the intervals are the finite sets `Finset.Icc a b`, `Finset.Ico a b` and so on. For a finite index type, a product of locally finite orders is locally finite, with the pointwise order. Its closed interval is a box: `Pi.Icc_eq` states $[a, b] = \prod_i [a_i, b_i]$, and `Pi.card_Icc` gives the count $\#[a, b] = \prod_i \#[a_i, b_i]$. The lemmas `Pi.card_Ico` and `Pi.card_Ioc` subtract $1$ from this product, and `Pi.card_Ioo` subtracts $2$, because a half-open interval removes one end point and an open interval removes both. The subtraction is the truncated subtraction of $\mathbb{N}$, so the formulas also hold when $a \not\le b$. In a sigma type two elements in different fibres are not comparable, so `Sigma.card_Icc` gives the count of $[a, b]$ in the fibre of $a$ when $a$ and $b$ lie in the same fibre, and $0$ in the other case. For the disjoint sum $\alpha \oplus \beta$ the same holds: `Sum.Icc_inl_inl` maps an interval of $\alpha$ into the sum, and `Sum.Icc_inl_inr` states that an interval from `inl a` to `inr b` is empty. The lexicographic sum, in which every element of $\alpha$ is below every element of $\beta$, has the lemmas under `Sum.Lex`, for example `Sum.Lex.Icc_inl_inr`. The helper functions `Finset.sumLift₂` and `Finset.sumLexLift` build these intervals from the intervals of the two summands.
+
+The modules `Mathlib.Data.SProd`, `Mathlib.Data.Prod.Lex`, `Mathlib.Data.Sigma.Lex`, `Mathlib.Data.Sigma.Order`, `Mathlib.Data.PSigma.Order`, `Mathlib.Data.Sum.Lattice` and `Mathlib.Data.Sum.Order` have no live declarations. They only import the modules that now hold the orders on products, sums and sigma types.
 
 #### Common errors
 
