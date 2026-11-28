@@ -16,6 +16,8 @@ Each release has a section. The newest release is first.
 
 - V03 has a home section for each of its modules. 29 new sections of the kind `api` treat the basic API of sets, insertion and functions on sets, the building and the lattice of multisets, the symmetric powers, the operations, filters, folds and pointwise operations of finsets, the instances of `Fintype`, the products of lists and multisets, the sums over intervals, `finsum` and `finprod`, the antidiagonals and `DFinsupp`.
 
+- V18 has a home section for each of its modules. 36 new sections of the kind `api` treat them. New chapters treat measure theory on groups and convolution (Chapter 9), the conditional expectation (Chapter 10), the integrals on boxes (Chapter 11), the signed and vector measures (Chapter 12) and the finite measures and weak convergence (Chapter 13).
+
 ## v0.8.0 - 2026-11-28
 
 ### Changed
