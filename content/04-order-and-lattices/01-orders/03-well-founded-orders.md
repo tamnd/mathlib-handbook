@@ -3,6 +3,8 @@ title: Well-founded orders
 kind: theory
 modules:
   - Mathlib.Order.WellFounded
+  - Mathlib.Logic.Hydra
+  - Mathlib.Order.GameAdd
 explains:
   E3: [WellFounded.has_min, WellFoundedLT]
   E2: [WellFoundedLT.induction, IsWellOrder, WellFounded.min, WellFounded.not_rel_apply_succ, RelEmbedding.wellFounded_iff_isEmpty]
@@ -104,7 +106,7 @@ For a well-founded `r` and a sequence `f : ℕ → α`, this lemma gives an `n` 
 
 ### The library around it
 
-The general theory of well-founded relations is in `Mathlib.Order.WellFounded`, and the classes `WellFoundedLT`, `WellFoundedGT` and `IsWellOrder` are in `Mathlib.Order.RelClasses`. The instances give `WellFoundedLT` for `ℕ`, for `Fin n`, for each finite linear order, and for products with the lexicographic order. A well-founded linear order has the minimum `WellFounded.min` of each nonempty set, and `WellFoundedLT.conditionallyCompleteLinearOrderBot` turns a well-ordered type into a conditionally complete lattice. The lemma `WellFounded.induction_bot` is an induction form for a process that goes down to a fixed element. The file `Mathlib.Logic.Hydra` proves that the order on multisets given by "replace one element by any finite number of smaller ones" is well-founded, which is the core of the game of the hydra.
+The general theory of well-founded relations is in `Mathlib.Order.WellFounded`, and the classes `WellFoundedLT`, `WellFoundedGT` and `IsWellOrder` are in `Mathlib.Order.RelClasses`. The instances give `WellFoundedLT` for `ℕ`, for `Fin n`, for each finite linear order, and for products with the lexicographic order. A well-founded linear order has the minimum `WellFounded.min` of each nonempty set, and `WellFoundedLT.conditionallyCompleteLinearOrderBot` turns a well-ordered type into a conditionally complete lattice. The lemma `WellFounded.induction_bot` is an induction form for a process that goes down to a fixed element. The file `Mathlib.Logic.Hydra` proves that the order on multisets given by "replace one element by any finite number of smaller ones" is well-founded, which is the core of the game of the hydra. Its relation is `Relation.CutExpand`, `Relation.cutExpand_iff` unfolds it, and `WellFounded.cutExpand` gives the well-foundedness from a well-founded relation $r$. The file `Mathlib.Order.GameAdd` defines `Prod.GameAdd`: a pair goes down when one coordinate goes down and the other stays the same, which is a move in a sum of two games. The lemma `WellFounded.prod_gameAdd` says that this relation is well-founded when the two relations are well-founded, and `Prod.GameAdd.recursion` gives a recursion that calls itself on $(a', b)$ or on $(a, b')$. The relation `Sym2.GameAdd` and the lemma `WellFounded.sym2_gameAdd` are the same for unordered pairs.
 
 ### Exercises
 

@@ -4,6 +4,18 @@ kind: theory
 modules:
   - Mathlib.Order.CompleteLattice.Defs
   - Mathlib.Order.CompleteLattice.Basic
+  - Mathlib.Order.PartialSups
+  - Mathlib.Order.SetAccumulate
+  - Mathlib.Order.SetDissipate
+  - Mathlib.Order.SaddlePoint
+  - Mathlib.Order.SetNotation
+  - Mathlib.Order.SemiconjSup
+  - Mathlib.Order.CompleteLattice.Lemmas
+  - Mathlib.Order.CompleteLattice.Finset
+  - Mathlib.Order.CompleteLattice.Group
+  - Mathlib.Order.CompleteLattice.PiLex
+  - Mathlib.Order.CompleteLattice.SetLike
+  - Mathlib.Order.CompleteLattice.MulticoequalizerDiagram
 explains:
   E3: [CompleteLattice, CompleteLinearOrder, completeLatticeOfSup]
   E2: [sSup_le_iff, le_sInf_iff, le_iSup, iSup_le_iff, sSup_le_sSup, completeLatticeOfInf]
@@ -150,6 +162,18 @@ This is the universal property of the supremum. Its dual is `le_sInf_iff`, and t
 The lemmas come in pairs for `sSup` and `sInf`, and again for `iSup` and `iInf`: `le_sSup` and `sSup_le` are the axioms, `sSup_le_iff` is the universal property, `sSup_le_sSup` and `iSup_mono` are the monotonicity. The special values are `sSup_empty`, `sInf_empty`, `sSup_univ` and `sInf_univ`. The dual order and the function types `ι → α` have `CompleteLattice` instances.
 
 For sets, the supremum and the union are the same term, but the simp normal form is the union: `Set.sSup_eq_sUnion` and `Set.iSup_eq_iUnion` rewrite `sSup` to `⋃₀` and `⨆` to `⋃`. Lemmas about unions live in `Mathlib.Data.Set.Lattice`. A monotone map does not preserve suprema in general, but it satisfies one inequality: `Monotone.le_map_sSup` gives `⨆ a ∈ s, f a ≤ f (sSup s)`. The maps that preserve all suprema are the lower adjoints of Galois connections (Chapter 6).
+
+The module `Mathlib.Order.SetNotation` defines the notation for indexed suprema and unions. The term `iSup f` is written `⨆ i, f i`, and `iInf f` is written `⨅ i, f i`. For sets, `Set.iUnion`, `Set.iInter`, `Set.sUnion` and `Set.sInter` give the notation `⋃ i, s i`, `⋂ i, s i`, `⋃₀ S` and `⋂₀ S`, with the membership lemmas `Set.mem_iUnion`, `Set.mem_iInter` and `Set.mem_sUnion`.
+
+The partial suprema of a sequence $f : \mathbb{N} \to \alpha$ in a semilattice are in `Mathlib.Order.PartialSups`. The term `partialSups f n` is $f(0) \sqcup \dots \sqcup f(n)$, and `partialSups_zero` and `partialSups_succ` are the recursion. The lemma `le_partialSups` says $f(n) \le$ `partialSups f n`, and `partialSups_le_iff` says that `partialSups f n` $\le a$ if and only if $f(i) \le a$ for each $i \le n$. In a complete lattice, `iSup_partialSups_eq` says that the partial suprema have the same supremum as $f$, and `partialSups_eq_sup_range` writes them as a finite supremum. For a monotone $f$, `Monotone.partialSups_eq` says that `partialSups f` is $f$. The map `partialSups` is part of a Galois insertion, `partialSups.gi`, from sequences to monotone sequences. For sets, `Mathlib.Order.SetAccumulate` defines `Set.accumulate s n`, the union of the sets $s(m)$ with $m \le n$, and `Set.partialSups_eq_accumulate` says that it is the partial supremum. The lemmas `Set.mem_accumulate`, `Set.monotone_accumulate` and `Set.iUnion_accumulate` give its membership, its monotonicity and its union. The dual `Set.dissipate s n` in `Mathlib.Order.SetDissipate` is the intersection of the sets $s(m)$ with $m \le n$, with `Set.mem_dissipate`, `Set.antitone_dissipate` and `Set.iInter_dissipate`.
+
+The module `Mathlib.Order.SaddlePoint` gives the minimax inequality. For sets $X$ and $Y$ and a function $f$ of two variables with values in a complete linear order, `iSup₂_iInf₂_le_iInf₂_iSup₂` gives $\sup_{j \in Y} \inf_{i \in X} f(i, j) \le \inf_{i \in X} \sup_{j \in Y} f(i, j)$. The predicate `IsSaddlePointOn X Y f a b` says that $f(a, y) \le f(x, b)$ for each $x \in X$ and $y \in Y$. For $a \in X$ and $b \in Y$, `isSaddlePointOn_iff` says that $(a, b)$ is a saddle point exactly when $\sup_{y \in Y} f(a, y) = f(a, b) = \inf_{x \in X} f(x, b)$. At a saddle point the minimax inequality is an equality, and `isSaddlePointOn_value` says that both sides are $f(a, b)$. The module `Mathlib.Order.SemiconjSup` uses suprema to build semiconjugacies. The predicate `IsOrderRightAdjoint f g` says that $g(y)$ is the supremum of the $x$ with $f(x) \le y$. The lemma `Function.Semiconj.symm_adjoint` says that the right adjoints of two semiconjugate maps are semiconjugate. The lemmas `Function.sSup_div_semiconj` and `Function.csSup_div_semiconj` build a map that semiconjugates two actions of a group by order isomorphisms, as a supremum over the group.
+
+Six smaller files extend this section. The file `Mathlib.Order.CompleteLattice.Lemmas` has results that need $\mathbb{N}$ or the type of Booleans. A binary supremum is a supremum over the two Booleans: `sup_eq_iSup` and `iSup_bool_eq`. For sequences, `sup_iSup_nat_succ` splits off the first term, `Monotone.iSup_nat_add` says that a monotone sequence and its shifts have the same supremum, and `iSup_ge_eq_iSup_nat_add` rewrites $\bigsqcup_{i \ge n} u_i$ as $\bigsqcup_i u_{i+n}$. The file also has the inequalities that hold without distributivity, such as `iInf_sup_le_iInf_sup` and `sup_sInf_le_iInf_sup`, the disjointness lemmas `disjoint_sSup_left` and `disjoint_of_sSup_disjoint`, and the lemmas `ULift.up_sSup` and `ULift.down_iSup` for the lifted type.
+
+The file `Mathlib.Order.CompleteLattice.Finset` treats suprema indexed by a `Finset`. The identity `iSup_eq_iSup_finset` writes $\bigsqcup_i s_i$ as the supremum over finite sets $t$ of $\bigsqcup_{i \in t} s_i$, which is the first step when a proof uses compactness. The lemmas `Finset.iSup_insert`, `Finset.iSup_union`, `Finset.iSup_coe` and `Finset.iSup_biUnion` move a supremum over a finset through the finset operations, and lemmas such as `Finset.set_biUnion_insert` and `Finset.set_biInter_insert` are the same results for unions and intersections of sets. The file also gives `Finset.maximal_iff_forall_insert` and `Finset.minimal_iff_forall_erase`, which test maximality of a finset against one more or one fewer element.
+
+In an ordered monoid, the file `Mathlib.Order.CompleteLattice.Group` gives $\bigsqcup_i (u_i v_i) \le (\bigsqcup_i u_i)(\bigsqcup_i v_i)$ as `iSup_mul_le`, with the additive form `iSup_add_le` and the dual `le_iInf_mul`. The file `Mathlib.Order.CompleteLattice.PiLex` shows that the lexicographic product `Πₗ i, α i` of complete linear orders over a well-ordered index type is a complete linear order; `Pi.Lex.sSup_apply` computes the supremum one coordinate at a time, and `Pi.Colex.sSup_apply` is the colexicographic version. The file `Mathlib.Order.CompleteLattice.SetLike` gives membership lemmas for a complete sublattice $L$ of `Set X`, such as `CompleteSublattice.mem_sSup` and `CompleteSublattice.mem_iInf`, so that an element of $L$ can be used as a set. The file `Mathlib.Order.CompleteLattice.MulticoequalizerDiagram` defines `Lattice.BicartSq`, four elements with $x_2 \sqcup x_3 = x_4$ and $x_2 \sqcap x_3 = x_1$, and `CompleteLattice.MulticoequalizerDiagram`, a family $u$ with supremum $x$ and pairwise infima $v_{ij} = u_i \sqcap u_j$. These connect the lattice with the category theory of Volume 24.
 
 ### Exercises
 

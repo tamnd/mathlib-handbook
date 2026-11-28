@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.Order.ConditionallyCompleteLattice.Defs
   - Mathlib.Order.ConditionallyCompleteLattice.Basic
+  - Mathlib.Order.Lattice.Nat
 explains:
   E3: [ConditionallyCompleteLattice, ConditionallyCompleteLinearOrder]
   E2: [le_csSup, csSup_le, isLUB_csSup, exists_lt_of_lt_csSup, IsLUB.csSup_eq, csSup_eq_of_forall_le_of_forall_lt_exists_gt]
@@ -193,6 +194,8 @@ This is the theorem "Approximation". It needs `s.Nonempty` and no bound, as in t
 The lemmas of a conditionally complete lattice have a `c` in front of the name of the lemma of a complete lattice: `le_csSup`, `csSup_le`, `csInf_le`, `csSup_le_csSup`, `csSup_union`. The extra hypotheses are `Nonempty` and `BddAbove` or `BddBelow`. The hypothesis `BddAbove` comes from `bddAbove_Icc`, `BddAbove.mono`, `BddAbove.union` and `Set.Finite.bddAbove`. The explicit values are `csSup_singleton`, `csSup_pair` and `csSup_Icc`. For the integers, `Int.csSup_mem` gives the theorem "Integers".
 
 For the reals, `Real.exists_isLUB` is the completeness axiom, and `Real.sSup_empty` and `Real.sSup_of_not_bddAbove` state the junk values. The lemmas `Real.sSup_nonneg` and `Real.sSup_le` use the junk value `0` to drop a hypothesis. The types `ℝ≥0∞` and `EReal` are complete lattices, so their lemmas need no hypothesis.
+
+The module `Mathlib.Order.Lattice.Nat` makes `ℕ` a conditionally complete linear order with a bottom element. The infimum of a nonempty set is its least element: `Nat.sInf_def` gives $\inf s$ as `Nat.find`, `Nat.sInf_mem` says $\inf s \in s$, and `Nat.sInf_le` and `Nat.notMem_of_lt_sInf` are the two halves of "least". The junk value of the empty set is `Nat.sInf_empty`: $\inf \emptyset = 0$. So `Nat.sInf_eq_zero` says $\inf s = 0$ if and only if $0 \in s$ or $s = \emptyset$. On the other side, `Nat.sSup_def` gives the supremum of a set that is bounded above, `Nat.sSup_mem` says that it lies in a nonempty bounded set, and `Nat.sSup_of_not_bddAbove` gives the junk value $0$ for an unbounded set. The lemma `Nat.iSup_lt_succ` splits off the last term: $\sup_{k < n+1} u_k = (\sup_{k < n} u_k) \sqcup u_n$, and `Set.biUnion_lt_succ` is the same identity for unions of sets.
 
 ### Exercises
 

@@ -5,6 +5,13 @@ modules:
   - Mathlib.Order.Defs.PartialOrder
   - Mathlib.Order.Defs.LinearOrder
   - Mathlib.Order.Antisymmetrization
+  - Mathlib.Order.Basic
+  - Mathlib.Order.Defs.Unbundled
+  - Mathlib.Order.Defs.Prop
+  - Mathlib.Order.Compare
+  - Mathlib.Order.Comparable
+  - Mathlib.Order.Circular
+  - Mathlib.Order.Circular.ZMod
 explains:
   E3: [PartialOrder, LinearOrder]
   E2: [Preorder, le_antisymm, lt_iff_le_not_ge, le_total, not_lt, lt_trichotomy, Preorder.lift, PartialOrder.lift, Antisymmetrization, AntisymmRel, Prod.mk_le_mk, Prod.Lex.le_iff]
@@ -202,6 +209,14 @@ The instance on `α × β` is the product order, and `Prod.mk_le_mk` unfolds it 
 The names of the lemmas follow a pattern. A name such as `lt_of_le_of_lt` gives the conclusion first and then the hypotheses in order. The dot notation `h.trans` is a short form of `le_trans h`, `h.le` turns `h : a < b` into `a ≤ b`, and `h.ne` turns it into `a ≠ b`. The lemma `le_rfl` is `le_refl` with an implicit argument, and it is the usual term for a goal `a ≤ a`.
 
 Several tactics use these axioms. The tactic `order` proves goals that follow from the hypotheses by the axioms of a partial order or of a linear order. The tactics `omega` and `linarith` prove linear goals on `ℕ`, `ℤ` and `ℝ`.
+
+The file `Mathlib.Order.Basic` holds most of the small rules that mix `≤`, `<` and `=`, in the dot notation of the first paragraph. Examples are `LE.le.trans_lt`, `LT.lt.trans_le`, `LE.le.lt_of_ne`, `LE.le.lt_or_eq` and `Ne.lt_of_le`, with the two characterizations `le_iff_eq_or_lt` and `lt_iff_le_and_ne`. The lemma `le_of_forall_le` says that $a \le b$ when each $c \le a$ satisfies $c \le b$, and in a linear order `le_of_forall_lt` gives the same conclusion from strict inequalities. The file also gives the orders on the standard constructions. On a product, `Prod.mk_le_mk` compares the two coordinates, and `Prod.mk_lt_mk` says that $(a_1, b_1) < (a_2, b_2)$ if and only if $a_1 < a_2$ and $b_1 \le b_2$, or $a_1 \le a_2$ and $b_1 < b_2$. On functions, `Pi.le_def` (in `Mathlib.Order.Defs.Prop`) is the pointwise order, `Pi.lt_def` says that $f < g$ when $f \le g$ and $f\,i < g\,i$ for one $i$, and `StrongLT` is the stronger relation "$f\,i < g\,i$ for each $i$". On `Prop`, `le_Prop_eq` says that $p \le q$ is the implication $p \to q$. To move an order along a map, `Preorder.lift` and `PartialOrder.lift` pull back the order of the codomain, `LinearOrder.lift'` does the same for an injective map into a linear order, and `Function.Injective.partialOrder` keeps the given `≤` and `<` of the domain and only asks that the map respects them. The class `DenselyOrdered` says that there is an element strictly between two elements $a < b$. Its main lemmas are `exists_between`, `le_of_forall_lt_imp_le_of_dense` and `dense_or_discrete`.
+
+The file `Mathlib.Order.Defs.Unbundled` has the unbundled form of the axioms, as classes on a relation `r : α → α → Prop` and not on a type. The classes `IsTrans`, `IsPreorder`, `IsPartialOrder`, `IsLinearOrder`, `IsStrictOrder`, `IsStrictTotalOrder` and `IsEquiv` say that $r$ is transitive, a preorder, and so on, and the lemmas `refl_of`, `trans_of`, `antisymm`, `irrefl` and `trichotomous_of` take the relation as an explicit argument. These classes occur where the relation is not the `≤` of a type, for example in the well-founded relations of this chapter and in the relation embeddings of Chapter 2. The same file defines the predicates `IsUpperSet` and `IsLowerSet`, the bundled `UpperSet` and `LowerSet`, and `Maximal` and `Minimal`, which the next section uses.
+
+For a linear order, `Mathlib.Order.Compare` connects `≤` and `<` with the function `cmp`, which returns a value of type `Ordering`. The lemmas `cmp_eq_lt_iff`, `cmp_eq_eq_iff` and `cmp_eq_gt_iff` translate each value back, `cmp_compares` packs the three cases in `Ordering.Compares`, and `linearOrderOfCompares` builds a linear order from a comparison function. The file `Mathlib.Order.Comparable` names the incomparable pairs: `IncompRel r a b` means $\neg\, r\,a\,b \wedge \neg\, r\,b\,a$, and `Relation.SymmGen r` is the comparability relation. In a partial order, `lt_or_eq_or_gt_or_incompRel` says that two elements satisfy exactly one of $a < b$, $a = b$, $b < a$ or "incomparable", and `not_le_iff_lt_or_incompRel` refines `not_le` to partial orders.
+
+The file `Mathlib.Order.Circular` treats the order of points on a circle, where "$b$ lies between $a$ and $c$" makes sense but "$a < b$" does not. The relation is ternary: `Btw.btw a b c` and its strict form `SBtw.sbtw a b c`. A `CircularOrder` asks that the relation is reflexive, cyclic (`btw_cyclic`), antisymmetric and total, and `CircularPartialOrder` and `CircularPreorder` drop the last axioms. A linear order gives a circular order by `LinearOrder.toCircularOrder`, with the rule `btw_iff`: $a, b, c$ are in circular order if they are in increasing order after a cyclic shift. The circular intervals are `Set.cIcc` and `Set.cIoo`, and `Set.compl_cIcc` says that the complement of a closed arc is the open arc in the other direction. The file `Mathlib.Order.Circular.ZMod` gives the instances on `ℤ`, `Fin n` and `ZMod n`, with `Int.btw_iff` and `Fin.btw_iff`.
 
 ### Exercises
 

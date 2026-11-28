@@ -6,6 +6,8 @@ modules:
   - Mathlib.Order.BooleanAlgebra.Defs
   - Mathlib.Order.BooleanAlgebra.Basic
   - Mathlib.Order.BooleanAlgebra.Set
+  - Mathlib.Order.SymmDiff
+  - Mathlib.Order.Disjointed
 explains:
   E3: [DistribLattice, BooleanAlgebra, IsCompl]
   E2: [DistribLattice.ofInfSupLe, inf_sup_left, sup_inf_left, le_sup_inf, instDistribLatticeOfLinearOrder, Disjoint, disjoint_iff, Codisjoint, codisjoint_iff, IsCompl.right_unique, isCompl_compl, compl_compl, compl_inf, sdiff_eq, himp_eq, Set.instBooleanAlgebra]
@@ -183,6 +185,10 @@ So law 1 fails, and $x$ has the two complements $y$ and $z$, but $M_3$ is modula
 The lemmas of a distributive lattice are `inf_sup_left`, `inf_sup_right`, `sup_inf_left` and `sup_inf_right`. Each linear order is a distributive lattice by `instDistribLatticeOfLinearOrder`, so `min` distributes over `max` on `ℝ`. `Disjoint` has the API `Disjoint.symm`, `Disjoint.mono` and `disjoint_iff`, used for sets, subspaces and filters alike.
 
 For a Boolean algebra the API has the families `compl_*`, `sdiff_*` and `himp_*`, with `sdiff_eq` and `himp_eq`. The class `GeneralizedBooleanAlgebra` is a Boolean algebra without `⊤`; the finite sets of a type are an instance. The Heyting algebras are in `Mathlib.Order.Heyting.Basic`.
+
+The module `Mathlib.Order.Disjointed` makes a sequence pairwise disjoint and keeps its partial suprema. For $f : \iota \to \alpha$ with values in a generalized Boolean algebra, `disjointed f i` is $f(i) \setminus \bigsqcup_{j < i} f(j)$, by `disjointed_apply`. The main facts are `disjointed_le`, `disjoint_disjointed`, `partialSups_disjointed` and `disjointed_unique`. For sets, the lemmas `iUnion_disjointed` and `disjointed_eq_inter_compl` give the union and an explicit formula. On $\mathbb{N}$, the lemmas `disjointed_zero` and `disjointed_succ` compute the first terms, and measure theory uses this construction to write a countable union as a disjoint union.
+
+The module `Mathlib.Order.SymmDiff` defines the symmetric difference `symmDiff a b`, with the notation `a ∆ b`, by `symmDiff_def`: $a \mathbin{\Delta} b = (a \setminus b) \sqcup (b \setminus a)$. The dual notion is `bihimp a b`, with the notation `a ⇔ b`, and `bihimp_def` gives $(b \Rightarrow a) \sqcap (a \Rightarrow b)$. On `Prop`, `symmDiff_eq_xor` says that the symmetric difference is the exclusive or, and on sets it is the usual symmetric difference. The lemmas need different classes. In a generalized co-Heyting algebra, `symmDiff_eq_sup_sdiff_inf` gives $(a \sqcup b) \setminus (a \sqcap b)$, `symmDiff_self` gives $a \mathbin{\Delta} a = \bot$, `symmDiff_eq_bot` says $a \mathbin{\Delta} b = \bot$ if and only if $a = b$, and `symmDiff_triangle` is the triangle inequality $a \mathbin{\Delta} c \le (a \mathbin{\Delta} b) \sqcup (b \mathbin{\Delta} c)$. In a generalized Boolean algebra the operation is associative, `symmDiff_assoc`, and $\sqcap$ distributes over it, `inf_symmDiff_distrib_left`. So a Boolean algebra is a Boolean ring with $\Delta$ as addition and $\sqcap$ as multiplication. The cancellation `symmDiff_symmDiff_cancel_left` gives $a \mathbin{\Delta} (a \mathbin{\Delta} b) = b$, and `compl_symmDiff` says $(a \mathbin{\Delta} b)^c = a \Leftrightarrow b$. The lemmas for `bihimp` are the duals, with the same names in which `symmDiff` becomes `bihimp`.
 
 ### Exercises
 

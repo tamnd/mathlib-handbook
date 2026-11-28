@@ -12,6 +12,8 @@ Each release has a section. The newest release is first.
 
 - V10 and V12 have a home section for each of their modules. 54 new sections of the kind `api` treat them. New chapters in V10 treat the finiteness conditions, the graded algebras, divided powers and formal groups, the prime spectrum and local properties, Witt vectors and perfect rings, and matrix algebras. New chapters in V12 treat the modular forms and the irrational and transcendental numbers.
 
+- V04 has a home section for each of its modules. 44 new sections of the kind `api` treat them. The new Chapter 10 treats the successor and predecessor orders, and Chapters 8 and 9 have new sections on ordered monoids, interval arithmetic, rearrangement and quantales.
+
 ## v0.8.0 - 2026-11-28
 
 ### Changed

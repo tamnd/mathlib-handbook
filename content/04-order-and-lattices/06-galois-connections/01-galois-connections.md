@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.Order.GaloisConnection.Defs
   - Mathlib.Order.GaloisConnection.Basic
+  - Mathlib.Order.Rel.GaloisConnection
 explains:
   E3: [GaloisConnection]
   E2: [GaloisConnection.monotone_l, GaloisConnection.l_u_le, GaloisConnection.le_u_l, GaloisConnection.l_sup, GaloisConnection.monotone_intro, GaloisConnection.l_unique, GaloisConnection.isLUB_l_image, Int.gc_coe_floor]
@@ -202,6 +203,8 @@ So $A \mapsto A^{\triangleright}$ is a Galois connection from the subsets of $X$
 The lemmas that need only preorders or partial orders are in `Mathlib.Order.GaloisConnection.Defs`. They include the triangle identities `GaloisConnection.u_l_u_eq_u` and `GaloisConnection.l_u_l_eq_l`, the composition `GaloisConnection.compose`, and `GaloisConnection.dual`, which exchanges the roles of $l$ and $u$ on the dual orders. The lemmas about suprema and infima are in `Mathlib.Order.GaloisConnection.Basic`.
 
 The examples are in the files of their objects. Image and preimage give `Set.image_subset_iff`. The floor and the ceiling are `Int.gc_coe_floor` and `Int.gc_ceil_coe`, and `Int.le_floor` is the condition with implicit points.
+
+Each relation gives a Galois connection. In `Mathlib.Order.Rel.GaloisConnection`, a relation $R$ between $\alpha$ and $\beta$ has the maps `SetRel.leftDual` and `SetRel.rightDual`. For $J \subseteq \alpha$, the set $\operatorname{leftDual}(J)$ is $\{b \mid a \mathrel{R} b \text{ for each } a \in J\}$, and `SetRel.rightDual` is the same construction from the other side. Both maps reverse inclusion, so `SetRel.gc_leftDual_rightDual` states the connection between `Set α` and the order dual of `Set β`. The fixed points of the two closures are `SetRel.leftFixedPoints` and `SetRel.rightFixedPoints`, and `SetRel.equivFixedPoints` is the bijection between them. This is the abstract form of the correspondence between closed sets and their duals, as in formal concept analysis or the Galois correspondence of field theory.
 
 ### Exercises
 
