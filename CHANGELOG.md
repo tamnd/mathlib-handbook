@@ -4,6 +4,18 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+### Added
+
+- `mlhb check` checks the `lower` field of the front matter (spec 04.4). The field must be a map of a declaration name to a reason. A fault is a lowered name with an empty reason, a lowered name that the same section lists at E3, or a lowered name that is not in the index (#75).
+
+### Changed
+
+- V25 has a home section for each of its modules. 31 new sections of the kind `api` treat them. They treat idempotent completion, Grothendieck abelian categories, Serre classes, the properties of objects and morphisms, the localization of products and derivability structures, shifts and t-structures, the small object argument and the functoriality of sites. New chapters treat the morphisms and points of sites (Chapter 9) and hypercovers, descent and sheaf cohomology (Chapter 10) (#72).
+
+- V13 has a home section for each of its modules. 50 new sections of the kind `api` treat them. They treat the filters `atTop` and `atBot`, the products and germs of filters, partial homeomorphisms, the pseudometric API and Lipschitz maps, local compactness and compactifications, the constructions of uniform spaces and hyperspaces, and metrizable spaces. New chapters treat metric geometry (Chapter 9), the order topology (Chapter 10) and the spaces of continuous maps (Chapter 11) (#73).
+
+- V16 has a home section for each of its modules. 42 new sections of the kind `api` treat them. They treat the class `RCLike`, normed torsors, multilinear and bilinear maps, compact and Fredholm operators, constructions of inner product spaces, positive operators and matrix norms. New chapters treat seminorms and locally convex spaces (Chapter 8), normed rings and Banach algebras (Chapter 9), absolute values and seminorms on rings (Chapter 10), convexity (Chapter 11) and C*-algebras (Chapter 12) (#74).
+
 ## v0.8.2 - 2026-11-28
 
 ### Changed
@@ -17,12 +29,6 @@ Each release has a section. The newest release is first.
 - V06 has a home section for each of its modules. 28 new sections of the kind `api` treat them. They treat the characteristic in constructions, the lemma library of ordered semirings, floor and ceiling, Archimedean classes, absolute values, the API of algebras, unitization and the spectrum of an element. The new Chapter 9 treats the star algebras (#69).
 
 - V05 has a home section for each of its modules. 62 new sections of the kind `api` treat them. They treat the notation classes, units and divisibility in monoids, the morphism classes, submonoids and subsemigroups, commutators and the abelianization, congruences, torsors, racks and quandles, and free products. New chapters treat the groups with zero (Chapter 9) and the pointwise operations on sets, finsets and subgroups (Chapter 14) (#70).
-
-- V25 has a home section for each of its modules. 31 new sections of the kind `api` treat them. They treat idempotent completion, Grothendieck abelian categories, Serre classes, the properties of objects and morphisms, the localization of products and derivability structures, shifts and t-structures, the small object argument and the functoriality of sites. New chapters treat the morphisms and points of sites (Chapter 9) and hypercovers, descent and sheaf cohomology (Chapter 10) (#72).
-
-- V13 has a home section for each of its modules. 50 new sections of the kind `api` treat them. They treat the filters `atTop` and `atBot`, the products and germs of filters, partial homeomorphisms, the pseudometric API and Lipschitz maps, local compactness and compactifications, the constructions of uniform spaces and hyperspaces, and metrizable spaces. New chapters treat metric geometry (Chapter 9), the order topology (Chapter 10) and the spaces of continuous maps (Chapter 11) (#73).
-
-- V16 has a home section for each of its modules. 42 new sections of the kind `api` treat them. They treat the class `RCLike`, normed torsors, multilinear and bilinear maps, compact and Fredholm operators, constructions of inner product spaces, positive operators and matrix norms. New chapters treat seminorms and locally convex spaces (Chapter 8), normed rings and Banach algebras (Chapter 9), absolute values and seminorms on rings (Chapter 10), convexity (Chapter 11) and C*-algebras (Chapter 12) (#74).
 
 ## v0.8.1 - 2026-11-28
 
