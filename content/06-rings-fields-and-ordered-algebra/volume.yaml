@@ -1,6 +1,6 @@
 number: 6
 title: Rings, fields and ordered algebra
-subtitle: Rings, ideals, domains, fields, characteristic, factorization, ordered fields, algebras and continued fractions in Mathlib
+subtitle: Rings, ideals, domains, fields, characteristic, factorization, ordered fields, floor and ceiling, algebras, the spectrum, continued fractions and star algebras in Mathlib
 level: undergraduate
 prefixes:
 - Mathlib/Algebra/Ring

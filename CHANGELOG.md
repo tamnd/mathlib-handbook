@@ -8,6 +8,8 @@ Each release has a section. The newest release is first.
 
 - V09 has a home section for each of its modules. 44 new sections of the kind `api` treat them. They treat two-sided ideals, quotient rings, the localization API, Euclidean domains and unique factorization, cyclotomic and classical polynomials, monoid algebras, Hahn series and the substitution of power series. The new Chapter 8 treats the polynomial library in one variable (#68).
 
+- V06 has a home section for each of its modules. 28 new sections of the kind `api` treat them. They treat the characteristic in constructions, the lemma library of ordered semirings, floor and ceiling, Archimedean classes, absolute values, the API of algebras, unitization and the spectrum of an element. The new Chapter 9 treats the star algebras (#69).
+
 ## v0.8.1 - 2026-11-28
 
 ### Changed

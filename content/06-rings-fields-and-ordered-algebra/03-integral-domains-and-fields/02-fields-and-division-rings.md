@@ -8,6 +8,18 @@ modules:
   - Mathlib.Algebra.Field.Subfield.Defs
   - Mathlib.Algebra.Field.Subfield.Basic
   - Mathlib.Algebra.Field.Rat
+  - Mathlib.Algebra.Field.Action.ConjAct
+  - Mathlib.Algebra.Field.Equiv
+  - Mathlib.Algebra.Field.GeomSum
+  - Mathlib.Algebra.Field.MinimalAxioms
+  - Mathlib.Algebra.Ring.Int.Field
+  - Mathlib.Algebra.Field.ModEq
+  - Mathlib.Algebra.Field.NegOnePow
+  - Mathlib.Algebra.Field.Opposite
+  - Mathlib.Algebra.Field.Periodic
+  - Mathlib.Algebra.Field.Shrink
+  - Mathlib.Algebra.Field.TransferInstance
+  - Mathlib.Algebra.Field.ULift
 explains:
   E3: [DivisionRing, Field, IsField]
   E2: [Semifield, IsField.toField, Field.toIsField, Subfield, Subfield.closure, Field.isDomain, DivisionRing.isDomain, Rat.instField]
@@ -212,6 +224,16 @@ The axiom `0⁻¹ = 0` of a group with zero, of which a division ring is an inst
 The lemmas on division are in `Mathlib.Algebra.Field.Basic` and in the files on groups with zero of Volume 5. Their names describe the identity: `div_add_div`, `div_sub_div`, `div_div`, `div_mul_eq_mul_div`, `one_div`, `inv_eq_one_div`. The hypotheses are nonzero conditions such as `hb : b ≠ 0`. The tactic `field_simp` clears denominators with these lemmas and asks for the nonzero conditions, and Volume 34 explains it. The instance `Rat.instField` makes `ℚ` a field. The real numbers are a field by the construction of Volume 2, and the complex numbers by `Complex.instField`.
 
 A field `K` has `IsUnit a ↔ a ≠ 0` by `isUnit_iff_ne_zero`. The bundled map `Units.mk0 a ha : Kˣ` makes a unit from a nonzero element. Subfields have the API of subrings: `Subfield.mem_closure`, `Subfield.map`, `Subfield.comap` and the range `RingHom.fieldRange` of a homomorphism of fields.
+
+The geometric sums over a division ring are in `Mathlib.Algebra.Field.GeomSum`. For $x \ne 1$ the lemma `geom_sum_eq` gives $\sum_{i < n} x^i = (x^n - 1)/(x - 1)$, and `geom_sum_Ico` gives the sum over $m \le i < n$. The proof multiplies the ring identity $(x - 1) \sum_{i<n} x^i = x^n - 1$ by $(x - 1)^{-1}$. The two variable form `Commute.geom_sum₂` needs $xy = yx$ and $x \ne y$ and gives $\sum_{i<n} x^i y^{n-1-i} = (x^n - y^n)/(x - y)$; in a field the hypothesis of commutation is not needed, and the lemma is `geom₂_sum`. The lemma `geom_sum_inv` sums the powers of $x^{-1}$.
+
+Several small modules transfer the field structure to other types. The opposite ring $K^{\mathrm{op}}$ of a division ring is a division ring (`MulOpposite.instDivisionRing`), and the opposite of a field is a field (`MulOpposite.instField`); the lemmas `MulOpposite.op_ratCast` and `MulOpposite.unop_ratCast` say that the casts of rationals commute with `MulOpposite.op` and `MulOpposite.unop`. The same instances exist for `AddOpposite`. The lift `ULift K` to a higher universe is a field by `ULift.field`, with `ULift.down_ratCast` for the casts. An equivalence of types `e : α ≃ β` transports a field structure from `β` to `α` by `Equiv.field`, and `Equiv.divisionRing` does the same for division rings; `Shrink.instField` uses this to put a field structure on the copy `Shrink K` of a small field in a smaller universe. The constructor `Field.ofMinimalAxioms` builds a field from a short list of axioms: associativity and commutativity of the two operations, the neutral elements, the additive inverse, the distributive law, $0 \ne 1$ and $a a^{-1} = 1$ for $a \ne 0$ with $0^{-1} = 0$. The other axioms of `Field` follow from these.
+
+The property `IsField` is invariant under multiplicative equivalences: `MulEquiv.isField_congr` gives `IsField A ↔ IsField B` for `e : A ≃* B`. The lemma `IsLocalHom.isField` pulls the property back along an injective local homomorphism. The module `Mathlib.Algebra.Ring.Int.Field` records `Int.not_isField`: `ℤ` is not a field, since $2$ has no inverse. In a division ring the conjugation action of the group `ConjAct K` distributes over addition (`ConjAct.distribMulAction₀`). The lemma `Int.cast_negOnePow` says that the cast of the unit `Int.negOnePow n` to a division ring is $(-1)^n$ with an integer exponent.
+
+Congruence modulo an element $p$ of a field, written `a ≡ b [PMOD p]` with `AddCommGroup.ModEq`, behaves well under scaling. For $c \ne 0$ the lemma `AddCommGroup.div_modEq_div` says $a/c \equiv b/c \pmod p$ if and only if $a \equiv b \pmod{pc}$, and `AddCommGroup.mul_modEq_mul_right` says $ac \equiv bc \pmod p$ if and only if $a \equiv b \pmod{p/c}$.
+
+The module `Mathlib.Algebra.Field.Periodic` scales periodic functions. If $f$ has period $c$ (`Function.Periodic f c`), then $x \mapsto f(ax)$ has period $a^{-1} c$ (`Function.Periodic.const_mul`), $x \mapsto f(xa)$ has period $c a^{-1}$ (`Function.Periodic.mul_const`), and $x \mapsto f(x/a)$ has period $c a$ (`Function.Periodic.div_const`). Each lemma has a twin for antiperiodic functions, $f(x + c) = -f(x)$, such as `Function.Antiperiodic.const_mul`, which needs $a \ne 0$. The lemma `Function.Antiperiodic.add_nat_mul_eq` gives $f(x + nc) = (-1)^n f(x)$. In an archimedean ordered group a periodic function takes all its values on one period: `Function.Periodic.exists_mem_Ico₀` gives for each $x$ a point $y \in [0, c)$ with $f(x) = f(y)$, and `Function.Periodic.image_Icc` says that the image of $[a, a + c]$ under $f$ is the range of $f$. The fractional part has period $1$ (`Int.fract_periodic`).
 
 Common errors of a learner:
 

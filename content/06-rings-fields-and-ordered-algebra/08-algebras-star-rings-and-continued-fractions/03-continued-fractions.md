@@ -8,6 +8,13 @@ modules:
   - Mathlib.Algebra.ContinuedFractions.Determinant
   - Mathlib.Algebra.ContinuedFractions.ContinuantsRecurrence
   - Mathlib.Algebra.ContinuedFractions.Computation.TerminatesIffRat
+  - Mathlib.Algebra.ContinuedFractions.Computation.Approximations
+  - Mathlib.Algebra.ContinuedFractions.Computation.CorrectnessTerminating
+  - Mathlib.Algebra.ContinuedFractions.Computation.Translations
+  - Mathlib.Algebra.ContinuedFractions.ConvergentsEquiv
+  - Mathlib.Algebra.ContinuedFractions.Euler
+  - Mathlib.Algebra.ContinuedFractions.TerminatedStable
+  - Mathlib.Algebra.ContinuedFractions.Translations
 explains:
   E3: [GenContFract, GenContFract.of, GenContFract.of_convergence]
   E2: [GenContFract.Pair, GenContFract.convs, GenContFract.nums, GenContFract.dens, SimpContFract, ContFract, GenContFract.IntFractPair.stream, SimpContFract.determinant, GenContFract.nums_recurrence, GenContFract.dens_recurrence, GenContFract.terminates_iff_rat, GenContFract.of_correctness_of_terminates, "GenContFract.abs_sub_convergents_le'", GenContFract.succ_nth_fib_le_of_nth_den]
@@ -184,6 +191,18 @@ For the golden ratio $\varphi = (1 + \sqrt 5)/2$, the equation $\varphi^2 = \var
 ### The library around it
 
 The continued fractions of Mathlib live in the folder `Mathlib.Algebra.ContinuedFractions`. The basic file defines `GenContFract`, `SimpContFract` and `ContFract`, the convergents `convs` and the continuants `conts`, which pair `nums` and `dens`. The `Computation` subfolder defines `GenContFract.of` and proves its correctness, the equivalence with rationality, and the approximation results. The library states these results in a general linearly ordered field `K` with `[FloorRing K]`, not only in `ℝ`. Periodic expansions and quadratic irrationals are not part of this library.
+
+The file `Mathlib.Algebra.ContinuedFractions.Translations` gives the first values and the bookkeeping of the sequences. The convergent is the quotient of the continuants: `GenContFract.conv_eq_num_div_den` says $\mathrm{convs}\ n = \mathrm{nums}\ n / \mathrm{dens}\ n$. The start values are `GenContFract.zeroth_num_eq_h`, `GenContFract.zeroth_den_eq_one` and `GenContFract.zeroth_conv_eq_h`, and for a first pair $(a, b)$ the lemmas `GenContFract.first_num_eq` and `GenContFract.first_den_eq` give $p_1 = b h + a$ and $q_1 = b$. A fraction terminates at $n$ exactly when its $n$-th pair is missing, and `GenContFract.terminatedAt_iff_s_none`, `GenContFract.terminatedAt_iff_partNum_none` and `GenContFract.terminatedAt_iff_partDen_none` state this with the sequence, the partial numerators and the partial denominators. The file `Mathlib.Algebra.ContinuedFractions.TerminatedStable` proves that nothing changes after termination: `GenContFract.terminated_stable` says that a fraction that terminates at $n$ terminates at each $m \ge n$, and `GenContFract.convs_stable_of_terminated` says that the convergents are then constant, with the same lemma for `nums`, `dens` and `conts`.
+
+The file `Mathlib.Algebra.ContinuedFractions.Computation.Translations` translates the algorithm `GenContFract.of` into the stream of integer and fractional parts. The head is the floor (`GenContFract.of_h_eq_floor`), and the tail of the expansion of $v$ is the expansion of $(v - \lfloor v \rfloor)^{-1}$ (`GenContFract.of_s_tail` and `GenContFract.of_s_succ`). The stream stops after an integer (`GenContFract.IntFractPair.stream_succ_of_int`), and `GenContFract.of_terminatedAt_n_iff_succ_nth_intFractPair_stream_eq_none` relates the termination of the fraction to the end of the stream. The file `Mathlib.Algebra.ContinuedFractions.Computation.CorrectnessTerminating` proves that a terminating expansion is exact: `GenContFract.of_correctness_of_terminatedAt` gives $v = \mathrm{convs}\ n$ when the expansion of $v$ terminates at $n$, with the auxiliary value `GenContFract.compExactValue` that recombines the last convergents with the remaining fractional part.
+
+The file `Mathlib.Algebra.ContinuedFractions.Computation.Approximations` gives the estimates behind the convergence theorem. Each fractional part lies in $[0, 1)$ (`GenContFract.IntFractPair.nth_stream_fr_nonneg_lt_one`), so each later partial denominator is at least $1$ (`GenContFract.of_one_le_get?_partDen`), and all partial numerators equal $1$ (`GenContFract.of_partNum_eq_one`). The expansion is therefore a simple continued fraction (`GenContFract.of_isSimpContFract`) and even a regular one, `ContFract.of`, with positive partial denominators. The denominators grow at least as the Fibonacci numbers (`GenContFract.succ_nth_fib_le_of_nth_den`) and are monotone (`GenContFract.of_den_mono`). The error bound `GenContFract.abs_sub_convs_le` says
+$$\left| v - \frac{p_n}{q_n} \right| \le \frac{1}{q_n q_{n+1}}$$
+when the expansion does not terminate at $n$, and `GenContFract.sub_convs_eq` gives the exact difference $(-1)^n / (q_n (r^{-1} q_n + q_{n-1}))$, with $r$ the fractional part at step $n$.
+
+The file `Mathlib.Algebra.ContinuedFractions.ConvergentsEquiv` compares the two definitions of the convergents. The convergents `convs` come from the recurrence of the continuants, and `convs'` evaluate the finite fraction $h + a_0/(b_0 + a_1/(b_1 + \cdots))$ directly. The operation `GenContFract.squashGCF` merges the last two pairs of a fraction into one, and the induction on it proves `GenContFract.convs_eq_convs'` for the convergent of index $n$ when the pairs before $n$ have positive partial numerators and denominators; for a regular continued fraction `ContFract.convs_eq_convs'` holds with no hypothesis. The file `Mathlib.Algebra.ContinuedFractions.Euler` treats Euler's continued fraction of a series. For a sequence $\rho_0, \rho_1, \dots$, the fraction `GenContFract.euler h ρ` has the convergents
+$$h + \sum_{i < n} \prod_{j \le i} \rho_j$$
+by `GenContFract.convs_euler`, so the convergents are the partial sums of the series $h + \rho_0 + \rho_0 \rho_1 + \cdots$. The predicate `GenContFract.IsEuler` marks the fractions of this form, and `GenContFract.toEuler` converts a fraction with nonzero denominators into an equivalent one with the same convergents (`GenContFract.convs_toEuler`).
 
 **Common errors of a learner.**
 

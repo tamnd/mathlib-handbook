@@ -6,6 +6,10 @@ modules:
   - Mathlib.Algebra.Ring.BooleanRing
   - Mathlib.Algebra.Ring.Prod
   - Mathlib.Algebra.Ring.Pi
+  - Mathlib.Algebra.Ring.Int.Defs
+  - Mathlib.Algebra.Ring.Nat
+  - Mathlib.Algebra.Ring.Rat
+  - Mathlib.Algebra.Ring.GrindInstances
 explains:
   E3: [Semiring, Ring, CommRing, BooleanRing]
   E2: [CommSemiring, neg_mul_neg, neg_mul, mul_sub, sub_mul, BooleanRing.mul_self, BooleanRing.add_self, BooleanRing.toCommRing, Prod.instRing, Pi.ring]
@@ -201,6 +205,8 @@ The two sides differ in the entry at the top right. The proof of the binomial th
 The classes of `Mathlib.Algebra.Ring.Defs` form a lattice. The weakest are `Distrib` (a type with `+` and `*` and the two distributive laws) and `NonUnitalNonAssocSemiring`. Above them are `NonUnitalSemiring`, `NonAssocSemiring` and `Semiring`, and the same with `Ring` in place of `Semiring`, and `Comm` in front of each. Each theorem is stated for the weakest class that proves it: `mul_sub` needs only `NonUnitalNonAssocRing`.
 
 The lemmas about the operations follow a naming pattern: `mul_add` and `add_mul` for the distributive laws, `mul_sub` and `sub_mul`, `neg_mul`, `mul_neg` and `neg_mul_neg`, `mul_comm` in a commutative structure. The casts `(n : R)` from `ℕ` and `ℤ` respect the operations by `Nat.cast_mul` and `Int.cast_mul`, and `push_cast` moves them inwards (Volume 2).
+
+The ring structures of the number systems are instances in their own modules. `Mathlib.Algebra.Ring.Nat` makes `ℕ` a commutative semiring (`Nat.instCommSemiring`) with no zero divisors (`Nat.instIsDomain`), and `Mathlib.Algebra.Ring.Int.Defs` makes `ℤ` a commutative ring (`Int.instCommRing`), with the cast lemmas `Int.cast_mul` and `Int.cast_pow`. The module `Mathlib.Algebra.Ring.Rat` gives `Rat.commRing` and `Rat.commGroupWithZero` for `ℚ`, and a few lemmas on numerators and denominators, such as `Rat.num_div_den`, which says $q = \mathrm{num}(q)/\mathrm{den}(q)$, and `Rat.mul_den_eq_num`. The module `Mathlib.Algebra.Ring.GrindInstances` connects each `Semiring`, `Ring` and `CommRing` to the classes of the `grind` tactic, through instances such as `CommRing.toGrindCommRing`, so `grind` can reason in any commutative ring of Mathlib.
 
 Common errors of a learner:
 

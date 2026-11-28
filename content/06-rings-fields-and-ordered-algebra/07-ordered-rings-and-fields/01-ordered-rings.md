@@ -4,6 +4,8 @@ kind: theory
 modules:
   - Mathlib.Algebra.Order.Ring.Defs
   - Mathlib.Algebra.Order.Ring.Abs
+  - Mathlib.Algebra.Ring.Subring.Order
+  - Mathlib.Algebra.Ring.Subsemiring.Order
 explains:
   E3: [IsOrderedRing, IsStrictOrderedRing, sq_nonneg]
   E2: [IsOrderedRing.of_mul_nonneg, IsStrictOrderedRing.of_mul_pos, IsOrderedRing.toCharZero, IsStrictOrderedRing.isDomain, mul_self_nonneg, mul_self_add_mul_self_eq_zero, neg_one_lt_zero, abs_mul, Int.instIsStrictOrderedRing]
@@ -181,6 +183,8 @@ The partial order of the counterexample, with `Complex.le_def : z ≤ w ↔ z.re
 The order lemmas of Mathlib are stated with the smallest classes that prove them. For multiplication these are `PosMulMono` (left multiplication by a nonnegative element is monotone), `MulPosMono` (the same on the right), and their strict forms `PosMulStrictMono` and `MulPosStrictMono`. The mixins `IsOrderedRing` and `IsStrictOrderedRing` provide all four, so a lemma stated with the small classes applies to every ordered ring. So `sq_nonneg` also applies to the semiring `ℕ`.
 
 The names follow the shape of the statement: `mul_pos : 0 < a → 0 < b → 0 < a * b`, `mul_nonneg`, `mul_neg_of_pos_of_neg`, `mul_le_mul`. The tactics do most of the work in practice. The tactic `positivity` proves goals `0 < e` and `0 ≤ e` from the shape of `e`. The tactic `linarith` proves linear inequalities from hypotheses, and `nlinarith` adds products of pairs of hypotheses.
+
+A subring of an ordered ring is an ordered ring with the induced order. The module `Mathlib.Algebra.Ring.Subring.Order` gives the instances `Subring.toIsOrderedRing` and `Subring.toIsStrictOrderedRing`, and the inclusion as an ordered ring homomorphism, `Subring.orderedSubtype`. The module `Mathlib.Algebra.Ring.Subsemiring.Order` gives the same instances for subsemirings, such as `Subsemiring.toIsOrderedRing`, and the subsemiring `Subsemiring.nonneg R` of the nonnegative elements, with `Subsemiring.mem_nonneg` for $x \in R_{\ge 0} \iff 0 \le x$.
 
 Common errors of a learner:
 
