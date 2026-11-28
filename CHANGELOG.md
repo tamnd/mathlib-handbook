@@ -4,6 +4,12 @@ Each release has a section. The newest release is first.
 
 ## Unreleased
 
+## v0.8.0 - 2026-11-28
+
+### Changed
+
+- `EDITION` pins mathlib at `b60becec5c`, mathlib-lean at `4be3dedbbb` and mathlib-agent at `22fe2c0e4b`, the commits of their release v0.8.0.
+
 - V28 Algebraic geometry has a first draft: 8 chapters, 20 sections and 143 exercises. The text treats presheaves and sheaves on a space, stalks and sheafification, ringed and locally ringed spaces, the gluing of spaces, the spectrum of a ring and its structure sheaf, schemes and fiber products, reduced, integral and Noetherian schemes, the projective spectrum, ideal sheaves and quasi-coherent modules, the properties of morphisms, finite, flat, separated, proper, smooth and etale morphisms, the Zariski, fpqc, etale and proetale sites, rational maps, algebraic cycles, group schemes, Weierstrass equations, the group law of an elliptic curve and division polynomials.
 ## v0.7.1 - 2026-11-28
 
