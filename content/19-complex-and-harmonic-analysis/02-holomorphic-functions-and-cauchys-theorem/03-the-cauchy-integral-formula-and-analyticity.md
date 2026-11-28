@@ -4,6 +4,8 @@ kind: theory
 modules:
   - Mathlib.Analysis.Complex.CauchyIntegral
   - Mathlib.Analysis.Complex.TaylorSeries
+  - Mathlib.Analysis.Complex.AbelLimit
+  - Mathlib.Analysis.Complex.Positivity
 explains:
   E3: [Complex.circleIntegral_sub_inv_smul_of_differentiable_on_off_countable, DifferentiableOn.hasFPowerSeriesOnBall, Complex.analyticOnNhd_iff_differentiableOn, Complex.hasSum_taylorSeries_on_ball]
   E2: [Complex.two_pi_I_inv_smul_circleIntegral_sub_inv_smul_of_differentiable_on_off_countable, DiffContOnCl.circleIntegral_sub_inv_smul, DiffContOnCl.two_pi_i_inv_smul_circleIntegral_sub_inv_smul, Complex.hasFPowerSeriesOnBall_of_differentiable_off_countable, DiffContOnCl.hasFPowerSeriesOnBall, Differentiable.hasFPowerSeriesOnBall, DifferentiableOn.analyticAt, DifferentiableOn.analyticOnNhd, Differentiable.analyticAt, Complex.analyticAt_iff_eventually_differentiableAt, DifferentiableOn.contDiffOn, Differentiable.contDiff, DifferentiableOn.deriv, DiffContOnCl.circleIntegral_one_div_sub_center_pow_smul, DiffContOnCl.deriv_eq_smul_circleIntegral, Complex.taylorSeries_eq_on_ball, Complex.hasSum_taylorSeries_of_entire, Complex.taylorSeries_eq_of_entire']
@@ -127,6 +129,8 @@ The statement is `DifferentiableOn ℂ f (ball c r) → z ∈ ball c r → HasSu
 **Example.** The function $f(x) = 1/(1 + x^2)$ is analytic on all of $\mathbb{R}$, but its Taylor series at $0$, $\sum (-1)^n x^{2n}$, has radius $1$. The complex view explains this. The extension $1/(1 + z^2)$ is holomorphic on $D(0, 1)$, so the radius is at least $1$. It is unbounded near $\pm i$, so the radius is not more than $1$.
 
 ### The library around it
+
+Abel's limit theorem is in `Mathlib.Analysis.Complex.AbelLimit`. If $\sum a_n$ converges to $l$, then $\sum a_n z^n \to l$ as $z \to 1$ inside a Stolz set $\{|z| < 1,\ |1 - z| < M(1 - |z|)\}$, the set `Complex.stolzSet` $M$. This is `Complex.tendsto_tsum_powerSeries_nhdsWithin_stolzSet`. The version `Complex.tendsto_tsum_powerSeries_nhdsWithin_stolzCone` uses a cone `Complex.stolzCone` with vertex $1$, and `Real.tendsto_tsum_powerSeries_nhdsWithin_lt` is the real case with $x \to 1^-$. A typical use is $\log 2 = \sum_{n \ge 1} (-1)^{n+1}/n$. The module `Mathlib.Analysis.Complex.Positivity` uses the Taylor series to prove positivity. If $f$ is entire and each derivative $f^{(n)}(c)$ is nonnegative in the order of $\mathbb{C}$, then $f(z) \ge 0$ for each $z \ge c$, by `Differentiable.nonneg_of_iteratedDeriv_nonneg`, and `DifferentiableOn.nonneg_of_iteratedDeriv_nonneg` is the version on a disc. The variants `Differentiable.apply_le_of_iteratedDeriv_nonneg` and `Differentiable.apply_le_of_iteratedDeriv_alternating` compare $f(z)$ with $f(c)$.
 
 Common errors of a learner:
 

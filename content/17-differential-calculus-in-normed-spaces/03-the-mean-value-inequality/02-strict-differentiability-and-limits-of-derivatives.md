@@ -4,6 +4,8 @@ kind: theory
 modules:
   - Mathlib.Analysis.Calculus.UniformLimitsDeriv
   - Mathlib.Analysis.Calculus.SmoothSeries
+  - Mathlib.Analysis.Calculus.FDeriv.Extend
+  - Mathlib.Analysis.Calculus.LogDerivUniformlyOn
 explains:
   E3: [HasStrictFDerivAt, hasFDerivAt_of_tendstoUniformlyOn, hasFDerivAt_tsum]
   E2: [hasStrictFDerivAt_iff_isLittleO, HasStrictFDerivAt.hasFDerivAt, HasStrictFDerivAt.exists_lipschitzOnWith, hasFDerivAt_of_tendstoUniformly, hasFDerivAt_of_tendstoLocallyUniformlyOn, hasDerivAt_of_tendstoUniformly, hasDerivAt_tsum, hasFDerivAt_tsum_of_isPreconnected, differentiable_tsum, fderiv_tsum]
@@ -140,6 +142,10 @@ So $f$ has the strict derivative $0$ at $0$. Near $1/n$ the distance is $|x - 1/
 ### The library around it
 
 `HasStrictFDerivAt` appears in the inverse and implicit function theorems of Chapter 6, which need two moving points. The file `SmoothSeries` gives the differentiability of series, and also `contDiff_tsum`, a form for $C^n$ that Chapter 4 uses.
+
+The file `FDeriv.Extend` extends a derivative to the boundary by a limit. `hasFDerivWithinAt_closure_of_tendsto_fderiv` takes a real map $f$ differentiable on an open convex set $s$, continuous within $s$ at each point of the closure, with `fderiv ℝ f y` tending to $f'$ as $y \to x$ in $s$, and gives `HasFDerivWithinAt f f' (closure s) x`. On the line, `hasDerivWithinAt_Ici_of_tendsto_deriv` gives the one-sided form at an end point. `hasDerivAt_of_hasDerivAt_of_ne` removes one point: if $f$ has derivative $g(y)$ at each $y \neq x$, and $f$ and $g$ are continuous at $x$, then $f$ has derivative $g(x)$ at $x$. The proofs use the mean value inequality, so the field is $\mathbb{R}$.
+
+The file `LogDerivUniformlyOn` treats infinite products of complex functions. `logDeriv_tprod_eq_tsum` states that the logarithmic derivative of $\prod_i f_i$ is $\sum_i f_i'/f_i$ at a point $x$ of an open set $s$, when each $f_i$ is differentiable on $s$ and nonzero at $x$, the product converges locally uniformly on $s$ (`MultipliableLocallyUniformlyOn`), the product is nonzero at $x$, and the series of logarithmic derivatives is summable.
 
 Common errors of a learner:
 

@@ -14,6 +14,7 @@ modules:
   - Mathlib.AlgebraicTopology.SimplicialSet.CoherentIso
   - Mathlib.AlgebraicTopology.SimplicialSet.CompStruct
   - Mathlib.AlgebraicTopology.SimplicialSet.CompStructTruncated
+  - Mathlib.AlgebraicTopology.SimplicialSet.Coskeletal
   - Mathlib.AlgebraicTopology.SimplicialSet.HoFunctorMonoidal
   - Mathlib.AlgebraicTopology.SimplicialSet.HomotopyCat
   - Mathlib.AlgebraicTopology.SimplicialSet.Nerve
@@ -133,6 +134,8 @@ Case $n \geq 3$. Every edge $(j, l)$ lies in the horn, since $\{i, j, l\}$ has a
 `SSet.Edge x₀ x₁` is an edge with prescribed vertices, `Edge.id` is `σ 0 x`, and `Edge.CompStruct e₀₁ e₁₂ e₀₂` is a $2$-simplex with faces `d₂ = e₀₁`, `d₀ = e₁₂` and `d₁ = e₀₂`; `SSet.Truncated.Edge` and `Truncated.Edge.CompStruct` are the $2$-truncated versions. `Edge.InvStruct` records an inverse. In a quasicategory, `Edge.comp` chooses a composite with the witness `Edge.compStruct`, `Edge.assoc` is associativity in the form of the inner $3$-horn, `Edge.HomotopyL e e'` is a `CompStruct e (id _) e'`, and `CompStruct.unique` says that two composites are homotopic. `Truncated.Quasicategory₂` asks for the fillers of the inner $2$- and $3$-horns in a $2$-truncated simplicial set, `HomotopicL` and `HomotopicR` are the homotopy relations, and `HomotopyCategory₂` has homotopy classes of edges as morphisms. The instance `instQuasicategory₂ObjTruncatedOfNatNatTruncationOfQuasicategory` says that the truncation of a quasicategory is one. The module header lists the comparison of `HomotopyCategory₂` with `HomotopyCategory` as work to do; the index of this edition has no declaration for it.
 
 `SSet.QCat` is the category of quasicategories and `QCat.strictBicategory` the strict bicategory whose hom-categories are the homotopy categories of the internal homs. `WalkingIso` is the category $\mathbb{I}$, `SSet.coherentIso` its nerve $J$ and `coherentIso.hom` the forward edge; `coherentIso.invStructOfEqMapHom` says that an edge in the image of a map from $J$ has an inverse. `SimplicialThickening J` is the simplicial category of a linear order whose hom from $i$ to $j$ is the nerve of the poset of subsets of $[i, j]$ that contain both ends, and `SimplicialNerve C` has as $n$-simplices the simplicial functors from `SimplicialThickening (Fin (n + 1))` to `C`. The module header lists the identification of its low simplices and the theorem that it is a quasicategory when the hom objects are Kan complexes as projects; the index of this edition has no declaration for them.
+
+The module `Mathlib.AlgebraicTopology.SimplicialSet.Coskeletal` proves that a strict Segal simplicial set is $2$-coskeletal: `SSet.StrictSegal.isCoskeletal` gives `SimplicialObject.IsCoskeletal X 2`, so `X` is determined by its simplices of dimension at most $2$. The proof shows that `SSet.Truncated.rightExtensionInclusion X 2` is a pointwise right Kan extension (`SSet.StrictSegal.isPointwiseRightKanExtension`): an $n$-simplex is the same as a compatible family of its edges and triangles. For nerves, `CategoryTheory.Nerve.cosk₂Iso` is the isomorphism of the nerve functor with `CategoryTheory.Nerve.nerveFunctor₂` followed by `SSet.Truncated.cosk 2`.
 
 Common errors of a learner:
 

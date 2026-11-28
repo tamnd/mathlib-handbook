@@ -4,10 +4,14 @@ kind: theory
 modules:
   - Mathlib.Probability.Kernel.IonescuTulcea.Traj
   - Mathlib.Probability.Process.FiniteDimensionalLaws
-  - Mathlib.Probability.Process.HasIndepIncrements.Basic
-  - Mathlib.Probability.Process.IsGaussianProcess.Def
+  - Mathlib.Probability.Independence.Process.HasIndepIncrements.Basic
+  - Mathlib.Probability.Distributions.Gaussian.IsGaussianProcess.Def
   - Mathlib.Probability.BrownianMotion.GaussianProjectiveFamily
   - Mathlib.Probability.BrownianMotion.Basic
+  - Mathlib.Probability.Kernel.IonescuTulcea.Maps
+  - Mathlib.Probability.Kernel.IonescuTulcea.PartialTraj
+  - Mathlib.Probability.Process.Indistinguishable
+  - Mathlib.Probability.Process.Kolmogorov
 explains:
   E3: [ProbabilityTheory.Kernel.traj, ProbabilityTheory.Kernel.trajMeasure, ProbabilityTheory.HasIndepIncrements, ProbabilityTheory.IsGaussianProcess, ProbabilityTheory.IsPreBrownianReal, ProbabilityTheory.IsBrownianReal]
   E2: [ProbabilityTheory.Kernel.partialTraj, ProbabilityTheory.Kernel.traj_map_frestrictLe, ProbabilityTheory.Kernel.condDistrib_trajMeasure, ProbabilityTheory.isProjectiveLimit_map, ProbabilityTheory.BrownianReal.projectiveFamily, ProbabilityTheory.BrownianReal.isProjectiveMeasureFamily_projectiveFamily, ProbabilityTheory.IsPreBrownianReal.isGaussianProcess, ProbabilityTheory.IsPreBrownianReal.hasIndepIncrements, ProbabilityTheory.IsPreBrownianReal.hasLaw_sub, ProbabilityTheory.IsPreBrownianReal.covariance_eval, ProbabilityTheory.IsPreBrownianReal.smul, ProbabilityTheory.HasIndepIncrements.isPreBrownianReal_of_hasLaw, ProbabilityTheory.IsBrownianReal.cont, ProbabilityTheory.IsBrownianReal.shift, ProbabilityTheory.IsBrownianReal.tendsto_nhds_zero]
@@ -115,6 +119,12 @@ In Mathlib this is `IsPreBrownianReal.smul`.
 ### The library around it
 
 The Ionescu-Tulcea construction is in `Mathlib/Probability/Kernel/IonescuTulcea/`. The Kolmogorov continuity condition is in `Mathlib/Probability/Process/Kolmogorov.lean`, as the predicate `IsKolmogorovProcess` on the moments $E[d(X_s, X_t)^p] \le M\, d(s, t)^q$. The index of this edition has no declaration for the Kolmogorov extension theorem on an uncountable product of Polish spaces, nor for the existence of a Brownian motion.
+
+The first step of the construction is in `Mathlib.Probability.Kernel.IonescuTulcea.PartialTraj`. For kernels $\kappa_n$ from the paths up to time $n$ to the state at time $n + 1$, the kernel `ProbabilityTheory.Kernel.partialTraj` $\kappa$ $a$ $b$ goes from the paths up to time $a$ to the paths up to time $b$. It applies $\kappa_a, \dots, \kappa_{b - 1}$ in turn and keeps the past, and for $b \le a$ it only restricts the path. The theorem `ProbabilityTheory.Kernel.partialTraj_comp_partialTraj` gives the composition law $\mathrm{partialTraj}(b, c) \circ \mathrm{partialTraj}(a, b) = \mathrm{partialTraj}(a, c)$ for $a \le b \le c$, and `ProbabilityTheory.Kernel.partialTraj_succ_eq_comp` gives one step. The function `ProbabilityTheory.Kernel.lmarginalPartialTraj` integrates a function of the whole path against the partial trajectory, and its lemmas give the projective property that the theorem of Ionescu-Tulcea needs. The module `Mathlib.Probability.Kernel.IonescuTulcea.Maps` provides the measurable bijections that glue path pieces, such as `MeasurableEquiv.IicProdIoc`, which identifies a path up to $a$ and a path on $(a, b]$ with a path up to $b$, and `MeasurableEquiv.IicProdIoi`.
+
+The module `Mathlib.Probability.Process.Indistinguishable` defines `ProbabilityTheory.Indistinguishable` $P$ $X$ $Y$, with the notation `X ≡ᵐ[P] Y`. It says that almost surely $X_t = Y_t$ for all $t$ at once. This is stronger than a modification, where for each $t$ the equality holds almost surely, with a null set that depends on $t$. The two notions agree for a countable index set, and for continuous processes on $\mathbb{R}$. The predicate is an equivalence relation, by `ProbabilityTheory.Indistinguishable.refl` and `ProbabilityTheory.Indistinguishable.trans`, and it is compatible with sums, products, scalars and composition, for example `ProbabilityTheory.Indistinguishable.add` and `ProbabilityTheory.Indistinguishable.fun_comp`. The lemma `ProbabilityTheory.Indistinguishable.ae_eq_eval` gives the modification at each $t$.
+
+The module `Mathlib.Probability.Process.Kolmogorov` defines the condition of the Kolmogorov continuity theorem. The structure `ProbabilityTheory.IsKolmogorovProcess` $X$ $P$ $p$ $q$ $M$ asks that each pair $(X_s, X_t)$ is measurable, that $p, q > 0$, and that $E[d(X_s, X_t)^p] \le M \, d(s, t)^q$. The predicate `ProbabilityTheory.IsAEKolmogorovProcess` says that $X$ is a modification of such a process, and `ProbabilityTheory.IsAEKolmogorovProcess.mk` chooses this process. The theorem `ProbabilityTheory.IsKolmogorovProcess.edist_eq_zero` says that the distance between $X_s$ and $X_t$ is $0$ almost surely when $d(s, t) = 0$. The pre-Brownian motion satisfies the condition, since $E[|B_t - B_s|^{2n}] = c_n |t - s|^n$.
 
 ### Exercises
 

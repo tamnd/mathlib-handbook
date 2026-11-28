@@ -11,6 +11,8 @@ modules:
   - Mathlib.Combinatorics.Enumerative.Pentagonal.Basic
   - Mathlib.Combinatorics.Enumerative.Pentagonal.Ring
   - Mathlib.Combinatorics.Enumerative.Pentagonal.PowerSeries
+  - Mathlib.Combinatorics.Enumerative.Pentagonal
+  - Mathlib.Combinatorics.Enumerative.Pentagonal.EulerFunction
 explains:
   E3: [Nat.Partition, Nat.Partition.genFun, Nat.Partition.hasProd_genFun, Nat.Partition.card_restricted_eq_card_countRestricted, Nat.Partition.card_odds_eq_card_distincts, YoungDiagram, YoungDiagram.transpose, YoungDiagram.equivPartition, Nat.Partition.conjugate, PowerSeries.WithPiTopology.tprod_one_sub_X_pow]
   E2: [Nat.Partition.parts, Nat.Partition.parts_pos, Nat.Partition.parts_sum, Nat.Partition.ofSums, Nat.Partition.ofComposition, Nat.Partition.indiscrete, Nat.Partition.restricted, Nat.Partition.countRestricted, Nat.Partition.odds, Nat.Partition.distincts, Nat.Partition.countRestricted_two, Nat.Partition.coeff_genFun, Nat.Partition.genFun_eq_tprod, Nat.Partition.powerSeriesMk_card_restricted_eq_tprod, Nat.Partition.powerSeriesMk_card_countRestricted_eq_tprod, Nat.Partition.conjugate_conjugate, YoungDiagram.transpose_transpose, YoungDiagram.rowLen, YoungDiagram.colLen, YoungDiagram.rowLen_transpose, YoungDiagram.rowLens, YoungDiagram.ofRowLens, YoungDiagram.ofPartition, YoungDiagram.toPartition, PowerSeries.pentagonalSeries, PowerSeries.coeff_pentagonalSeries_pentagonal, PowerSeries.coeff_pentagonalSeries_eq_zero, pentagonal, pentagonal_neg, pentagonal_injective, Pentagonal.tprod_one_sub_pow, SemistandardYoungTableau, SemistandardYoungTableau.highestWeight]
@@ -247,6 +249,8 @@ Semistandard tableaux are the starting point of the combinatorics of symmetric f
 Mathlib proves the product formula in general and the theorems of Glaisher and Euler, defines Young diagrams and their transpose, and proves the pentagonal number theorem. The index of this edition has no declaration for the generating function $\prod_i (1 - X^i)^{-1}$ of $p(n)$ itself, which the docstring of `Mathlib.Combinatorics.Enumerative.Partition.GenFun` lists as a TODO, and so no declaration for the recursion of Euler for $p(n)$. It also has no declaration for the asymptotic formula of Hardy and Ramanujan, the congruences of Ramanujan, the hook length formula, the Robinson-Schensted-Knuth correspondence or Schur polynomials.
 
 `Mathlib.Combinatorics.Enumerative.Partition.Basic` has more maps than this section uses. `Nat.Partition.ofSym` turns a point of `Sym σ n` into the partition of $n$ given by its multiplicities, and `Nat.Partition.toFinsuppAntidiag` sends a partition to the finitely supported function of its counts.
+
+The module `Mathlib.Combinatorics.Enumerative.Pentagonal.EulerFunction` evaluates the pentagonal number theorem at a point. For $x$ in a complete normed commutative ring with $\|x\| < 1$, for example $\mathbb{C}$, the function `eulerFunction x` is the value of the pentagonal power series at $x$ (`eulerFunction_def`). It equals the infinite product $\prod_{n \geq 0} (1 - x^{n + 1})$ (`eulerFunction_eq_tprod`, and `hasProd_eulerFunction` in the form with `HasProd`), and it equals the sum $\sum_{k \in \mathbb{Z}} (-1)^k x^{k(3k - 1)/2}$ (`eulerFunction_eq_tsum_pentagonal`, and `hasSum_eulerFunction_pentagonal` with `HasSum`). Together these two results are the analytic form of the theorem. The module `Mathlib.Combinatorics.Enumerative.Pentagonal` has no declarations of its own and only imports the other pentagonal modules.
 
 Common errors of a learner:
 

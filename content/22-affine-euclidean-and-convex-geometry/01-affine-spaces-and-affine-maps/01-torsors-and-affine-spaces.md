@@ -6,6 +6,8 @@ modules:
   - Mathlib.LinearAlgebra.AffineSpace.Midpoint
   - Mathlib.LinearAlgebra.AffineSpace.MidpointZero
   - Mathlib.Algebra.Order.AddTorsor
+  - Mathlib.Algebra.AddTorsor.Basic
+  - Mathlib.Algebra.AddTorsor.Defs
 explains:
   E3: [Affine.termAffineSpace, midpoint, midpoint_eq_iff, AddMonoidHom.ofMapMidpoint, IsOrderedVAdd, IsOrderedCancelVAdd]
   E2: [midpoint_vsub_left, midpoint_vsub_midpoint, midpoint_eq_midpoint_iff_vsub_eq_vsub, AffineMap.map_midpoint, lineMap_one_half, homothety_one_half, IsOrderedSMul]
@@ -115,6 +117,8 @@ Affine maps preserve midpoints, by `AffineMap.map_midpoint`.
 **Counterexample (the hypothesis on 2 is needed).** Let $k = \mathbb{F}_2$ and $P = V = \mathbb{F}_2$. If a midpoint $m$ of $0$ and $1$ existed with $2(m -_v 0) = 1 -_v 0$, then $2m = 1$. But $2m = 0$ in $\mathbb{F}_2$. So no point of $\mathbb{F}_2$ has the defining property, and the definition of `midpoint` needs `Invertible (2 : R)`.
 
 ### The library around it
+
+The class `AddTorsor` lives in `Mathlib.Algebra.Torsor.Defs`. The old modules `Mathlib.Algebra.AddTorsor.Defs` and `Mathlib.Algebra.AddTorsor.Basic` are deprecated stubs that only import `Mathlib.Algebra.Torsor.Defs` and `Mathlib.Algebra.Torsor.Basic`.
 
 In `Mathlib.LinearAlgebra.AffineSpace.MidpointZero`, `lineMap_one_half` restates the definition in a division ring, and `homothety_one_half` says that the homothety of ratio one half with center $a$ maps $b$ to $\operatorname{mid}(a, b)$.
 

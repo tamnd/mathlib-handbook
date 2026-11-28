@@ -8,4 +8,10 @@ Section 2 defines reachability, connected graphs and connected components. Reach
 
 Section 3 studies acyclic graphs and trees. It proves that a graph is a tree if and only if any two vertices are joined by exactly one path, that a tree on $n$ vertices has $n - 1$ edges, that a finite tree with at least two vertices has at least two leaves, and that each finite connected graph has a spanning tree. Trees are bipartite, which leads to Chapter 3.
 
+Section 4 is the API of walks: the vertices of a walk by position, maps of walks along homomorphisms and inclusions, the cut of a walk at a vertex and the rotation of closed walks, subwalks, the finite sets of walks of a given length, and chordless walks.
+
+Section 5 defines Hamiltonian paths and cycles and Hamiltonian graphs, the cycle graphs $C_n$ on `Fin n`, and the girth, and proves that the girth is at most $2\operatorname{diam} + 1$.
+
+Section 6 studies connected subgraphs and induced subgraphs, odd components and sets of representatives for Tutte's theorem, $k$-edge-connectivity and bridges, and the ends of infinite graphs.
+
 The chapter needs Chapter 1 and the finite sets and lists of Volume 3. Chapter 3 uses walks for its proof that a graph is bipartite if and only if it has no odd cycle. The other chapters use connectivity and paths where they need them.

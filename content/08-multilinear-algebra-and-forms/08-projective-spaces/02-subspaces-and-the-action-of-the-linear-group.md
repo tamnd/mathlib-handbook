@@ -7,6 +7,7 @@ modules:
   - Mathlib.LinearAlgebra.Projectivization.Collinear
   - Mathlib.LinearAlgebra.Projectivization.PSL.PSL2
   - Mathlib.LinearAlgebra.Projectivization.Constructions
+  - Mathlib.LinearAlgebra.Projectivization.PSL.Stabilizer
 explains:
   E3: [Projectivization.Subspace, Projectivization.Subspace.span, Projectivization.smul_mk]
   E2: [Projectivization.Subspace.submodule, Submodule.projectivization, Projectivization.Subspace.mem_add, Projectivization.Subspace.mem_span, Projectivization.Subspace.span_le_subspace_iff, Projectivization.IsCollinear, Projectivization.line_unique, Projectivization.cross, Projectivization.cross_mk, Projectivization.mk_eq_mk_iff_crossProduct_eq_zero, Projectivization.orthogonal_mk, Projectivization.SL_mulAction_ker, Projectivization.PGL.mk_smul_mk, Matrix.ProjectiveSpecialLinearGroup.rank_two_simple]
@@ -178,6 +179,8 @@ The index of this edition has no declaration for the fundamental theorem of proj
 <?decl Projectivization.isCollinear_pair?>
 
 <?decl Projectivization.specialLinearGroup_is_two_pretransitive?>
+
+The file `Mathlib.LinearAlgebra.Projectivization.PSL.Stabilizer` prepares a proof that $\mathrm{PSL}_n(F)$ is simple by the criterion of Iwasawa. For a subspace $L \subseteq F^n$, `Matrix.SpecialLinearGroup.lineStab L` is the subgroup of the $A \in \mathrm{SL}_n(F)$ with $A w - w \in L$ for all $w$ (`Matrix.SpecialLinearGroup.mem_lineStab_iff`). When $L$ is a line $F v$, such an $A$ has the form $w \mapsto w + \alpha(w) v$ for a linear form $\alpha$, and $\det A = 1 + \alpha(v)$. So $\alpha(v) = 0$ and $A v = v$ (`Matrix.SpecialLinearGroup.lineStab_fix_of_span`). Two such matrices commute, because $(1 + v \alpha)(1 + v \beta) = 1 + v (\alpha + \beta)$ when $\alpha(v) = 0$ (`Matrix.SpecialLinearGroup.lineStab_isMulCommutative_of_span`). Conjugation by $g$ carries the subgroup of $L$ to the subgroup of $g L$ (`Matrix.SpecialLinearGroup.lineStab_smul`). The images `PSL.iwasawaT p` in $\mathrm{PSL}_n(F)$, one for each point $p$ of the projective space, are the abelian subgroups that the criterion of Iwasawa needs.
 
 ### Exercises
 

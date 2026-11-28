@@ -7,6 +7,7 @@ modules:
   - Mathlib.Geometry.Convex.ConvexSpace.Topology
   - Mathlib.Geometry.Convex.ConvexSpace.ModuleTopology
   - Mathlib.Geometry.Convex.AffineMap.Defs
+  - Mathlib.Geometry.Convex.AffineMap.Module
 explains:
   E3: [Convexity.ConvexSpace.AffineMap, Convexity.StdSimplex.affineMapMk, Convexity.StdSimplex.affineMap_ext, Convexity.StdSimplex.continuous_of_isAffineMap, Convexity.StdSimplex.topologicalSpace, Convexity.ConvexSpace.AffineMap.cone]
   E2: [Convexity.ConvexSpace.AffineMap.isAffineMap, Convexity.ConvexSpace.AffineMap.comp, Convexity.StdSimplex.affineMapMk_single, Convexity.ConvexSpace.AffineMap.cone_single_zero, Convexity.ConvexSpace.AffineMap.cone_single_succ, Convexity.StdSimplex.continuous_iff]
@@ -99,6 +100,8 @@ The structure `ConvexSpace.AffineMap R X Y` bundles a function with `isAffineMap
 
 <?decl Convexity.ConvexSpace.AffineMap?>
 :::
+
+The module `Mathlib.Geometry.Convex.AffineMap.Module` puts a module structure on `ConvexSpace.AffineMap R X M` when `M` is a module with `IsModuleConvexSpace R M`. The operations are pointwise: the sum of two affine maps is $x \mapsto f(x) + g(x)$, and the instances `Convexity.ConvexSpace.AffineMap.instIsAddApply` and its analogues for zero, negation, subtraction and scalar multiplication make the evaluation lemmas simp lemmas. For a semiring `S` whose action on `M` commutes with the action of `R`, `Convexity.ConvexSpace.AffineMap.instModuleOfSMulCommClass` gives a `Module S` structure, and `Convexity.ConvexSpace.AffineMap.instAddCommGroup` gives the group when `M` is a group. The instance `Convexity.ConvexSpace.AffineMap.instIsModuleConvexSpace` says that the convex space structure on the affine maps, which is pointwise, is the one given by the module: a convex combination of affine maps is their weighted sum.
 
 ::: mathlib
 `Convexity.StdSimplex.affineMapMk` · `Mathlib.Geometry.Convex.ConvexSpace.AffineMap`

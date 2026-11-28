@@ -5,6 +5,7 @@ modules:
   - Mathlib.LinearAlgebra.BilinearForm.Basic
   - Mathlib.LinearAlgebra.BilinearForm.Properties
   - Mathlib.LinearAlgebra.SesquilinearForm.Basic
+  - Mathlib.LinearAlgebra.SesquilinearForm.Star
 explains:
   E3: [LinearMap.BilinForm.IsSymm, LinearMap.BilinForm.Nondegenerate]
   E2: [LinearMap.BilinForm.IsRefl, LinearMap.BilinForm.IsAlt, LinearMap.BilinForm.IsAlt.neg_eq, LinearMap.BilinForm.IsSymm.polarization, LinearMap.BilinForm.flip, LinearMap.BilinForm.isSymm_iff_flip, LinearMap.BilinForm.restrict, LinearMap.BilinForm.add_left, LinearMap.SeparatingLeft, LinearMap.Nondegenerate, LinearMap.IsSymm, LinearMap.isAlt_iff_eq_neg_flip, LinearMap.BilinForm.toDual, LinearMap.BilinForm.dualBasis, LinearMap.BilinForm.Nondegenerate.ker_eq_bot]
@@ -185,6 +186,8 @@ A sesquilinear form is `B : M →ₛₗ[I] M →ₗ[R] R`, semilinear in the fir
 ### The library around it
 
 The files are `Mathlib.LinearAlgebra.BilinearForm.Basic`, `.Properties` and `Mathlib.LinearAlgebra.SesquilinearForm.Basic`. Most results exist both for `LinearMap.BilinForm` and for general bilinear maps.
+
+The file `Mathlib.LinearAlgebra.SesquilinearForm.Star` computes a sesquilinear form $B$ over a star ring through its matrix $A$ in a basis $b$, the matrix `LinearMap.toMatrix₂ b b B`. The value is $B(x, y) = \overline{[x]}^{\top} A \, [y]$, where $[x]$ is the coordinate vector of $x$ (`apply_eq_star_dotProduct_toMatrix₂_mulVec`). The form is Hermitian, in the sense of `LinearMap.IsSymm`, exactly when $A$ is a Hermitian matrix (`LinearMap.isSymm_iff_isHermitian_toMatrix`), and it is positive semidefinite exactly when $A$ is (`LinearMap.isPosSemidef_iff_posSemidef_toMatrix`). The lemma `LinearMap.isSymm_iff_basis` reduces the symmetry to the values on pairs of basis vectors.
 
 ### Exercises
 

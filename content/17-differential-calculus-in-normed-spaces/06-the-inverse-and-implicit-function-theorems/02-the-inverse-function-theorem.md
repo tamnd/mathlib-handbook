@@ -6,6 +6,7 @@ modules:
   - Mathlib.Analysis.Calculus.InverseFunctionTheorem.ContDiff
   - Mathlib.Analysis.Calculus.InverseFunctionTheorem.Deriv
   - Mathlib.Analysis.Calculus.InverseFunctionTheorem.FiniteDimensional
+  - Mathlib.Analysis.Calculus.FDeriv.OfCompLeft
 explains:
   E3: [HasStrictFDerivAt.toOpenPartialHomeomorph, HasStrictFDerivAt.localInverse, HasStrictFDerivAt.to_localInverse, ContDiffAt.to_localInverse]
   E2: [HasStrictFDerivAt.approximates_deriv_on_nhds, HasStrictFDerivAt.map_nhds_eq_of_surj, HasStrictFDerivAt.to_local_left_inverse, HasStrictFDerivAt.eventually_left_inverse, HasStrictFDerivAt.eventually_right_inverse, HasStrictFDerivAt.localInverse_unique, ContDiffAt.toOpenPartialHomeomorph, ContDiffAt.localInverse, HasStrictDerivAt.localInverse, HasStrictDerivAt.to_localInverse, isOpenMap_of_hasStrictDerivAt, ApproximatesLinearOn.exists_homeomorph_extension]
@@ -134,6 +135,8 @@ At $x = 1/(2\pi n)$ this is $-1$, and at $x = 1/((2n+1)\pi)$ it is $3$. So every
 ### The library around it
 
 The theorem lives in `Mathlib.Analysis.Calculus.InverseFunctionTheorem.FDeriv`, with the $C^k$ case in `...InverseFunctionTheorem.ContDiff`, one variable in `...Deriv` and the finite-dimensional extension in `...FiniteDimensional`. All the statements are about strict derivatives and open partial homeomorphisms.
+
+The file `FDeriv.OfCompLeft` gives the derivative of a map from a known derivative of a composite. `HasStrictFDerivAt.of_local_left_inverse` states that if $g$ is continuous at $a$, $f$ has strict derivative the linear equivalence $f'$ at $g(a)$, and $f(g(y)) = y$ near $a$, then $g$ has strict derivative $f'^{-1}$ at $a$. Unlike `HasStrictFDerivAt.to_local_left_inverse`, this form does not need `[CompleteSpace E]`. `OpenPartialHomeomorph.hasFDerivAt_symm` states the same for the inverse of an open partial homeomorphism. The forms `HasFDerivAt.of_comp_of_leftInverse` and `HasFDerivAt.of_comp_of_isEmbedding` drop the equivalence: if $f \circ g = h$ near $a$ and $f'$ has a linear left inverse, or is an embedding, then the derivative of $g$ follows from the derivatives of $f$ and $h$.
 
 Common errors of a learner:
 

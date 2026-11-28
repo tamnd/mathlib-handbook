@@ -7,6 +7,8 @@ modules:
   - Mathlib.Probability.ProductMeasure
   - Mathlib.Probability.Independence.InfinitePi
   - Mathlib.Probability.IdentDistribIndep
+  - Mathlib.Probability.Independence.BoundedContinuousFunction
+  - Mathlib.Probability.Independence.Process.Basic
 explains:
   E3: [ProbabilityTheory.IndepFun, ProbabilityTheory.iIndepFun, ProbabilityTheory.indepFun_iff_map_prod_eq_prod_map_map, MeasureTheory.Measure.infinitePi, ProbabilityTheory.iIndepFun_infinitePi]
   E2: [ProbabilityTheory.IndepFun_iff, ProbabilityTheory.indepFun_iff_measure_inter_preimage_eq_mul, ProbabilityTheory.iIndepFun_iff_measure_inter_preimage_eq_mul, ProbabilityTheory.IndepFun.comp, ProbabilityTheory.IndepFun.symm, ProbabilityTheory.iIndepFun.indepFun_finset, ProbabilityTheory.iIndepFun.indepFun_sum_range_succ, ProbabilityTheory.IndepFun.map_add_eq_map_conv_map, ProbabilityTheory.iIndepFun_iff_map_fun_eq_pi_map, MeasureTheory.Measure.infinitePi_pi, MeasureTheory.Measure.infinitePi_map_eval, ProbabilityTheory.iIndepFun.hasLaw_infinitePi, ProbabilityTheory.IdentDistrib.prodMk, ProbabilityTheory.Kernel.IndepFun]
@@ -143,6 +145,10 @@ because the event $\{S_n = k\}$ is the set of the $\binom{n}{k}$ words with $k$ 
 ### The library around it
 
 The API of `IndepFun` and `iIndepFun` in `Mathlib.Probability.Independence.Basic` mirrors that of `Indep`. There are the characterisation lemmas `IndepFun_iff`, `iIndepFun_iff_measure_inter_preimage_eq_mul`, the symmetry `IndepFun.symm`, the congruence `IndepFun.congr` for a.e. equal maps, and the constant cases `indepFun_const_left` and `indepFun_const_right`. A large family gives the independence of arithmetic combinations of an independent family: `iIndepFun.indepFun_add_left`, `.indepFun_mul_left`, `.indepFun_sub_right`, `.indepFun_finsetSum_of_notMem`, `.indepFun_prodMk`. The file `Mathlib.Probability.IdentDistribIndep` has `IdentDistrib.prodMk`: if `X` and `Y` are independent on one space, `X'` and `Y'` independent on another, and the pairs agree in law componentwise, then the pairs `(X, Y)` and `(X', Y')` are identically distributed.
+
+The module `Mathlib.Probability.Independence.BoundedContinuousFunction` tests independence with bounded continuous functions instead of measurable sets. The theorem `indepFun_of_bcf` says that two variables $X$ and $Y$ with values in Borel spaces with the property `HasOuterApproxClosed`, for example metric spaces, are independent if $E[f(X) g(Y)] = E[f(X)] \, E[g(Y)]$ for all real bounded continuous functions $f$ and $g$. The theorem `indep_comap_of_bcf` is the version for a $\sigma$-algebra and a variable: it asks $E[1_A f(X)] = P(A) \, E[f(X)]$ for each $A$ in the $\sigma$-algebra. The variants `pi_indepFun_pi_of_bcf` and `process_indepFun_process_of_bcf` treat finite families and processes, and they need only finite families of test functions. This criterion is the form that a proof with characteristic functions or with weak convergence uses.
+
+The module `Mathlib.Probability.Independence.Process.Basic` reduces the independence of processes to finite families. The theorem `ProbabilityTheory.IndepFun.indepFun_process` says that a variable $X$ is independent of a process $(Y_s)_{s \in S}$ if $X$ is independent of each finite family $(Y_s)_{s \in I}$. The theorem `ProbabilityTheory.IndepFun.process_indepFun_process` is the statement for two processes, and `ProbabilityTheory.iIndepFun.iIndepFun_process` is the statement for a family of processes. The proofs use the $\pi$-system of cylinder sets. The lemma `ProbabilityTheory.IndepFun.process_congr` says that independence passes to modifications, and `ProbabilityTheory.iIndepFun.process_congr` is the version for a family. Each statement has a version for kernels in the namespace `ProbabilityTheory.Kernel`, and a version with the subscript $0$ that asks only almost everywhere measurability.
 
 Common errors of a learner:
 

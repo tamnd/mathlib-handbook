@@ -7,6 +7,7 @@ modules:
   - Mathlib.LinearAlgebra.ExteriorAlgebra.OfAlternating
   - Mathlib.LinearAlgebra.ExteriorAlgebra.Basis
   - Mathlib.LinearAlgebra.ExteriorAlgebra.Product
+  - Mathlib.LinearAlgebra.ExteriorAlgebra.BaseChange
 explains:
   E3: [ExteriorAlgebra, ExteriorAlgebra.lift, Module.Basis.ExteriorAlgebra]
   E2: [ExteriorAlgebra.ι, ExteriorAlgebra.ι_sq_zero, ExteriorAlgebra.ι_add_mul_swap, ExteriorAlgebra.exteriorPower, ExteriorAlgebra.ιMulti, ExteriorAlgebra.ιMulti_mul_ιMulti_anticomm, ExteriorAlgebra.gradedAlgebra, ExteriorAlgebra.basis_mul_of_disjoint, ExteriorAlgebra.map]
@@ -174,6 +175,8 @@ The coefficient is the determinant of the matrix with the columns $(a, b)$ and $
 ### The library around it
 
 The file `OfAlternating` gives `ExteriorAlgebra.liftAlternating`, a linear map $\Lambda(M) \to N$ built from alternating maps $M^k \to N$. The map `TensorAlgebra.toExterior` is the quotient map of this section.
+
+The file `Mathlib.LinearAlgebra.ExteriorAlgebra.BaseChange` shows that the exterior algebra commutes with base change. For an $R$-algebra $S$, `ExteriorAlgebra.baseChangeEquiv R M S` is an $S$-algebra isomorphism $S \otimes_R \Lambda_R(M) \cong \Lambda_S(S \otimes_R M)$ that sends $s \otimes \iota(m)$ to $\iota(s \otimes m)$ (`ExteriorAlgebra.baseChangeEquiv_apply`). The inverse sends a product $\iota(s_1 \otimes m_1) \cdots \iota(s_k \otimes m_k)$ to $s_1 \cdots s_k \otimes m_1 \wedge \dots \wedge m_k$ (`ExteriorAlgebra.baseChangeEquiv_symm_ιMulti_tmul`).
 
 ### Exercises
 

@@ -1,0 +1,13 @@
+# Coalgebras, bialgebras and Hopf algebras
+
+A coalgebra over a commutative ring $R$ is a module $C$ with a comultiplication $\Delta : C \to C \otimes C$ and a counit $\varepsilon : C \to R$. The axioms are the axioms of an algebra with all arrows reversed. A bialgebra has both structures, and the comultiplication and the counit are algebra maps. A Hopf algebra is a bialgebra with an antipode $S$, a linear map that is inverse to the identity for the convolution product. The group algebra $R[G]$ of a group, with $\Delta(g) = g \otimes g$ and $S(g) = g^{-1}$, is the model example. The symmetric algebra, with $\Delta(x) = x \otimes 1 + 1 \otimes x$ for a vector $x$, is a second example.
+
+Section 1 defines coalgebras and gives the examples of the library: the ring itself, products, finitely supported functions and opposites. It treats coalgebra maps and equivalences, coideals and quotients, and the tensor product of two coalgebras, and it shows that $R$ is a terminal object.
+
+Section 2 defines bialgebras, their maps, equivalences, tensor products and quotients by biideals, and it computes the bialgebra structure of the symmetric algebra. It ends with Frobenius algebras, proves that the pairing $(a, b) \mapsto \varepsilon(ab)$ of a Frobenius algebra is nondegenerate, and shows that a bialgebra that is also Frobenius is the ring $R$.
+
+Section 3 defines the convolution algebra of linear maps from a coalgebra to an algebra, and the convolution monoids of algebra maps and bialgebra maps. It defines Hopf algebras, proves that the antipode reverses products and preserves the counit, and shows that the algebra maps from a commutative Hopf algebra to a commutative algebra form a group. It treats Hopf ideals and tensor products of Hopf algebras.
+
+Section 4 studies group-like and primitive elements. The group-like elements are linearly independent, they form a monoid in a bialgebra and a group in a Hopf algebra, and the primitive elements are closed under the commutator. For the monoid algebra $R[M]$ over a domain, the group-like elements are the elements of $M$, so bialgebra maps between group algebras are group homomorphisms. The section ends with the Hopf algebra of a group and of the Laurent polynomials.
+
+The chapter needs the tensor product of modules and of algebras from Chapter 2, the symmetric algebra of Chapter 3, and the algebras over a commutative ring of Volume 6. Section 2 uses the nondegenerate bilinear forms of Chapter 5, and Section 4 uses monoids and groups from Volume 5 and the monoid algebra $R[M]$: the free module on $M$, with the product that extends the product of $M$.

@@ -6,6 +6,9 @@ modules:
   - Mathlib.Analysis.Calculus.FDeriv.Mul
   - Mathlib.Analysis.Calculus.FDeriv.CompCLM
   - Mathlib.Analysis.Calculus.FDeriv.Pow
+  - Mathlib.Analysis.Calculus.FDeriv.ContinuousMultilinearMap
+  - Mathlib.Analysis.Calculus.FDeriv.ContinuousAlternatingMap
+  - Mathlib.Analysis.Calculus.FDeriv.Star
 explains:
   E3: [IsBoundedBilinearMap.hasFDerivAt, HasFDerivAt.mul', hasFDerivAt_ringInverse]
   E2: [IsBoundedBilinearMap.fderiv, HasFDerivAt.mul, HasFDerivAt.smul, hasFDerivAt_pow', hasFDerivAt_pow, HasFDerivAt.clm_comp, HasFDerivAt.clm_apply, fderiv_inverse, hasFDerivAt_inv']
@@ -158,6 +161,10 @@ A direct check: $(A + tH)^{-1} = \frac{1}{2 - t^2}\begin{pmatrix} 1 & -t \\ -t &
 ### The library around it
 
 The file `FDeriv.Bilinear` proves the derivative of `IsBoundedBilinearMap` once, and `FDeriv.Mul` and `FDeriv.CompCLM` deduce the rules for products, scalar multiples, composites and evaluation from it.
+
+The file `FDeriv.ContinuousMultilinearMap` differentiates the map that sends $x$ to `(f x).compContinuousLinearMap (fun i ↦ g i x)`, the multilinear map $f(x)$ with each argument first moved by the linear map $g_i(x)$. `HasFDerivAt.continuousMultilinearMapCompContinuousLinearMap` gives the derivative as a sum of one term for $f$ and one term for each $g_i$, as in the product rule. The file `FDeriv.ContinuousAlternatingMap` gives the same rules for alternating maps: `ContinuousAlternatingMap.hasFDerivAt` differentiates a fixed alternating map, `HasFDerivAt.continuousAlternatingMap_apply` differentiates $x \mapsto f(x)(g_1(x), \dots, g_n(x))$, and `HasFDerivAt.continuousAlternatingMapCompContinuousLinearMap` differentiates the pullback of $f(x)$ along $g(x)$.
+
+The file `FDeriv.Star` differentiates $x \mapsto \star f(x)$. `HasFDerivAt.star` gives the derivative `↑(starL' 𝕜) ∘SL f'`, and `differentiableAt_star_iff` states that $\star \circ f$ is differentiable exactly when $f$ is. These lemmas need `[TrivialStar 𝕜]`, so they apply over $\mathbb{R}$, for example to complex conjugation seen as a real map, but not over $\mathbb{C}$, where conjugation is not $\mathbb{C}$-linear. For the complex case, `HasFDerivAt.star_star` differentiates $\star \circ f \circ \star$, which is again $\mathbb{C}$-differentiable.
 
 Common errors of a learner:
 

@@ -6,6 +6,12 @@ modules:
   - Mathlib.Analysis.Calculus.ContDiff.Comp
   - Mathlib.Analysis.Calculus.ContDiff.Operations
   - Mathlib.Analysis.Calculus.BumpFunction.Basic
+  - Mathlib.Analysis.Calculus.ContDiff.FiniteDimension
+  - Mathlib.Analysis.Calculus.ContDiff.Polynomial
+  - Mathlib.Analysis.Calculus.ContDiff.RestrictScalars
+  - Mathlib.Analysis.Calculus.ContDiff.WithLp
+  - Mathlib.Analysis.Calculus.AddTorsor.AffineMap
+  - Mathlib.Analysis.Calculus.AddTorsor.Coord
 explains:
   E3: [ContDiff.comp, ContDiffBump]
   E2: [ContDiff.add, ContDiff.mul, ContDiff.inv, contDiffAt_ringInverse, IsBoundedBilinearMap.contDiff, ContinuousLinearMap.contDiff, ContDiff.prodMk, ContDiff.clm_comp, HasContDiffBump, ContDiffBump.contDiff, ContDiffBump.one_of_mem_closedBall, ContDiffBump.support_eq]
@@ -128,6 +134,10 @@ The norm is not differentiable at $c$, which is why the argument needs the plate
 ### The library around it
 
 The proof of `ContDiff.comp` in Mathlib does not use the induction above. It goes through `ContDiffWithinAt.comp`, which writes the Taylor series of $g \circ f$ explicitly with `FormalMultilinearSeries.taylorComp`, the formula of Faà di Bruno (`HasFTaylorSeriesUpToOn.comp`). For bump functions, `hasContDiffBump_of_innerProductSpace` is the instance of the theorem above. A second instance covers finite-dimensional real spaces. In finite dimension `exists_contDiff_tsupport_subset` gives a smooth function with compact support in a neighbourhood $s$ of $x$, with value $1$ at $x$. The function $f$ of the lemma is `expNegInvGlue` and $\psi$ is `Real.smoothTransition`.
+
+Several small modules apply the operations to special maps. When $E$ is finite-dimensional and $𝕜$ is complete, a map $f : D \to (E \to_L F)$ is $C^n$ if and only if each $x \mapsto f(x)\,y$ is $C^n$ (`contDiff_clm_apply_iff`, in `Mathlib.Analysis.Calculus.ContDiff.FiniteDimension`). So `contDiff_succ_iff_fderiv_apply` tests the derivative on fixed vectors: $f$ is $C^{n+1}$ if and only if $f$ is differentiable, each $x \mapsto Df(x)\,y$ is $C^n$, and $f$ is analytic when $n = \omega$. A polynomial $P$ with coefficients in an algebra over $𝕜$ is smooth as the map $x \mapsto P(x)$ (`Polynomial.contDiff_aeval`). For $p$ in `ℝ≥0∞`, the maps `WithLp.toLp p` and `WithLp.ofLp` are smooth, and a map into `PiLp p E` is $C^n$ if and only if each coordinate is (`contDiff_piLp`), in `Mathlib.Analysis.Calculus.ContDiff.WithLp`. Continuous affine maps are smooth (`ContinuousAffineMap.contDiff`), and so is the interpolation $(p, q, t) \mapsto p + t(q - p)$ (`AffineMap.contDiff_lineMap_uncurry`, `ContDiff.lineMap`). In finite dimension the barycentric coordinates of an affine basis are smooth (`contDiff_barycentric_coord`).
+
+For a normed algebra $𝕜'$ over $𝕜$, a map that is $C^n$ over $𝕜'$ has the same iterated derivatives over $𝕜$, after the restriction of scalars of the multilinear maps: `ContDiffAt.restrictScalars_iteratedFDeriv`, with the forms `ContDiffAt.restrictScalars_iteratedFDeriv_eventuallyEq` and `ContDiffWithinAt.restrictScalars_iteratedFDerivWithin_eventuallyEq`, in `Mathlib.Analysis.Calculus.ContDiff.RestrictScalars`. For example, the real iterated derivatives of a holomorphic map are its complex ones.
 
 Common errors of a learner:
 

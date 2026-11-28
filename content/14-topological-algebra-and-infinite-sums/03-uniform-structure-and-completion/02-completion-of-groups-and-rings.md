@@ -7,6 +7,7 @@ modules:
   - Mathlib.Topology.Algebra.UniformField
   - Mathlib.Topology.Algebra.LinearMapCompletion
   - Mathlib.Topology.Algebra.InfiniteSum.GroupCompletion
+  - Mathlib.Topology.Algebra.UniformFaithfulSMul
 explains:
   E3: [AddMonoidHom.extension, UniformSpace.Completion.ring, CompletableTopField]
   E2: [UniformSpace.Completion.addGroup, UniformSpace.Completion.instAddCommGroup, UniformSpace.Completion.isUniformAddGroup, UniformSpace.Completion.toCompl, UniformSpace.Completion.coe_add, UniformSpace.Completion.instModule, AddMonoidHom.completion, UniformSpace.Completion.commRing, UniformSpace.Completion.topologicalRing, UniformSpace.Completion.coe_mul, UniformSpace.Completion.coeRingHom, UniformSpace.Completion.extensionHom, UniformSpace.Completion.mapRingHom, IsDenseInducing.extendRingHom, UniformSpace.Completion.instField, UniformSpace.Completion.instIsTopologicalDivisionRing, UniformSpace.Completion.hatInv, UniformSpace.Completion.mul_hatInv_cancel, completableTopField_of_complete, Subfield.completableTopField, IsUniformInducing.completableTopField, ContinuousLinearMap.completion, ContinuousLinearMap.fromCompletion, Summable.toCompl_tsum]
@@ -102,6 +103,8 @@ In Mathlib the inverse on the completion is `UniformSpace.Completion.hatInv`, an
 ### The library around it
 
 From Volume 13 come `UniformSpace.Completion.denseRange_coe` and `UniformSpace.Completion.extension`. A continuous linear map has a completion, `ContinuousLinearMap.completion`, and a map into a complete space extends from the completion, `ContinuousLinearMap.fromCompletion`. For sums, `Summable.toCompl_tsum` states that the map into the completion commutes with the sum; in this edition it takes a summation filter `L`, the subject of Chapter 4. A uniform embedding of fields into a completable field makes the source completable, `IsUniformInducing.completableTopField`.
+
+The module `Mathlib.Topology.Algebra.UniformFaithfulSMul` shows that the completion of a field $K$ that is a faithful $R$-algebra is again faithful over $R$, when the completion is nontrivial (`UniformSpace.Completion.faithfulSMul`).
 
 ### Exercises
 

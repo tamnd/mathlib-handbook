@@ -6,6 +6,12 @@ modules:
   - Mathlib.Analysis.Calculus.FDeriv.Basic
   - Mathlib.Analysis.Calculus.FDeriv.Const
   - Mathlib.Analysis.Calculus.FDeriv.Linear
+  - Mathlib.Analysis.Calculus.FDeriv.Congr
+  - Mathlib.Analysis.Calculus.FDeriv.Affine
+  - Mathlib.Analysis.Calculus.FDeriv.RestrictScalars
+  - Mathlib.Analysis.Calculus.Conformal.NormedSpace
+  - Mathlib.Analysis.Calculus.Conformal.InnerProduct
+  - Mathlib.Analysis.Calculus.DiffContOnCl
 explains:
   E3: [HasFDerivAt, fderiv, HasFDerivAt.unique, HasFDerivAt.continuousAt]
   E2: [DifferentiableAt, hasFDerivAt_iff_isLittleO_nhds_zero, HasFDerivAt.fderiv, fderiv_zero_of_not_differentiableAt, ContinuousLinearMap.hasFDerivAt, hasFDerivAt_const, HasFDerivAtFilter]
@@ -152,6 +158,14 @@ The map $h \mapsto 2\langle x, h\rangle$ is linear and continuous with norm $2\|
 ### The library around it
 
 The files `Mathlib.Analysis.Calculus.FDeriv.*` state each result in four forms: `HasFDerivAt`, `HasFDerivWithinAt`, `DifferentiableAt` and `fderiv`, with regular names such as `HasFDerivAt.continuousAt`, `DifferentiableAt.continuousAt` and `DifferentiableOn.continuousOn`. A proof works with `HasFDerivAt`, which records the derivative, and converts to `fderiv` at the end. The file `FDeriv.Const` gives constants and `FDeriv.Linear` gives continuous linear maps. The tactic `fun_prop` proves `DifferentiableAt 𝕜 f x` for an expression built from differentiable pieces.
+
+The file `FDeriv.Congr` moves a derivative from one function to another that agrees with it near the point. `HasFDerivAt.congr_of_eventuallyEq` and `Filter.EventuallyEq.fderiv_eq` need only $f_1 = f$ on a neighbourhood of $x$, so a function defined by cases is differentiated through the branch that holds near $x$. In the "within" form, `fderivWithin_congr` asks for `Set.EqOn f₁ f s` and also for `f₁ x = f x`, because $x$ need not be in $s$. The file `FDeriv.Affine` treats a continuous affine map `f : E →ᴬ[𝕜] F`: `ContinuousAffineMap.hasFDerivAt` gives the derivative `f.contLinear` at each point, and `ContinuousAffineMap.fderiv` states the same for `fderiv`.
+
+The file `FDeriv.RestrictScalars` compares derivatives over two fields, for example $\mathbb{C}$ and $\mathbb{R}$. `HasFDerivAt.restrictScalars 𝕜` turns a $\mathbb{C}$-derivative into an $\mathbb{R}$-derivative, and `DifferentiableAt.fderiv_restrictScalars` states that the $\mathbb{R}$-derivative is the $\mathbb{C}$-derivative seen as an $\mathbb{R}$-linear map. The converse fails in general: `differentiableAt_iff_restrictScalars` states that a real-differentiable map is complex-differentiable exactly when its real derivative is the restriction of a $\mathbb{C}$-linear map, which is the Cauchy-Riemann condition.
+
+The files `Conformal.NormedSpace` and `Conformal.InnerProduct` define `ConformalAt f x` for maps between real normed spaces: the map is differentiable at $x$ and its derivative is a conformal linear map, as `conformalAt_iff_isConformalMap_fderiv` states with `IsConformalMap`. `ConformalAt.differentiableAt` and `ConformalAt.comp` give the expected closure facts. In an inner product space, `conformalAt_iff` reads the condition from a known derivative $f'$: there is $c > 0$ with $\langle f'u, f'v\rangle = c\langle u, v\rangle$ for all $u, v$. `conformalFactorAt` names this $c$, and `conformalFactorAt_pos` states that it is positive.
+
+The file `DiffContOnCl` defines `DiffContOnCl 𝕜 f s`: $f$ is differentiable on $s$ and continuous on the closure of $s$. This is the hypothesis of the maximum modulus principle and of the Cauchy integral formula in later volumes. `DiffContOnCl.differentiableAt` needs $s$ open, `DiffContOnCl.continuousOn` gives continuity on `closure s`, and `DifferentiableOn.diffContOnCl_ball` gives the property on a ball from differentiability on a set that contains the closed ball. `DiffContOnCl.comp` needs `Set.MapsTo g t s`.
 
 Common errors of a learner:
 

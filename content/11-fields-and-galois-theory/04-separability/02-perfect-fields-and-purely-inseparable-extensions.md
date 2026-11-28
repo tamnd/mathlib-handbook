@@ -13,6 +13,7 @@ modules:
   - Mathlib.FieldTheory.SeparableClosure
   - Mathlib.FieldTheory.SeparableDegree
   - Mathlib.FieldTheory.IsSepClosed
+  - Mathlib.FieldTheory.CardinalEmb
 explains:
   E3: [PerfectRing, PerfectField, IsPurelyInseparable, separableClosure, Field.finSepDegree, Field.finSepDegree_mul_finInsepDegree]
   E2: [PerfectRing.bijective_frobenius, PerfectField.separable_of_irreducible, PerfectRing.toPerfectField, PerfectField.toPerfectRing, PerfectField.ofCharZero, PerfectField.ofFinite, Algebra.IsAlgebraic.isSeparable_of_perfectField, Algebra.IsAlgebraic.perfectField, PerfectField.separable_iff_squarefree, isPurelyInseparable_iff_pow_mem, IsPurelyInseparable.inseparable, IsPurelyInseparable.trans, mem_separableClosure_iff, separableClosure.isSeparable, separableClosure.isPurelyInseparable, Field.finInsepDegree, Field.Emb, Field.finSepDegree_eq_finrank_iff, Field.finSepDegree_le_finrank, Field.finSepDegree_mul_finSepDegree_of_isAlgebraic, IntermediateField.finSepDegree_adjoin_simple_eq_natSepDegree, Polynomial.natSepDegree, PerfectClosure, perfectClosure, IsSepClosed]
@@ -174,6 +175,8 @@ The equality `finSepDegree F E * finInsepDegree F E = finrank F E`, where `Field
 ### The library around it
 
 Mathlib has two perfect closures. `PerfectClosure K p` is the absolute one, a direct limit of copies of $K$ along the Frobenius map. `perfectClosure F E` is the relative one, the elements $x$ with $x^{p^n} \in F$ for some $n$. The class `IsPerfectClosure` characterizes the absolute one by a universal property. In the same way `separableClosure F E` is relative, and `IsSepClosed` gives the absolute notion. The files `Mathlib.FieldTheory.PurelyInseparable.Tower` and `Mathlib.FieldTheory.PurelyInseparable.Exponent` prove the tower laws for the inseparable degree, with `IsPurelyInseparable.trans`. Over a perfect field, `PerfectField.separable_iff_squarefree` says that a polynomial is separable if and only if it is squarefree. The reference table lists the declarations of the section.
+
+The module `Mathlib.FieldTheory.CardinalEmb` counts the embeddings of an infinite algebraic extension. For a finite separable extension, the number of elements of `Field.Emb F E` is the degree. For an infinite one the count jumps: if $E/F$ is algebraic and separable of infinite degree, then `Field.Emb.cardinal_eq_two_pow_rank` gives $|\mathrm{Emb}_F(E)| = 2^{[E:F]}$. More generally, `Field.Emb.cardinal_eq_two_pow_sepDegree` gives $2^{\mathrm{sepDeg}(E/F)}$ for an algebraic extension whose separable degree `Field.sepDegree F E` is infinite, and `Field.Emb.cardinal_eq` combines the finite and the infinite case in one formula. The proof is a transfinite recursion along a well ordered basis: at each step of the recursion, an embedding of the field so far extends in at least two ways. For example, the algebraic closure of $\mathbb{Q}$ has $2^{\aleph_0}$ embeddings into itself over $\mathbb{Q}$.
 
 ### Exercises
 

@@ -7,6 +7,8 @@ modules:
   - Mathlib.Topology.Algebra.Module.Equiv.Basic
   - Mathlib.Topology.Algebra.Module.ClosedSubmodule
   - Mathlib.Topology.Algebra.Algebra
+  - Mathlib.Topology.Algebra.Projectivization
+  - Mathlib.Topology.Algebra.Monoid.FunOnFinite
 explains:
   E3: [ContinuousLinearMap, ContinuousLinearEquiv, Submodule.topologicalClosure]
   E2: [ContinuousLinearMap.toLinearMap, ContinuousLinearMap.continuous, ContinuousLinearMap.comp, ContinuousLinearMap.isClosed_ker, ContinuousLinearMap.smulRight, ContinuousLinearEquiv.toHomeomorph, Submodule.isClosed_topologicalClosure, Submodule.le_topologicalClosure, Submodule.topologicalClosure_minimal, Submodule.dense_iff_topologicalClosure_eq_top, LinearMap.continuous_on_pi, Submodule.isOpenMap_mkQ, Submodule.continuous_mkQ, ContinuousSMul.of_nhds_zero, ClosedSubmodule, ClosedSubmodule.isClosed, Submodule.closure, ContinuousAlgHom, ContinuousAlgHom.continuous, Subalgebra.topologicalClosure, continuous_algebraMap, algebraMapCLM]
@@ -112,6 +114,8 @@ The structure `A →A[R] B`, an algebra hom `A →ₐ[R] B` with a field `cont`.
 ### The library around it
 
 The module `Mathlib.Topology.Algebra.Module.Basic` holds the closures, the quotients and the criteria for continuity. The type `M →L[R] N` and its operations are in `Mathlib.Topology.Algebra.Module.ContinuousLinearMap.Basic`, and equivalences in `Mathlib.Topology.Algebra.Module.Equiv.Basic`. The map `ContinuousLinearMap.smulRight c f` is $x \mapsto c(x) \cdot f$; with $c$ the identity of $R$ it gives the map $t \mapsto tf$ from $R$ to $M$. Algebras are in `Mathlib.Topology.Algebra.Algebra`.
+
+The module `Mathlib.Topology.Algebra.Projectivization` gives the projective space $\mathbb{P}(V)$ of a topological vector space $V$ the quotient topology of the map $V \setminus \{0\} \to \mathbb{P}(V)$, $v \mapsto [v]$ (`Projectivization.mk'`). A map out of $\mathbb{P}(V)$ is continuous if and only if its composite with this map is continuous (`Projectivization.continuous_iff`). When each map $v \mapsto cv$ with $c$ a unit is continuous, the map $v \mapsto [v]$ is open, so it is an open quotient map (`Projectivization.isOpenQuotientMap_mk'`). The module `Mathlib.Topology.Algebra.Monoid.FunOnFinite` shows that for a map $f : X \to Y$ of finite types the map $M^X \to M^Y$ that sums over the fibres of $f$ is continuous (`FunOnFinite.continuous_map`, `FunOnFinite.continuous_linearMap`).
 
 ### Exercises
 

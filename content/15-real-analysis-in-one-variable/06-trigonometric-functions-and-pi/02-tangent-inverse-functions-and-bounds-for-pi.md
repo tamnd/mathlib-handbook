@@ -10,6 +10,7 @@ modules:
   - Mathlib.Analysis.SpecialFunctions.Trigonometric.Complex
   - Mathlib.Analysis.Real.Pi.Bounds
   - Mathlib.Analysis.Real.Pi.Leibniz
+  - Mathlib.Analysis.Real.Pi.Chudnovsky
 explains:
   E3: [Real.arctan, Real.arcsin, Real.pi_gt_d2, Real.tendsto_sum_pi_div_four, Real.mul_le_sin]
   E2: [Real.arccos, Real.hasDerivAt_arctan, Real.hasDerivAt_arcsin, Real.arcsin_sin, Real.sin_arcsin, Real.tan_arctan, Real.arctan_tan, Real.hasDerivAt_tan, Real.tan_eq_zero_iff, Real.sqrtTwoAddSeries, Real.cos_pi_over_two_pow, Real.sin_pi_over_two_pow_succ, Real.pi_gt_sqrtTwoAddSeries, Real.pi_lt_sqrtTwoAddSeries, Real.pi_lt_d2, Real.sin_lt, Real.sin_gt_sub_cube]
@@ -171,6 +172,8 @@ At $n = 4$, $3.1403 < \pi < 3.1443$, so $3.14 < \pi < 3.15$, from the inscribed 
 ### The library around it
 
 Each inverse function has the same API: values (`Real.arcsin_one`, `Real.arctan_one`), range bounds (`Real.arcsin_le_pi_div_two`, `Real.arctan_lt_pi_div_two`), the inverse laws, oddness (`Real.arctan_neg`), continuity, and derivatives in `InverseDeriv` and `ArctanDeriv`. `Real.arctan_add` is the addition formula, and `Real.four_mul_arctan_inv_5_sub_arctan_inv_239` is Machin's formula. The file `Trigonometric.Bounds` collects inequalities such as `Real.lt_tan` and `Real.one_sub_sq_div_two_le_cos`.
+
+The module `Mathlib.Analysis.Real.Pi.Chudnovsky` defines the series of Chudnovsky's formula $\frac{1}{\pi} = \frac{12}{640320^{3/2}} \sum_{n \ge 0} \frac{(-1)^n (6n)!\,(545140134\,n + 13591409)}{(3n)!\,(n!)^3\,640320^{3n}}$. The integer `chudnovskyNum n` is the numerator, the natural number `chudnovskyDenom n` is the denominator, `chudnovskyTerm n` is their quotient in $\mathbb{Q}$, and `chudnovskySum` is the real number on the right side. The module states only the definitions. The identity `chudnovskySum = π⁻¹` is not proved in Mathlib.
 
 Common errors of a learner:
 

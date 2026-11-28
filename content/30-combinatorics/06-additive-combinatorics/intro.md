@@ -8,6 +8,8 @@ Section 2 studies sets with small doubling, $|A + A| \le K|A|$. It proves the Ru
 
 Section 3 proves the theorem of Roth: a subset of $\{0, \dots, N - 1\}$ with no three-term arithmetic progression has $o(N)$ elements. The proof is the one of Ruzsa and Szemerédi, which is also the proof in Mathlib. The section defines the edge density and uniform pairs, states the regularity lemma of Szemerédi and outlines its proof, and proves the triangle counting lemma, the triangle removal lemma, the corners theorem and the theorem of Roth. It ends with the construction of Behrend, $r(N) \ge N e^{-4\sqrt{\log N}}$.
 
+Section 4 is the API of approximate subgroups, sets of small tripling and of very small doubling, convolutions, dissociated sets, Freiman homomorphisms and subset sums, with the Schnirelmann density and the Combinatorial Nullstellensatz.
+
 Sections 1 and 2 need only Volume 3 and the groups of Volume 5, with $\mathbb{Z}/p\mathbb{Z}$ from Volume 12. Section 3 needs the graphs of Chapter 1 and the cliques of Chapter 3. The level of Section 1 is a first undergraduate course, and the level of Sections 2 and 3 is a first graduate course. The standard reference is Tao and Vu, *Additive Combinatorics*.
 
 In Mathlib, the sumset of two finsets is `s + t`, and it needs `open Pointwise`. The iterated sumset is `n • s`, not the dilate. Most declarations exist in a multiplicative form for arbitrary groups and in an additive form, and the multiplicative form is the primary one in the source. Most modules of this chapter are by Yaël Dillies and Bhavik Mehta, and the formal proof of the regularity lemma is one of the large formal proofs in combinatorics.

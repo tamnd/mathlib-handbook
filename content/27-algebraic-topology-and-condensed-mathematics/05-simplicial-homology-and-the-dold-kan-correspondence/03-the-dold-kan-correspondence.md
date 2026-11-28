@@ -16,6 +16,7 @@ modules:
   - Mathlib.AlgebraicTopology.DoldKan.HomotopyEquivalence
   - Mathlib.AlgebraicTopology.DoldKan.NCompGamma
   - Mathlib.AlgebraicTopology.DoldKan.NReflectsIso
+  - Mathlib.AlgebraicTopology.DoldKan.Notations
   - Mathlib.AlgebraicTopology.DoldKan.Normalized
   - Mathlib.AlgebraicTopology.DoldKan.PInfty
   - Mathlib.AlgebraicTopology.DoldKan.Projections
@@ -208,6 +209,8 @@ For a split simplicial object, the complex `Splitting.nondegComplex` of the nond
 :::
 
 The file `Compatibility` gives a general tool that builds an equivalence with good definitional properties from a weaker one; it is how `Abelian.DoldKan.equivalence` has `Γ` as its inverse by `rfl`. The index of this edition has no declaration that the homotopy groups of a simplicial abelian group are the homology groups of its Moore complex.
+
+The module `Mathlib.AlgebraicTopology.DoldKan.Notations` gives the scoped notations `K[X]` for the alternating face map complex and `N[X]` for the normalized Moore complex, after `open DoldKan`.
 
 Common errors of a learner: The first error is to include $\delta_0$ in the definition of $N$. The second error is to read $P_q$ as a projection onto $N$ for every $q$; it only kills the last $q$ faces, and the limit $P_\infty$ is the projection. The third error is to look for `AlgebraicTopology.DoldKan.equivalence`. The equivalence lives in the namespaces `CategoryTheory.Abelian.DoldKan`, `CategoryTheory.Idempotents.DoldKan` and `CategoryTheory.Preadditive.DoldKan`, and `AlgebraicTopology.DoldKan.Compatibility.equivalence` is the general tool. The fourth error is to forget the order of composition: `P (q + 1) = P q ≫ (𝟙 _ + Hσ q)` applies $P_q$ first.
 

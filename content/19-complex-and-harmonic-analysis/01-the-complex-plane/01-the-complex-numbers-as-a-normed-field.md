@@ -7,6 +7,14 @@ modules:
   - Mathlib.Analysis.Complex.ReImTopology
   - Mathlib.Analysis.Complex.Order
   - Mathlib.Analysis.Complex.Isometry
+  - Mathlib.Analysis.Complex.OperatorNorm
+  - Mathlib.Analysis.Complex.Asymptotics
+  - Mathlib.Analysis.Complex.Cardinality
+  - Mathlib.Analysis.Complex.IsIntegral
+  - Mathlib.Analysis.Complex.HalfPlane
+  - Mathlib.Analysis.Complex.Convex
+  - Mathlib.Analysis.Complex.Tietze
+  - Mathlib.Analysis.Complex.Spectrum
 explains:
   E3: [Complex.instNormedField, Complex.instCompleteSpace, Complex.ringHom_eq_id_or_conj_of_continuous, Complex.le_def, linear_isometry_complex]
   E2: [Complex.norm_def, Complex.norm_mul, Complex.norm_conj, Complex.abs_re_le_norm, Complex.abs_im_le_norm, Complex.norm_le_abs_re_add_abs_im, Complex.dist_eq_re_im, Complex.norm_le_sqrt_two_mul_max, Complex.equivRealProdCLM, Complex.lipschitz_equivRealProd, Complex.antilipschitz_equivRealProd, Complex.instProperSpace, Complex.conjLIE, Complex.isometry_conj, Complex.continuous_re, Complex.continuous_im, Complex.isOpenMap_re, Complex.closure_reProdIm, Complex.interior_reProdIm, Complex.frontier_reProdIm, Complex.closure_setOfPred_re_lt, Complex.partialOrder, Complex.lt_def, Complex.nonneg_iff, Complex.not_le_iff, Complex.sq_nonneg_iff, Complex.re_eq_norm, Complex.real_le_real, rotation, rotation_apply, LinearIsometry.re_apply_eq_re]
@@ -124,6 +132,16 @@ Completeness is an instance, so `CompleteSpace ℂ` is found by type class searc
 :::
 
 Mathlib writes the set $\{z : \operatorname{Re} z \in s,\ \operatorname{Im} z \in t\}$ as `s ×ℂ t` (the definition `Set.reProdIm`). The lemmas `Complex.closure_reProdIm`, `Complex.interior_reProdIm` and `Complex.frontier_reProdIm` compute closure, interior and frontier, and `Complex.closure_setOfPred_re_lt` gives $\overline{\{\operatorname{Re} z < a\}} = \{\operatorname{Re} z \le a\}$. The map `Complex.re` is continuous (`Complex.continuous_re`) and open (`Complex.isOpenMap_re`).
+
+The real linear maps around $\mathbb{C}$ have operator norm $1$. The module `Mathlib.Analysis.Complex.OperatorNorm` proves `Complex.reCLM_norm`, `Complex.imCLM_norm`, `Complex.conjCLE_norm` and `Complex.ofRealCLM_norm`, each with a variant for the extended norm and the nonnegative norm. It also proves `Complex.det_conjLIE`: conjugation has determinant $-1$ as a real linear map, so it reverses the orientation of the plane.
+
+The module `Mathlib.Analysis.Complex.Asymptotics` moves the asymptotic relations of Volume 17 across the cast from $\mathbb{R}$ to $\mathbb{C}$. The basic fact is `Complex.isTheta_ofReal`: a real function and its cast to $\mathbb{C}$ have the same size. So `Complex.isLittleO_ofReal_left`, `Complex.isBigO_ofReal_right` and their variants remove the cast from one side of a relation. The lemma `Complex.isBigO_comp_ofReal_nhds` restricts a relation near a real point of $\mathbb{C}$ to the real line, and `Complex.isBigO_re_sub_re` and `Complex.isBigO_im_sub_im` bound the change in the parts by the change in $z$.
+
+Some facts about the set $\mathbb{C}$ are in short modules. It has the cardinality of the continuum, by `Cardinal.mk_complex`, so it is not countable (`not_countable_complex`). The number $i$ is integral over each ring, by `Complex.isIntegral_I`, as a root of $X^2 + 1$. The open half planes $\{\operatorname{Re} z < x\}$, $\{\operatorname{Im} z > x\}$ and their two other forms are open, by `Complex.isOpen_re_lt` and the related lemmas, also with a bound $x$ in the extended reals, as in `Complex.isOpen_re_lt_EReal`. An element $a$ of a complex algebra has a real spectrum if and only if each point of its spectrum equals its real part, by `SpectrumRestricts.real_iff`, and `QuasispectrumRestricts.real_iff` is the same statement for the quasispectrum.
+
+The module `Mathlib.Analysis.Complex.Convex` collects the convex sets of the plane. The closed and open half planes are convex, by `convex_halfSpace_re_lt` and seven related lemmas, and the slit plane is star convex about each positive real, by `Complex.starConvex_slitPlane`. The convex hull of a product set `s ×ℂ t` is the product of the convex hulls, by `Complex.convexHull_reProdIm`, and a rectangle is the convex hull of its four corners, by `Complex.rectangle_eq_convexHull`. A set between an open and a closed half plane is connected, by `Complex.isConnected_of_upperHalfPlane`, and the group of units of $\mathbb{C}$ is path connected.
+
+The module `Mathlib.Analysis.Complex.Tietze` proves the Tietze extension theorem with values in $\mathbb{C}$: a continuous function on a closed subset of a normal space extends to the whole space. The instance is `Complex.instTietzeExtension`, and it comes from the real case through `TietzeExtension.of_tvs`, because $\mathbb{C}$ is a finite dimensional real vector space. The same argument gives the instances for each `RCLike` field, for the open and closed balls of a finite dimensional space and for the unit interval, and `BoundedContinuousFunction.exists_norm_eq_domRestrict_eq` extends a bounded function without a change of its norm.
 
 Common errors of a learner:
 

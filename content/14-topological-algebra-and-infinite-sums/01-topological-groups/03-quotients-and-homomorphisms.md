@@ -18,6 +18,7 @@ modules:
   - Mathlib.Topology.Instances.Discrete
   - Mathlib.Topology.Instances.Nat
   - Mathlib.Topology.Instances.PNat
+  - Mathlib.Topology.Algebra.Monoid.AddChar
 explains:
   E3: [QuotientGroup.isOpenMap_coe, ContinuousMonoidHom, AddCircle]
   E2: [QuotientGroup.isOpenQuotientMap_mk, QuotientGroup.t1Space_iff, QuotientGroup.discreteTopology_iff, QuotientGroup.instIsTopologicalGroup, QuotientGroup.instT3Space, QuotientGroup.instTopologicalSpace, ContinuousAddMonoidHom, ContinuousMonoidHom.toMonoidHom, ContinuousMonoidHom.comp, ContinuousMulEquiv, ContinuousMulEquiv.toHomeomorph, ContinuousMonoidHom.instIsTopologicalGroup, GroupTopology, GroupTopology.coinduced, MonoidHom.isOpenMap_of_sigmaCompact, PontryaginDual, AddCircle.coe_eq_zero_iff, AddCircle.equivIco, AddCircle.compactSpace, UnitAddCircle, AddCircle.dense_addSubgroup_iff_ne_zmultiples, AddCircle.denseRange_zsmul_coe_iff, dense_addSubgroupClosure_pair_iff, Int.isClosedEmbedding_coe_real]
@@ -127,6 +128,8 @@ The proof uses the Baire category theorem and this section does not give it. Mat
 ### The library around it
 
 Quotients are in `Mathlib.Topology.Algebra.Group.Quotient`, continuous homomorphisms in `Mathlib.Topology.Algebra.ContinuousMonoidHom`, and the compact open topology on them in `Mathlib.Topology.Algebra.Group.CompactOpen`. The circle has three modules under `Mathlib.Topology.Instances.AddCircle`: the definitions, the real case with compactness, and the dense subgroups. The modules `Mathlib.Topology.Instances.Int`, `Mathlib.Topology.Instances.Nat` and `Mathlib.Topology.Instances.ZMultiples` give the discrete subgroups $\mathbb{Z}$, $\mathbb{N}$ and $p\mathbb{Z}$ of $\mathbb{R}$.
+
+The module `Mathlib.Topology.Algebra.Monoid.AddChar` has one result on additive characters. Let $A$ be a topological additive monoid with one in which the image of $\mathbb{N}$ is dense, and let $\kappa_1, \kappa_2 : A \to M$ be continuous additive characters into a Hausdorff monoid with $\kappa_1(1) = \kappa_2(1)$. Then $\kappa_1 = \kappa_2$ (`DenseRange.addChar_eq_of_eval_one_eq`). The two characters agree at each $n = 1 + \dots + 1$, so on a dense set, and two continuous maps into a Hausdorff space that agree on a dense set are equal.
 
 ### Exercises
 

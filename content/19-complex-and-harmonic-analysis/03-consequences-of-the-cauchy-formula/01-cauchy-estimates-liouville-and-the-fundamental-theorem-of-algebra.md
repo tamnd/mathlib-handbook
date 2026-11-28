@@ -5,6 +5,7 @@ modules:
   - Mathlib.Analysis.Complex.Liouville
   - Mathlib.Analysis.Complex.Polynomial.Basic
   - Mathlib.Analysis.Complex.Polynomial.GaussLucas
+  - Mathlib.Analysis.Complex.Polynomial.UnitTrinomial
 explains:
   E3: [Complex.norm_iteratedDeriv_le_of_forall_mem_sphere_norm_le, Differentiable.apply_eq_apply_of_bounded, Complex.exists_root, Polynomial.rootSet_derivative_subset_convexHull_rootSet]
   E2: [Complex.norm_deriv_le_of_forall_mem_sphere_norm_le, Differentiable.exists_const_forall_eq_of_bounded, Differentiable.exists_eq_const_of_bounded, Differentiable.apply_eq_of_tendsto_cocompact, Differentiable.isConst_of_isBigO_one, Differentiable.exists_eq_polynomial_eval_of_isBigO_pow, Differentiable.isBigO_pow_iff_exists_eq_polynomial_eval, Complex.isAlgClosed, Irreducible.degree_le_two, Polynomial.mul_star_dvd_of_aeval_eq_zero_im_ne_zero, Polynomial.derivRootWeight, Polynomial.derivRootWeight_nonneg, Polynomial.sum_derivRootWeight_pos]
@@ -122,6 +123,8 @@ The statement is `0 < P.degree → (derivative P).rootSet ℂ ⊆ convexHull ℝ
 **Example.** For $p(z) = (z - 1)^2(z + 1)$, $p'(z) = (z - 1)(3z + 1)$. The roots of $p'$ are $1$ and $-1/3$, both in the segment $[-1, 1]$. The weights for $w = -1/3$ are $\mu_1 = 2/(16/9) = 9/8$ and $\mu_2 = 1/(4/9) = 9/4$, so $\lambda_1 = 1/3$, $\lambda_2 = 2/3$, and indeed $\tfrac13 \cdot 1 + \tfrac23\cdot(-1) = -1/3$.
 
 ### The library around it
+
+The module `Mathlib.Analysis.Complex.Polynomial.UnitTrinomial` proves `Polynomial.IsUnitTrinomial.irreducible_of_coprime'`: a unit trinomial $p$, a polynomial with three terms whose coefficients are units, is irreducible if $p$ and its mirror have no common root in $\mathbb{C}$.
 
 Common errors of a learner:
 

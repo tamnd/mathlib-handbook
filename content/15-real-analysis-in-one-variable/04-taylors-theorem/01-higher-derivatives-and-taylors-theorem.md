@@ -4,6 +4,10 @@ kind: theory
 modules:
   - Mathlib.Analysis.Calculus.IteratedDeriv.Defs
   - Mathlib.Analysis.Calculus.IteratedDeriv.Lemmas
+  - Mathlib.Analysis.Calculus.IteratedDeriv.FaaDiBruno
+  - Mathlib.Analysis.Calculus.IteratedDeriv.WithinZpow
+  - Mathlib.Analysis.Calculus.IteratedDeriv.Analytic
+  - Mathlib.Analysis.Calculus.IteratedDeriv.ConvergenceOnBall
 explains:
   E3: [iteratedDeriv, iteratedDerivWithin]
   E2: [iteratedDeriv_succ, iteratedDeriv_eq_iterate, iteratedDerivWithin_succ, iteratedDerivWithin_eq_iteratedDeriv, contDiff_iff_iteratedDeriv, iteratedDeriv_pow]
@@ -141,6 +145,10 @@ For $n = 6$ the sum is $\frac{1957}{720} = 2.718055\ldots$, and $3/7! < 0.000596
 ### The library around it
 
 The file `Mathlib.Analysis.Calculus.IteratedDeriv.Lemmas` has the algebra of iterated derivatives, for example `iteratedDeriv_const_mul`, `iteratedDeriv_comp_const_mul` and `iteratedDeriv_pow`, which gives the $k$-th derivative of $x^m$ as `m.descFactorial k * x ^ (m - k)`. Most of these lemmas need a `ContDiffAt` hypothesis, because of the junk values. Taylor's theorem is in `Mathlib.Analysis.Calculus.Taylor` of Volume 17.
+
+The module `Mathlib.Analysis.Calculus.IteratedDeriv.FaaDiBruno` gives the higher derivatives of a composition. For $g, f : \mathbb{K} \to \mathbb{K}$ of class $C^2$ at the right points, `iteratedDeriv_comp_two` states $(g \circ f)''(x) = g''(f(x))\,f'(x)^2 + g'(f(x))\,f''(x)$, and `iteratedDeriv_comp_three` states $(g \circ f)'''(x) = g'''(f(x))\,f'(x)^3 + 3\,g''(f(x))\,f''(x)\,f'(x) + g'(f(x))\,f'''(x)$. The general formula `iteratedDeriv_comp_eq_sum_orderedFinpartition` is Faà di Bruno's formula: it writes the $i$-th derivative of $g \circ f$ as a sum over the ordered partitions of $\{0, \dots, i - 1\}$. The names follow a pattern. The suffix `comp` is for $g, f : \mathbb{K} \to \mathbb{K}$, `scomp` is for $g : \mathbb{K} \to E$ (as in `iteratedDeriv_scomp_two`), and `vcomp` is for $g : E \to F$ and $f : \mathbb{K} \to E$ (as in `iteratedDeriv_vcomp_two`). Each lemma has a version with `iteratedDerivWithin`, such as `iteratedDerivWithin_comp_two`, with `UniqueDiffOn` hypotheses on the two sets.
+
+The module `Mathlib.Analysis.Calculus.IteratedDeriv.WithinZpow` computes the derivatives of integer powers on an open set $s$. `iteratedDerivWithin_zpow` states that the $k$-th derivative of $y^m$ for $m \in \mathbb{Z}$ is $\bigl(\prod_{i < k} (m - i)\bigr)\, y^{m - k}$ on $s$, and `iteratedDerivWithin_one_div` states that the $k$-th derivative of $1/y$ is $(-1)^k\, k!\, y^{-1-k}$. The module `Mathlib.Analysis.Calculus.IteratedDeriv.Analytic` holds `iteratedDeriv_mul_pow_sub_of_analytic`: if $R(z) = (z - z_0)^{k+t} R_1(z)$ with $R_1$ analytic, then the $k$-th derivative of $R$ is $(z - z_0)^t$ times $\frac{(k+t)!}{t!} R_1(z)$ plus a multiple of $z - z_0$. The module `Mathlib.Analysis.Calculus.IteratedDeriv.ConvergenceOnBall` connects the Taylor coefficients $f^{(n)}(x)/n!$ with power series: for $f$ analytic on a ball inside the disc of convergence of the Taylor series, `AnalyticOn.hasFPowerSeriesOnSubball` and `AnalyticOn.hasFPowerSeriesOnBall` state that the Taylor series converges to $f$ on that ball.
 
 Common errors of a learner:
 

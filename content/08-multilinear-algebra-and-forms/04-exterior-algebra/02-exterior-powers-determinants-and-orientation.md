@@ -10,6 +10,8 @@ modules:
   - Mathlib.LinearAlgebra.ExteriorPower.Orientation
   - Mathlib.LinearAlgebra.Orientation
   - Mathlib.LinearAlgebra.CrossProduct
+  - Mathlib.LinearAlgebra.ExteriorPower.BaseChange
+  - Mathlib.LinearAlgebra.ExteriorPower.BilinForm
 explains:
   E3: [exteriorPower.alternatingMapLinearEquiv, Module.Basis.exteriorPower, exteriorPower.map, Orientation]
   E2: [exteriorPower.ιMulti, exteriorPower.ιMulti_span, exteriorPower.map_comp, Module.Basis.orientation, Module.Basis.orientation_eq_iff_det_pos, Orientation.map_eq_iff_det_pos, crossProduct, triple_product_eq_det]
@@ -181,6 +183,8 @@ The statement `u ⬝ᵥ (v ⨯₃ w) = Matrix.det ![u, v, w]`.
 ### The library around it
 
 The folder `Mathlib.LinearAlgebra.ExteriorPower` also has the pairing $\Lambda^k \times \Lambda^{n-k} \to \Lambda^n$ in `WedgePairing`, the Hodge star `exteriorPower.hodgeStar`, and `exteriorPower.volOrientation`, the orientation of an isomorphism $\Lambda^n(M) \cong R$.
+
+The exterior powers commute with base change as well: `exteriorPower.baseChangeEquiv R M S i` is an $S$-linear isomorphism $S \otimes_R \Lambda^i_R(M) \cong \Lambda^i_S(S \otimes_R M)$, with $s \otimes (m_1 \wedge \dots \wedge m_i) \mapsto s \cdot (1 \otimes m_1) \wedge \dots \wedge (1 \otimes m_i)$ (`exteriorPower.baseChangeEquiv_tmul_ιMulti`). The file `Mathlib.LinearAlgebra.ExteriorPower.BilinForm` extends a bilinear form $B$ on $M$ to each exterior power. The form `LinearMap.BilinForm.exteriorPower B n` takes the Gram determinant $\det\big(B(v_j, w_i)\big)_{i, j}$ at the pair $(v_1 \wedge \dots \wedge v_n, \; w_1 \wedge \dots \wedge w_n)$ (`LinearMap.BilinForm.bilinForm_ιMulti_ιMulti`). For a finite free module, `LinearMap.BilinForm.bijective_exteriorPower` says that the extended form is perfect when $B$ is perfect, that is, when $B : M \to M^*$ is bijective.
 
 ### Exercises
 

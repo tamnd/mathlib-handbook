@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.Combinatorics.SetFamily.LYM
   - Mathlib.Combinatorics.KatonaCircle
+  - Mathlib.Combinatorics.SetFamily.AhlswedeZhang
 explains:
   E3: [Finset.local_lubell_yamamoto_meshalkin_inequality_mul, Finset.lubell_yamamoto_meshalkin_inequality_sum_card_div_choose, IsAntichain.sperner, Finset.falling, Numbering, Numbering.prefixed]
   E2: [Finset.local_lubell_yamamoto_meshalkin_inequality_div, Finset.card_mul_le_card_shadow_mul, Finset.card_div_choose_le_card_shadow_div_choose, Finset.lubell_yamamoto_meshalkin_inequality_sum_inv_choose, Finset.sum_card_slice_div_choose_le_one, Finset.mem_falling, Finset.sized_falling, Finset.slice_subset_falling, Finset.falling_zero_subset, Finset.slice_union_shadow_falling_succ, Finset.IsAntichain.disjoint_slice_shadow_falling, Finset.le_card_falling_div_choose, Numbering.IsPrefix, Numbering.mem_prefixed, Numbering.IsPrefix.subset_of_card_le_card, Numbering.card_prefixed, Numbering.dens_prefixed, Numbering.disjoint_prefixed_prefixed, Numbering.prefixedEquiv, Fintype.card_numbering]
@@ -131,6 +132,8 @@ This is the count of the lemma: `#(prefixed s) = (#s)! * (Fintype.card X - #s)!`
 ### The library around it
 
 The two LYM inequalities live in an ordered semifield `𝕜`, often `ℚ`. To apply them in `ℕ`, multiply out first, or use `Finset.local_lubell_yamamoto_meshalkin_inequality_mul`. The proof of the LYM inequality in the library does not use the file `KatonaCircle`.
+
+The module `Mathlib.Combinatorics.SetFamily.AhlswedeZhang` sharpens the LYM inequality to an identity. For a family $\mathcal{A}$ and a set $s$, the truncated infimum `Finset.truncatedInf 𝒜 s` is the intersection of the members of $\mathcal{A}$ that lie inside $s$, and it is $\emptyset$ when no member lies inside $s$. The truncated supremum `Finset.truncatedSup 𝒜 s` is the dual notion, the union of the members that contain $s$. These are defined in any lattice with a top and a bottom, and lemmas such as `Finset.truncatedInf_le` and `Finset.truncatedInf_of_isAntichain` (for $s$ in an antichain $\mathcal{A}$, the truncated infimum at $s$ is $s$) hold there. The weighted sum `AhlswedeZhang.infSum 𝒜` is the rational number $\sum_{s} |\mathrm{truncatedInf}\ \mathcal{A}\ s| / (|s| \binom{n}{|s|})$ over all subsets $s$ of the ground set of size $n$. The identity of Ahlswede and Zhang is `AhlswedeZhang.infSum_eq_one`: for a nonempty family that does not contain $\emptyset$, this sum is exactly $1$. For an antichain, the terms with $s \in \mathcal{A}$ are $|s| / (|s| \binom{n}{|s|}) = 1/\binom{n}{|s|}$, so the identity gives the LYM inequality again (`AhlswedeZhang.IsAntichain.le_infSum`). The proof uses the modular law `Finset.card_truncatedInf_union_add_card_truncatedInf_sups` for unions and pointwise unions of families, and the dual sum `AhlswedeZhang.supSum` with the relation `AhlswedeZhang.infSum_compls_add_supSum`.
 
 Common errors of a learner:
 
