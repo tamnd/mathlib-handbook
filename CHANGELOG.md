@@ -6,6 +6,8 @@ Each release has a section. The newest release is first.
 
 - V01 has a home section for each of its modules (C-home 100%). Ten new sections of the kind `api` treat the equivalences of type constructors and of finite types, partial equivalences, iteration and conjugation, universe lifts and small types, partial values and options, signs and two-pointings, and in a new Chapter 7 the metaprogramming support of Mathlib. Ten existing sections list more modules and explain them in their library part.
 
+- V00, V08, V11, V14, V15, V17, V19, V20, V22, V23, V27, V28, V29, V30 and V31 have a home section for each of their modules. 72 new sections of the kind `api` treat the modules that no section treated, and many existing sections list more modules and explain them in their library part. New chapters treat the coalgebras and Hopf algebras (V08), the transcendental extensions (V11), the polynomials and integrals of special functions (V15), the unit disc and the upper half plane (V19), statistical decision theory (V20), the matroids and the graphs, digraphs, hypergraphs and designs (V30).
+
 ## v0.8.0 - 2026-11-28
 
 ### Changed
