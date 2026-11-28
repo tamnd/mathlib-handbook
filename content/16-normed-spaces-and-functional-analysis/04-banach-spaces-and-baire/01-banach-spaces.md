@@ -5,6 +5,7 @@ modules:
   - Mathlib.Analysis.Normed.Group.Quotient
   - Mathlib.Analysis.Normed.Group.Completion
   - Mathlib.Analysis.Normed.Module.Completion
+  - Mathlib.Analysis.Hofer
 explains:
   E3: [QuotientAddGroup.norm_mk, QuotientAddGroup.instNormedAddCommGroup, Submodule.Quotient.completeSpace, UniformSpace.Completion.toComplₗᵢ]
   E2: [QuotientAddGroup.norm_mk_eq_zero_iff_mem_closure, Submodule.Quotient.norm_mk_lt, Submodule.Quotient.norm_mk_le, Submodule.Quotient.normedSpace, Submodule.Quotient.normedAddCommGroup, UniformSpace.Completion.norm_coe, UniformSpace.Completion.instNormedAddCommGroup, UniformSpace.Completion.instNormedSpace]
@@ -115,6 +116,8 @@ The instance `CompleteSpace (M ⧸ S)` for each submodule `S` of a complete semi
 ### The library around it
 
 The file `Mathlib.Analysis.Normed.Group.Quotient` has the quotient norm for groups, modules and ideals, the normed group map $\pi$ as `AddSubgroup.normedMk` with `AddSubgroup.norm_normedMk_le`, the lift of a normed group map that vanishes on $M$ as `NormedAddGroupHom.lift`, and the quotient rings `Ideal.Quotient.normedCommRing`. The files `Mathlib.Analysis.Normed.Group.Completion` and `Mathlib.Analysis.Normed.Module.Completion` put the normed structure on `UniformSpace.Completion E`, including the normed ring and the normed algebra structures. The extension of a bounded operator from a dense subspace to the completion, with the same norm, is `ContinuousLinearMap.extend` with `ContinuousLinearMap.opNorm_extend_le` in `Mathlib.Analysis.Normed.Operator.Extend`.
+
+The file `Mathlib.Analysis.Hofer` proves a lemma of Hofer on complete metric spaces, the theorem `hofer`. Let $\varphi \ge 0$ be continuous on a complete metric space $X$, let $x \in X$ and $\varepsilon > 0$. Then there are $0 < \varepsilon' \le \varepsilon$ and $x'$ with $d(x', x) \le 2 \varepsilon$ and $\varepsilon \varphi(x) \le \varepsilon' \varphi(x')$, such that $\varphi(y) \le 2 \varphi(x')$ for all $y$ with $d(x', y) \le \varepsilon'$. The proof is an iteration in the style of the theorem of Baire: if a point fails, move to a nearby point where $\varphi$ doubles and halve the radius. If this never stops, the points form a Cauchy sequence, and $\varphi$ is unbounded near its limit, which contradicts continuity.
 
 Common errors of a learner:
 

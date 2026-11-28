@@ -5,6 +5,7 @@ modules:
   - Mathlib.Analysis.Normed.Group.InfiniteSum
   - Mathlib.Analysis.Normed.Group.Completeness
   - Mathlib.Analysis.Normed.Lp.lpSpace
+  - Mathlib.Analysis.Normed.Module.MultipliableUniformlyOn
 explains:
   E3: [Summable.of_norm, NormedAddCommGroup.completeSpace_of_summable_imp_tendsto, Memℓp, lp, lp.completeSpace]
   E2: [Summable.of_norm_bounded, norm_tsum_le_tsum_norm, NormedAddCommGroup.summable_imp_tendsto_iff_completeSpace, memℓp_infty_iff, memℓp_gen_iff, lp.norm_eq_tsum_rpow, lp.norm_eq_ciSup, lp.norm_apply_le_norm, lp.single]
@@ -137,6 +138,8 @@ so $(f_k)$ is Cauchy, and its limit in $\ell^2$ is $f = (1/n)_{n \ge 1}$, with $
 ### The library around it
 
 The lemmas on series in normed groups are in `Mathlib.Analysis.Normed.Group.InfiniteSum`: the comparison tests `Summable.of_norm_bounded` and `Summable.of_norm_bounded_eventually`, the Cauchy criteria `cauchySeq_finset_of_norm_bounded`, and the bound `tsum_of_norm_bounded`. The general theory of `HasSum`, `Summable` and `tsum` is in `Mathlib.Topology.Algebra.InfiniteSum`, the home of Volume 14. The junk value matters: `∑' i, f i = 0` when `f` is not summable, so a lemma about `tsum` usually has a hypothesis `Summable f`. The file `Mathlib.Analysis.Normed.Lp.lpSpace` also gives `lp E ∞` the structure of a normed ring (`lp.inftyNormedRing`) when the values are normed rings, and the file `Mathlib.Analysis.Normed.Lp.lpHolder` the inequality of Hölder for `lp`. The space $L^p$ of integrable functions is in `Mathlib.MeasureTheory`, the subject of Volume 18.
+
+The module `Mathlib.Analysis.Normed.Module.MultipliableUniformlyOn` gives the product form of the Weierstrass test for complex functions. Let $\|f_i(x)\| \le u_i$ on a compact set $K$ with $\sum u_i < \infty$, and let each $f_i$ be continuous on $K$. Then the product $\prod_i (1 + f_i(x))$ converges uniformly on $K$, by `Summable.hasProdUniformlyOn_one_add`, and locally uniformly on an open set, by `Summable.hasProdLocallyUniformlyOn_one_add`. The proof takes logarithms: the series $\sum_i \log(1 + f_i(x))$ converges uniformly by `Summable.hasSumUniformlyOn_log_one_add`, and `hasProdUniformlyOn_of_clog` returns to the product with the exponential. The forms with `_nat_` use the partial products over `Finset.range n`. These results give the uniform convergence of infinite products of functions, for example of holomorphic functions.
 
 Common errors of a learner:
 
