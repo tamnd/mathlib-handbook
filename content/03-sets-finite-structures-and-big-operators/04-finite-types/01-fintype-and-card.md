@@ -8,6 +8,8 @@ modules:
   - Mathlib.Data.Fintype.Option
   - Mathlib.Data.Fintype.Prod
   - Mathlib.Data.Fintype.Pigeonhole
+  - Mathlib.Data.FinEnum
+  - Mathlib.Data.FinEnum.Option
 explains:
   E3: [Fintype, Fintype.card, Fintype.exists_ne_map_eq_of_card_lt]
   E2: [Finset.univ, Fintype.card_fin, Fintype.card_prod, Fintype.card_fun, Fintype.card_congr, Fintype.card_le_of_injective, Fintype.card_sum, Fintype.card_option, Fintype.card_bool, Finset.card_univ, Fintype.subsingleton, Fintype.card_set]
@@ -202,6 +204,8 @@ A second error is to state a lemma with `[Fintype α]` when the proof needs no f
 ### The library around it
 
 The file `Mathlib.Data.Fintype.Card` has the card lemmas for the basic types: `Fintype.card_unique` for a type with one element, `Fintype.card_eq_zero_iff` for an empty type and `Fintype.card_pos_iff` for a nonempty type. The lemmas `Fintype.card_subtype_le`, `Fintype.card_subtype_compl` and `Fintype.card_compl_set` count subtypes and complements, and Section 2 uses them. `Fintype.card_range` counts the range of an injective map. The construction `Fintype.ofFinset` builds an instance from a finset that contains each element, and `Fintype.ofEquiv` moves an instance along an equivalence. The induction principle `Fintype.induction_empty_option` proves a statement for all finite types from the empty type, from equivalences and from `Option`. The name pattern is regular: `Fintype.card_X` gives the card of the construction `X`, and most of these are `simp` lemmas. The reference table at the end lists the declarations of the section.
+
+The file `Mathlib.Data.FinEnum` gives a stronger class than `Fintype`. An instance of `FinEnum α` holds a number `FinEnum.card α` and an equivalence `FinEnum.equiv : α ≃ Fin (FinEnum.card α)`, together with decidable equality. So it fixes an order of the elements, and `FinEnum.toList α` lists them in this order, with `FinEnum.mem_toList` and `FinEnum.nodup_toList`. A `Fintype` instance gives only a finset, with no order. Each `FinEnum` gives a `Fintype` by the instance `FinEnum.instFintype`, and `FinEnum.card_eq_fintypeCard` says that the two counts agree. The constructions follow the same pattern as for `Fintype`: `FinEnum.ofList` and `FinEnum.ofNodupList` build an instance from a list that contains each element, `FinEnum.ofEquiv` moves an instance along an equivalence, and `FinEnum.ofInjective` and `FinEnum.ofSurjective` move it along an injection or a surjection. There are instances for `Fin n`, products, sums, subtypes, sigma types and `Finset α`, and `FinEnum.card_fin` gives $|\mathrm{Fin}\ n| = n$. The file `Mathlib.Data.FinEnum.Option` adds `FinEnum.insertNone`, which puts `none` at a chosen place of the enumeration of `Option α`, and the recursor `FinEnum.recEmptyOption`. This recursor is the analogue of `Fintype.induction_empty_option` for data: it builds a value for each enumerable type from the empty type, from `Option` and from the transport along an equal card.
 
 ### Exercises
 

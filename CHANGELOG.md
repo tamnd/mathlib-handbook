@@ -14,6 +14,8 @@ Each release has a section. The newest release is first.
 
 - V04 has a home section for each of its modules. 44 new sections of the kind `api` treat them. The new Chapter 10 treats the successor and predecessor orders, and Chapters 8 and 9 have new sections on ordered monoids, interval arithmetic, rearrangement and quantales.
 
+- V03 has a home section for each of its modules. 29 new sections of the kind `api` treat the basic API of sets, insertion and functions on sets, the building and the lattice of multisets, the symmetric powers, the operations, filters, folds and pointwise operations of finsets, the instances of `Fintype`, the products of lists and multisets, the sums over intervals, `finsum` and `finprod`, the antidiagonals and `DFinsupp`.
+
 ## v0.8.0 - 2026-11-28
 
 ### Changed

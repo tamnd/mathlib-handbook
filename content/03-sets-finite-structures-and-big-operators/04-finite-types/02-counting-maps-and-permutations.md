@@ -5,6 +5,7 @@ modules:
   - Mathlib.Data.Fintype.Perm
   - Mathlib.Data.Fintype.CardEmbedding
   - Mathlib.Data.Fintype.BigOperators
+  - Mathlib.Data.Finite.Perm
 explains:
   E3: [Fintype.card_embedding_eq, Fintype.card_perm, Finite.injective_iff_surjective]
   E2: [Fintype.card_equiv, Fintype.card_subtype, Fintype.card_subtype_compl, Fintype.card_lt_of_injective_not_surjective, Fintype.bijective_iff_injective_and_card, Function.Injective.bijective_of_finite, Fintype.card_pi, Fintype.card_sigma, Fintype.card_embedding_eq_of_infinite]
@@ -155,6 +156,8 @@ A third error is to state the strong pigeonhole principle with a division, as $|
 ### The library around it
 
 The file `Mathlib.Data.Fintype.Perm` builds the list of all permutations of a list and the instance `Fintype (Equiv.Perm α)`, and it proves `Fintype.card_perm` and `Fintype.card_equiv`. The file `Mathlib.Data.Fintype.CardEmbedding` proves `Fintype.card_embedding_eq` by the induction principle `Fintype.induction_empty_option`, which is the proof by induction above in the form "add one new element". It also proves `Fintype.card_embedding_eq_of_infinite`: there are no embeddings of an infinite type in a finite type. The file `Mathlib.Data.Fintype.BigOperators` counts the dependent functions with `Fintype.card_pi` and the dependent pairs with `Fintype.card_sigma`, and it states the rule for functions `Fintype.card_fun` of Section 1. The fiber rule for finsets is `Finset.card_eq_sum_card_fiberwise`, which Chapter 6 places among the sums. The reference table lists the declarations of the section.
+
+The file `Mathlib.Data.Finite.Perm` states the count of permutations with `Nat.card`, for a type with only an instance `Finite`: `Nat.card_perm` says that $|\mathrm{Perm}\ \alpha| = |\alpha|!$. It also gives two facts about the group of permutations. The lemma `Equiv.Perm.isMulCommutative_iff_card_le_two` says that this group is commutative exactly when $|\alpha| \le 2$, and `Equiv.Perm.isCyclic_iff_card_le_two` says the same for the property of being cyclic. For $|\alpha| \ge 3$, take three distinct elements $a, b, c$. The transpositions $(a\ b)$ and $(b\ c)$ do not commute, so the group is not commutative, and so it is not cyclic. For $|\alpha| \le 2$, the group has at most $2$ elements, and a group of order $1$ or $2$ is cyclic.
 
 ### Exercises
 
