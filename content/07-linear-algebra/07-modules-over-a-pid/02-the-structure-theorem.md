@@ -5,6 +5,12 @@ modules:
   - Mathlib.Algebra.Module.PID
   - Mathlib.LinearAlgebra.FreeModule.Finite.Quotient
   - Mathlib.LinearAlgebra.FreeModule.Finite.CardQuotient
+  - Mathlib.Algebra.Module.DedekindDomain
+  - Mathlib.Algebra.Module.Torsion.PrimaryComponent
+  - Mathlib.LinearAlgebra.FreeModule.IdealQuotient
+  - Mathlib.LinearAlgebra.FreeModule.Int
+  - Mathlib.LinearAlgebra.FreeModule.ModN
+  - Mathlib.LinearAlgebra.FreeModule.Norm
 explains:
   E3: [Module.equiv_free_prod_directSum, Submodule.smithNormalForm, Module.equiv_directSum_of_isTorsion]
   E2: [Module.Basis.SmithNormalForm, Submodule.isInternal_prime_power_torsion_of_pid, Submodule.quotientEquivPiZMod, Submodule.quotientEquivDirectSum, AddSubgroup.index_eq_natAbs_det, Ideal.exists_smith_normal_form]
@@ -160,6 +166,12 @@ The invariants agree with the minors: the gcd of the entries $2, 4, 6, 8$ is $2 
 ### The library around it
 
 The structure theorem is in `Mathlib.Algebra.Module.PID`, and the Smith normal form of a submodule in `Mathlib.LinearAlgebra.FreeModule.PID`. The quotients of free modules of full rank are in `Mathlib.LinearAlgebra.FreeModule.Finite.Quotient`, and the index formula in `Mathlib.LinearAlgebra.FreeModule.Finite.CardQuotient`. The finite abelian groups have their own form, `AddCommGroup.equiv_directSum_zmod_of_finite`, in `Mathlib.GroupTheory.FiniteAbelian.Basic`.
+
+The primary decomposition holds more generally over a Dedekind domain $R$. If $M$ is killed by a nonzero ideal $I = \prod_i \mathfrak{p}_i^{e_i}$, then $M$ is the internal direct sum of the submodules killed by the $\mathfrak{p}_i^{e_i}$ (`Submodule.isInternal_prime_power_torsion_of_is_torsion_by_ideal`), by the Chinese remainder theorem for the coprime ideals $\mathfrak{p}_i^{e_i}$. A finitely generated torsion module is killed by its annihilator, which is nonzero, so it has this decomposition (`Submodule.isInternal_prime_power_torsion`). For a torsion module that is not finitely generated, the file `Mathlib.Algebra.Module.Torsion.PrimaryComponent` uses the $\mathfrak{p}$-primary component `Ideal.primaryComponent M P`, the elements killed by some power of $\mathfrak{p}$ (`Ideal.primaryComponent_mem`). For the nonzero primes $\mathfrak{p}$, the components are independent (`Ideal.iSupIndep_primaryComponent`), and for a torsion module their sum is $M$ (`Ideal.iSup_primaryComponent_eq_top`). A linear map gives maps of the components (`Ideal.primaryComponent.map`), and a surjection gives surjections (`Ideal.primaryComponent.map_surjective`).
+
+The Smith normal form also describes the quotients of a ring by an ideal. Let $S$ be a domain that is free of finite rank over a PID $R$, with a basis $b$, and let $I \ne 0$ be an ideal of $S$. Then $S / I$ is isomorphic to $\prod_i R / (a_i)$, where the $a_i$ are the coefficients `Ideal.smithCoeffs` (`Ideal.quotientEquivPiSpan`). For $R = \mathbb{Z}$ this is `Ideal.quotientEquivPiZMod`, and $S / I$ is finite (`Ideal.finiteQuotientOfFreeOfNeBot`). The norm of $f \in S$ is associated to the product of the coefficients for the ideal $(f)$ (`associated_norm_prod_smith`). Over $R = F[X]$ this gives $\dim_F S/(f) = \deg N(f)$ (`finrank_quotient_span_eq_natDegree_norm`). The norms of algebras are in Volume 11.
+
+Two more files treat the integers. A submodule $N$ of $\mathbb{Z}^\iota$ has finite index if and only if $N \cong \mathbb{Z}^\iota$ (`Int.submodule_toAddSubgroup_index_ne_zero_iff`); the index is computed from a Smith normal form by `Module.Basis.SmithNormalForm.toAddSubgroup_index_eq_ite`. For an abelian group $G$ and $n \in \mathbb{N}$, `ModN G n` is the quotient $G / n G$, a module over `ZMod n`. A basis of $G$ over $\mathbb{Z}$ gives a basis of `ModN G n` over `ZMod n` (`ModN.basis`), so for $G$ free of rank $r$ the quotient has $n^r$ elements (`ModN.natCard_eq`).
 
 ### Exercises
 

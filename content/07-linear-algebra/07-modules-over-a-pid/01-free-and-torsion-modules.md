@@ -4,8 +4,12 @@ kind: theory
 modules:
   - Mathlib.LinearAlgebra.FreeModule.Basic
   - Mathlib.LinearAlgebra.FreeModule.PID
+  - Mathlib.LinearAlgebra.FreeModule.StrongRankCondition
   - Mathlib.Algebra.Module.Torsion.Basic
   - Mathlib.Algebra.Module.Torsion.Free
+  - Mathlib.Algebra.Module.Torsion.Field
+  - Mathlib.Algebra.Module.Torsion.Pi
+  - Mathlib.Algebra.Module.Torsion.Prod
 explains:
   E3: [Module.Free, Submodule.nonempty_basis_of_pid, Module.free_of_finite_type_torsion_free']
   E2: [Module.Free.of_basis, Module.Free.chooseBasis, Module.Free.ChooseBasisIndex, Module.Free.of_divisionRing, Submodule.torsion, Module.IsTorsion, Module.IsTorsionFree, Submodule.torsionBy, Submodule.basisOfPid, Module.free_of_finite_type_torsion_free]
@@ -169,6 +173,10 @@ The version with an explicit finite family `s` that spans `M`.
 ### The library around it
 
 The free modules are in `Mathlib.LinearAlgebra.FreeModule.Basic`, with the rank of a free module in `Mathlib.LinearAlgebra.FreeModule.Finite.Basic`. The torsion submodules are in `Mathlib.Algebra.Module.Torsion.Basic`. The results over a PID are in `Mathlib.LinearAlgebra.FreeModule.PID`. The projective modules, which are the direct summands of free modules, are in `Mathlib.Algebra.Module.Projective`.
+
+Three small files give instances of `Module.IsTorsionFree`. A module over a division ring is torsion free (`DivisionSemiring.to_moduleIsTorsionFree`), since each nonzero scalar is invertible. A product of torsion free modules is torsion free, for two factors (`Prod.moduleIsTorsionFree`) and for a family (`Pi.instModuleIsTorsionFree`), since $r (x_i)_i = 0$ means $r x_i = 0$ for each $i$.
+
+The rank of a free module is well defined over each nontrivial commutative ring. The instance `commRing_strongRankCondition` says that such a ring has the strong rank condition of Chapter 2 Section 5: an injective linear map $R^n \to R^m$ forces $n \le m$. The file `Mathlib.LinearAlgebra.FreeModule.StrongRankCondition` holds only this instance, so that the instance search finds it fast.
 
 Common errors of a learner:
 
