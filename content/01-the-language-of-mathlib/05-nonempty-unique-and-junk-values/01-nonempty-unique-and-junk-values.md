@@ -7,6 +7,8 @@ modules:
   - Mathlib.Basic.IsEmpty.Defs
   - Mathlib.Basic.IsEmpty.Basic
   - Mathlib.Basic.Nontrivial.Defs
+  - Mathlib.Basic.Nontrivial.Basic
+  - Mathlib.Algebra.PEmptyInstances
 explains:
   E3: [Unique, IsEmpty, Nontrivial]
   E2: [Unique.instSubsingleton, Nonempty.some, uniqueOfSubsingleton, Unique.uniq, Pi.unique, isEmpty_or_nonempty, not_nonempty_iff, Function.isEmpty, IsEmpty.elim, isEmpty_prod, exists_pair_ne, not_nontrivial_iff_subsingleton, subsingleton_or_nontrivial, Function.Injective.nontrivial, Classical.arbitrary]
@@ -139,6 +141,8 @@ This is `Function.Injective.nontrivial`. The dual statement, `Function.Surjectiv
 ### The library around it
 
 The modules are `Mathlib.Basic.Nonempty`, with `Nonempty.some`, `Nonempty.map` and `Classical.arbitrary`; `Mathlib.Basic.IsEmpty.Defs` and `Mathlib.Basic.IsEmpty.Basic`, with `IsEmpty`, `isEmptyElim`, `isEmpty_or_nonempty`, `isEmpty_prod`, `isEmpty_sum` and `isEmpty_pi`; `Mathlib.Basic.Unique`, with `Unique`, `Unique.forall_iff` and `Unique.exists_iff`; and `Mathlib.Basic.Nontrivial.Defs`, with `Nontrivial`, `exists_pair_ne`, `nontrivial_iff` and `Function.Surjective.nontrivial`. The core library defines `Nonempty`, `Inhabited` and `Subsingleton`.
+
+The module `Mathlib.Basic.Nontrivial.Basic` gives the instances that make `Nontrivial` pass through the type constructors. A product $\alpha \times \beta$ is nontrivial when one factor is nontrivial and the other is nonempty (`nontrivial_prod_left`, `nontrivial_prod_right`). A sum $\alpha \oplus \beta$ is nontrivial when one summand is nontrivial, or when both are nonempty (`instNontrivialSum`, `instNontrivialSumOfNonempty`). The type `Option α` is nontrivial when `α` is nonempty (`Option.nontrivial`), because `none` differs from each `some a`. A function type `α → β` is nontrivial when `α` is nonempty and `β` is nontrivial (`Function.nontrivial`), and `Pi.nontrivial_at` gives the dependent form from one nontrivial factor. For a linear order, `nontrivial_iff_lt` states that $\alpha$ is nontrivial if and only if $x < y$ for some $x$ and $y$, and `nontrivial_of_lt` is one direction for a preorder. The definition `nontrivialPSumUnique` decides, for an inhabited type, between the two cases "nontrivial" and "unique"; it uses choice. The module `Mathlib.Algebra.PEmptyInstances` has no live declarations.
 
 The equivalences `Equiv.equivEmpty : α ≃ Empty` and `Equiv.equivPUnit : α ≃ PUnit` exist under `[IsEmpty α]` and `[Unique α]`. The tactic `simp` uses `IsEmpty.forall_iff` and `Unique.forall_iff` to remove quantifiers over such types.
 

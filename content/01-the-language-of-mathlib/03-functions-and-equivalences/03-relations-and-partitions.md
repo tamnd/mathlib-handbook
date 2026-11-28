@@ -4,6 +4,17 @@ kind: theory
 modules:
   - Mathlib.Logic.Relation
   - Mathlib.Basic.Rel
+  - Mathlib.Basic.Rel.Cover
+  - Mathlib.Basic.Rel.Separated
+  - Mathlib.Logic.Pairwise
+  - Mathlib.Logic.Equiv.Pairwise
+  - Mathlib.Logic.Relator
+  - Mathlib.Data.Rel
+  - Mathlib.Data.Rel.Cover
+  - Mathlib.Data.Rel.Separated
+  - Mathlib.Data.Setoid.Basic
+  - Mathlib.Data.Setoid.Partition
+  - Mathlib.Data.Setoid.Partition.Card
 explains:
   E3: [Relation.EqvGen, Rel]
   E2: [SetRel, Relation.Comp, Relation.comp_assoc, Relation.ReflTransGen, Relation.ReflTransGen.trans, Relation.ReflTransGen.single, Relation.EqvGen.equivalence, Relation.EqvGen.mono, Equivalence.eqvGen_iff, Equivalence.comap, Relation.Map, Relation.eqvGen_eq_reflTransGen]
@@ -166,6 +177,14 @@ The statement is `[Std.Symm r] : Relation.EqvGen r = Relation.ReflTransGen r`. T
 The module `Mathlib.Logic.Relation` has the closures `Relation.ReflGen`, `Relation.TransGen`, `Relation.ReflTransGen` and `Relation.EqvGen`, the composite `Relation.Comp` with `Relation.comp_assoc`, and the image of a relation under a pair of functions, `Relation.Map`. The core library defines `Equivalence`. The order-theoretic properties of a relation are classes in `Mathlib.Order.Defs.Unbundled`, for example `IsTrans α r` and `IsAntisymm α r`, and Volume 4 uses them for orders.
 
 The bundled equivalence relation `Setoid α` and the theory of partitions are in `Mathlib.Order.Setoid.Basic` and `Mathlib.Order.Setoid.Partition`. There, the equivalence relations on $\alpha$ form a complete lattice, ordered by inclusion, and `Setoid.eqvGen_eq` states that the equivalence closure is the infimum of the equivalence relations that contain $r$, which is the theorem above in the language of lattices.
+
+The module `Mathlib.Logic.Pairwise` defines the statement that a relation holds between any two distinct elements. For $r$ on $\alpha$, `Pairwise r` means $r(i, j)$ for all $i \ne j$, and for a set $s$, `Set.Pairwise s r` means $r(x, y)$ for all $x \ne y$ in $s$. The usual instance is a family of sets that is pairwise disjoint. The statement is often applied to a relation pulled back along a function, `Function.onFun r f`, which relates $i$ and $j$ when $r(f(i), f(j))$. With this notation, `Function.injective_iff_pairwise_ne` states that $f$ is injective if and only if $f(i) \ne f(j)$ for all $i \ne j$. The lemmas `Pairwise.mono` and `Set.Pairwise.imp` weaken the relation, `Pairwise.set_pairwise` restricts to a set, `Pairwise.comp_of_injective` pulls back along an injective map, and `pairwise_fin_succ_iff` splits a statement over `Fin (n + 1)` into the cases with $0$ and the rest. The module `Mathlib.Logic.Equiv.Pairwise` adds `EquivLike.pairwise_comp_iff`: a relation is pairwise true after composition with an equivalence exactly when it is pairwise true.
+
+The modules `Mathlib.Basic.Rel.Cover` and `Mathlib.Basic.Rel.Separated` define two notions for a relation $U$ on $X$, given as `SetRel X X`. A set $N$ is a $U$-*cover* of $s$, written `SetRel.IsCover U s N`, when every $x \in s$ is related by $U$ to some $y \in N$; `SetRel.isCover_iff_subset_iUnion_ball` states this as $s \subseteq \bigcup_{y \in N} U(y)$. A set $s$ is $R$-*separated*, written `SetRel.IsSeparated R s`, when no two distinct elements of $s$ are related by $R$; the definition is `Set.Pairwise` of the negated relation. The two notions meet in `SetRel.IsCover.of_maximal_isSeparated`: for a reflexive and symmetric $U$, a maximal $U$-separated subset $N$ of $s$ is a $U$-cover of $s$. The proof is short. If some $x \in s$ is not $U$-related to any point of $N$, then $x \notin N$ by reflexivity, and $N \cup \{x\}$ is still $U$-separated by symmetry, which contradicts maximality. The metric covers of analysis are the case where $U$ relates two points at a small distance.
+
+The module `Mathlib.Logic.Relator` has the vocabulary for relations between two types that is used to transfer a statement from one type to another. A relation $R \subseteq \alpha \times \beta$ is left total (`Relator.LeftTotal`) when each $a$ is related to some $b$, right unique (`Relator.RightUnique`) when each $a$ is related to at most one $b$, and bi-total and bi-unique (`Relator.BiTotal`, `Relator.BiUnique`) when both sides hold. For relations $R$ on $\alpha \times \beta$ and $S$ on $\gamma \times \delta$, the relation `Relator.LiftFun R S`, with the notation `R ⇒ S`, relates $f : \alpha \to \gamma$ and $g : \beta \to \delta$ when $R(a, b)$ implies $S(f(a), g(b))$. The lemmas `Relator.rel_and`, `Relator.rel_or`, `Relator.rel_not` and `Relator.rel_iff` state that the connectives respect `Iff`, and `Relator.BiTotal.rel_forall` and `Relator.BiTotal.rel_exists` state that the quantifiers respect a bi-total relation.
+
+The modules `Mathlib.Data.Rel`, `Mathlib.Data.Rel.Cover`, `Mathlib.Data.Rel.Separated`, `Mathlib.Data.Setoid.Basic`, `Mathlib.Data.Setoid.Partition` and `Mathlib.Data.Setoid.Partition.Card` have no live declarations. They only import the modules that now hold the same material.
 
 #### Common errors
 

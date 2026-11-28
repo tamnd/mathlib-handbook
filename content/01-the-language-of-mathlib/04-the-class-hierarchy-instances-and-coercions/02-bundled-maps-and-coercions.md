@@ -5,6 +5,15 @@ modules:
   - Mathlib.Basic.FunLike.Basic
   - Mathlib.Basic.FunLike.Embedding
   - Mathlib.Basic.FunLike.Equiv
+  - Mathlib.Data.FunLike.Fintype
+  - Mathlib.Data.FunLike.Basic
+  - Mathlib.Data.FunLike.Embedding
+  - Mathlib.Data.FunLike.Equiv
+  - Mathlib.Data.FunLike.Graded
+  - Mathlib.Data.FunLike.Group
+  - Mathlib.Data.FunLike.IsApply
+  - Mathlib.Data.FunLike.Module
+  - Mathlib.Data.FunLike.Ring
 explains:
   E3: [DFunLike]
   E2: [DFunLike.ext, DFunLike.coe_injective, DFunLike.congr_fun, DFunLike.congr_arg, DFunLike.ext_iff, FunLike, EquivLike, EmbeddingLike, EmbeddingLike.injective]
@@ -119,6 +128,8 @@ The tactic `exact_mod_cast` uses such lemmas, tagged `@[norm_cast]`. It moves th
 ### The library around it
 
 The module `Mathlib.Basic.FunLike.Basic` defines `DFunLike`, `FunLike` and the general lemmas. The modules `Mathlib.Basic.FunLike.Embedding` and `Mathlib.Basic.FunLike.Equiv` define `EmbeddingLike` and `EquivLike`. The homomorphisms of algebra are in `Mathlib.Algebra.Group.Hom.Defs` and `Mathlib.Algebra.Ring.Hom.Defs`, with the hom classes `MonoidHomClass`, `AddMonoidHomClass` and `RingHomClass`, and the lemmas `map_add`, `map_zero`, `map_neg`, `map_sub`, `map_mul` and `map_one`.
+
+The module `Mathlib.Data.FunLike.Fintype` shows that a type of bundled maps between finite types is finite. The lemma `DFunLike.finite` states that `F` is `Finite` when `α` and each `β a` are finite, and `FunLike.finite` is the form for a fixed codomain. The proof is one line: the coercion `F → (a : α) → β a` is injective by `DFunLike.coe_injective`, and a type that injects into a finite type is finite. The definitions `DFunLike.fintype` and `FunLike.fintype` give a `Fintype` structure in the same way. They are definitions and not instances, so a file uses them to build the instance for one kind of map. The other modules `Mathlib.Data.FunLike.Basic`, `Mathlib.Data.FunLike.Embedding`, `Mathlib.Data.FunLike.Equiv`, `Mathlib.Data.FunLike.Graded`, `Mathlib.Data.FunLike.Group`, `Mathlib.Data.FunLike.IsApply`, `Mathlib.Data.FunLike.Module` and `Mathlib.Data.FunLike.Ring` have no live declarations: they only import the modules that now hold the same material.
 
 The casts are in `Mathlib.Data.Nat.Cast.Defs`, `Mathlib.Data.Nat.Cast.Basic` and `Mathlib.Data.Int.Cast.Lemmas`. Their names follow a pattern: `Nat.cast_add`, `Nat.cast_mul`, `Nat.cast_one`, `Nat.cast_zero`, `Nat.cast_inj`, `Nat.cast_le` and `Int.cast_add`. The ring homomorphism that the cast defines is `Nat.castRingHom` or `Int.castRingHom`, and `map_natCast` states that a ring homomorphism commutes with the cast.
 

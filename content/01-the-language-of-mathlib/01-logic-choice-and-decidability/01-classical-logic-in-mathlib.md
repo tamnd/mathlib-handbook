@@ -3,6 +3,7 @@ title: Propositions, proofs and classical logic
 kind: theory
 modules:
   - Mathlib.Basic.Logic.Basic
+  - Mathlib.Basic.Logic.Lemmas
 explains:
   E3: [em, by_contra]
   E2: [by_cases, of_not_not, peirce, Function.mt, not_and_or, imp_iff_not_or]
@@ -166,6 +167,8 @@ The two columns agree, as Theorem (Classical laws), part 2, says. The table is a
 ### The library around it
 
 The module `Mathlib.Basic.Logic.Basic` has about 250 lemmas about the connectives. The names follow the statement: `not_and_or`, `imp_iff_not_or`, `not_imp_not`, `not_iff_not` and `or_iff_not_imp_left`. Many lemmas come in pairs. A lemma with the prefix `Decidable.` proves a classical law for a decidable proposition with no axiom; Section 3 explains decidability. A lemma with no prefix uses the excluded middle. The lemma `by_cases` is the proof by cases on `p ∨ ¬p`: from `p → q` and `¬p → q` it gives `q`. The tactic of the same name, `by_cases h : p`, splits a proof into the two cases.
+
+The module `Mathlib.Basic.Logic.Lemmas` has a few more laws about the biconditional and about nested `if` terms. The lemma `iff_assoc` states that $\leftrightarrow$ is associative: $((a \leftrightarrow b) \leftrightarrow c) \leftrightarrow (a \leftrightarrow (b \leftrightarrow c))$. The lemmas `iff_left_comm` and `iff_right_comm` move a proposition across a nested $\leftrightarrow$. The lemmas `ite_ite_distrib_left` and `ite_ite_distrib_right` exchange the order of two nested `if` tests, and the variants `dite_dite_distrib_left`, `dite_ite_distrib_left` and `ite_dite_distrib_left` do the same when a branch uses the proof of its test. The lemmas `Eq.heq` and `HEq.eq` pass between an equation and a heterogeneous equation of two terms of the same type.
 
 The tactics follow the introduction and use rules. The tactic `intro` introduces an implication or a negation. The tactic `constructor` splits a goal `p ∧ q` or `p ↔ q`. The tactics `left` and `right` choose a side of `p ∨ q`. The tactic `obtain ⟨h₁, h₂⟩ := h` takes a conjunction apart, and `rcases h with h₁ | h₂` argues by cases on a disjunction.
 
