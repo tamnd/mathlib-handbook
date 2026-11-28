@@ -6,4 +6,6 @@ Section 1 defines colourings as homomorphisms to a complete graph, following Mat
 
 Section 2 defines cliques, $n$-cliques, clique-free graphs and independent sets. It then asks how many edges a graph on $n$ vertices can have without a clique of size $r + 1$. The answer is the theorem of Turán: the maximum is attained by the complete $r$-partite graph with parts as equal as possible, and only by it. The case $r = 2$ is the theorem of Mantel, with the bound $n^2/4$ for triangle-free graphs. The section proves Mantel by double counting and Turán by the symmetrisation of Zykov, and introduces the extremal numbers $\operatorname{ex}(n, H)$ of Mathlib.
 
+Section 3 studies complete multipartite graphs: their characterization by the transitivity of non-adjacency, the five-wheel-like structures behind the theorem of Andrásfai, Erdős and Sós, and the asymptotic extremal results: the Turán density, the Zarankiewicz function and the minimum-degree form of the Erdős-Stone theorem.
+
 The chapter needs Chapters 1 and 2, in particular walks and connected components. Chapter 5 returns to cliques and independent sets in Ramsey theory, and Chapter 6 uses triangle-free graphs in the removal lemma.

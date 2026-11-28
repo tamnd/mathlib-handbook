@@ -8,6 +8,10 @@ modules:
   - Mathlib.RingTheory.RootsOfUnity.EnoughRootsOfUnity
   - Mathlib.FieldTheory.KummerPolynomial
   - Mathlib.FieldTheory.KummerExtension
+  - Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+  - Mathlib.RingTheory.RootsOfUnity.Complex
+  - Mathlib.RingTheory.RootsOfUnity.CyclotomicUnits
+  - Mathlib.RingTheory.RootsOfUnity.Lemmas
 explains:
   E3: [rootsOfUnity, IsPrimitiveRoot, IsPrimitiveRoot.autToPow, IsPrimitiveRoot.totient_le_degree_minpoly, irreducible_X_pow_sub_C_of_prime, autEquivRootsOfUnity, exists_root_adjoin_eq_top_of_isCyclic]
   E2: [rootsOfUnity.isCyclic, card_rootsOfUnity, IsPrimitiveRoot.card_rootsOfUnity, primitiveRoots, IsPrimitiveRoot.card_primitiveRoots, IsPrimitiveRoot.pow_of_coprime, IsPrimitiveRoot.isPrimitiveRoot_iff, IsPrimitiveRoot.zmodEquivZPowers, HasEnoughRootsOfUnity, isCyclic_of_isSplittingField_X_pow_sub_C, finrank_of_isSplittingField_X_pow_sub_C, isGalois_of_isSplittingField_X_pow_sub_C, irreducible_X_pow_sub_C_iff_of_prime_pow_of_ne_two]
@@ -148,6 +152,16 @@ For a finite Galois `L/K` with cyclic group and `(primitiveRoots (finrank K L) K
 ### The library around it
 
 The folder `Mathlib.RingTheory.RootsOfUnity` holds the general theory, with the explicit complex roots in `Complex`. The cyclotomic polynomials are in `Mathlib.RingTheory.Polynomial.Cyclotomic`, and the cyclotomic fields and their rings of integers in `Mathlib.NumberTheory.Cyclotomic`. The reference table lists the declarations of the section.
+
+The module `Mathlib.RingTheory.RootsOfUnity.Complex` describes the complex roots of unity. `Complex.isPrimitiveRoot_exp` says that $e^{2\pi i/n}$ is a primitive $n$th root of unity for $n \neq 0$, and `Complex.isPrimitiveRoot_iff` says that the primitive $n$th roots are exactly the numbers $e^{2\pi i k/n}$ with $0 \le k < n$ and $\gcd(k, n) = 1$. Then `Complex.card_rootsOfUnity` and `Complex.card_primitiveRoots` count $n$ and $\varphi(n)$ of them. A root of unity has absolute value $1$ (`Complex.norm_eq_one_of_mem_rootsOfUnity`), so its conjugate is its inverse (`Complex.conj_rootsOfUnity`). The lemmas `IsPrimitiveRoot.arg` and `IsPrimitiveRoot.arg_ext` describe the argument of a primitive root and show that the argument determines the root.
+
+The module `Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed` gives the instances of `HasEnoughRootsOfUnity` for a separably closed field, the separable closure and the algebraic closure, for each $n$ that is nonzero in the field.
+
+The module `Mathlib.RingTheory.RootsOfUnity.CyclotomicUnits` compares the elements $\zeta^j - 1$ for a primitive $n$th root of unity $\zeta$ in a domain. If $j$ is prime to $n$, then $\zeta^j - 1$ and $\zeta - 1$ are associated (`IsPrimitiveRoot.associated_sub_one_pow_sub_one_of_coprime`). *Proof.* The quotient $(\zeta^j - 1)/(\zeta - 1) = 1 + \zeta + \dots + \zeta^{j-1}$ is a polynomial in $\zeta$. Choose $k$ with $jk \equiv 1 \pmod n$. Then $\zeta = (\zeta^j)^k$, and $(\zeta - 1)/(\zeta^j - 1) = 1 + \zeta^j + \dots + \zeta^{j(k-1)}$ is also a polynomial in $\zeta$. So both quotients lie in $\mathbb{Z}[\zeta]$ and they are inverse units. $\square$ The sum $1 + \zeta + \dots + \zeta^{j-1}$ is thus a unit, which is `IsPrimitiveRoot.geom_sum_isUnit`; units of this form are the cyclotomic units. The same module proves `IsPrimitiveRoot.sub_one_dvd_natCast`: $\zeta - 1$ divides $n$ for $n > 1$.
+
+The module `Mathlib.RingTheory.RootsOfUnity.Lemmas` gives the exact product. For a primitive $n$th root $\mu$ in a domain, `IsPrimitiveRoot.prod_one_sub_pow_eq_order` states
+$$\prod_{k=1}^{n-1} (1 - \mu^k) = n.$$
+It follows from the factorization $1 + X + \dots + X^{n-1} = \prod_{k=1}^{n-1}(X - \mu^k)$ at $X = 1$. Then `IsPrimitiveRoot.self_sub_one_pow_dvd_order` says that $(\mu - 1)^k$ divides $n$ in $\mathbb{Z}[\mu]$ for $k < n$, since each factor $1 - \mu^k$ is a multiple of $\mu - 1$.
 
 ### Exercises
 

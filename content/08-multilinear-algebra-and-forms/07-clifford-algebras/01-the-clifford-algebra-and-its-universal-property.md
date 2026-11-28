@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.LinearAlgebra.CliffordAlgebra.Basic
   - Mathlib.LinearAlgebra.CliffordAlgebra.Equivs
+  - Mathlib.LinearAlgebra.CliffordAlgebra.Fold
 explains:
   E3: [CliffordAlgebra, CliffordAlgebra.lift, CliffordAlgebraComplex.equiv, CliffordAlgebraQuaternion.equiv]
   E2: [CliffordAlgebra.ι, CliffordAlgebra.ι_sq_scalar, CliffordAlgebra.ι_mul_ι_add_swap, CliffordAlgebra.ι_mul_ι_add_swap_of_isOrtho, CliffordAlgebra.hom_ext, CliffordAlgebra.map, CliffordAlgebraComplex.Q, CliffordAlgebraQuaternion.Q, CliffordAlgebraQuaternion.quaternionBasis, CliffordAlgebraDualNumber.equiv, CliffordAlgebraRing.equiv]
@@ -195,6 +196,8 @@ The trivial case: the Clifford algebra of the zero form on the zero module `Unit
 ### The library around it
 
 The file `Basic` also holds the induction principle `CliffordAlgebra.induction`. The file `Equivs` gives each example with maps in both directions, such as `toQuaternion` and `ofQuaternion`.
+
+The file `Mathlib.LinearAlgebra.CliffordAlgebra.Fold` specializes the universal property to the algebra `Module.End R N`. Let $f : M \times N \to N$ be bilinear with $f(m, f(m, x)) = Q(m) x$. Then `CliffordAlgebra.foldr Q f hf n` is a linear map on $\mathrm{Cl}(Q)$ that folds $f$ along a product of generators from the right: by `CliffordAlgebra.foldr_prod_map_ι`, its value at $\iota(m_1) \cdots \iota(m_k)$ is $f(m_1, f(m_2, \dots f(m_k, n) \dots))$. The rules `CliffordAlgebra.foldr_ι`, `CliffordAlgebra.foldr_one` and `CliffordAlgebra.foldr_mul` give its values on a generator, on $1$ and on a product. The map `CliffordAlgebra.foldl` folds from the left through the reversion of Section 2 (`CliffordAlgebra.foldl_reverse`), and `CliffordAlgebra.foldr'` also passes the rest of the product to $f$. The same file proves the one-sided induction principles `CliffordAlgebra.left_induction` and `CliffordAlgebra.right_induction`: a property that holds on scalars, is closed under sums, and is kept by multiplication with a generator on one side holds on all of $\mathrm{Cl}(Q)$.
 
 ### Exercises
 

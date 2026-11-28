@@ -15,6 +15,11 @@ modules:
   - Mathlib.Topology.Algebra.Polynomial
   - Mathlib.Topology.Algebra.MvPolynomial
   - Mathlib.Topology.Instances.ZMod
+  - Mathlib.Topology.Algebra.Group.Matrix
+  - Mathlib.Topology.Algebra.Localization
+  - Mathlib.Topology.Instances.TrivSqZeroExt
+  - Mathlib.Topology.Algebra.Algebra.Rat
+  - Mathlib.Topology.Algebra.IntermediateField
 explains:
   E3: [IsTopologicalRing, ContinuousInv₀, IsTopologicalDivisionRing]
   E2: [IsTopologicalSemiring, IsSemitopologicalRing, IsTopologicalRing.of_addGroup_of_nhds_zero, RingTopology, Subring.topologicalClosure, Ideal.closure, Ideal.closure_eq_of_isClosed, topologicalRing_quotient, QuotientRing.isOpenMap_coe, DivisionRing.finite_of_compactSpace_of_t2Space, IsArtinianRing.finite_of_compactSpace_of_t2Space, Ideal.isOpen_of_isMaximal, Continuous.inv₀, Filter.Tendsto.div, Units.isEmbedding_val₀, Subfield.topologicalClosure, instIsTopologicalDivisionRingReal, Rat.isDenseEmbedding_coe_real, Rat.instTotallyDisconnectedSpace, Complex.subfield_eq_of_closed, Matrix.topologicalRing, Continuous.matrix_det, continuousAt_matrix_inv, Polynomial.continuous, Polynomial.continuous_aeval, MvPolynomial.continuous_eval, ZMod.instDiscreteTopology]
@@ -114,6 +119,14 @@ For `[DivisionRing K] [IsTopologicalRing K] [CompactSpace K] [T2Space K]`, the r
 ### The library around it
 
 The classes are in `Mathlib.Topology.Algebra.Ring.Basic`, `Mathlib.Topology.Algebra.GroupWithZero` and `Mathlib.Topology.Algebra.Field`. Ideals and quotient rings are in `Mathlib.Topology.Algebra.Ring.Ideal`, polynomials in `Mathlib.Topology.Algebra.Polynomial` and `Mathlib.Topology.Algebra.MvPolynomial`, and matrices in `Mathlib.Topology.Instances.Matrix`, which gives `Matrix.topologicalRing` and `Continuous.matrix_det`. The inverse of a matrix is continuous at $A$ by `continuousAt_matrix_inv`, under the hypothesis that `Ring.inverse` is continuous at $\det A$. The field $\mathbb{Q}$ is dense in $\mathbb{R}$ (`Rat.isDenseEmbedding_coe_real`) and totally disconnected (`Rat.instTotallyDisconnectedSpace`), and a closed subfield of $\mathbb{C}$ is $\mathbb{R}$ or $\mathbb{C}$ (`Complex.subfield_eq_of_closed`).
+
+Matrix groups are in `Mathlib.Topology.Algebra.Group.Matrix`. The general linear group $GL_n(R)$ is the group of units of the matrix ring, and the special linear group $SL_n(R)$ has the topology of a subspace of the matrices. For a topological commutative ring $R$, $SL_n(R)$ is a topological group (`Matrix.SpecialLinearGroup.isTopologicalGroup`) and the determinant $GL_n(R) \to R^\times$ is continuous (`Matrix.GeneralLinearGroup.continuous_det`). The inclusion $SL_n(R) \to GL_n(R)$ is an embedding (`Matrix.SpecialLinearGroup.isEmbedding_toGL`), and a closed embedding when $R$ is $T_0$ (`Matrix.SpecialLinearGroup.isClosedEmbedding_toGL`). A continuous ring hom $f : R \to S$ induces continuous maps of these groups (`Continuous.generalLinearGroup_map`, `Continuous.specialLinearGroup_map`). The same pattern holds for inducing maps and embeddings, with names such as `Topology.IsEmbedding.specialLinearGroup_map` and `Topology.IsClosedEmbedding.generalLinearGroup_map`. If $R$ is discrete, then $SL_n(R)$ is discrete (`Matrix.SpecialLinearGroup.instDiscreteTopology`), so $SL_2(\mathbb{Z})$ is a discrete group.
+
+The module `Mathlib.Topology.Algebra.Localization` gives the localization $M^{-1}R$ of a topological commutative ring at a submonoid $M$ the finest ring topology that makes $R \to M^{-1}R$ continuous (`Localization.ringTopology`). With it, $M^{-1}R$ is a topological ring (`instIsTopologicalRingLocalization`).
+
+The module `Mathlib.Topology.Instances.TrivSqZeroExt` treats the trivial square zero extension $R \oplus M$ of a ring $R$ by a bimodule $M$, with the product $(r, m)(r', m') = (rr', rm' + mr')$. Its topology and its uniformity are those of the product $R \times M$ (`TrivSqZeroExt.nhds_def`, `TrivSqZeroExt.uniformity_def`). So the projections and the inclusions are continuous (`TrivSqZeroExt.continuous_fst`, `TrivSqZeroExt.continuous_snd`, `TrivSqZeroExt.continuous_inl`, `TrivSqZeroExt.continuous_inr`), and over a commutative ring they are bundled as continuous linear maps (`TrivSqZeroExt.fstCLM`, `TrivSqZeroExt.sndCLM`, `TrivSqZeroExt.inlCLM`, `TrivSqZeroExt.inrCLM`). The extension is a topological semiring when $R$ is one, addition on $M$ is continuous and the two actions of $R$ on $M$ are continuous (`TrivSqZeroExt.topologicalSemiring`). Sums are computed in each component (`TrivSqZeroExt.hasSum_fst`, `TrivSqZeroExt.hasSum_snd`, `TrivSqZeroExt.hasSum_inl`, `TrivSqZeroExt.hasSum_inr`), and the extension of complete spaces is complete (`TrivSqZeroExt.instCompleteSpace`). The dual numbers $R[\varepsilon]$ with $\varepsilon^2 = 0$ are the case $M = R$.
+
+Two small modules concern fields. In `Mathlib.Topology.Algebra.Algebra.Rat`, the multiplication by a fixed rational number is continuous on a division ring of characteristic zero with separately continuous multiplication (`DivisionRing.continuousConstSMul_rat`). In `Mathlib.Topology.Algebra.IntermediateField`, an intermediate field $K \le E \le L$ acts continuously on each space on which $L$ acts continuously (`IntermediateField.continuousSMul`).
 
 ### Exercises
 

@@ -13,6 +13,8 @@ modules:
   - Mathlib.Probability.Distributions.Geometric
   - Mathlib.Probability.Distributions.Poisson.Basic
   - Mathlib.Probability.Distributions.Poisson.PoissonLimitThm
+  - Mathlib.Probability.Distributions.SetBernoulli
+  - Mathlib.Probability.Combinatorics.BinomialRandomGraph.Defs
 explains:
   E3: [PMF, PMF.toMeasure, ProbabilityTheory.bernoulliMeasure, ProbabilityTheory.binomial, ProbabilityTheory.geometricMeasure, ProbabilityTheory.poissonMeasure, ProbabilityTheory.tendsto_choose_mul_pow_of_tendsto_mul_atTop]
   E2: [PMF.tsum_coe, PMF.toMeasure_apply, PMF.support, PMF.pure, PMF.bind, PMF.map, PMF.ofFinset, PMF.ofFintype, PMF.integral_eq_tsum, ProbabilityTheory.binomial_singleton, ProbabilityTheory.binomial_one_eq_bernoulliMeasure, ProbabilityTheory.integral_binomial, ProbabilityTheory.geometricMeasure_singleton, ProbabilityTheory.poissonMeasure_singleton, ProbabilityTheory.poissonMeasure_conv_poissonMeasure, ProbabilityTheory.IndepFun.hasLaw_add_poissonMeasure, ProbabilityTheory.hasLaw_indicator_one_bernoulliMeasure, ProbabilityTheory.variance_of_ae_eq_zero_or_one]
@@ -152,6 +154,10 @@ For `p : ℕ → ℝ` with `Tendsto (fun n ↦ n * p n) atTop (𝓝 r)`: `Tendst
 ### The library around it
 
 `PMF` is the older of the two descriptions. Its files have the monad laws (`PMF.pure_bind`, `PMF.bind_pure`). In this edition Mathlib moves the named laws from `PMF` to measures: the uniform mass functions on finite sets and the Bernoulli and binomial mass functions are deprecated, and their replacements are `Measure.uniformOfFinset`, `bernoulliMeasure` and `binomial`. The named laws on `ℕ` are newer and have a uniform API: the mass of a singleton (`_singleton`, `_real_singleton`), the integral as a sum (`integral_binomial`, `integral_geometricMeasure`, `integral_poissonMeasure`), the integrability (`integrable_poissonMeasure_iff`) and the image in a semiring by `Nat.cast` (`map_cast_binomial_eq_sum_dirac`).
+
+The module `Mathlib.Probability.Distributions.SetBernoulli` defines `ProbabilityTheory.setBernoulli` $u$ $p$, with the notation `setBer(u, p)`. It is a measure on the subsets of a type $\iota$: each element of $u$ is in the random set with probability $p$, independently, and no element outside $u$ is in it. It is the image of an infinite product of Bernoulli laws, and `ProbabilityTheory.setBernoulli_apply` computes it in this form. The random set is a subset of $u$ almost surely, by `ProbabilityTheory.setBernoulli_ae_subset`. When $u$ is finite and $s \subseteq u$, `ProbabilityTheory.setBernoulli_singleton` gives the mass $p^{|s|} (1 - p)^{|u \setminus s|}$, and `ProbabilityTheory.map_ncard_setBernoulli_apply` describes the law of the number of elements, which is binomial. The predicate `ProbabilityTheory.IsSetBernoulli` says that a random set has this law. The parameter $p$ is in the unit interval `unitInterval`, so a computation often needs a cast to $[0, \infty]$.
+
+The module `Mathlib.Probability.Combinatorics.BinomialRandomGraph.Defs` uses it to define the binomial random graph `SimpleGraph.binomialRandom` $V$ $p$, with the notation `G(V, p)`. It is a measure on the simple graphs on $V$ in which each possible edge is present with probability $p$, independently. The theorem `SimpleGraph.binomialRandom_eq_map` writes it as the image of the set Bernoulli measure on the nondiagonal pairs under the map from edge sets to graphs, and `SimpleGraph.binomialRandom_apply` computes it with the product of Bernoulli laws.
 
 Common errors of a learner:
 

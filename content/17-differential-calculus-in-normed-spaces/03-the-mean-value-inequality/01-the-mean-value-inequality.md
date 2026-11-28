@@ -3,6 +3,7 @@ title: The mean value inequality
 kind: theory
 modules:
   - Mathlib.Analysis.Calculus.FDeriv.Norm
+  - Mathlib.Analysis.ConstantSpeed
 explains:
   E3: []
   E2: [not_differentiableAt_norm_zero, norm_fderiv_norm, DifferentiableAt.fderiv_norm_self, fderiv_norm_smul, differentiableAt_norm_smul]
@@ -139,6 +140,8 @@ The connectedness is needed: on $U = (0, 1) \cup (2, 3)$ the function equal to $
 ### The library around it
 
 The file `Calculus.MeanValue` has its home in Volume 15. It contains the comparison principles for right derivatives, the inequality on segments and on convex sets in all the forms of the derivative, and the theorems on zero derivatives.
+
+The file `Analysis.ConstantSpeed` uses the variation of a path, not its derivative, to measure speed. `HasConstantSpeedOnWith f s l` states that on each interval $[x, y]$ with $x, y \in s$, the variation of $f$ on $s \cap [x, y]$ is $l(y - x)$, and `HasUnitSpeedOn f s` is the case $l = 1$. The main result is `has_unit_speed_naturalParameterization`: a path of locally bounded variation has a unit-speed reparametrization, `naturalParameterization f s a`. `unique_unit_speed` states that this parametrization is unique up to translation among monotone changes of variable. `HasConstantSpeedOnWith.Icc_Icc` glues two adjacent intervals.
 
 Common errors of a learner:
 

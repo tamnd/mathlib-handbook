@@ -2,6 +2,7 @@
 title: Vector fields and the Lie bracket
 kind: theory
 modules:
+  - Mathlib.Geometry.Manifold.VectorBundle.SmoothSection
   - Mathlib.Geometry.Manifold.VectorBundle.ContMDiffSection
   - Mathlib.Analysis.Calculus.VectorField
   - Mathlib.Geometry.Manifold.VectorField.Pullback

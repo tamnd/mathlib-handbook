@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.Probability.Kernel.Condexp
   - Mathlib.Probability.Independence.Conditional
+  - Mathlib.Probability.Kernel.Proper
 explains:
   E3: [ProbabilityTheory.condExpKernel, ProbabilityTheory.condExp_ae_eq_integral_condExpKernel, ProbabilityTheory.CondIndep, ProbabilityTheory.CondIndepFun, ProbabilityTheory.condIndepFun_iff_condExp_inter_preimage_eq_mul]
   E2: [ProbabilityTheory.condExpKernel_ae_eq_condExp, ProbabilityTheory.compProd_trim_condExpKernel, ProbabilityTheory.condExpKernel_singleton_ae_eq_cond, ProbabilityTheory.instIsMarkovKernelCondExpKernel, ProbabilityTheory.CondIndepSet, ProbabilityTheory.condIndepSet_iff, ProbabilityTheory.condIndep_iff, ProbabilityTheory.iCondIndep, ProbabilityTheory.iCondIndepFun, ProbabilityTheory.CondIndepFun.comp, ProbabilityTheory.CondIndepFun.symm, ProbabilityTheory.condIndepFun_iff_map_prod_eq_prod_condDistrib_prod_condDistrib]
@@ -106,6 +107,8 @@ For measurable `f` and `g`, `CondIndepFun m' hm' f g μ` is equivalent to `μ[(f
 ### The library around it
 
 `Mathlib.Probability.Kernel.Condexp` has the kernel `condExpKernel`, its measurability and integrability lemmas, and the identification with `condExp`. `Mathlib.Probability.Independence.Conditional` repeats the theory of Chapter 2 for conditional independence: π-systems (`CondIndepSets.condIndep`), unions of σ-algebras (`condIndep_iSup_of_disjoint`), finite families (`iCondIndepFun.condIndepFun_finset`) and the algebraic rules (`iCondIndepFun.indepFun_add_left`). The general theory of kernels, which this section uses, is in Chapter 8. The independence of Chapter 2 is the special case where the conditioning σ-algebra is trivial.
+
+The module `Mathlib.Probability.Kernel.Proper` defines `ProbabilityTheory.Kernel.IsProper` for a kernel from a space with a $\sigma$-algebra $\mathcal{B}$ to the same space with a finer $\sigma$-algebra $\mathcal{X}$. The kernel $\pi$ is proper if the restriction of $\pi(x)$ to each $B \in \mathcal{B}$ is $1_B(x) \, \pi(x)$, so a $\mathcal{B}$-measurable event is known at the start. The criteria `ProbabilityTheory.Kernel.isProper_iff_restrict_eq_indicator_smul` and `ProbabilityTheory.Kernel.isProper_iff_inter_eq_indicator_mul` give two forms of the definition, and `ProbabilityTheory.Kernel.IsProper.lintegral_mul` gives the integral form $\int g f \, d\pi(x_0) = g(x_0) \int f \, d\pi(x_0)$ for $\mathcal{B}$-measurable $g$. The condition says that a $\mathcal{B}$-measurable factor comes out of the integral, as it comes out of a conditional expectation, and it is the condition under which a kernel can be restricted to an event.
 
 Common errors of a learner:
 

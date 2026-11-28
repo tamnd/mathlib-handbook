@@ -5,6 +5,7 @@ modules:
   - Mathlib.FieldTheory.IntermediateField.Basic
   - Mathlib.FieldTheory.IntermediateField.Adjoin.Defs
   - Mathlib.FieldTheory.PrimeField
+  - Mathlib.FieldTheory.IntermediateField.ExtendRight
 explains:
   E3: [IntermediateField, IntermediateField.adjoin, IntermediateField.adjoin_le_iff, IntermediateField.adjoin_simple_adjoin_simple, Subfield.botEquivRat]
   E2: [IntermediateField.toSubalgebra, IntermediateField.restrictScalars, IntermediateField.botEquiv, IntermediateField.topEquiv, IntermediateField.mem_bot, IntermediateField.subset_adjoin, IntermediateField.mem_adjoin_simple_self, IntermediateField.gc, IntermediateField.adjoin_adjoin_left, IntermediateField.sup_def, IntermediateField.mem_adjoin_iff_div, Subfield.botEquivZMod, Subfield.bot_eq_of_charZero, AlgHom.fieldRange, IntermediateField.algebraMap_mem]
@@ -133,6 +134,8 @@ For instance $(\sqrt 2 + \sqrt 3)^{-1} = \sqrt 3 - \sqrt 2$, because $(\sqrt 3 +
 ### The library around it
 
 An `IntermediateField K L` coerces to a type that is again a field, and the instances `Algebra K ↥E`, `Algebra ↥E L` and `IsScalarTower K ↥E L` exist. The isomorphisms `IntermediateField.botEquiv K L : ↥⊥ ≃ₐ[K] K` and `IntermediateField.topEquiv : ↥⊤ ≃ₐ[K] L` move a statement about `⊥` or `⊤` to one about `K` or `L`. An algebra map `f : E →ₐ[K] L` of fields has an image `f.fieldRange : IntermediateField K L`.
+
+The module `Mathlib.FieldTheory.IntermediateField.ExtendRight` moves an intermediate field up a tower. Let $K \subseteq L \subseteq M$ be a tower and let `F : IntermediateField K L`. Then `IntermediateField.extendRight F M` is the image of $F$ under the map $L \to M$, an intermediate field of $M/K$. The isomorphism `IntermediateField.extendRightEquiv F M : ↥F ≃ₐ[K] ↥(F.extendRight M)` identifies it with $F$, and `IntermediateField.coe_extendRightEquiv` says that it sends $a$ to the image of $a$ in $M$. The variant `IntermediateField.extendRightEquiv'` is linear over a larger ring of scalars. A typical use puts a subextension of $L/K$ inside an extension $M/K$ with a better property, for example a Galois extension.
 
 **Common errors.** `K(α)` with ordinary parentheses is a function application; write `K⟮α⟯`. Intermediate fields over `K⟮α⟯` and over `K` need `restrictScalars` before `=`.
 

@@ -1,7 +1,8 @@
 ---
 title: The shape of the library
 kind: guide
-modules: []
+modules:
+  - Mathlib.Init
 explains: {}
 families: []
 requires: []
@@ -39,6 +40,8 @@ The folders below `Mathlib/` follow the areas of mathematics. The main ones are 
 Inside a folder, the file names follow a habit. A file `Defs.lean` has the definitions of an area with the first few lemmas. A file `Basic.lean` has the basic theory. Other files have a name for their topic: `Infinite.lean` in `Mathlib/Data/Nat/Prime/` has the theorem of Euclid on the infinitude of the primes. The habit keeps the first files small, so that a file which needs only the definition of a prime imports little.
 
 A module can use a declaration of another module only after it imports that module. The first lines of a file list the imports. A file of the user usually starts with `import Mathlib`, which imports all of Mathlib. That is simple, and it makes the start of Lean slower. The files of Mathlib itself import only what they need.
+
+The root of this import graph is the module `Mathlib.Init`: nearly every file of Mathlib imports it, directly or through other files, and it makes the style linters of Mathlib and commands such as `#help` and `proof_wanted` available in every file.
 
 ### How a file starts
 

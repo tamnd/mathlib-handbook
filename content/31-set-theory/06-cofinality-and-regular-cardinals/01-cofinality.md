@@ -5,6 +5,8 @@ modules:
   - Mathlib.SetTheory.Cardinal.Cofinality.Basic
   - Mathlib.SetTheory.Cardinal.Cofinality.Ordinal
   - Mathlib.SetTheory.Cardinal.Cofinality.Enum
+  - Mathlib.SetTheory.Cardinal.Cofinality
+  - Mathlib.SetTheory.Cardinal.Cofinality.Club
 explains:
   E3: [Order.cof, Ordinal.cof, Ordinal.exists_ord_cof_eq, Cardinal.lt_power_cof_ord, Order.enum]
   E2: [Order.cof_le, Order.le_cof_iff, Order.cof_le_cardinalMk, Order.cof_eq_one_iff, Order.cof_lt_aleph0_iff, Order.cof_congr_of_strictMono, Order.cof_nat, Ordinal.cof_le_card, Ordinal.cof_add_one, Ordinal.one_lt_cof_iff, Ordinal.cof_omega0, Ordinal.cof_ord_cof, Ordinal.cof_add, Ordinal.cof_map_of_isNormal, Ordinal.iSup_lt_of_lt_cof, Ordinal.cof_omega, Cardinal.lt_cof_ord_power, Order.type_eq_of_isCofinal, IsRegularCardinalOrder]
@@ -153,6 +155,10 @@ For a well-order `α` with `[IsRegularCardinalOrder α]` and a cofinal set `s`, 
 :::
 
 <?decl IsRegularCardinalOrder?>
+
+The module `Mathlib.SetTheory.Cardinal.Cofinality.Club` treats closed unbounded sets. For a linear order `α`, the structure `IsClub s` holds when `s` is closed under directed suprema and cofinal: `isClub_iff : IsClub s ↔ DirSupClosed s ∧ IsCofinal s`. The closure is stated with `DirSupClosed`, so the file needs no topology. A set is stationary, `IsStationary s`, when it meets each club set, and `not_isStationary_iff` says that a set is not stationary if and only if it is disjoint from some club set. The intersection lemmas need the hypothesis $\operatorname{cf} \alpha \ne \aleph_0$: `IsClub.inter` gives the intersection of two club sets, `IsClub.iInter` and `IsClub.sInter` give the intersection of fewer than $\operatorname{cf} \alpha$ club sets, and `IsClub.iInter_of_countable` gives the countable case. The hypothesis is necessary. In $\omega$ the even numbers and the odd numbers are both closed and cofinal, because each nonempty bounded subset of $\omega$ has a largest element, and they are disjoint. The dual lemmas for stationary sets are `isStationary_union_iff` and `isStationary_iUnion_iff`. Normal functions give club sets: `Order.IsNormal.isClub_range` and, again under $\operatorname{cf} \alpha \ne \aleph_0$, `Order.IsNormal.isClub_fixedPoints`, and `Order.isNormal_iff_isClub_range` is the converse for a strictly monotone function. Conversely, `Order.isNormal_enum_iff_isClub` says that the enumeration `Order.enum` of a cofinal set is normal if and only if the set is a club set.
+
+For a regular order `α` with $\operatorname{cf} \alpha \ne \aleph_0$, the diagonal intersection of a family of club sets is a club set, by `IsClub.diag`. The pressing down lemma of Fodor follows: if `s` is stationary and $f(x) < x$ for each $x \in s$, then $f$ is constant on a stationary subset of `s`. In Lean this is `exists_isStationary_preimage_singleton`, with the conclusion `∃ a, IsStationary (s ∩ f ⁻¹' {a})`. The module `Mathlib.SetTheory.Cardinal.Cofinality` is a deprecated stub that only imports other files.
 
 Common errors:
 

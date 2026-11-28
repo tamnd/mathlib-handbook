@@ -6,6 +6,9 @@ modules:
   - Mathlib.Analysis.Analytic.ConvergenceRadius
   - Mathlib.Analysis.Analytic.Basic
   - Mathlib.Analysis.Analytic.OfScalars
+  - Mathlib.Analysis.Analytic.RadiusLiminf
+  - Mathlib.Analysis.Analytic.Binomial
+  - Mathlib.Analysis.Analytic.Within
 explains:
   E3: [FormalMultilinearSeries, FormalMultilinearSeries.radius, HasFPowerSeriesOnBall, AnalyticAt]
   E2: [FormalMultilinearSeries.le_radius_of_bound, FormalMultilinearSeries.summable_norm_mul_pow, FormalMultilinearSeries.not_summable_norm_of_radius_lt_nnNorm, HasFPowerSeriesAt, AnalyticOnNhd, FormalMultilinearSeries.ofScalars, FormalMultilinearSeries.ofScalars_radius_eq_inv_of_tendsto, AnalyticAt.continuousAt, HasFPowerSeriesOnBall.coeff_zero, FormalMultilinearSeries.radius_eq_top_of_forall_image_add_eq_zero]
@@ -159,6 +162,12 @@ So $f$ has the expansion $p_0 = B(x, x)$, $p_1(y) = B(x, y) + B(y, x)$, $p_2 = B
 ### The library around it
 
 The type is in `Mathlib.Analysis.Calculus.FormalMultilinearSeries`, the radius and the sum `p.sum` in `Mathlib.Analysis.Analytic.ConvergenceRadius`, and the expansions in `Mathlib.Analysis.Analytic.Basic`. The predicates come in a family: `HasFPowerSeriesOnBall`, `HasFPowerSeriesAt`, `AnalyticAt`, `AnalyticOnNhd`, and their versions within a set.
+
+The module `Mathlib.Analysis.Analytic.RadiusLiminf` holds the formula of Cauchy and Hadamard above, `FormalMultilinearSeries.radius_eq_liminf`, and its form for the inverse, `FormalMultilinearSeries.radius_inv_eq_limsup`: $1/R = \limsup_n \|p_n\|^{1/n}$.
+
+The module `Mathlib.Analysis.Analytic.Binomial` gives the binomial series. For a field $\mathbb{K}$ of characteristic $0$ and a $\mathbb{K}$-algebra $\mathbb{A}$, `binomialSeries 𝔸 a` has the term of degree $n$ equal to $\binom{a}{n} x^n$, with the generalized binomial coefficient `Ring.choose a n` (`binomialSeries_apply`). Its radius is at least $1$ (`binomialSeries_radius_ge_one`), exactly $1$ when $a$ is not a natural number (`binomialSeries_radius_eq_one`), and $\infty$ when it is (`binomialSeries_radius_eq_top_of_nat`). Over $\mathbb{R}$ and $\mathbb{C}$ it is the series of $(1 + x)^a$ on the unit ball: `Real.one_add_rpow_hasFPowerSeriesOnBall_zero` and `Complex.one_add_cpow_hasFPowerSeriesOnBall_zero`. The module also gives the series at $0$ of $1/(r - x)$, $1/(r - x)^2$ and $1/(r - x)^{a+1}$, for example `Real.one_div_sub_hasFPowerSeriesOnBall_zero` with radius $|r|$, and it writes the binomial series as a hypergeometric series (`binomialSeries_eq_ordinaryHypergeometricSeries`).
+
+The module `Mathlib.Analysis.Analytic.Within` explains the versions within a set by the versions at a point. A function is analytic within $s$ at $x$ if and only if it agrees near $x$ in $s \cup \{x\}$ with a function that is analytic at $x$ (`analyticWithinAt_iff_exists_analyticAt`); the same holds for power series (`hasFPowerSeriesWithinAt_iff_exists_hasFPowerSeriesAt`). On an open set the two notions agree: `IsOpen.analyticOn_iff_analyticOnNhd`. Analyticity within $s$ is local: `analyticOn_of_locally_analyticOn`, and `AnalyticWithinAt.eventually_analyticWithinAt` says that it holds at all points of $s$ near $x$. Most of these results need $F$ complete.
 
 Common errors of a learner:
 

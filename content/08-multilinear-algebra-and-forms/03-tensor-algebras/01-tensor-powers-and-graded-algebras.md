@@ -11,6 +11,8 @@ modules:
   - Mathlib.Algebra.DirectSum.Ring
   - Mathlib.Algebra.DirectSum.Decomposition
   - Mathlib.Algebra.GradedMonoid
+  - Mathlib.LinearAlgebra.DirectSum.Basis
+  - Mathlib.LinearAlgebra.DirectSum.Finite
 explains:
   E3: [PiTensorProduct, PiTensorProduct.lift, TensorPower, DirectSum]
   E2: [PiTensorProduct.tprod, Basis.piTensorProduct, TensorPower.mulEquiv, DirectSum.lof, DirectSum.toModule, GradedMonoid.GMonoid, SetLike.GradedMonoid, DirectSum.Decomposition]
@@ -179,7 +181,7 @@ The map `toModule R ι N g : (⨁ i, M i) →ₗ[R] N`. The value on `lof R ι M
 
 ### The library around it
 
-The instances `TensorPower.gmonoid` and `TensorPower.galgebra` make the tensor powers a graded algebra. Internal gradings, with `GradedAlgebra`, are in `Mathlib.RingTheory.GradedAlgebra.Basic`.
+The instances `TensorPower.gmonoid` and `TensorPower.galgebra` make the tensor powers a graded algebra. Internal gradings, with `GradedAlgebra`, are in `Mathlib.RingTheory.GradedAlgebra.Basic`. A direct sum of free modules is free by the instance `Module.Free.directSum`, and a direct sum of finitely many finite modules is finite by `Module.Finite.instDirectSum`, with the same result `Module.Finite.instDFinsupp` for the type `Π₀ i, M i`.
 
 ### Exercises
 

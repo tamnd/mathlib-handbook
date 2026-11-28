@@ -7,6 +7,8 @@ modules:
   - Mathlib.Analysis.SpecialFunctions.Gamma.BohrMollerup
   - Mathlib.Analysis.SpecialFunctions.Gamma.Digamma
   - Mathlib.Analysis.Meromorphic.Complex
+  - Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral
+  - Mathlib.Analysis.SpecialFunctions.Stirling
 explains:
   E3: [Complex.Gamma, Complex.GammaIntegral, Complex.GammaIntegral_convergent, Complex.Gamma_add_one, Complex.Gamma_nat_eq_factorial, Complex.differentiableAt_Gamma, Real.convexOn_log_Gamma, Real.BohrMollerup.tendsto_logGammaSeq, Complex.digamma]
   E2: [Complex.partialGamma, Complex.partialGamma_add_one, Complex.tendsto_partialGamma, Complex.GammaIntegral_add_one, Complex.Gamma_eq_integral, Complex.Gamma_zero, Complex.Gamma_neg_nat_eq_zero, Complex.Gamma_conj, Complex.Gamma_ofReal, Real.Gamma, Real.Gamma_pos_of_pos, Complex.hasDerivAt_Gamma_of_re_pos, Complex.tendsto_self_mul_Gamma_nhds_zero, Complex.not_continuousAt_Gamma_neg_nat, Real.Gamma_mul_add_mul_le_rpow_Gamma_mul_rpow_Gamma, Real.BohrMollerup.logGammaSeq, Real.BohrMollerup.f_add_nat_le, Real.BohrMollerup.f_add_nat_ge, Real.BohrMollerup.tendsto_log_gamma, Complex.digamma_def, Complex.digamma_apply_add_one, Complex.digamma_one, Complex.digamma_nat_add_one, Meromorphic.Gamma, MeromorphicNFOn.Gamma]
@@ -164,6 +166,8 @@ The value is in the file of the Gaussian integral.
 ### The library around it
 
 The files follow the order of this section: `Gamma.Basic`, `Gamma.Deriv`, `Gamma.BohrMollerup` and `Gamma.Digamma`.
+
+The module `Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral` proves the Gaussian integral and its consequences for $\Gamma$. The theorem `integral_gaussian` gives $\int_{\mathbb{R}} e^{-bx^2}\,dx = \sqrt{\pi/b}$, and `integral_gaussian_complex` gives $(\pi/b)^{1/2}$ for $\operatorname{Re} b > 0$, with the principal branch of the square root. The proof computes the square of the integral in polar coordinates, by `integral_gaussian_sq_complex`. The integrability lemmas `integrable_exp_neg_mul_sq` and `integrableOn_rpow_mul_exp_neg_rpow` cover the integrands $x^s e^{-bx^p}$, and `integrable_exp_neg_mul_sq_iff` says that $e^{-bx^2}$ is integrable if and only if $b > 0$. The substitution $t = x^2$ in the Euler integral gives `Real.Gamma_one_half_eq` and `Complex.Gamma_one_half_eq`, and `Real.Gamma_nat_add_half` gives $\Gamma(k + 1/2) = (2k - 1)!! \sqrt{\pi}/2^k$. The module `Mathlib.Analysis.SpecialFunctions.Stirling` proves Stirling's formula for $n!$. It defines `Stirling.stirlingSeq` $n = n!/(\sqrt{2n}(n/e)^n)$, proves that the sequence decreases and is bounded below by a positive constant, and finds its limit $\sqrt{\pi}$ with the Wallis product. This is `Stirling.tendsto_stirlingSeq_sqrt_pi`. The asymptotic form is `Stirling.factorial_isEquivalent_stirling`, $n! \sim \sqrt{2\pi n}(n/e)^n$, and `Stirling.le_factorial_stirling` is the lower bound $\sqrt{2\pi n}(n/e)^n \le n!$ for all $n$.
 
 Common errors of a learner:
 

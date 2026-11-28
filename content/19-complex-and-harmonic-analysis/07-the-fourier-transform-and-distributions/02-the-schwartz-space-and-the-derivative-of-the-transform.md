@@ -7,6 +7,8 @@ modules:
   - Mathlib.Analysis.Distribution.SchwartzSpace.Fourier
   - Mathlib.Analysis.Fourier.FourierTransformDeriv
   - Mathlib.Analysis.Distribution.TemperateGrowth
+  - Mathlib.Analysis.SpecialFunctions.Gaussian.FourierTransform
+  - Mathlib.Analysis.Distribution.SchwartzSpace.CompactSupport
 explains:
   E3: [SchwartzMap, SchwartzMap.seminorm, Real.fourier_deriv, Real.deriv_fourier, SchwartzMap.fourierTransformCLM, Function.HasTemperateGrowth]
   E2: [SchwartzMap.decay, schwartzSeminormFamily, schwartz_withSeminorms, SchwartzMap.integrable, SchwartzMap.denseRange_toLpCLM, SchwartzMap.derivCLM, SchwartzMap.fderivCLM, SchwartzMap.integral_mul_deriv_eq_neg_deriv_mul, Real.hasDerivAt_fourier, Real.fourier_fderiv, Real.fderiv_fourier, VectorFourier.fourierSMulRight, SchwartzMap.fourier_coe, SchwartzMap.instFourierPair, SchwartzMap.fourier_fderivCLM_eq, SchwartzMap.integral_norm_sq_fourier, HasCompactSupport.hasTemperateGrowth, MeasureTheory.Measure.HasTemperateGrowth]
@@ -162,6 +164,8 @@ For `b : ℂ` with `0 < b.re`, `𝓕 (fun x ↦ cexp (-π * b * x ^ 2)) = fun t 
 ### The library around it
 
 Differentiation is a continuous linear map on Schwartz space, and integration by parts has no boundary terms (box below).
+
+The Gaussian is the main example of a Schwartz function, and the module `Mathlib.Analysis.SpecialFunctions.Gaussian.FourierTransform` computes its transform. The proof moves the line of integration from $\mathbb{R}$ to $\mathbb{R} + ic$ by the Cauchy theorem on a rectangle. The function `GaussianFourier.verticalIntegral` is the integral over the two vertical sides, and `GaussianFourier.tendsto_verticalIntegral` shows that it tends to $0$. The result is `GaussianFourier.integral_cexp_neg_mul_sq_add_real_mul_I`, and its consequence `integral_cexp_quadratic` gives $\int e^{bx^2 + cx + d}\,dx = (\pi/(-b))^{1/2} e^{d - c^2/(4b)}$ for $\operatorname{Re} b < 0$. The theorem `fourierIntegral_gaussian` gives the transform with the kernel $e^{itx}$, and `fourier_gaussian_pi` and `fourier_gaussian_pi'` give it with the kernel of Mathlib. In a finite dimensional inner product space $V$, `GaussianFourier.integral_cexp_neg_mul_sq_norm` gives $\int_V e^{-b\|v\|^2}\,dv = (\pi/b)^{\dim V/2}$, and `fourier_gaussian_innerProductSpace` gives the transform. The module `Mathlib.Analysis.Distribution.SchwartzSpace.CompactSupport` proves `SchwartzMap.dense_hasCompactSupport`: on a finite dimensional space, the Schwartz functions with compact support are dense in the Schwartz space. The proof multiplies $f$ by a cutoff $\varphi(\varepsilon x)$ and lets $\varepsilon \to 0$, by `SchwartzMap.tendsto_smulLeftCLM_comp_smul`.
 
 Common errors of a learner:
 

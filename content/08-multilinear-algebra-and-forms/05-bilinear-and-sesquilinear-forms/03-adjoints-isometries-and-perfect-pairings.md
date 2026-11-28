@@ -6,6 +6,8 @@ modules:
   - Mathlib.LinearAlgebra.BilinearForm.Isometry
   - Mathlib.LinearAlgebra.BilinearForm.IsometryEquiv
   - Mathlib.LinearAlgebra.PerfectPairing.Basic
+  - Mathlib.LinearAlgebra.PerfectPairing.Restrict
+  - Mathlib.LinearAlgebra.BilinearForm.DualLattice
 explains:
   E3: [LinearMap.BilinForm.IsometryEquiv, LinearMap.IsPerfPair]
   E2: [LinearMap.BilinForm.comp, LinearMap.BilinForm.congr, LinearMap.BilinForm.compLeft, LinearMap.BilinForm.Isometry, LinearMap.BilinForm.Equivalent, LinearMap.BilinForm.isometryEquivOfCompLinearEquiv, LinearMap.BilinForm.ext_basis, LinearMap.BilinForm.sum_repr_mul_repr_mul, LinearMap.toPerfPair, LinearMap.IsPerfPair.of_injective, LinearMap.IsPerfPair.nondegenerate, Module.finrank_of_isPerfPair, LinearMap.IsPerfPair.dualEval]
@@ -161,6 +163,10 @@ So $\Phi$ is self-adjoint exactly when $c = -b$, not when $\Phi$ is symmetric.
 ### The library around it
 
 The pullbacks and basis lemmas are in `Mathlib.LinearAlgebra.BilinearForm.Hom`, the isometries in the two isometry files, the adjoints in the files of Section 1. Chapter 6 repeats the isometries for quadratic forms.
+
+The file `Mathlib.LinearAlgebra.PerfectPairing.Restrict` restricts perfect pairings. Let $p : M \times N \to R$ be perfect, and let $M' \to M$ and $N' \to N$ be injective maps whose images are perfect complements for $p$ in the sense of `LinearMap.IsPerfectCompl`. Then the restricted pairing on $M' \times N'$ is perfect (`LinearMap.IsPerfPair.restrict`). The lemma `LinearMap.IsPerfPair.restrictScalars` restricts the scalars to a subring $S$ of $R$, under conditions of spanning and of values in $S$. Over fields the statement is simpler. Let $p$ be perfect over a field $L$, let $K \subseteq L$ be a subfield, and let $M'$ and $N'$ be $K$-subspaces that span $M$ and $N$ over $L$, with $p(x, y) \in K$ for $x \in M'$ and $y \in N'$. Then $\dim_K M' = \dim_L M$ (`LinearMap.finrank_eq_of_isPerfPair`), and `LinearMap.IsPerfPair.restrictScalars_of_field` gives the perfect $K$-pairing on these subspaces.
+
+The file `Mathlib.LinearAlgebra.BilinearForm.DualLattice` defines the dual of a lattice. Let $B$ be a bilinear form on a vector space $M$ over a field $S$ that is an $R$-algebra, for example $R = \mathbb{Z}$ and $S = \mathbb{Q}$. For an $R$-submodule $N$, `LinearMap.BilinForm.dualSubmodule B N` is the $R$-submodule of the $x$ with $B(x, y) \in R$ for all $y \in N$ (`LinearMap.BilinForm.mem_dualSubmodule`). If $B$ is nondegenerate and $N$ is the $R$-span of a basis $b$, then the dual of $N$ is the $R$-span of the dual basis of $b$ (`LinearMap.BilinForm.dualSubmodule_span_of_basis`). For a symmetric $B$ the dual of the dual is $N$ again (`LinearMap.BilinForm.dualSubmodule_dualSubmodule_of_basis`). For example, for $B(x, y) = 2 x y$ on $\mathbb{Q}$ the dual of $\mathbb{Z}$ is $\frac12 \mathbb{Z}$. The map `LinearMap.BilinForm.dualSubmoduleToDual` sends the dual of $N$ into the dual module of $N$, and it is injective when $B$ is nondegenerate and $N$ spans $M$ (`LinearMap.BilinForm.dualSubmoduleToDual_injective`).
 
 ### Exercises
 

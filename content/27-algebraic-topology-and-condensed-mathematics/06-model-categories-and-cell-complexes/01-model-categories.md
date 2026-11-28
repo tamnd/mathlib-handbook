@@ -8,6 +8,8 @@ modules:
   - Mathlib.AlgebraicTopology.ModelCategory.BrownLemma
   - Mathlib.AlgebraicTopology.ModelCategory.CategoryWithCofibrations
   - Mathlib.AlgebraicTopology.ModelCategory.CofibrantObjectHomotopy
+  - Mathlib.AlgebraicTopology.ModelCategory.DerivabilityStructureCofibrant
+  - Mathlib.AlgebraicTopology.ModelCategory.DerivabilityStructureFibrant
   - Mathlib.AlgebraicTopology.ModelCategory.Cylinder
   - Mathlib.AlgebraicTopology.ModelCategory.FibrantObjectHomotopy
   - Mathlib.AlgebraicTopology.ModelCategory.FundamentalLemma
@@ -169,7 +171,7 @@ The trick of Joyal: if CM1, CM2, CM3, CM5 and the first half of CM4 hold, and th
 <?decl HomotopicalAlgebra.ModelCategory.hasLiftingProperty_of_joyalTrick?>
 :::
 
-The categories `CofibrantObject.HoCat` and `FibrantObject.HoCat` are quotients by right and left homotopy. The files `DerivabilityStructureCofibrant` and `DerivabilityStructureFibrant` give derivability structures in the sense of Kahn and Maltsiniotis.
+The categories `CofibrantObject.HoCat` and `FibrantObject.HoCat` are quotients by right and left homotopy. The files `DerivabilityStructureCofibrant` and `DerivabilityStructureFibrant` give derivability structures in the sense of Kahn and Maltsiniotis. The inclusion of the cofibrant objects, `HomotopicalAlgebra.CofibrantObject.localizerMorphism C`, is a left derivability structure, by the instance `HomotopicalAlgebra.CofibrantObject.instIsLeftDerivabilityStructureWeakEquivalencesLocalizerMorphism`: each object has a cofibrant resolution, and the category of these resolutions is connected. Dually, the inclusion of the fibrant objects, `HomotopicalAlgebra.FibrantObject.localizerMorphism C`, is a right derivability structure.
 
 Mathlib in this edition has no instance of `ModelCategory` on simplicial sets or on topological spaces. The file `AlgebraicTopology.SimplicialSet.CategoryWithFibrations` puts the Kan fibrations and the monomorphisms on `SSet` in a scoped namespace, but the model axioms are not proved there.
 

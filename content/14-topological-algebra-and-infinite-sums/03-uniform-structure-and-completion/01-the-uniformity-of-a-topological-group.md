@@ -10,6 +10,8 @@ modules:
   - Mathlib.Topology.Algebra.UniformMulAction
   - Mathlib.Topology.Algebra.UniformFilterBasis
   - Mathlib.Topology.Algebra.FilterBasis
+  - Mathlib.Topology.Algebra.Equicontinuity
+  - Mathlib.Topology.Algebra.MetricSpace.Lipschitz
 explains:
   E3: [IsUniformGroup, IsTopologicalGroup.rightUniformSpace, isUniformAddGroup_of_addCommGroup]
   E2: [IsUniformAddGroup, IsRightUniformGroup, IsLeftUniformGroup, IsTopologicalGroup.leftUniformSpace, IsRightUniformGroup.uniformity_eq, IsUniformGroup.rightUniformSpace_eq, isUniformGroup_iff_left_right, isUniformGroup_of_commGroup, uniformity_eq_comap_nhds_one, uniformity_eq_comap_nhds_zero, uniformContinuous_monoidHom_of_continuous, MonoidHom.uniformContinuous_of_continuousAt_one, uniformContinuous_mul, uniformContinuous_inv, IsUniformGroup.uniformContinuous_div, uniformity_translate_mul, isUniformEmbedding_translate_mul, IsUniformGroup.uniformity_countably_generated, Subgroup.isUniformGroup, IsUniformGroup.of_compactSpace, CauchySeq.mul, Prod.instIsUniformGroup, Pi.instIsUniformGroup, IsUniformInducing.isUniformGroup, QuotientGroup.completeSpace_right, Subgroup.Commensurable.discreteTopology_iff, UniformContinuousConstSMul, UniformContinuous.const_smul, GroupFilterBasis, GroupFilterBasis.isTopologicalGroup, RingFilterBasis, ModuleFilterBasis]
@@ -111,6 +113,10 @@ A structure that holds a family of subsets of a group with the axioms of a basis
 
 <?decl GroupFilterBasis?>
 :::
+
+The module `Mathlib.Topology.Algebra.Equicontinuity` reduces the equicontinuity of a family of homomorphisms to the identity element. Let $F$ be a family of group homomorphisms from a topological group $G$ to a uniform group $M$. If $F$ is equicontinuous at $1$, then $F$ is equicontinuous (`equicontinuous_of_equicontinuousAt_one`), and uniformly equicontinuous when $G$ is a uniform group (`uniformEquicontinuous_of_equicontinuousAt_one`). The proof is the argument for one homomorphism, applied to the whole family: $f(y)^{-1} f(x) = f(y^{-1}x)$ for each $f \in F$. The additive forms, such as `equicontinuous_of_equicontinuousAt_zero`, have the same proofs.
+
+The module `Mathlib.Topology.Algebra.MetricSpace.Lipschitz` collects facts on Lipschitz maps between metric spaces. A Lipschitz map sends Cauchy sequences to Cauchy sequences (`LipschitzWith.cauchySeq_comp`, and `LipschitzOnWith.cauchySeq_comp` on a set). A map with a bound $d(f(y), f(x)) \le K d(y, x)$ near $x$ is continuous at $x$ (`continuousAt_of_locally_lipschitz`). A map that is locally Lipschitz on a compact set is Lipschitz on it (`LocallyLipschitzOn.exists_lipschitzOnWith_of_compact`).
 
 ### Exercises
 

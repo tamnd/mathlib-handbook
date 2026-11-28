@@ -5,6 +5,7 @@ modules:
   - Mathlib.Analysis.Fourier.Inversion
   - Mathlib.Analysis.Fourier.LpSpace
   - Mathlib.Analysis.Fourier.PoissonSummation
+  - Mathlib.Analysis.SpecialFunctions.Gaussian.PoissonSummation
 explains:
   E3: [MeasureTheory.Integrable.fourierInv_fourier_eq, MeasureTheory.Lp.fourierTransformₗᵢ, Real.tsum_eq_tsum_fourier_of_rpow_decay]
   E2: [Continuous.fourierInv_fourier_eq, Continuous.fourier_fourierInv_eq, Real.tendsto_integral_gaussian_smul, Real.tendsto_integral_cexp_sq_smul, MeasureTheory.Lp.norm_fourier_eq, MeasureTheory.Lp.inner_fourier_eq, MeasureTheory.Lp.instFourierTransform, SchwartzMap.toLp_fourier_eq, Real.fourierCoeff_tsum_comp_add, Real.tsum_eq_tsum_fourier, Real.tsum_eq_tsum_fourier_of_rpow_decay_of_summable, SchwartzMap.tsum_eq_tsum_fourier]
@@ -154,6 +155,8 @@ $$\int_{\mathbb{R}}\frac{\sin^2\pi\xi}{\pi^2\xi^2}\,d\xi = \int|f|^2 = 1, \qquad
 ### The library around it
 
 The inversion theorem in Mathlib holds on any finite-dimensional real inner product space, with `volume` the Lebesgue measure of an orthonormal basis. The theorem of Plancherel lives in `Mathlib.Analysis.Fourier.LpSpace`, and its proof there goes through the dense Schwartz space, as above. The Poisson summation formula is only for $\mathbb{R}$. The index of this edition has no declaration for Poisson summation over a lattice in $\mathbb{R}^d$.
+
+The module `Mathlib.Analysis.SpecialFunctions.Gaussian.PoissonSummation` applies the Poisson formula to the Gaussian. The decay lemmas `cexp_neg_quadratic_isLittleO_abs_rpow_cocompact` and `isLittleO_exp_neg_mul_sq_cocompact` give the hypotheses of the formula. The result is `Complex.tsum_exp_neg_quadratic`, and its special cases `Complex.tsum_exp_neg_mul_int_sq` and `Real.tsum_exp_neg_mul_int_sq` are the functional equation of the theta function.
 
 Common errors of a learner:
 

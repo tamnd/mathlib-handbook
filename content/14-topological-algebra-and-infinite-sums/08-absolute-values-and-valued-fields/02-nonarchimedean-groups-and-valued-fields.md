@@ -11,6 +11,9 @@ modules:
   - Mathlib.Topology.Algebra.Valued.ValuedField
   - Mathlib.Topology.Algebra.Valued.NormedValued
   - Mathlib.Topology.Algebra.WithZeroTopology
+  - Mathlib.Topology.Algebra.LinearTopology
+  - Mathlib.Topology.Algebra.TopologicallyNilpotent
+  - Mathlib.Topology.Algebra.IsOpenUnits
 explains:
   E3: [NonarchimedeanAddGroup, Ideal.adicTopology, Valued, Valued.locally_const, Valued.valuedCompletion]
   E2: [NonarchimedeanRing, NonarchimedeanRing.mul_subset, NonarchimedeanAddGroup.nonarchimedean_of_emb, NonarchimedeanAddGroup.prod_subset, NonarchimedeanAddGroup.exists_openAddSubgroup_separating, NonarchimedeanAddGroup.instTotallySeparated, instNonarchimedeanAddGroupCompletion, RingSubgroupsBasis, RingSubgroupsBasis.topology, RingSubgroupsBasis.hasBasis_nhds_zero, Ideal.hasBasis_nhds_zero_adic, Ideal.nonarchimedean, IsAdic, isAdic_iff, Valued.v, Valued.mk', Valued.mem_nhds_zero, Valued.isClopen_ball, Valued.isOpen_sphere, Valued.isClopen_integer, Valued.discreteTopology_of_forall_map_eq_one, Valuation.subgroups_basis, Valued.continuous_valuation, Valued.extension_extends, Valued.continuous_extension, Valued.completable, ValuedRing.separated, NormedField.toValued, WithZeroTopology.isOpen_iff, WithZeroTopology.nhds_of_ne_zero, WithZeroTopology.hasBasis_nhds_zero]
@@ -145,6 +148,12 @@ The definition `[NormedField K] [IsUltrametricDist K] → Valued K ℝ≥0`. It 
 ### The library around it
 
 The modules `Nonarchimedean.Basic`, `Bases` and `AdicTopology` treat nonarchimedean groups and rings, their bases of subgroups, and the adic topology. The lemmas `NonarchimedeanAddGroup.nonarchimedean_of_emb` and `NonarchimedeanAddGroup.prod_subset` show that the class passes to open embeddings and products, and `instNonarchimedeanAddGroupCompletion` that it passes to completions. The modules `Valued.ValuationTopology` and `Valued.ValuedField` treat valued rings and fields and their completions. Further modules treat the synonym `WithVal` and the locally compact valued fields (`Valued.LocallyCompact`).
+
+Linear topologies are in `Mathlib.Topology.Algebra.LinearTopology`. A topology on an $R$-module $M$ is $R$-linear (`IsLinearTopology R M`) when the submodules of $M$ that are neighbourhoods of $0$ form a basis of $\mathcal{N}(0)$. For a ring, `IsLinearTopology R R` asks for a basis of left ideals, and the pair `IsLinearTopology R R` and `IsLinearTopology Rᵐᵒᵖ R` asks for a basis of two-sided ideals (`isLinearTopology_iff_hasBasis_twoSidedIdeal`). The lemma `isLinearTopology_iff_hasBasis_submodule` restates the definition, and `isLinearTopology_iff_hasBasis_open_ideal` is the form for a topological ring, with open ideals. A discrete topology is linear (`IsLinearTopology.instOfDiscreteTopology`), and the $I$-adic topology is linear, because its basis $I^n$ consists of ideals. In a linear topology on $R$, $a_n b_n \to 0$ as soon as $b_n \to 0$, with no condition on $a_n$ (`IsLinearTopology.tendsto_mul_zero_of_right`): when $b_n$ lies in a left ideal $J$, so does $a_n b_n$.
+
+The module `Mathlib.Topology.Algebra.TopologicallyNilpotent` calls $a$ topologically nilpotent when $a^n \to 0$ (`IsTopologicallyNilpotent`). A nilpotent element is topologically nilpotent (`IsNilpotent.isTopologicallyNilpotent`), and a continuous homomorphism of monoids with zero preserves the property (`IsTopologicallyNilpotent.map`). In a commutative ring with a linear topology, the topologically nilpotent elements form an ideal, the `topologicalNilradical`. The key step is the sum (`IsTopologicallyNilpotent.add`). Let $J$ be an open ideal. Choose $m$ and $n$ with $a^k \in J$ for $k \ge m$ and $b^k \in J$ for $k \ge n$; this holds for all large $k$ because $J$ is an ideal. For $k \ge m + n$, each term $\binom{k}{i} a^i b^{k-i}$ of $(a + b)^k$ has $i \ge m$ or $k - i \ge n$, so it lies in $J$. In the $p$-adic integers, $p$ is topologically nilpotent and not nilpotent.
+
+The module `Mathlib.Topology.Algebra.IsOpenUnits` defines the class `IsOpenUnits M` for a topological monoid: the group of units is open in $M$ and has the subspace topology, that is, $M^\times \to M$ is an open embedding (`isOpenUnits_iff`). Topological groups, discrete monoids and $T_1$ groups with zero with continuous inversion have open units, and so does a ring with an $I$-adic topology when $I$ lies in the Jacobson radical (`IsOpenUnits.of_isAdic`). Products of two monoids with open units have open units.
 
 ### Exercises
 

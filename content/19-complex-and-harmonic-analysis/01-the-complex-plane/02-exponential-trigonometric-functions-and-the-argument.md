@@ -7,6 +7,7 @@ modules:
   - Mathlib.Analysis.Complex.Arg
   - Mathlib.Analysis.Complex.Angle
   - Mathlib.Analysis.Complex.Circle
+  - Mathlib.Analysis.Complex.ExponentialBounds
 explains:
   E3: [Complex.exp, Complex.exp_add, Complex.exp_mul_I, Complex.norm_add_eq_iff, Circle]
   E2: [Complex.exp_def, Complex.isCauSeq_exp, Complex.exp_zero, Complex.exp_ne_zero, Complex.exp_neg, Complex.exp_conj, Complex.exp_bound, Complex.expMonoidHom, Complex.ofReal_exp, Real.exp, Complex.norm_exp, Complex.exp_re, Complex.cos, Complex.sin, Complex.cosh, Complex.sinh, Complex.two_cos, Complex.two_sin, Complex.cos_mul_I, Complex.cos_add, Complex.sin_add, Complex.cos_sq_add_sin_sq, Complex.cosh_sq_sub_sinh_sq, Complex.cos_add_sin_mul_I_pow, Real.cos, Real.sin, Complex.sameRay_iff, Complex.angle_eq_abs_arg, Complex.norm_sub_le_angle, Complex.mul_angle_le_norm_sub, Circle.exp, Circle.coe_exp, Circle.exp_add, Circle.instCompactSpace, Circle.coe_inv_eq_conj]
@@ -135,6 +136,8 @@ The statement is `‖x + y‖ = ‖x‖ + ‖y‖ ↔ x = 0 ∨ y = 0 ∨ x.arg 
 **Example.** $|e^{2 + 3i}| = e^2$, and $\arg e^{2 + 3i} = 3$, since $3 \in (-\pi, \pi]$. But $\arg e^{4i} = 4 - 2\pi$, since $4 > \pi$.
 
 ### The library around it
+
+The module `Mathlib.Analysis.Complex.ExponentialBounds` gives numerical bounds for $e$ and for some logarithms. The theorems `Real.exp_one_gt_d9` and `Real.exp_one_lt_d9` put $e$ between $2.7182818283$ and $2.7182818286$, and `Real.exp_one_near_20` gives $e$ to $20$ digits. The consequences `Real.exp_one_gt_two`, `Real.exp_one_lt_three` and `Real.floor_exp_one_eq_two` are the bounds that a proof uses most often, and `Real.exp_neg_one_lt_half` bounds $1/e$. The same module bounds $\log 2$, $\log 3$ and $\log 5$ to ten digits, with `Real.log_two_gt_d9`, `Real.log_two_lt_d9`, `Real.log_three_near_10` and `Real.log_five_near_10`. The proofs evaluate a partial sum of a series with an explicit bound on the remainder, and `norm_num` checks the rational arithmetic.
 
 Common errors of a learner:
 

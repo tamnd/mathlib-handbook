@@ -5,6 +5,7 @@ modules:
   - Mathlib.Analysis.Complex.AbsMax
   - Mathlib.Analysis.Complex.OpenMapping
   - Mathlib.Analysis.Complex.Schwarz
+  - Mathlib.Analysis.Complex.RiemannMapping
 explains:
   E3: [Complex.eqOn_of_isPreconnected_of_isMaxOn_norm, Complex.norm_le_of_forall_mem_frontier_norm_le, DiffContOnCl.ball_subset_image_closedBall, AnalyticOnNhd.is_constant_or_isOpen, Complex.norm_le_norm_of_mapsTo_ball]
   E2: [Complex.norm_eqOn_closedBall_of_isMaxOn, Complex.eqOn_closedBall_of_isMaxOn_norm, Complex.norm_eventually_eq_of_isLocalMax, Complex.eventually_eq_of_isLocalMax_norm, Complex.norm_eqOn_of_isPreconnected_of_isMaxOn, Complex.exists_mem_frontier_isMaxOn_norm, Complex.eqOn_of_eqOn_frontier, Complex.eqOn_closure_of_eqOn_frontier, Complex.eventually_eq_or_eq_zero_of_isLocalMin_norm, AnalyticAt.eventually_constant_or_nhds_le_map_nhds, AnalyticOnNhd.is_constant_or_isOpenMap, Polynomial.isOpenQuotientMap_eval, Complex.isOpenQuotientMap_pow, Complex.norm_deriv_le_one_of_mapsTo_ball, Complex.norm_deriv_le_div_of_mapsTo_ball, Complex.dist_le_div_mul_dist_of_mapsTo_ball, Complex.norm_dslope_le_div_of_mapsTo_ball, Complex.affine_of_mapsTo_ball_of_norm_dslope_eq_div]
@@ -122,6 +123,8 @@ The statement takes `DifferentiableOn ℂ f (ball 0 R)`, `MapsTo f (ball 0 R) (c
 **Example.** For $|a| < 1$, the map $\varphi_a(z) = (z - a)/(1 - \bar a z)$ sends $\mathbb{D}$ into $\mathbb{D}$. On $|z| = 1$, $|1 - \bar a z| = |\bar z - \bar a| = |z - a|$, so $|\varphi_a| = 1$ there. By the corollary, $|\varphi_a| \le 1$ on $\bar{\mathbb{D}}$, and by the principle $|\varphi_a| < 1$ inside.
 
 ### The library around it
+
+The Riemann mapping theorem is not stated at this commit: the module `Mathlib.Analysis.Complex.RiemannMapping` holds only private first steps toward it, such as an injective map of a simply connected proper open set into the unit disc.
 
 Common errors of a learner:
 

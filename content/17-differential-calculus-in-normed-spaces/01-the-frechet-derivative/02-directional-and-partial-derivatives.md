@@ -8,6 +8,14 @@ modules:
   - Mathlib.Analysis.Calculus.TangentCone.Basic
   - Mathlib.Analysis.Calculus.TangentCone.Real
   - Mathlib.Analysis.Calculus.FDeriv.Pi
+  - Mathlib.Analysis.Calculus.FDeriv.Partial
+  - Mathlib.Analysis.Calculus.FDeriv.WithLp
+  - Mathlib.Analysis.Calculus.LineDeriv.QuadraticMap
+  - Mathlib.Analysis.Calculus.TangentCone.DimOne
+  - Mathlib.Analysis.Calculus.TangentCone.Pi
+  - Mathlib.Analysis.Calculus.TangentCone.Prod
+  - Mathlib.Analysis.Calculus.TangentCone.ProperSpace
+  - Mathlib.Analysis.Calculus.TangentCone.Seq
 explains:
   E3: [HasLineDerivAt, HasFDerivWithinAt, tangentConeAt, UniqueDiffWithinAt]
   E2: [lineDeriv, HasFDerivAt.hasLineDerivAt, DifferentiableAt.lineDeriv_eq_fderiv, gradient, hasGradientAt_iff_hasFDerivAt, fderivWithin, HasFDerivWithinAt.fderivWithin, UniqueDiffOn, uniqueDiffOn_convex, mem_tangentConeAt_of_seq, hasFDerivAt_update]
@@ -155,6 +163,10 @@ At $(r, \theta) = (2, \pi/2)$ this gives $DP(h, k) = (-2k, h)$.
 ### The library around it
 
 The files `LineDeriv.*` give the line derivative its own API, parallel to `HasDerivAt`: `HasLineDerivAt.lineDeriv`, `lineDeriv_smul` and `hasLineDerivAt_iff_tendsto_slope_zero`. For derivatives within a set the main lemmas are `HasFDerivWithinAt.mono` (shrink the set), `hasFDerivWithinAt_of_isOpen` (an open set changes nothing) and `HasFDerivWithinAt.hasFDerivAt` (a neighbourhood changes nothing).
+
+The file `FDeriv.Partial` gives the classical test for a map of two variables: if the partial derivatives exist near $u$ and are continuous at $u$, then the map is strictly differentiable at $u$. `hasStrictFDerivAt_uncurry_coprod` states this for `↿f : E₁ × E₂ → F`, with derivative `(↿f₁ u).coprod (↿f₂ u)`. The partial derivatives are given as two functions `f₁` and `f₂`, not computed with `fderiv`. The file `FDeriv.WithLp` does the same work as `FDeriv.Pi` for `PiLp p E`, the product with the $L^p$ norm: `differentiableAt_piLp` and `hasFDerivWithinAt_piLp` reduce the question to the components `(f x).ofLp i`, and `PiLp.hasFDerivAt_apply` differentiates one coordinate. The file `LineDeriv.QuadraticMap` computes the line derivative of a quadratic map: `QuadraticMap.hasLineDerivAt` gives `QuadraticMap.polar f a b` at $a$ in direction $b$, and `QuadraticMap.lineDeriv` states `lineDeriv 𝕜 f = QuadraticMap.polar f`.
+
+The files `TangentCone.*` give more ways to prove `UniqueDiffWithinAt`. On the scalar field, `uniqueDiffWithinAt_iff_accPt` states that the condition holds exactly when $x$ is an accumulation point of $s$, and `tangentConeAt_eq_univ` gives the whole line as tangent cone. `UniqueDiffWithinAt.prod`, `UniqueDiffOn.prod` and `UniqueDiffOn.univ_pi` pass the condition to products, so a box in $\mathbb{R}^n$ is handled one coordinate at a time. In a proper space, `tangentConeAt_nonempty_of_properSpace` gives a nonzero tangent vector at each accumulation point. The file `TangentCone.Seq` describes the cone by sequences: `mem_tangentConeAt_iff_exists_seq_norm_tendsto_atTop` asks for scalars $c_n$ with $\|c_n\| \to \infty$ and points $x + d_n \in s$ with $c_n d_n \to y$, and `mem_tangentConeAt_of_pow_smul` uses the points $x + r^n y$ for a fixed $r$ with $0 < \|r\| < 1$.
 
 Common errors of a learner:
 

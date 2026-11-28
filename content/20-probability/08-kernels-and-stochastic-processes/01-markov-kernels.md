@@ -11,6 +11,7 @@ modules:
   - Mathlib.Probability.Kernel.Composition.MapComap
   - Mathlib.Probability.Kernel.Composition.CompMap
   - Mathlib.Probability.Kernel.Invariance
+  - Mathlib.Probability.Kernel.Irreducible
 explains:
   E3: [ProbabilityTheory.Kernel, ProbabilityTheory.IsMarkovKernel, ProbabilityTheory.Kernel.comp, ProbabilityTheory.Kernel.compProd, MeasureTheory.Measure.compProd, ProbabilityTheory.Kernel.Invariant]
   E2: [ProbabilityTheory.IsFiniteKernel, ProbabilityTheory.IsSFiniteKernel, ProbabilityTheory.Kernel.measurable_coe, ProbabilityTheory.Kernel.ext, ProbabilityTheory.Kernel.deterministic, ProbabilityTheory.Kernel.deterministic_apply, ProbabilityTheory.Kernel.const, ProbabilityTheory.Kernel.const_apply, ProbabilityTheory.Kernel.id, ProbabilityTheory.Kernel.comp_apply, ProbabilityTheory.Kernel.lintegral_comp, ProbabilityTheory.Kernel.comp_assoc, ProbabilityTheory.Kernel.comp_id, ProbabilityTheory.Kernel.id_comp, ProbabilityTheory.Kernel.compProd_apply, ProbabilityTheory.Kernel.lintegral_compProd, MeasureTheory.Measure.compProd_apply, ProbabilityTheory.Kernel.prod, ProbabilityTheory.Kernel.prod_apply, ProbabilityTheory.Kernel.map, ProbabilityTheory.Kernel.map_apply, ProbabilityTheory.Kernel.comap, ProbabilityTheory.Kernel.fst, ProbabilityTheory.Kernel.snd, ProbabilityTheory.Kernel.prodMkLeft, ProbabilityTheory.Kernel.deterministic_comp_eq_map, ProbabilityTheory.Kernel.comp_deterministic_eq_comap, ProbabilityTheory.Kernel.Invariant.def, ProbabilityTheory.Kernel.Invariant.comp]
@@ -128,6 +129,8 @@ For $p = 0.1$ and $q = 0.3$, a machine that breaks with probability $0.1$ each d
 The kernel files are in `Mathlib/Probability/Kernel/`. The directory `Composition` has the operations of this section, in separate files for `comp`, `compProd`, `prod`, `map` and `comap` and the relations between them, such as `Kernel.compProd_deterministic_apply`. `Mathlib/Probability/Kernel/Integral.lean` and `Composition/IntegralCompProd.lean` have the Bochner integrals against compositions, for example `Kernel.integral_comp`. `Mathlib/Probability/Kernel/MeasurableLIntegral.lean` proves the measurability of integrals against kernels, such as `Kernel.measurable_kernel_prodMk_left`.
 
 The independence of Chapter 2 is a special case of `ProbabilityTheory.Kernel.Indep`, the independence with respect to a kernel and a measure. With the constant kernel it is the independence of Chapter 2, and with `condExpKernel` it is the conditional independence of Chapter 6.
+
+The module `Mathlib.Probability.Kernel.Irreducible` defines the class `ProbabilityTheory.Kernel.IsIrreducible` $\varphi$ $\kappa$ for a kernel $\kappa$ from $\alpha$ to itself and a measure $\varphi$: for each measurable $A$ with $\varphi(A) > 0$ and each $a$, there is $n \ge 1$ with $\kappa^n(a)(A) > 0$. For a Markov chain, this means that each set of positive $\varphi$-measure can be reached from each state. The theorem `ProbabilityTheory.Kernel.isIrreducible_iff` unfolds the class, and `ProbabilityTheory.Kernel.isIrreducible_of_le_measure` says that irreducibility for $\varphi_2$ gives irreducibility for each $\varphi_1 \le \varphi_2$.
 
 ### Exercises
 

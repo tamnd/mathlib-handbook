@@ -6,4 +6,6 @@ Section 1 defines the neighbour sets, the edge set as a set of unordered pairs, 
 
 Section 2 studies the ways to compare two graphs. It defines subgraphs, induced subgraphs and the deletion of edges, then homomorphisms, embeddings and isomorphisms, and the notion of a copy of one graph inside another. It ends with the adjacency matrix. The matrix is symmetric, its trace is zero, and the diagonal of its square holds the degrees. The entries of its powers count walks, which Chapter 2 defines.
 
+Section 3 collects the constructions of new graphs: box products, disjoint sums, the addition of an edge and the replacement of a vertex, line graphs, Cayley and circulant graphs, Hasse diagrams and path graphs, star graphs, unit-distance embeddings and strongly regular graphs.
+
 The chapter needs finite sets, finite types and big operators from Volume 3, Chapters 3, 4 and 6, and lattices from Volume 4, Chapter 3. Section 2 uses matrices from Volume 7, Chapter 3. Chapter 2 builds walks and connectivity on these definitions, and Chapter 3 builds colourings and cliques.

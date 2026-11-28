@@ -1,0 +1,7 @@
+# The unit disc and the upper half-plane
+
+The open unit disc and the upper half-plane are the two standard models of a simply connected proper domain of $\mathbb{C}$. The disc is bounded and carries the Schwarz lemma. The half-plane carries the action of $\mathrm{SL}(2, \mathbb{R})$ by Möbius maps, the hyperbolic metric and the invariant measure, and it is the domain of the modular forms of Volume 12. This chapter describes the two domains in the form that Mathlib uses, where each of them is a type and not only a set.
+
+Section 1 defines the types of the open and the closed unit disc and the type of the upper half-plane, with their coercions to $\mathbb{C}$, their products and actions, their topology, and the bridge from functions on the half-plane to functions on $\mathbb{C}$. It also describes the complement of the integers in $\mathbb{C}$. Section 2 studies the action of $\mathrm{GL}(2, \mathbb{R})$ on the upper half-plane, its fixed points and its properness, the complex manifold structure, the hyperbolic metric, the invariant measure, and the filter at the cusp with the parameter $q = e^{2\pi i z/h}$ and the $q$-expansion of a periodic function.
+
+The chapter needs the complex plane of Chapter 1 and the theorem of Riemann on removable singularities of Chapter 3. Section 2 also uses the Lebesgue measure and the change of variables formula of Volume 18, and the compact sets and proper maps of Volume 13.

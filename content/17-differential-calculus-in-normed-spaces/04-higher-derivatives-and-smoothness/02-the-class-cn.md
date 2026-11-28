@@ -4,6 +4,9 @@ kind: theory
 modules:
   - Mathlib.Analysis.Calculus.ContDiff.Defs
   - Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries
+  - Mathlib.Analysis.Calculus.ContDiff.Deriv
+  - Mathlib.Analysis.Calculus.ContDiff.RCLike
+  - Mathlib.Analysis.Calculus.ContDiffHolder.Pointwise
 explains:
   E3: [ContDiff, HasFTaylorSeriesUpTo, iteratedFDeriv]
   E2: [contDiff_succ_iff_fderiv, contDiff_zero, contDiff_one_iff_fderiv, contDiff_iff_continuous_differentiable, contDiff_infty_iff_fderiv, ContDiffAt, ContDiffOn, ftaylorSeries, iteratedFDeriv_succ_apply_left, iteratedFDeriv_two_apply, contDiff_iff_ftaylorSeries, ContDiff.of_le]
@@ -56,7 +59,7 @@ The fields of `HasFTaylorSeriesUpTo n f p` are `zero_eq : ∀ x, (p x 0).curry0 
 ::: mathlib
 `iteratedFDeriv` · `Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries`
 
-`iteratedFDeriv 𝕜 n f x : E [×n]→L[𝕜] F` is $D^n f(x)$, defined by the recursion above with `ContinuousMultilinearMap.uncurryLeft`. The unfolding lemmas are `iteratedFDeriv_succ_apply_left`, `iteratedFDeriv 𝕜 (n + 1) f x m = fderiv 𝕜 (iteratedFDeriv 𝕜 n f) x (m 0) (Fin.tail m)`, and `iteratedFDeriv_two_apply`, `iteratedFDeriv 𝕜 2 f z m = fderiv 𝕜 (fderiv 𝕜 f) z (m 0) (m 1)`. The family of all of them is `ftaylorSeries 𝕜 f x`.
+`iteratedFDeriv 𝕜 n f x : E [×n]→L[𝕜] F` is $D^n f(x)$, defined by the recursion above with `ContinuousLinearMap.uncurryLeft`. The unfolding lemmas are `iteratedFDeriv_succ_apply_left`, `iteratedFDeriv 𝕜 (n + 1) f x m = fderiv 𝕜 (iteratedFDeriv 𝕜 n f) x (m 0) (Fin.tail m)`, and `iteratedFDeriv_two_apply`, `iteratedFDeriv 𝕜 2 f z m = fderiv 𝕜 (fderiv 𝕜 f) z (m 0) (m 1)`. The family of all of them is `ftaylorSeries 𝕜 f x`.
 
 <?decl iteratedFDeriv?>
 <?decl ftaylorSeries?>
@@ -137,6 +140,12 @@ a constant symmetric trilinear map, and $D^4 f = 0$. On the diagonal, $D^3 f(x,y
 ### The library around it
 
 The order has the type `WithTop ℕ∞`, so a number `n : ℕ` is cast twice. To get `ContDiff 𝕜 2 f` from `ContDiff 𝕜 ∞ f` apply `ContDiff.of_le`; the side goal `2 ≤ ∞` is a cast inequality for `simp` or `norm_cast`.
+
+For a function of one variable $f : 𝕜 \to F$, the module `Mathlib.Analysis.Calculus.ContDiff.Deriv` states the recursion with `deriv` in place of `fderiv`. The lemma `contDiff_succ_iff_deriv` says that $f$ is $C^{n+1}$ if and only if $f$ is differentiable, `deriv f` is $C^n$, and $f$ is analytic in the case $n = \omega$; `contDiff_one_iff_deriv` and `contDiff_infty_iff_deriv` are the cases $n = 0$ and $n = \infty$. In the other direction, `ContDiff.deriv'` lowers the order by one, `ContDiff.continuous_deriv` gives a continuous derivative for $n \ge 1$, and `ContDiff.iterate_deriv` keeps a smooth function smooth under `deriv^[n]`. The versions on sets, such as `contDiffOn_succ_iff_derivWithin` and `ContDiffOn.derivWithin`, need `UniqueDiffOn 𝕜 s`, and on open sets the forms `contDiffOn_succ_iff_deriv_of_isOpen` and `ContDiffOn.deriv_of_isOpen` use `deriv`.
+
+Over `ℝ` or `ℂ` (the class `RCLike`), a function of class $C^n$ with $n \ne 0$ is strictly differentiable, by the mean value inequality: `ContDiffAt.hasStrictFDerivAt` and `ContDiff.hasStrictDerivAt`, in `Mathlib.Analysis.Calculus.ContDiff.RCLike`. The same module gives Lipschitz bounds. A $C^1$ map is locally Lipschitz (`ContDiff.locallyLipschitz`), it is $K$-Lipschitz near $x$ for every $K > \|Df(x)\|$ (`ContDiffAt.exists_lipschitzOnWith_of_nnnorm_lt`), and it is Lipschitz on a convex compact set (`ContDiffOn.exists_lipschitzOnWith`) and on all of $E$ when it has compact support (`ContDiff.lipschitzWith_of_hasCompactSupport`).
+
+The module `Mathlib.Analysis.Calculus.ContDiffHolder.Pointwise` refines the order by a Hölder exponent. For $k : ℕ$ and $\alpha \in [0, 1]$, `ContDiffPointwiseHolderAt k α f a` means that $f$ is $C^k$ at $a$ and $D^k f(x) - D^k f(a) = O(\|x - a\|^{\alpha})$ as $x \to a$ (`contDiffPointwiseHolderAt_iff`). With $\alpha = 0$ it is the class $C^k$ at $a$ (`ContDiffPointwiseHolderAt.zero_exponent_iff`), and a function of class $C^{k+1}$ at $a$ satisfies it for every $\alpha$ (`ContDiffAt.contDiffPointwiseHolderAt`). The pairs $(k, \alpha)$ are ordered lexicographically (`ContDiffPointwiseHolderAt.of_toLex_le`). The class contains the constants and the continuous linear maps, and it is closed under pairs, under `ContDiffPointwiseHolderAt.clm_apply`, and under composition for $k \ne 0$ (`ContDiffPointwiseHolderAt.comp`).
 
 Common errors of a learner:
 

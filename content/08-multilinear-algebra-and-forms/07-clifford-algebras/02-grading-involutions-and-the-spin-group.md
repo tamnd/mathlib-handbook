@@ -10,6 +10,8 @@ modules:
   - Mathlib.LinearAlgebra.CliffordAlgebra.SpinGroup
   - Mathlib.LinearAlgebra.CliffordAlgebra.Contraction
   - Mathlib.LinearAlgebra.CliffordAlgebra.Prod
+  - Mathlib.LinearAlgebra.CliffordAlgebra.Inversion
+  - Mathlib.LinearAlgebra.CliffordAlgebra.BaseChange
 explains:
   E3: [CliffordAlgebra.evenOdd, CliffordAlgebra.involute, CliffordAlgebra.equivEven, spinGroup]
   E2: [CliffordAlgebra.ι_mem_evenOdd_one, CliffordAlgebra.evenOdd_isCompl, CliffordAlgebra.gradedAlgebra, CliffordAlgebra.involute_ι, CliffordAlgebra.reverse, CliffordAlgebra.reverse_ι, CliffordAlgebra.reverse.map_mul, CliffordAlgebra.even, CliffordAlgebra.EquivEven.Q', CliffordAlgebra.toEven_ι, lipschitzGroup, pinGroup, spinGroup.mem_iff, spinGroup.conjAct_smul_ι_mem_range_ι, CliffordAlgebra.changeForm]
@@ -187,6 +189,10 @@ For the orthogonal sum `Q₁.prod Q₂`, the Clifford algebra is the graded tens
 :::
 
 The index of this edition has no declaration for the surjection from the spin group onto the special orthogonal group of $Q$, nor for its kernel $\{\pm 1\}$.
+
+The file `Mathlib.LinearAlgebra.CliffordAlgebra.Inversion` treats the inverses of vectors. If $Q(m)$ is invertible, then $\iota(m)$ is invertible with $\iota(m)^{-1} = \iota(Q(m)^{-1} m)$, because $\iota(m)^2 = Q(m)$ (`CliffordAlgebra.invertibleιOfInvertible` and `CliffordAlgebra.invOf_ι`). When $2$ is invertible the converse holds: `CliffordAlgebra.isUnit_ι_iff` says that $\iota(m)$ is a unit exactly when $Q(m)$ is a unit. The conjugate of a vector by an invertible vector is again a vector. The lemma `CliffordAlgebra.ι_mul_ι_mul_invOf_ι` gives $\iota(a) \iota(b) \iota(a)^{-1} = \iota\big(Q(a)^{-1} \operatorname{polar}_Q(a, b) \, a - b\big)$, the negative of the reflection of $b$ in the hyperplane orthogonal to $a$. This is the computation behind the action of the Lipschitz group on $M$.
+
+The file `Mathlib.LinearAlgebra.CliffordAlgebra.BaseChange` shows that the Clifford algebra commutes with base change when $2$ is invertible in $R$. For an $R$-algebra $A$, `CliffordAlgebra.equivBaseChange A Q` is an $A$-algebra isomorphism $\mathrm{Cl}(Q_A) \cong A \otimes_R \mathrm{Cl}(Q)$, where $Q_A$ is the base change `QuadraticForm.baseChange A Q` of Chapter 6, Section 3. The forward map `CliffordAlgebra.toBaseChange` sends $\iota(a \otimes v)$ to $a \otimes \iota(v)$ (`CliffordAlgebra.toBaseChange_ι`), and the inverse `CliffordAlgebra.ofBaseChange` comes from the universal property of the tensor product of algebras. The isomorphism carries the grade involution and the reversion to the same maps on the right factor (`CliffordAlgebra.toBaseChange_involute` and `CliffordAlgebra.toBaseChange_reverse`). For $R = \mathbb{R}$ and $A = \mathbb{C}$ it is the complexification of a real Clifford algebra.
 
 ### Exercises
 

@@ -9,6 +9,9 @@ modules:
   - Mathlib.FieldTheory.Cardinality
   - Mathlib.RingTheory.AlgebraicIndependent.Defs
   - Mathlib.RingTheory.AlgebraicIndependent.TranscendenceBasis
+  - Mathlib.RingTheory.Algebraic.Denominator
+  - Mathlib.RingTheory.Algebraic.Pi
+  - Mathlib.RingTheory.Algebraic.LinearIndependent
 explains:
   E3: [IsAlgebraic, Transcendental, Algebra.IsAlgebraic, Algebra.IsAlgebraic.trans, IsAlgebraic.of_finite]
   E2: [Algebra.IsAlgebraic.of_finite, IsAlgebraic.add, IsAlgebraic.inv, isAlgebraic_iff_isIntegral, transcendental_iff_injective, isAlgebraic_iff_not_injective, Polynomial.transcendental_X, IsAlgebraic.tower_top, Transcendental.of_tower_top, Subalgebra.algebraicClosure, Algebra.isAlgebraic_adjoin_iff, Subalgebra.isField_of_algebraic, Algebra.IsAlgebraic.cardinalMk_le_max, AlgebraicIndependent, IsTranscendenceBasis, exists_isTranscendenceBasis, IsTranscendenceBasis.isAlgebraic, Fintype.isPrimePow_card_of_field]
@@ -149,6 +152,10 @@ The general method is the proof: write $\alpha^{-1}$ as $x_0 + x_1c + x_2c^2$ an
 Three lemmas connect algebraicity to the structure of subalgebras. `Algebra.isAlgebraic_adjoin_iff` says that `Algebra.adjoin R s` is algebraic if and only if each element of `s` is. `Subalgebra.isField_of_algebraic` says that a subalgebra of an algebraic extension of fields is a field: this is the step $K[\alpha] = K(\alpha)$ of the theorem.
 
 For finite fields, `Fintype.isPrimePow_card_of_field` says that the size of a finite field is a prime power.
+
+An algebraic element over a principal ideal ring has a denominator. For $R$ a principal ideal ring and $x$ in an $R$-algebra $S$, `Algebra.denominator R x` is a generator of the ideal of the $r \in R$ such that $r x$ is integral over $R$. So `Algebra.denominator_dvd_iff` says that the denominator divides $r$ if and only if `IsIntegral R (r • x)`, and `Algebra.isIntegral_denominator_smul` says that the denominator itself clears $x$. Over $\mathbb{Z}$, `Algebra.natDenominator x` is the absolute value of this generator. The definition makes sense for every $x$, but `IsAlgebraic.denominator_ne_zero` needs $x$ algebraic: for a transcendental $x$ no nonzero multiple is integral, and the denominator is the junk value $0$. For example, $x = 1/2 \in \mathbb{Q}$ has the denominator $\pm 2$ over $\mathbb{Z}$.
+
+The module `Mathlib.RingTheory.Algebraic.Pi` makes the functions $S \to T$ into an algebra over $R[X]$, with a polynomial acting by evaluation: `polynomial_smul_apply'` says $(p \cdot f)(x) = p(x) \cdot f(x)$, and `Polynomial.algebraMap_pi_self_eq_eval` says that the algebra map $R[X] \to (R \to R)$ sends $p$ to the function $z \mapsto p(z)$. The structures `Polynomial.algebraPi` and `Polynomial.hasSMulPi` are not global instances, because they would clash with the pointwise action `Pi.instSMul`. A proof that needs them declares them as local instances. A small fact about transcendental elements is `Transcendental.linearIndependent_sub_inv`: if $x$ is transcendental over a field $F$, then the elements $(x - a)^{-1}$ for $a \in F$ are linearly independent over $F$. In particular, an extension with a transcendental element has dimension at least $|F|$.
 
 **Common errors.** Over a ring, `IsAlgebraic` is weaker than `IsIntegral`: over $\mathbb{Z}$, $1/2$ is a root of $2X - 1$ but is not integral. A proof of `IsAlgebraic K x` needs the proof that the polynomial is nonzero.
 

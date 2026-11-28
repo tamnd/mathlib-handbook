@@ -8,6 +8,7 @@ modules:
   - Mathlib.Topology.Sheaves.CommRingCat
   - Mathlib.Topology.Sheaves.Forget
   - Mathlib.Topology.Sheaves.Functors
+  - Mathlib.Topology.Sheaves.Init
   - Mathlib.Topology.Sheaves.KPresheaf
   - Mathlib.Topology.Sheaves.KSheaf
   - Mathlib.Topology.Sheaves.Limits

@@ -9,6 +9,8 @@ modules:
   - Mathlib.LinearAlgebra.Contraction
   - Mathlib.LinearAlgebra.Coevaluation
   - Mathlib.LinearAlgebra.DirectSum.Finsupp
+  - Mathlib.Algebra.DirectSum.Finsupp
+  - Mathlib.LinearAlgebra.TensorProduct.Projective
 explains:
   E3: [Module.Basis.tensorProduct, TensorProduct.toMatrix_map, dualTensorHom]
   E2: [Module.Basis.tensorProduct_apply, Module.Free.tensor, TensorProduct.equivFinsuppOfBasisRight, finsuppTensorFinsupp, TensorProduct.exists_finset, Matrix.toLin_kronecker, dualTensorHom_apply, dualTensorHomEquiv, contractLeft, contractLeft_apply, coevaluation, coevaluation_apply_one]
@@ -131,6 +133,10 @@ a $6 \times 6$ matrix. It is block upper triangular, so $\det(A \otimes B) = (\d
 ### The library around it
 
 The lemma `TensorProduct.exists_finset` writes each element as a finite sum of pure tensors. The index of this edition has no declaration for the rank of a tensor.
+
+The module `Mathlib.Algebra.DirectSum.Finsupp` compares the two models of a free module on a set $I$ with values in $M$. The linear equivalence `finsuppLEquivDirectSum` sends a finitely supported function $I \to M$ to the element of $\bigoplus_{i \in I} M$ with the same coordinates, and `finsuppLEquivDirectSum_single` says that it sends `Finsupp.single i m` to `DirectSum.lof R ι _ i m`. The lemma `lmap_finsuppLEquivDirectSum_eq` says that it commutes with a linear map applied in each coordinate.
+
+Projective modules behave as free modules here. The instance `Module.Projective.tensorProduct` of the module `Mathlib.LinearAlgebra.TensorProduct.Projective` says that $M \otimes N$ is projective when $M$ and $N$ are projective. The proof writes $M$ and $N$ as direct summands of free modules, and then $M \otimes N$ is a direct summand of the free module $R^{(I)} \otimes R^{(J)} \cong R^{(I \times J)}$.
 
 ### Exercises
 

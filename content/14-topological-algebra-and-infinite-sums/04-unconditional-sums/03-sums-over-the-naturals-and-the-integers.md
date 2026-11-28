@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.Topology.Algebra.InfiniteSum.NatInt
   - Mathlib.Topology.Algebra.InfiniteSum.ConditionalInt
+  - Mathlib.Topology.Instances.CantorSet
 explains:
   E3: [HasSum.tendsto_sum_nat, hasSum_nat_add_iff, HasSum.of_nat_of_neg_add_one, SummationFilter.symmetricIcc]
   E2: [Summable.hasSum_iff_tendsto_nat, Summable.tendsto_sum_tsum_nat, summable_nat_add_iff, Summable.sum_add_tsum_nat_add, Summable.tsum_eq_zero_add, HasSum.zero_add, HasSum.sum_range_add, tendsto_sum_nat_add, Summable.tendsto_atTop_zero, summable_iff_nat_tsum_vanishing, HasSum.even_add_odd, tsum_even_add_odd, HasSum.int_rec, HasSum.nat_add_neg, Summable.of_nat_of_neg, summable_int_iff_summable_nat_and_neg, tsum_of_nat_of_neg_add_one, tsum_int_eq_zero_add_tsum_pnat, Summable.alternating, SummationFilter.hasSum_symmetricIcc_iff, Summable.tendsto_zero_of_even_summable_symmetricIcc]
@@ -133,6 +134,8 @@ The statement `HasSum (fun n : ℕ ↦ 1 / (n : ℝ) ^ 2) (π ^ 2 / 6)`. The fam
 The module `Mathlib.Topology.Algebra.InfiniteSum.NatInt` has four groups of lemmas. The first relates sums over `ℕ` to partial sums over `Finset.range`. The second shifts the index: `hasSum_nat_add_iff`, `summable_nat_add_iff`, `Summable.sum_add_tsum_nat_add`, the tails `tendsto_sum_nat_add`, and the versions over the positive integers `ℕ+` such as `tsum_pnat_eq_tsum_succ`. The third splits `ℕ` into even and odd numbers. The fourth treats `ℤ`, with the pairs of names `of_nat_of_neg_add_one` (the halves $n \ge 0$ and $n < 0$) and `of_nat_of_neg` (the halves $n \ge 0$ and $n \le 0$). The module `Mathlib.Topology.Algebra.InfiniteSum.ConditionalInt` defines the symmetric summation filters on `ℤ` and compares the sums over $[-N, N]$, $[-N, N)$, $(-N, N]$ and $(-N, N)$. Each lemma has a multiplicative twin for products.
 
 The reference table at the end of the section lists the declarations of the two modules.
+
+The module `Mathlib.Topology.Instances.CantorSet` defines the ternary Cantor set $C = \bigcap_n C_n$, with $C_0 = [0, 1]$ and $C_{n+1} = \frac{1}{3} C_n \cup \frac{1}{3}(2 + C_n)$ (`preCantorSet`, `cantorSet`, `preCantorSet_succ`). It is closed and compact (`isClosed_cantorSet`, `isCompact_cantorSet`). Its link with the sums over $\mathbb{N}$ of this section is the ternary expansion. The function `Real.ofDigits` sends digits $a : \mathbb{N} \to \{0, 1, 2\}$ to the sum $\sum_{n} a_n 3^{-(n+1)}$, a `tsum` over $\mathbb{N}$. The set $C$ is the set of these sums with all digits in $\{0, 2\}$ (`cantorSet_eq_zero_two_ofDigits`), and such an expansion is unique (`ofDigits_zero_two_sequence_unique`). This gives a homeomorphism of $C$ with the Cantor space $\{0, 1\}^{\mathbb{N}}$ (`cantorSetHomeomorphNatToBool`). The point $\frac{1}{4}$, with the digits $0, 2, 0, 2, \dots$, lies in $C$ (`quarter_mem_cantorSet`) and is not an end point of a removed interval.
 
 ### Exercises
 

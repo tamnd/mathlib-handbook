@@ -7,6 +7,7 @@ modules:
   - Mathlib.AlgebraicGeometry.EffectiveEpi
   - Mathlib.AlgebraicGeometry.Fiber
   - Mathlib.AlgebraicGeometry.Limits
+  - Mathlib.AlgebraicGeometry.LimitsOver
   - Mathlib.AlgebraicGeometry.Over
   - Mathlib.AlgebraicGeometry.PullbackCarrier
   - Mathlib.AlgebraicGeometry.Pullbacks
@@ -177,6 +178,8 @@ The existence of the spread out morphism, under `LocallyOfFiniteType sY` and `X.
 
 <?decl AlgebraicGeometry.spread_out_of_isGermInjective?>
 :::
+
+The module `Mathlib.AlgebraicGeometry.LimitsOver` carries these colimits over to the category `P.Over ⊤ S` of schemes over `S` whose structure morphism has a property `P`, as `CategoryTheory.MorphismProperty.Over`. When `P` is local at the source, in the sense of `AlgebraicGeometry.IsZariskiLocalAtSource`, a locally directed diagram of open immersions in `P.Over ⊤ S` has a colimit, and the forgetful functor to schemes over `S` creates it. So the colimit is the colimit of the underlying schemes, and each map `colimit.ι F j` is again an open immersion. The main instances are `AlgebraicGeometry.instCreatesColimitOverSchemeTopMorphismPropertyOverForget` and `AlgebraicGeometry.instHasColimitOverSchemeTopMorphismProperty`. The same file gives all small coproducts in `P.Over ⊤ S`, and `AlgebraicGeometry.IsZariskiLocalAtSource.isClosedUnderColimitsOfShape_discrete` says that a property local at the source is closed under coproducts.
 
 Common errors of a learner: `pullback f g` needs an instance `HasPullback f g`, which holds for all morphisms of schemes, but `pullbackSpecIso` is stated with `algebraMap`, so a general ring map must first become an algebra. The points of a pullback are not pairs, so a proof on points goes through `carrierEquiv` or `range_fst`. The fiber `f.fiber y` is a scheme over `Spec κ(y)`, not an open subscheme of `X`. `X ↘ S` is notation for the structure morphism of a class, so two different structure morphisms on one scheme give two different instances.
 

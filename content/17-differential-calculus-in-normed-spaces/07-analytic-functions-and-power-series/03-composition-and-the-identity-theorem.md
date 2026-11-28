@@ -7,6 +7,9 @@ modules:
   - Mathlib.Analysis.Analytic.IsolatedZeros
   - Mathlib.Analysis.Analytic.Uniqueness
   - Mathlib.Analysis.Analytic.Inverse
+  - Mathlib.Analysis.Analytic.Order
+  - Mathlib.Analysis.Analytic.WithLp
+  - Mathlib.Analysis.Calculus.InverseFunctionTheorem.Analytic
 explains:
   E3: [AnalyticAt.comp, AnalyticAt.mul, AnalyticAt.eventually_eq_zero_or_eventually_ne_zero, AnalyticOnNhd.eqOn_of_preconnected_of_eventuallyEq]
   E2: [AnalyticAt.add, AnalyticAt.pow, AnalyticAt.inv, AnalyticAt.div, analyticAt_inverse, HasFPowerSeriesAt.comp, FormalMultilinearSeries.comp, HasFPowerSeriesAt.locally_ne_zero, AnalyticOnNhd.eqOn_of_preconnected_of_frequently_eq, AnalyticOnNhd.eqOn_zero_of_preconnected_of_eventuallyEq_zero, AnalyticAt.exists_eventuallyEq_pow_smul_ne_zero_iff, AnalyticAt.frequently_zero_iff_eventually_zero, HasFPowerSeriesAt.apply_eq_zero, OpenPartialHomeomorph.hasFPowerSeriesAt_symm, FormalMultilinearSeries.leftInv]
@@ -140,6 +143,10 @@ The coefficients come from the binomial series of $\sqrt{1 + 4y}$, and up to sig
 ### The library around it
 
 In practice `fun_prop` proves analyticity from `AnalyticAt.add`, `AnalyticAt.mul`, `AnalyticAt.comp` and the basic functions. The uniqueness results are in `Mathlib.Analysis.Analytic.Uniqueness` for any `E`, and in `Mathlib.Analysis.Analytic.IsolatedZeros` for `𝕜 → E`.
+
+The order of a zero is `analyticOrderAt f z₀ : ℕ∞`, in `Mathlib.Analysis.Analytic.Order`, for $f : 𝕜 \to E$. It is $\top$ when $f$ vanishes near $z_0$ (`analyticOrderAt_eq_top`), $0$ when $f$ is not analytic at $z_0$ or $f(z_0) \ne 0$ (`analyticOrderAt_eq_zero`), and otherwise the $n$ of the definition above: `AnalyticAt.analyticOrderAt_eq_natCast` states $f(z) = (z - z_0)^n g(z)$ with $g(z_0) \ne 0$. The version `analyticOrderNatAt` takes values in `ℕ`, with $0$ for the order $\top$. The order is additive on products (`analyticOrderAt_mul`, `analyticOrderAt_smul`), at least the minimum on sums (`le_analyticOrderAt_add`), and it drops by one under the derivative at a zero (`analyticOrderAt_deriv_of_pos`). The lemma `analyticOrderAt_eq_nat_iff_iteratedDeriv_eq_zero` reads it from the iterated derivatives, and `AnalyticAt.analyticOrderAt_comp` gives the order of a composition. On a connected open set, the order is either finite at every point or $\top$ at every point (`AnalyticOnNhd.exists_analyticOrderAt_ne_top_iff_forall`), and the points of order $0$ or $\top$ form a codiscrete set (`AnalyticOnNhd.codiscrete_setOfPred_analyticOrderAt_eq_zero_or_top`).
+
+The module `Mathlib.Analysis.Calculus.InverseFunctionTheorem.Analytic` gives the inverse function theorem in one variable: if $f : 𝕜 \to 𝕜$ is analytic at $x$ and $f'(x) \ne 0$, the local inverse is analytic at $f(x)$ (`AnalyticAt.analyticAt_localInverse`), and $g \circ f$ is analytic at $x$ if and only if $g$ is analytic at $f(x)$ (`analyticAt_comp_iff_of_deriv_ne_zero`). The module `Mathlib.Analysis.Analytic.WithLp` proves that the identifications `WithLp.toLp` and `WithLp.ofLp` between a product or a product of a family and its $L^p$ version are analytic (`WithLp.analyticOn_toLp`, `PiLp.analyticOn_ofLp`), so analyticity passes to the spaces `WithLp p (E × F)` and `PiLp p E`.
 
 Common errors of a learner:
 

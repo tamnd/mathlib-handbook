@@ -7,6 +7,8 @@ modules:
   - Mathlib.RingTheory.TensorProduct.Maps
   - Mathlib.RingTheory.TensorProduct.Free
   - Mathlib.RingTheory.IsTensorProduct
+  - Mathlib.LinearAlgebra.TensorProduct.Lift
+  - Mathlib.LinearAlgebra.TensorProduct.Opposite
 explains:
   E3: [Algebra.TensorProduct.lift, LinearMap.baseChange, IsBaseChange]
   E2: [Algebra.TensorProduct.includeLeft, Algebra.TensorProduct.includeRight, Algebra.TensorProduct.tmul_mul_tmul, Algebra.TensorProduct.lift_tmul, Algebra.TensorProduct.productMap, Algebra.TensorProduct.basis, Algebra.TensorProduct.basis_apply, LinearMap.baseChange_tmul, TensorProduct.isBaseChange, IsBaseChange.lift, IsBaseChange.lift_eq, LinearMap.toMatrix_baseChange, TensorProduct.AlgebraTensorModule.cancelBaseChange]
@@ -126,6 +128,10 @@ The map `lift f g hfg : A ⊗[R] B →ₐ[S] C` for `f : A →ₐ[S] C`, `g : B 
 ### The library around it
 
 Mathlib states most results on base change with `IsBaseChange`, so that a localization can be used where a tensor product is expected. The universal property of the algebra is also an equivalence, `Algebra.TensorProduct.liftEquiv`.
+
+The universal property of extension of scalars has its own names in the module `Mathlib.LinearAlgebra.TensorProduct.Lift`. For an $A$-module $N$ and an $R$-linear map $l : M \to N$, the $A$-linear map `LinearMap.liftBaseChange A l` is the map $\bar l$ of the theorem above, with `LinearMap.liftBaseChange_tmul` for $\bar l(a \otimes m) = a \cdot l(m)$. The bijection $l \mapsto \bar l$ is the $A$-linear equivalence `LinearMap.liftBaseChangeEquiv`. The lemma `LinearMap.range_liftBaseChange` says that the range of $\bar l$ is the $A$-span of the range of $l$, and `LinearMap.liftBaseChange_comp` says that $\overline{l \circ l'} = \bar l \circ l'_A$.
+
+The opposite ring commutes with the tensor product of algebras. The module `Mathlib.LinearAlgebra.TensorProduct.Opposite` gives the algebra equivalence `Algebra.TensorProduct.opAlgEquiv` from $A^{\mathrm{op}} \otimes B^{\mathrm{op}}$ to $(A \otimes B)^{\mathrm{op}}$, with `Algebra.TensorProduct.opAlgEquiv_tmul` for $a \otimes b \mapsto \mathrm{op}(a \otimes b)$. Both sides have the product $(a \otimes b)(a' \otimes b') = a' a \otimes b' b$ on pure tensors, so the identity map of the underlying module is multiplicative.
 
 ### Exercises
 

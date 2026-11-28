@@ -10,6 +10,7 @@ modules:
   - Mathlib.LinearAlgebra.RootSystem.GeckConstruction.Semisimple
   - Mathlib.LinearAlgebra.RootSystem.GeckConstruction.Basis
   - Mathlib.Algebra.Lie.Basis.Basic
+  - Mathlib.Algebra.Lie.Basis
   - Mathlib.Algebra.Lie.Basis.Base
   - Mathlib.Algebra.Lie.Basis.Prod
 explains:

@@ -5,6 +5,9 @@ modules:
   - Mathlib.Geometry.Convex.ConvexSpace.Defs
   - Mathlib.Geometry.Convex.ConvexSpace.Module
   - Mathlib.Geometry.Convex.ConvexSpace.AffineSpace
+  - Mathlib.Geometry.Convex.ConvexSpace.Prod
+  - Mathlib.LinearAlgebra.ConvexSpace
+  - Mathlib.LinearAlgebra.ConvexSpace.AffineSpace
   - Mathlib.Geometry.Convex.Set
   - Mathlib.Geometry.Convex.Segment
   - Mathlib.Geometry.Convex.Star
@@ -119,6 +122,8 @@ A structure with one field, `map_sConvexComb`. `AffineMap.isAffineMap` makes the
 
 <?decl Convexity.IsAffineMap?>
 :::
+
+The module `Mathlib.Geometry.Convex.ConvexSpace.Prod` gives the convex space structures on products. The instances are `Prod.instConvexSpace` on $X \times Y$, `Pi.instConvexSpaceForall` on $\prod_i X_i$ and `Finsupp.instConvexSpace` on `ι →₀ X`. In each case a combination is computed in each coordinate. The simp lemmas say this for each form of combination: `Prod.fst_convexCombPair`, `Prod.fst_iConvexComb` and `Prod.fst_sConvexComb` for the first coordinate, the `snd` forms for the second coordinate, and `Pi.convexCombPair_apply`, `Pi.iConvexComb_apply` and `Finsupp.convexCombPair_apply` for the other two products. The projections are affine (`Prod.isAffineMap_fst`, `Prod.isAffineMap_snd`, `Pi.isAffineMap_eval`, `Finsupp.isAffineMap_eval`). A map into a product is affine if and only if each coordinate is affine: this is `Convexity.isAffineMap_prod_iff`, `Convexity.isAffineMap_pi_iff` and `Convexity.isAffineMap_finsupp_iff`, and `Convexity.IsAffineMap.prodMk` builds the pair map $x \mapsto (f(x), g(x))$.
 
 ::: mathlib
 `IsVisible` · `Mathlib.Analysis.Convex.Visible`

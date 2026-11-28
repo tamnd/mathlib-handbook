@@ -6,6 +6,7 @@ modules:
   - Mathlib.Combinatorics.SimpleGraph.Finite
   - Mathlib.Combinatorics.SimpleGraph.Dart
   - Mathlib.Combinatorics.SimpleGraph.DegreeSum
+  - Mathlib.Combinatorics.SimpleGraph.Init
 explains:
   E3: [SimpleGraph, SimpleGraph.edgeSet, SimpleGraph.neighborFinset, SimpleGraph.degree, SimpleGraph.Dart, SimpleGraph.sum_degrees_eq_twice_card_edges, SimpleGraph.even_card_odd_degree_vertices]
   E2: [SimpleGraph.Adj, SimpleGraph.neighborSet, SimpleGraph.edgeFinset, SimpleGraph.mem_edgeSet, SimpleGraph.mem_neighborFinset, SimpleGraph.card_neighborFinset_eq_degree, SimpleGraph.Adj.symm, SimpleGraph.Adj.ne, SimpleGraph.fromRel, SimpleGraph.completeGraph, SimpleGraph.emptyGraph, SimpleGraph.top_adj, SimpleGraph.bot_adj, SimpleGraph.compl_adj, SimpleGraph.le_iff_adj, SimpleGraph.edgeSetEmbedding, completeBipartiteGraph, SimpleGraph.LocallyFinite, SimpleGraph.IsRegularOfDegree, SimpleGraph.maxDegree, SimpleGraph.minDegree, SimpleGraph.complete_graph_degree, SimpleGraph.degree_compl, SimpleGraph.card_edgeFinset_top_eq_card_choose_two, SimpleGraph.card_edgeFinset_le_card_choose_two, SimpleGraph.Dart.edge, SimpleGraph.Dart.symm, SimpleGraph.dart_edge_eq_iff, SimpleGraph.dart_card_eq_sum_degrees, SimpleGraph.dart_card_eq_twice_card_edges, SimpleGraph.dart_fst_fiber_card_eq_degree, SimpleGraph.dart_edge_fiber_card, SimpleGraph.odd_card_odd_degree_vertices_ne, SimpleGraph.exists_ne_odd_degree_of_exists_odd_degree]

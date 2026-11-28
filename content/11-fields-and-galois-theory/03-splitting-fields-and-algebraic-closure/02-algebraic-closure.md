@@ -9,6 +9,7 @@ modules:
   - Mathlib.FieldTheory.Extension
   - Mathlib.FieldTheory.IsRealClosed.Basic
   - Mathlib.FieldTheory.IsRealClosed.Real
+  - Mathlib.FieldTheory.IsAlgClosed.Spectrum
 explains:
   E3: [IsAlgClosed, IsAlgClosure, AlgebraicClosure, IsAlgClosed.lift, IsAlgClosure.equiv, algebraicClosure]
   E2: [IsAlgClosed.exists_root, IsAlgClosed.of_exists_root, IsAlgClosed.splits, IsAlgClosed.degree_eq_one_of_irreducible, IsAlgClosed.algebraMap_bijective_of_isIntegral, IsAlgClosure.of_splits, AlgebraicClosure.maxIdeal, AlgebraicClosure.spanCoeffs, AlgebraicClosure.spanCoeffs_ne_top, AlgebraicClosure.subProdXSubC, AlgebraicClosure.Vars, AlgebraicClosure.Monics, AlgebraicClosure.toSplittingField, mem_algebraicClosure_iff, IsAlgClosed.algebraicClosure_eq_bot_iff, IntermediateField.exists_algHom_of_splits, IsAlgClosed.ringEquiv_of_equiv_of_char_eq, IsAlgClosed.equivOfTranscendenceBasis, IsRealClosed]
@@ -146,6 +147,8 @@ For the first statement, a bijection of transcendence bases gives an isomorphism
 **Example (The real numbers).** $\mathbb{R}$ is not algebraically closed, since $X^2 + 1$ has no root. It is real closed: each polynomial of odd degree has a root, by the intermediate value theorem, and each positive element is a square. Then $\mathbb{R}(i) = \mathbb{C}$ is algebraically closed. In Mathlib, `IsRealClosed` is the class, and `instIsRealClosedReal` is the instance for `ℝ`.
 
 ### The library around it
+
+The module `Mathlib.FieldTheory.IsAlgClosed.Spectrum` uses algebraic closure for linear algebra. Let $A$ be an algebra over a field $k$ and $a \in A$. The spectrum $\sigma(a)$ is the set of $\lambda \in k$ such that $a - \lambda$ is not invertible. For a polynomial $p$, `spectrum.subset_polynomial_aeval` gives $p(\sigma(a)) \subseteq \sigma(p(a))$ over any field. Over an algebraically closed field, the spectral mapping theorem gives equality, $\sigma(p(a)) = p(\sigma(a))$, when $\deg p > 0$ (`spectrum.map_polynomial_aeval_of_degree_pos`) or when $\sigma(a)$ is nonempty (`spectrum.map_polynomial_aeval_of_nonempty`). *Proof sketch.* Let $\mu \in k$. Since $k$ is algebraically closed, $p - \mu = c \prod_i (X - \lambda_i)$ with $c \neq 0$, so $p(a) - \mu = c \prod_i (a - \lambda_i)$. The factors commute, so the product is invertible if and only if each factor is. Thus $\mu \in \sigma(p(a))$ if and only if some root $\lambda_i$ of $p - \mu$ lies in $\sigma(a)$, that is, $\mu \in p(\sigma(a))$. $\square$ The case of powers is `spectrum.map_pow_of_pos`. The module also proves `spectrum.nonempty_of_isAlgClosed_of_finiteDimensional`: in a nontrivial algebra of finite dimension over an algebraically closed field, each element has an eigenvalue. For an idempotent $e$, `IsIdempotentElem.spectrum_subset` gives $\sigma(e) \subseteq \{0, 1\}$.
 
 **Common errors of a learner.** The first error is to expect `IsAlgClosed.lift` to agree with a given embedding. It is arbitrary. The second error is to confuse `AlgebraicClosure K` with `algebraicClosure K E`. The third error is to use `IsAlgClosure ℚ ℂ`: it is false.
 
