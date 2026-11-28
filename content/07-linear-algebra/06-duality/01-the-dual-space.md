@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.LinearAlgebra.Dual.Defs
   - Mathlib.LinearAlgebra.Dual.Basis
+  - Mathlib.LinearAlgebra.Dual.BaseChange
 explains:
   E3: [Module.Dual, Module.Basis.dualBasis, Module.Dual.eval]
   E2: [Module.Basis.dualBasis_apply_self, Module.Basis.dualBasis_repr, Module.Basis.coe_dualBasis, Module.Basis.coord, Module.Basis.toDual, Module.Basis.toDualEquiv, Module.Dual.eval_apply, Module.evalEquiv, Module.IsReflexive, Module.Basis.sum_dual_apply_smul_coord]
@@ -169,6 +170,8 @@ For a reflexive module, the evaluation as a linear equivalence `M ≃ₗ[R] Dual
 ### The library around it
 
 The definitions are in `Mathlib.LinearAlgebra.Dual.Defs`, and the dual bases in `Mathlib.LinearAlgebra.Dual.Basis`. The file `Mathlib.LinearAlgebra.Dual.Lemmas` has the results that need a field, such as `Subspace.dual_finrank_eq`. The general notion of a dual pair of bases is `Module.DualBases`. For the matrices of $K^n$, `dotProductEquiv` identifies $K^n$ with its dual by the dot product.
+
+The file `Mathlib.LinearAlgebra.Dual.BaseChange` compares the dual with a change of the ring of scalars. For an $R$-algebra $A$, a linear form $f$ on $V$ gives the linear form `Module.Dual.baseChange A f` on $A \otimes_R V$, with $a \otimes v \mapsto f(v) a$ (`Module.Dual.baseChange_apply_tmul`). When $V$ is free of finite rank, these forms span the dual: `IsBaseChange.toDualBaseChange` is the linear equivalence $A \otimes_R V^* \simeq (A \otimes_R V)^*$, and `IsBaseChange.dual` says that the dual of a base change is the base change of the dual. A linear equivalence $V \simeq W$ gives the equivalence `Module.Dual.congr` of the duals. The tensor products are in Volume 8.
 
 Common errors of a learner:
 
