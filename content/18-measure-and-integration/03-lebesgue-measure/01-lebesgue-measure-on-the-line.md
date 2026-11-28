@@ -6,6 +6,9 @@ modules:
   - Mathlib.MeasureTheory.Measure.Lebesgue.Basic
   - Mathlib.MeasureTheory.Measure.Regular
   - Mathlib.MeasureTheory.Measure.Typeclasses.NullSingletonClass
+  - Mathlib.MeasureTheory.Constructions.UnitInterval
+  - Mathlib.MeasureTheory.Constructions.Dieudonne
+  - Mathlib.MeasureTheory.Function.BorelGrowth
 explains:
   E3: [StieltjesFunction, StieltjesFunction.measure, StieltjesFunction.measure_Ioc, StieltjesFunction.length_subadditive_Icc_Ioo, StieltjesFunction.measurableSet_Ioi, Real.volume_eq_stieltjes_id, Real.volume_Icc, MeasureTheory.Measure.Regular, Set.exists_isOpen_lt_add]
   E2: [StieltjesFunction.length, StieltjesFunction.outer, StieltjesFunction.outer_Ioc, StieltjesFunction.borel_le_measurable, StieltjesFunction.measure_singleton, StieltjesFunction.measure_Icc, StieltjesFunction.measure_Ioo, Monotone.stieltjesFunction, StieltjesFunction.id, Real.volume_Ioo, Real.volume_Ioc, Real.volume_singleton, Real.volume_univ, Real.volume_preimage_mul_left, Real.nullSingletonClass_volume, Set.Countable.measure_zero, MeasureTheory.NullSingletonClass, MeasureTheory.Measure.OuterRegular, MeasureTheory.Measure.InnerRegular, MeasurableSet.exists_isCompact_lt_add, MeasureTheory.Measure.Regular.of_sigmaCompactSpace_of_isLocallyFiniteMeasure]
@@ -180,6 +183,12 @@ For any outer regular measure and any set `A`: `μ A ≠ ⊤ → ε ≠ 0 → �
 ### The library around it
 
 `Mathlib.MeasureTheory.Measure.Stieltjes` has a lemma `StieltjesFunction.measure_I**` for each kind of interval, and `StieltjesFunction.isProbabilityMeasure` for a function with limits $0$ and $1$ at $\mp\infty$: this is how a distribution function gives a law in Volume 20. `Mathlib.MeasureTheory.Measure.Lebesgue.Basic` has the values of `volume` on intervals, rays and balls (`Real.volume_ball`), and the dilation lemmas `Real.map_volume_mul_left` and `Real.volume_preimage_mul_right`.
+
+The file `Mathlib.MeasureTheory.Constructions.UnitInterval` gives the unit interval `unitInterval` the restriction of Lebesgue measure. Its definition `unitInterval.volume_def` is the pullback of `volume` along the inclusion. It is a probability measure. The lemmas `unitInterval.volume_Icc`, `unitInterval.volume_Ioo` and their companions give the length of each kind of interval, and `unitInterval.measurePreserving_symm` says that the map $x \mapsto 1 - x$ preserves the measure.
+
+The growth lemma of Borel is a statement about a monotone function $S$ on $[a, \infty)$ with $S(a) \ge 0$. The lemma `MonotoneOn.eventually_le_two_mul` says that $S(r + 1/S(r)) \le 2 S(r)$ for all large $r$ outside a set of finite Lebesgue measure. The filter is `volume.cofinite ⊓ atTop`. The sets of the filter `MeasureTheory.Measure.cofinite` have complements of finite measure. Value distribution theory uses the lemma.
+
+Not every measure on a nice space is regular. The file `Mathlib.MeasureTheory.Constructions.Dieudonne` gives a counterexample on a well order $\alpha$ of uncountable cofinality, such as the countable ordinals. A set is measurable if it contains or misses a closed unbounded set. The measure `MeasureTheory.Dieudonne.measure` takes the value $1$ on stationary sets, by `MeasureTheory.Dieudonne.measure_of_isStationary`, and $0$ on the other measurable sets. It takes only the values $0$ and $1$, and its support is empty. The measurable space and the measure are scoped instances, active after `open MeasureTheory.Dieudonne`.
 
 Common errors of a learner:
 

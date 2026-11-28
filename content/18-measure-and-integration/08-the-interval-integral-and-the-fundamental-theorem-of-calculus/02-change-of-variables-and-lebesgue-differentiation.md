@@ -8,6 +8,10 @@ modules:
   - Mathlib.MeasureTheory.Covering.VitaliFamily
   - Mathlib.MeasureTheory.Covering.Differentiation
   - Mathlib.MeasureTheory.Covering.Besicovitch
+  - Mathlib.MeasureTheory.Covering.BesicovitchVectorSpace
+  - Mathlib.MeasureTheory.Covering.DensityTheorem
+  - Mathlib.MeasureTheory.Covering.LiminfLimsup
+  - Mathlib.MeasureTheory.Covering.OneDim
   - Mathlib.MeasureTheory.Integral.IntervalIntegral.LebesgueDifferentiationThm
 explains:
   E3: [MeasureTheory.integral_image_eq_integral_abs_det_fderiv_smul, MeasureTheory.lintegral_abs_det_fderiv_eq_addHaar_image, Vitali.exists_disjoint_subfamily_covering_enlargement_closedBall, VitaliFamily, VitaliFamily.ae_tendsto_average, LocallyIntegrable.ae_hasDerivAt_integral]
@@ -120,6 +124,8 @@ Theorem 5 for a Vitali family and a locally integrable function.
 :::
 
 The theorem in this form follows from `VitaliFamily.ae_tendsto_rnDeriv`: for a second measure $\rho$, the ratio $\rho(a)/\mu(a)$ tends to the derivative of Radon and Nikodym of Chapter 4, Section 3. With balls this is `Besicovitch.ae_tendsto_rnDeriv`. Lebesgue points are `VitaliFamily.ae_tendsto_lintegral_eNorm_sub_div_of_integrable`, and density points of a measurable set are `VitaliFamily.ae_tendsto_measure_inter_div_of_measurableSet`. Corollary 6 is `LocallyIntegrable.ae_hasDerivAt_integral`, with the version `IntervalIntegrable.ae_hasDerivAt_integral` on an interval. The index of this edition has no declaration for the maximal function of Hardy and Littlewood or for Theorem 4. The proof in Mathlib uses the covering property of the family in its place.
+
+Four further files supply the families. The file `Mathlib.MeasureTheory.Covering.BesicovitchVectorSpace` proves the covering theorem of Besicovitch in every finite dimensional real normed space: the instance `Besicovitch.instHasBesicovitchCovering` holds there. The key bound is `Besicovitch.card_le_multiplicity`: a family of points in the ball of radius $2$ with pairwise distances at least $1$ has at most `Besicovitch.multiplicity E` elements. The file `Mathlib.MeasureTheory.Covering.DensityTheorem` treats a uniformly locally doubling measure, which gives balls of radius $2r$ at most a fixed multiple of the measure of balls of radius $r$. For such a measure, `IsUnifLocDoublingMeasure.vitaliFamily` is a Vitali family of closed balls. The density theorem of Lebesgue in this setting is `IsUnifLocDoublingMeasure.ae_tendsto_measure_inter_div`, and the convergence of averages is `IsUnifLocDoublingMeasure.ae_tendsto_average`. The file `Mathlib.MeasureTheory.Covering.LiminfLimsup` applies the density theorem to limits superior of thickenings: `blimsup_thickening_mul_ae_eq` says that multiplying the radii $r_i \to 0$ by a constant $M > 0$ changes the set only on a null set. This is a step towards the theorem of Gallagher on Diophantine approximation. The file `Mathlib.MeasureTheory.Covering.OneDim` shows that the intervals $[x, y]$ with $y \downarrow x$ tend to $x$ along the Vitali family of the line, `Real.tendsto_Icc_vitaliFamily_right`, and `Real.tendsto_Icc_vitaliFamily_left` treats the intervals on the left.
 
 Common errors of a learner:
 

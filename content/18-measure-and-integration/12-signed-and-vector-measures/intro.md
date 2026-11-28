@@ -1,0 +1,7 @@
+# Signed and vector measures
+
+This chapter studies countably additive set functions with values outside $[0, \infty]$: signed measures with real values, complex measures and vector measures with values in a normed space. Mathlib has one structure, `MeasureTheory.VectorMeasure`, for all of them, and a measure is the case of values in $[0, \infty]$.
+
+Section 1 defines vector measures and signed measures, the operations on them, the order, absolute continuity and singularity. It builds vector measures from an additive content dominated by a measure and from a density. Section 2 proves the decompositions of Hahn and Jordan, the Lebesgue decomposition and the theorem of Radon-Nikodym for signed and complex measures, and defines the total variation distance. Section 3 defines the variation $|\mu|$ of a vector measure as a measure, the semivariation, and the vector measure $df$ of a function of bounded variation on the line. Section 4 integrates a function against a vector measure with a bilinear map, and proves the dominated convergence theorem, the formula of integration by parts for Stieltjes integrals and the theorem of Fubini for products of vector measures.
+
+The chapter needs the measures of Chapter 2, the integrals of Chapters 4 and 5 and, for the products in Section 4, Chapter 6. The normed spaces of Volume 16 appear throughout; the reader can take the values in $\mathbb{R}$ or $\mathbb{C}$.

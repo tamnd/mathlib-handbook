@@ -1,6 +1,6 @@
 number: 18
 title: Measure and integration
-subtitle: Measurable spaces, measures, the Lebesgue and Bochner integrals, Fubini-Tonelli, Lp spaces and the fundamental theorem of calculus in Mathlib
+subtitle: Measurable spaces, measures, the Lebesgue and Bochner integrals, Fubini-Tonelli, Lp spaces, the fundamental theorem of calculus, conditional expectation, vector measures and weak convergence in Mathlib
 level: graduate
 prefixes:
 - Mathlib/MeasureTheory

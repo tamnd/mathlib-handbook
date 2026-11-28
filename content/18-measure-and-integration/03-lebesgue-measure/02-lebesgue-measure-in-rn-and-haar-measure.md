@@ -10,6 +10,8 @@ modules:
   - Mathlib.MeasureTheory.Measure.Haar.InnerProductSpace
   - Mathlib.MeasureTheory.Group.Measure
   - Mathlib.MeasureTheory.Group.Defs
+  - Mathlib.MeasureTheory.Constructions.HaarToSphere
+  - Mathlib.MeasureTheory.Constructions.SubmoduleQuotient
 explains:
   E3: [MeasureTheory.Measure.IsAddHaarMeasure, MeasureTheory.Measure.addHaarMeasure, MeasureTheory.Measure.addHaarMeasure_unique, MeasureTheory.Measure.isAddLeftInvariant_eq_smul, MeasureTheory.Measure.addHaar_image_linearMap, MeasureTheory.Measure.addHaar_smul, Real.volume_Icc_pi, Real.map_matrix_volume_pi_eq_smul_volume_pi, InnerProductSpace.volume_ball]
   E2: [Real.volume_pi_Ioo, Real.volume_pi_Ioc, Real.volume_preserving_transvectionStruct, Real.smul_map_diagonal_volume_pi, Real.map_linearMap_volume_pi_eq_smul_volume_pi, MeasureTheory.Measure.addHaar_preimage_linearMap, MeasureTheory.Measure.map_linearMap_addHaar_eq_smul_addHaar, MeasureTheory.Measure.addHaar_ball, MeasureTheory.Measure.addHaar_closedBall, MeasureTheory.Measure.addHaar_submodule, MeasureTheory.Measure.addHaar_affineSubspace, MeasureTheory.Measure.addHaar_sphere, MeasureTheory.Measure.addHaar_parallelepiped, MeasureTheory.Measure.haarMeasure, MeasureTheory.Measure.haarMeasure_unique, MeasureTheory.Measure.addHaarMeasure_self, MeasureTheory.Measure.addHaarScalarFactor, MeasureTheory.Measure.haar.haarContent, MeasureTheory.Measure.haar.index, MeasureTheory.Measure.IsAddLeftInvariant, MeasureTheory.measure_preimage_add, Module.Basis.addHaar, Module.Basis.parallelepiped, measureSpaceOfInnerProductSpace, Real.measureSpace, OrthonormalBasis.volume_parallelepiped, EuclideanSpace.volume_ball]
@@ -164,6 +166,10 @@ For a nontrivial finite dimensional inner product space `E`, `volume (ball x r) 
 ### The library around it
 
 `Mathlib.MeasureTheory.Measure.Lebesgue.EqHaar` states almost everything for an arbitrary additive Haar measure `μ` on a finite dimensional real normed space `E`, with the names `addHaar_*`: images and preimages under linear maps, homotheties (`addHaar_image_homothety`), balls, spheres and affine subspaces. A theorem proved there holds for `volume` on `ℝ`, on `ι → ℝ`, on `EuclideanSpace ℝ ι` and on `ℂ` at once, because each of them has an instance `IsAddHaarMeasure volume`. `Mathlib.MeasureTheory.Measure.Haar.Unique` has the uniqueness theorems for general locally compact groups.
+
+Polar coordinates come from `Mathlib.MeasureTheory.Constructions.HaarToSphere`. For an additive Haar measure $\mu$ on a space $E$ of dimension $n$, the measure `MeasureTheory.Measure.toSphere μ` on the unit sphere gives a set $A$ the value $n \, \mu(\{t x : x \in A, \ 0 < t < 1\})$, so the whole sphere has measure $n \, \mu(B(0, 1))$, by `MeasureTheory.Measure.toSphere_apply_univ`. The lemma `MeasureTheory.Measure.measurePreserving_homeomorphUnitSphereProd` says that the map $x \mapsto (x / \|x\|, \|x\|)$ sends $\mu$ on $E \setminus \{0\}$ to the product of this measure with the measure $r^{n-1} \, dr$ on $(0, \infty)$, which is `MeasureTheory.Measure.volumeIoiPow`. For radial functions, `MeasureTheory.integral_fun_norm_addHaar` gives
+$$\int_E f(\|x\|) \, d\mu(x) = n \, \mu(B(0, 1)) \int_0^\infty r^{n-1} f(r) \, dr.$$
+The file `Mathlib.MeasureTheory.Constructions.SubmoduleQuotient` gives the quotient `M ⧸ p` of a module by a submodule the quotient σ-algebra, with the instance `Submodule.Quotient.instMeasurableSpaceQuotient`.
 
 Common errors of a learner:
 

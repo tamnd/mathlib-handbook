@@ -7,6 +7,7 @@ modules:
   - Mathlib.MeasureTheory.Integral.IntervalIntegral.IntegrationByParts
   - Mathlib.MeasureTheory.Integral.IntegralEqImproper
   - Mathlib.Analysis.SpecialFunctions.Integrals.Basic
+  - Mathlib.Analysis.SpecialFunctions.Integrals.Log
   - Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
 explains:
   E3: [intervalIntegral, IntervalIntegrable, intervalIntegral.integral_add_adjacent_intervals, intervalIntegral.integral_hasDerivAt_right, intervalIntegral.integral_eq_sub_of_hasDerivAt, MeasureTheory.integral_Ioi_of_hasDerivAt_of_tendsto]
@@ -115,7 +116,7 @@ The first form. The hypothesis `StronglyMeasurableAtFilter f (𝓝 b)` asks for 
 
 Integration by parts is `intervalIntegral.integral_mul_deriv_eq_deriv_mul`, for functions with values in a normed algebra. Substitution is `intervalIntegral.integral_comp_mul_deriv`, for real functions. The index of this edition has no declaration for `intervalIntegral.integral_comp_smul_deriv`.
 
-The computed integrals live in `Mathlib.Analysis.SpecialFunctions.Integrals.Basic`: `integral_pow`, `integral_exp`, `integral_sin`, `integral_inv_one_add_sq` (the value $\arctan b - \arctan a$) and others. Improper integrals use `MeasureTheory.integral_Ioi_of_hasDerivAt_of_tendsto` and `MeasureTheory.intervalIntegral_tendsto_integral_Ioi`. The values of the first example are `integral_Ioi_rpow_of_lt`, `integral_exp_neg_Ioi_zero` and `integral_Ioi_inv_one_add_sq`, and `integrableOn_Ioi_rpow_iff` states that $x^s$ is integrable on $(t, \infty)$ with $t > 0$ if and only if $s < -1$.
+The computed integrals live in `Mathlib.Analysis.SpecialFunctions.Integrals.Basic`: `integral_pow`, `integral_exp`, `integral_sin`, `integral_inv_one_add_sq` (the value $\arctan b - \arctan a$) and others. The file `Mathlib.Analysis.SpecialFunctions.Integrals.Log` computes an integral with a singular integrand: `integral_log_sin_zero_pi` gives $\int_0^\pi \log(\sin x) \, dx = -\pi \log 2$, and `integral_log_sin_zero_pi_div_two` gives the value $-\frac{\pi}{2} \log 2$ on $[0, \pi/2]$. Improper integrals use `MeasureTheory.integral_Ioi_of_hasDerivAt_of_tendsto` and `MeasureTheory.intervalIntegral_tendsto_integral_Ioi`. The values of the first example are `integral_Ioi_rpow_of_lt`, `integral_exp_neg_Ioi_zero` and `integral_Ioi_inv_one_add_sq`, and `integrableOn_Ioi_rpow_iff` states that $x^s$ is integrable on $(t, \infty)$ with $t > 0$ if and only if $s < -1$.
 
 ::: mathlib
 `MeasureTheory.ContinuousOn.hasBoxIntegral` · `Mathlib.Analysis.BoxIntegral.Integrability`
