@@ -4,6 +4,8 @@ kind: theory
 modules:
   - Mathlib.GroupTheory.Perm.Sign
   - Mathlib.GroupTheory.SpecificGroups.Alternating
+  - Mathlib.GroupTheory.Perm.Basic
+  - Mathlib.GroupTheory.Perm.Subgroup
 explains:
   E3: [Equiv.Perm.sign]
   E2: [Equiv.Perm.sign_swap, Equiv.Perm.sign_mul, Equiv.Perm.signAux, Equiv.Perm.swap_induction_on, Equiv.Perm.closure_isSwap, Equiv.Perm.sign_surjective, alternatingGroup, Equiv.Perm.mem_alternatingGroup, alternatingGroup.index_eq_two, two_mul_card_alternatingGroup]
@@ -193,6 +195,8 @@ The count `2 * card (alternatingGroup α) = card (Perm α)` for a nontrivial fin
 ### The library around it
 
 The sign is in `Mathlib.GroupTheory.Perm.Sign`, with `Equiv.Perm.sign_symm_trans_trans`, the invariance of the sign under a change of the labels, and `Equiv.Perm.truncSwapFactors`, a computable list of transpositions with product `σ`. The determinant of Volume 6 is a sum over `Equiv.Perm n` with the factor `sign σ`. The group `alternatingGroup (Fin n)` is simple for $n \ge 5$, by `alternatingGroup.isSimpleGroup`, which is the group theoretic core of the theorem of Abel and Ruffini.
+
+The module `Mathlib.GroupTheory.Perm.Subgroup` holds Cayley's theorem in the form `Equiv.Perm.subgroupOfMulAction`: a group that acts faithfully on $H$ is isomorphic to its image in `Equiv.Perm H`. With the action of $G$ on itself, each group is a subgroup of a symmetric group. The module also counts the images of the block embeddings: `Equiv.Perm.sumCongrHom.card_range` gives $|S_\alpha \times S_\beta|$ for the permutations of $\alpha \oplus \beta$ that preserve the two parts, and `Equiv.Perm.subtypeCongrHom.card_range` does the same for a set and its complement. The small module `Mathlib.GroupTheory.Perm.Basic` says that the powers and the inverse of a permutation that maps a set $s$ bijectively onto itself do the same (`Set.BijOn.perm_pow`, `Set.BijOn.perm_zpow`, `Set.BijOn.perm_inv`), and that a transposition acts as an involution in each action of `Equiv.Perm α` (`Equiv.swap_smul_involutive`).
 
 Common errors of a learner:
 

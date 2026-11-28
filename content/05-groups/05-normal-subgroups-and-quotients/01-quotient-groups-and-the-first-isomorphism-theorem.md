@@ -4,6 +4,12 @@ kind: theory
 modules:
   - Mathlib.GroupTheory.QuotientGroup.Defs
   - Mathlib.GroupTheory.IndexNormal
+  - Mathlib.Algebra.Quotient
+  - Mathlib.GroupTheory.Subgroup.Simple
+  - Mathlib.GroupTheory.QuotientGroup.Simple
+  - Mathlib.GroupTheory.QuotientGroup.Finite
+  - Mathlib.GroupTheory.QuotientGroup.ModEq
+  - Mathlib.GroupTheory.Subgroup.Saturated
 explains:
   E3: [QuotientGroup.quotientKerEquivRange]
   E2: [Subgroup.Normal, Subgroup.Normal.conj_mem, MonoidHom.normal_ker, Subgroup.normal_of_index_eq_two, Subgroup.center, QuotientGroup.Quotient.group, QuotientGroup.mk, QuotientGroup.eq, QuotientGroup.lift, QuotientGroup.quotientKerEquivOfSurjective]
@@ -198,6 +204,12 @@ The form for a surjective `f`: `G ⧸ f.ker ≃* H`. This is the form that ident
 ### The library around it
 
 The basic quotient theory is in `Mathlib.GroupTheory.QuotientGroup.Defs`, and the isomorphism theorems are in `Mathlib.GroupTheory.QuotientGroup.Basic`. The lemma `QuotientGroup.ker_mk'` says that the kernel of the quotient map is `N`. The normal subgroups of `G` have their own lattice operations; the largest normal subgroup in `H` is `Subgroup.normalCore`. The commutator subgroup, the smallest normal subgroup with a commutative quotient, is `commutator G`. A group with no normal subgroups other than `⊥` and `⊤` is simple, the class `IsSimpleGroup`.
+
+The notation `G ⧸ N` is not special to groups. It comes from the class `HasQuotient` of `Mathlib.Algebra.Quotient`, whose instances also give the quotient modules `M ⧸ N` and the quotient rings `R ⧸ I`. The notation unfolds to `HasQuotient.Quotient`.
+
+The class `IsSimpleGroup` is in `Mathlib.GroupTheory.Subgroup.Simple`. Its constructor `IsSimpleGroup.mk` asks for a nontrivial group whose only normal subgroups are `⊥` and `⊤`, and `isSimpleGroup_iff` restates this. Simplicity passes along isomorphisms (`MulEquiv.isSimpleGroup_congr`) and to nontrivial quotients (`IsSimpleGroup.isSimpleGroup_of_surjective`). For a subgroup $H$, `Subgroup.isSimpleGroup_iff` describes the simplicity of `↥H` by subgroups of $G$ inside $H$. The module `Mathlib.GroupTheory.QuotientGroup.Simple` connects simplicity with maximal normal subgroups. If $M$ is a normal subgroup that is a coatom of the lattice of subgroups, then $G/M$ is simple, by `Group.isSimpleGroup_of_isCoatom`; for a commutative group the converse holds, by `CommGroup.isSimpleGroup_iff_isCoatom`. The proof is the correspondence theorem of the next section: the normal subgroups of $G/M$ match the normal subgroups between $M$ and $G$.
+
+The module `Mathlib.GroupTheory.QuotientGroup.Finite` deduces finiteness from a subgroup and its quotient. A group $G$ is finite if and only if $H$ and $G/H$ are finite (`finite_iff_subgroup_quotient`). The definitions `Group.fintypeOfKerOfCodom` and `Group.fintypeOfKerLeRange` build a `Fintype` instance from an exact sequence of finite groups. The module `Mathlib.GroupTheory.QuotientGroup.ModEq` links the quotient by $\langle p \rangle$ with congruence modulo $p$ in a commutative additive group: $a \equiv b \pmod p$ if and only if $a$ and $b$ have the same image in $G/\langle p \rangle$, by `AddCommGroup.modEq_iff_eq_mod_zmultiples`. The module `Mathlib.GroupTheory.Subgroup.Saturated` defines a saturated submonoid, `Submonoid.PowSaturated`: if $g^n \in H$ with $n \ne 0$, then $g \in H$. For a subgroup, `Subgroup.saturated_iff_zpow` states this with integer powers. A normal subgroup $N$ is saturated exactly when $G/N$ has no torsion.
 
 Common errors of a learner:
 

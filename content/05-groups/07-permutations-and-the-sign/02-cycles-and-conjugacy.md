@@ -4,6 +4,8 @@ kind: theory
 modules:
   - Mathlib.GroupTheory.Perm.Cycle.Basic
   - Mathlib.GroupTheory.Perm.Cycle.Type
+  - Mathlib.GroupTheory.Perm.ConjAct
+  - Mathlib.GroupTheory.Perm.Cycle.PossibleTypes
 explains:
   E3: [Equiv.Perm.isConj_iff_cycleType_eq]
   E2: [Equiv.Perm.IsCycle, Equiv.Perm.support, Equiv.Perm.Disjoint, Equiv.Perm.Disjoint.commute, Equiv.Perm.cycleType, Equiv.Perm.cycleFactorsFinset, Equiv.Perm.lcm_cycleType, Equiv.Perm.IsCycle.sign, Equiv.Perm.cycleType_conj, Equiv.Perm.closure_three_cycles_eq_alternating]
@@ -169,6 +171,8 @@ The theorem as `closure {σ | σ.IsThreeCycle} = alternatingGroup α`.
 ### The library around it
 
 The theory of cycles is spread over `Mathlib.GroupTheory.Perm.Cycle.Basic`, `.Factors`, `.Type` and `.Concrete`. The last one gives the notation `c[1, 2, 3]` for a cycle, and `decide` computes with it. The predicate `Equiv.Perm.IsThreeCycle` is the cycle type `{3}`. The theorem of Cauchy, `exists_prime_orderOf_dvd_card`, is in the same file as the cycle type, because its proof uses a permutation of tuples. The lemma `alternatingGroup.isConj_of` gives conditions for conjugacy in the alternating group.
+
+The module `Mathlib.GroupTheory.Perm.ConjAct` tracks the support and the cycle factors under conjugation. The support of $k g k^{-1}$ is $k$ applied to the support of $g$ (`Equiv.Perm.support_conj_eq_smul_support`), and the cycle factors of $k g k^{-1}$ are the conjugates of the cycle factors of $g$ (`Equiv.Perm.cycleFactorsFinset_conj`). This is the formal side of the rule that conjugation relabels the points of each cycle. The module `Mathlib.GroupTheory.Perm.Cycle.PossibleTypes` says which multisets occur as cycle types: a multiset $m$ is the cycle type of a permutation of a finite type $\alpha$ if and only if each entry is at least $2$ and the sum is at most $|\alpha|$ (`Equiv.Perm.exists_with_cycleType_iff`). The proof places disjoint lists of the required lengths in $\alpha$, by `List.exists_pw_disjoint_with_card`, and takes the product of the cycles that they define.
 
 Common errors of a learner:
 

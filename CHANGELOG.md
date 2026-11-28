@@ -10,6 +10,8 @@ Each release has a section. The newest release is first.
 
 - V06 has a home section for each of its modules. 28 new sections of the kind `api` treat them. They treat the characteristic in constructions, the lemma library of ordered semirings, floor and ceiling, Archimedean classes, absolute values, the API of algebras, unitization and the spectrum of an element. The new Chapter 9 treats the star algebras (#69).
 
+- V05 has a home section for each of its modules. 62 new sections of the kind `api` treat them. They treat the notation classes, units and divisibility in monoids, the morphism classes, submonoids and subsemigroups, commutators and the abelianization, congruences, torsors, racks and quandles, and free products. New chapters treat the groups with zero (Chapter 9) and the pointwise operations on sets, finsets and subgroups (Chapter 14) (#70).
+
 ## v0.8.1 - 2026-11-28
 
 ### Changed

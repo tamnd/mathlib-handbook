@@ -5,6 +5,10 @@ modules:
   - Mathlib.Algebra.Group.Units.Defs
   - Mathlib.Algebra.Group.Commute.Defs
   - Mathlib.GroupTheory.SpecificGroups.Dihedral
+  - Mathlib.GroupTheory.SpecificGroups.KleinFour
+  - Mathlib.Algebra.Group.NatPowAssoc
+  - Mathlib.Algebra.Group.PNatPowAssoc
+  - Mathlib.GroupTheory.SpecificGroups.Quaternion
 explains:
   E3: [Units]
   E2: [IsUnit, Units.ext, pow_add, pow_mul, zpow_add, Commute, Commute.mul_pow, DihedralGroup, DihedralGroup.r_mul_sr, DihedralGroup.card]
@@ -208,6 +212,12 @@ The two products differ, so $D_4$ is not commutative. In the notation of Mathlib
 The laws of exponents come in families with a fixed pattern of names. For the natural power in a monoid: `pow_zero`, `pow_one`, `pow_succ`, `pow_add`, `pow_mul`, `one_pow`, `pow_mul_comm`. For the integer power in a group: the same names with `zpow` in place of `pow`, such as `zpow_zero`, `zpow_one`, `zpow_add`, `zpow_mul`, `zpow_neg`, and the casts `zpow_natCast` and `zpow_neg_one`. The inverse of a power is `inv_pow`. Each has an additive copy for the multiples: `add_nsmul`, `mul_nsmul`, `add_zsmul`, `neg_zsmul`.
 
 The units have a family of coercion lemmas with the prefix `Units.val_`: `Units.val_mul`, `Units.val_one`, `Units.val_inv_eq_inv_val`. The predicate `IsUnit` has `IsUnit.mul`, `isUnit_one` and `IsUnit.unit`. The units of `ZMod n` are described in `Mathlib.Data.ZMod.Basic`, with `ZMod.unitOfCoprime` and `ZMod.isUnit_iff_coprime`. The units of `ℤ` are `1` and `-1` by `Int.units_eq_one_or`. The concrete groups of Mathlib are in `Mathlib.GroupTheory.SpecificGroups`: the dihedral group, the quaternion group `QuaternionGroup n` of order $4n$, the cyclic groups and the alternating groups.
+
+The module `Mathlib.GroupTheory.SpecificGroups.Quaternion` builds the generalized quaternion group `QuaternionGroup n` in the same way as the dihedral group. Its elements are `QuaternionGroup.a i` and `QuaternionGroup.xa i` for $i \in \mathbb{Z}/2n$. The four product rules are `QuaternionGroup.a_mul_a`, `QuaternionGroup.a_mul_xa`, `QuaternionGroup.xa_mul_a` and `QuaternionGroup.xa_mul_xa`: $a_i a_j = a_{i+j}$, $a_i x_j = x_{j-i}$, $x_i a_j = x_{i+j}$ and $x_i x_j = a_{n+j-i}$. The rule for $x_i x_j$ is the only difference from the dihedral group, where `sr i * sr j = r (j - i)`. For $n \neq 0$ the group has $4n$ elements (`QuaternionGroup.card`), the element $a_1$ has order $2n$ (`QuaternionGroup.orderOf_a_one`), each $x_i$ has order $4$ (`QuaternionGroup.orderOf_xa`), and $x_i^2 = a_n$ is the unique element of order $2$ in the subgroup $\langle a_1 \rangle$ (`QuaternionGroup.xa_sq`). The exponent is $2 \operatorname{lcm}(n, 2)$ by `QuaternionGroup.exponent`. For $n = 2$ this is the quaternion group $Q_8 = \{\pm 1, \pm i, \pm j, \pm k\}$.
+
+The module `Mathlib.GroupTheory.SpecificGroups.KleinFour` defines the class `IsKleinFour G`: the group `G` has $4$ elements and exponent $2$, by the fields `IsKleinFour.card_four` and `IsKleinFour.exponent_two`. Each element is its own inverse (`IsKleinFour.inv_eq_self`), the group is commutative (`IsKleinFour.isMulCommutative`) and it is not cyclic (`IsKleinFour.not_isCyclic`). Any two Klein four-groups are isomorphic (`IsKleinFour.nonempty_mulEquiv`). In fact a bijection that sends $1$ to $1$ is already an isomorphism, by `IsKleinFour.mulEquiv`. The reason: in a group of exponent $2$ with $4$ elements, the product of two distinct elements other than $1$ is the third one. The additive form `IsAddKleinFour` has the instance for `ZMod 2 × ZMod 2`.
+
+The laws of exponents need less than a monoid. The module `Mathlib.Algebra.Group.NatPowAssoc` defines the class `NatPowAssoc M` for a type with a product, an identity and a power $x^n$ with $n \in \mathbb{N}$: it asks $x^{k + n} = x^k x^n$, $x^0 = 1$ and $x^1 = x$. A monoid has it by the instance `Monoid.PowAssoc`, and so do products and function types. The class covers the power-associative algebras: the product need not be associative, but the powers of one element associate. The lemmas carry the prefix `npow_`: `npow_add`, `npow_mul` ($x^{m n} = (x^m)^n$), `npow_mul_comm` ($x^m x^n = x^n x^m$) and `npow_mul_assoc`. The module `Mathlib.Algebra.Group.PNatPowAssoc` does the same for powers with exponent in $\mathbb{N}^+$ and a product with no identity: the class `PNatPowAssoc` and the lemmas `ppow_add`, `ppow_mul` and `ppow_mul_comm`. In a monoid, `ppow_eq_pow` identifies the power with a positive exponent with the natural power.
 
 ### Exercises
 

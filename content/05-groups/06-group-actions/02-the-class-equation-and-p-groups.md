@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.GroupTheory.ClassEquation
   - Mathlib.GroupTheory.PGroup
+  - Mathlib.GroupTheory.GroupAction.CardCommute
 explains:
   E3: [Group.card_center_add_sum_card_noncenter_eq_card, IsPGroup.card_modEq_card_fixedPoints]
   E2: [ConjAct, ConjAct.smul_def, ConjAct.stabilizer_eq_centralizer, IsConj, IsPGroup, IsPGroup.center_nontrivial, IsPGroup.commGroupOfCardEqPrimeSq, MulAction.fixedPoints, MulAction.sum_card_fixedBy_eq_card_orbits_mul_card_group]
@@ -177,6 +178,8 @@ So $8 = 2 + 2 + 2 + 2$, with center $\{1, r^2\}$ of order $2$. This agrees with 
 ### The library around it
 
 The center and the centralizer have their own files, `Mathlib.GroupTheory.Subgroup.Center` and `Mathlib.GroupTheory.Subgroup.Centralizer`. The theory of $p$-groups in `Mathlib.GroupTheory.PGroup` also has `IsPGroup.index` and `IsPGroup.card_orbit`, the facts that indices and orbit sizes in a $p$-group are powers of $p$, and `IsPGroup.to_subgroup` and `IsPGroup.map` for subgroups and images. The nilpotent groups, which generalize finite $p$-groups, are in `Mathlib.GroupTheory.Nilpotent`. The conjugacy classes of a symmetric group are described by cycle types in Chapter 7.
+
+The module `Mathlib.GroupTheory.GroupAction.CardCommute` counts commuting pairs. In a finite group $G$, the number of pairs $(x, y)$ with $x y = y x$ is $k(G) \cdot |G|$, where $k(G)$ is the number of conjugacy classes. This is `card_comm_eq_card_conjClasses_mul_card`. The proof counts by the first entry. For a fixed $x$ there are $|C_G(x)|$ choices of $y$, and $|C_G(x)| = |G| / |\operatorname{cl}(x)|$ by orbit-stabilizer. The sum over a conjugacy class $\operatorname{cl}(x)$ gives $|G|$, so the total is $|G|$ times the number of classes. The module also gives the class formula `MulAction.card_eq_sum_card_group_div_card_stabilizer`: $|X| = \sum |G| / |\operatorname{Stab}(x)|$, with one term for each orbit.
 
 Common errors of a learner:
 

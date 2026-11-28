@@ -1,0 +1,5 @@
+# Solvable groups, nilpotent groups and extensions
+
+This chapter gives the library of solvable, perfect and nilpotent groups, and of the constructions that build a group from a normal subgroup and a quotient: semidirect products, group extensions and wreath products. Section 1 defines the derived series and solvable groups, shows that they are closed under subgroups, quotients and extensions, proves that $S_5$ is not solvable, and treats perfect groups and subnormal subgroups. Section 2 defines the upper and lower central series and nilpotent groups, proves that finite $p$-groups are nilpotent and that nilpotent groups are solvable, gives the equivalent conditions for a finite group to be nilpotent, and treats the Frattini subgroup. Section 3 builds semidirect products and regular wreath products, defines group extensions, sections and splittings, and proves that a split extension is a semidirect product. It also treats homomorphisms out of products with commuting images and the lemma of Goursat on subgroups of a product.
+
+The chapter needs Chapters 1 to 8.

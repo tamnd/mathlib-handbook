@@ -4,6 +4,12 @@ kind: theory
 modules:
   - Mathlib.GroupTheory.Coset.Card
   - Mathlib.GroupTheory.Index
+  - Mathlib.GroupTheory.Commensurable
+  - Mathlib.GroupTheory.Coset.Defs
+  - Mathlib.GroupTheory.Coset.Basic
+  - Mathlib.GroupTheory.DoubleCoset
+  - Mathlib.GroupTheory.CosetCover
+  - Mathlib.GroupTheory.IndexNSmul
 explains:
   E3: [Subgroup.card_subgroup_dvd_card]
   E2: [Subgroup.index, Subgroup.card_mul_index, QuotientGroup.leftRel, QuotientGroup.leftRel_apply, Subgroup.leftCosetEquivSubgroup, Subgroup.card_eq_card_quotient_mul_card_subgroup, Subgroup.relIndex_mul_index, Subgroup.index_dvd_card]
@@ -166,6 +172,18 @@ So $(1\,3) H \neq H (1\,3)$. The left and the right partitions of $S_3$ differ, 
 ### The library around it
 
 The theory of cosets is in `Mathlib.GroupTheory.Coset.Defs`, `Mathlib.GroupTheory.Coset.Basic` and `Mathlib.GroupTheory.Coset.Card`. The index and its many lemmas are in `Mathlib.GroupTheory.Index`. The lemma `Subgroup.index_eq_two_iff` characterizes subgroups of index $2$, and `Subgroup.index_ne_zero_of_finite` gives a nonzero index from a finite quotient. The left cosets `G ⧸ H` carry an action of `G`, the subject of Chapter 6. The map `QuotientGroup.mk : G → G ⧸ H` sends `g` to its coset, and the coercion `(g : G ⧸ H)` is this map.
+
+Two subgroups $H$ and $K$ are commensurable when $H \cap K$ has finite index in $H$ and in $K$. The module `Mathlib.GroupTheory.Commensurable` defines this relation as `Subgroup.Commensurable` and proves that it is an equivalence relation, by `Subgroup.Commensurable.equivalence`. The proof of `Subgroup.Commensurable.trans` uses the multiplicativity of the relative index. A subgroup is commensurable with $G$ if and only if it has finite index (`Subgroup.Commensurable.top_left_iff`), and it is commensurable with $\bot$ if and only if it is finite (`Subgroup.Commensurable.bot_left_iff`). The relation is invariant under conjugation and under automorphisms, by `Subgroup.Commensurable.smul_iff`. The commensurator `Subgroup.Commensurable.commensurator H` is the subgroup of the elements $g$ with $g H g^{-1}$ commensurable with $H$, by `Subgroup.Commensurable.commensurator_mem_iff`. For example, the subgroups $4\mathbb{Z}$ and $6\mathbb{Z}$ of $\mathbb{Z}$ are commensurable, because their intersection $12\mathbb{Z}$ has index $3$ in $4\mathbb{Z}$ and index $2$ in $6\mathbb{Z}$.
+
+The module `Mathlib.GroupTheory.Coset.Defs` sets up the quotient `G ⧸ H` for each subgroup `H`, normal or not. The relations are `QuotientGroup.leftRel` and `QuotientGroup.rightRel`, with `QuotientGroup.leftRel_apply` and `QuotientGroup.rightRel_apply` to unfold them: $x \sim y$ means $x^{-1} y \in H$ on the left and $y x^{-1} \in H$ on the right. The main rewriting rule is `QuotientGroup.eq`: two cosets `(a : G ⧸ H)` and `(b : G ⧸ H)` are equal if and only if $a^{-1} b \in H$. The rules `QuotientGroup.mk_surjective`, `QuotientGroup.induction_on` and `QuotientGroup.forall_mk` reduce a statement about all cosets to a statement about all elements. A chosen representative is `Quotient.out`, and `QuotientGroup.mk_out_eq_mul` says that it differs from $g$ by an element of $H$. The map $g \mapsto g^{-1}$ exchanges left and right cosets, and `QuotientGroup.quotientRightRelEquivQuotientLeftRel` is the resulting bijection between the two quotients. Equal subgroups give equivalent quotients by `Subgroup.quotientEquivOfEq`.
+
+The module `Mathlib.GroupTheory.Coset.Basic` treats the cosets as sets. In Mathlib the left coset $a H$ is `a • (H : Set G)` and the right coset $H a$ is `MulOpposite.op a • (H : Set G)`. The lemmas `mem_leftCoset_iff` and `leftCoset_eq_iff` give $x \in a s \iff a^{-1} x \in s$ and $x H = y H \iff x^{-1} y \in H$, with the right-hand forms `mem_rightCoset_iff` and `rightCoset_eq_iff`. A subgroup is normal if and only if each left coset is the right coset of the same element (`normal_iff_eq_cosets`). The module also gives the bijections behind the counting of the section: `Subgroup.leftCosetEquivSubgroup` and `Subgroup.rightCosetEquivSubgroup` for one coset, `Subgroup.groupEquivQuotientProdSubgroup` for $G \simeq (G/H) \times H$, and `Subgroup.quotientEquivProdOfLE` for $G/H \simeq (G/K) \times (K/H)$ when $H \le K$, the form of the tower law for sets. The fibres of a homomorphism $f$ are cosets of the kernel, and `MonoidHom.fiberEquivKer` is the bijection $f^{-1}(f(a)) \simeq \ker f$. For a family of subgroups $H_i$, the map $G / \bigcap_i H_i \to \prod_i G/H_i$ is injective, by `Subgroup.quotientiInfEmbedding`.
+
+A double coset of two subgroups $H$ and $K$ is a set $H a K = \{h a k\}$. The module `Mathlib.GroupTheory.DoubleCoset` defines it as `DoubleCoset.doubleCoset a H K` and the quotient as `DoubleCoset.Quotient H K`, the classes of the relation of `DoubleCoset.rel_iff`. Two double cosets are equal or disjoint (`DoubleCoset.disjoint_out` and `DoubleCoset.doubleCoset_eq_of_mem`), and `DoubleCoset.eq` gives the criterion $H a K = H b K \iff b = h a k$ for some $h \in H$, $k \in K$. Each double coset is a union of left cosets of $K$ (`DoubleCoset.doubleCoset_union_leftCoset`) and of right cosets of $H$. With $H = \bot$ the double cosets are the left cosets of $K$, by `DoubleCoset.left_bot_eq_left_quot`.
+
+The module `Mathlib.GroupTheory.CosetCover` proves a lemma of B. H. Neumann. Suppose that $G$ is the union of $n$ left cosets $g_1 H_1, \dots, g_n H_n$. Then one of the $H_i$ has finite index at most $n$ (`Subgroup.exists_index_le_card_of_leftCoset_cover`), and $\sum_i 1/[G : H_i] \ge 1$ (`Subgroup.one_le_sum_inv_index_of_leftCoset_cover`). The cosets of the subgroups of infinite index can be removed from the cover (`Subgroup.leftCoset_cover_filter_FiniteIndex`). When all $H_i$ are one subgroup $H$, the bound is $[G : H] \le n$, by `Subgroup.index_le_of_leftCoset_cover_const`. The proof of this case is a count: the cosets of $H$ partition $G$, so a cover by $n$ of them needs each of the $[G : H]$ cosets.
+
+The module `Mathlib.GroupTheory.IndexNSmul` computes an index in a free abelian group of finite rank $r$: the subgroup $n M$ of the multiples of $n$ has index $n^r$, by `AddSubgroup.index_range_nsmul`. A subgroup of finite index in a finitely generated torsion-free abelian group has the same rank, by `AddSubgroup.finrank_eq_of_finiteIndex`.
 
 Common errors of a learner:
 
