@@ -7,6 +7,7 @@ modules:
   - Mathlib.Algebra.CharP.Frobenius
   - Mathlib.Algebra.CharP.Reduced
   - Mathlib.Algebra.CharZero.Defs
+  - Mathlib.Algebra.Ring.CharZero
 explains:
   E3: [CharP, ringChar, CharZero, CharP.char_is_prime_or_zero, frobenius, add_pow_char]
   E2: [CharP.cast_eq_zero_iff, CharP.cast_eq_zero, CharP.eq, CharP.exists, ringChar.spec, ringChar.eq, CharP.char_ne_one, CharP.char_is_prime, CharP.char_is_prime_of_pos, CharP.intCast_eq_zero_iff, CharP.ringChar_zero_iff_CharZero, ExpChar, sub_pow_char, add_pow_expChar, frobenius_def, frobenius_inj, charZero_of_inj_zero, Nat.cast_injective]
@@ -184,6 +185,8 @@ The files `Mathlib.Algebra.CharP.Defs` and `Lemmas` hold the API of `CharP`:
 - `ringChar.spec : (x : R) = 0 ↔ ringChar R ∣ x` for the function form.
 
 The file `Mathlib.Algebra.CharZero.Defs` gives `Nat.cast_injective` and the constructor `charZero_of_inj_zero`, which reduces `CharZero` to "$n \cdot 1 = 0$ implies $n = 0$". The file `Mathlib.Algebra.CharP.Frobenius` gives the iterates `iterateFrobenius` and the commutation of ring homomorphisms with the Frobenius, `RingHom.map_frobenius`. The file `Mathlib.Algebra.CharP.Algebra` transfers the characteristic along injective homomorphisms and algebras, with `RingHom.charP` and `Algebra.charP_iff`.
+
+The module `Mathlib.Algebra.Ring.CharZero` collects the consequences of `CharZero` that need the ring operations. The cast `Nat.castEmbedding` is an embedding $\mathbb{N} \hookrightarrow R$, and `RingHom.injective_nat` says that each ring homomorphism $\mathbb{N} \to R$ is injective. A ring homomorphism into a ring of characteristic zero forces characteristic zero on its source, by `RingHom.charZero`, and `RingHom.charZero_iff` makes this an equivalence for an injective homomorphism. Without zero divisors, $a + a = 0$ implies $a = 0$ (`add_self_eq_zero`), so $-a = a$ only for $a = 0$ (`CharZero.neg_eq_self_iff`), and a natural number factor cancels, by `nat_mul_inj'`. In any ring of characteristic zero a unit is never its own negative, by `units_ne_neg_self`, and $2 \ne 0$ is available as the instance `CharZero.NeZero.two`.
 
 Common errors of a learner:
 

@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.Algebra.Ring.Hom.Defs
   - Mathlib.Algebra.Ring.Equiv
+  - Mathlib.Algebra.Ring.CompTypeclasses
 explains:
   E3: [RingHom, RingEquiv]
   E2: [RingHomClass, RingHom.comp, RingHom.id, RingHom.ext, RingEquiv.symm, RingEquiv.trans, RingEquiv.ofBijective, RingEquiv.toRingHom]
@@ -173,6 +174,8 @@ The six values are distinct, and the target has six elements. So $\varphi$ is a 
 The bundled homomorphisms of Mathlib follow one pattern for each structure: `M →* N` for monoids, `R →+* S` for rings, `A →ₐ[R] B` for algebras (Chapter 8), and `≃*`, `≃+*`, `≃ₐ[R]` for the isomorphisms. Each type has an `ext` lemma (`RingHom.ext : (∀ x, f x = g x) → f = g`), a `comp` and an `id`, and the lemmas `coe_comp`, `comp_apply` and `id_apply`. The value lemmas are not stated for each type: the generic `map_add`, `map_mul` and their relatives, stated with `RingHomClass`, apply to all. The simp normal form writes `f (a * b)` as `f a * f b`.
 
 To build a homomorphism, give a structure: `{ toFun := ..., map_one' := ..., map_mul' := ..., map_zero' := ..., map_add' := ... }`. When the target is a ring, `RingHom.mk'` builds a ring homomorphism from a monoid homomorphism `f : R →* S` and a proof that `f` is additive, since `map_zero'` follows. The products have `RingHom.fst`, `RingHom.snd` and `RingHom.prod f g : R →+* S × T`. The evaluation at a point of a function ring is `Pi.evalRingHom`.
+
+Semilinear maps, such as the conjugate linear maps of Volume 7, carry a ring homomorphism $\sigma$ in their type, and their composition needs a ring homomorphism for the composite. The module `Mathlib.Algebra.Ring.CompTypeclasses` supplies this through classes that the instance search solves. `RingHomCompTriple σ₁₂ σ₂₃ σ₁₃` records that $\sigma_{23} \circ \sigma_{12} = \sigma_{13}$, `RingHomInvPair σ σ'` records that $\sigma$ and $\sigma'$ are inverse, and `RingHomId σ` records that $\sigma$ is the identity. `RingHomSurjective σ` records that $\sigma$ is surjective, with `RingHom.surjective` to extract the fact. Instances such as `RingHomInvPair.ids` and `RingHomCompTriple.ids` handle the identity, so the linear case needs no work, and `RingHomInvPair.of_ringEquiv` handles a ring isomorphism and its inverse.
 
 Common errors of a learner:
 

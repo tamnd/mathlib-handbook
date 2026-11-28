@@ -5,6 +5,12 @@ modules:
   - Mathlib.Algebra.Ring.Subring.Defs
   - Mathlib.Algebra.Ring.Subring.Basic
   - Mathlib.Algebra.Ring.Subsemiring.Defs
+  - Mathlib.Algebra.Ring.Subsemiring.Basic
+  - Mathlib.Algebra.Ring.Center
+  - Mathlib.Algebra.Ring.Centralizer
+  - Mathlib.Algebra.Ring.Submonoid.Basic
+  - Mathlib.Algebra.Ring.Subring.Units
+  - Mathlib.Algebra.Ring.Subring.IntPolynomial
 explains:
   E3: [Subring, Subring.closure, RingHom.range]
   E2: [Subsemiring, Subring.center, Subring.mem_center_iff, Subring.closure_le, Subring.closure_induction, Subring.mem_closure, Subring.mem_sInf, Subring.mem_bot, RingHom.eqOn_set_closure, RingHom.mem_range, RingHom.rangeRestrict, Subring.map, Subring.comap, Subring.subtype, Subring.toRing]
@@ -178,6 +184,10 @@ so $s = p$. Hence $Z = p I$ is a scalar matrix. Conversely each scalar matrix co
 The subobjects of Mathlib follow one pattern. For each structure there is a type of subobjects (`Submonoid`, `AddSubgroup`, `Subsemiring`, `Subring`, `Subfield`, `Subalgebra`), a `SetLike` instance for the membership, a complete lattice of the subobjects, a `closure`, a `map` and a `comap` for homomorphisms, and a `range` of a homomorphism. The lemmas carry the same names in each case: `mem_closure`, `closure_le`, `closure_induction`, `mem_map`, `mem_comap`, `map_map`, `comap_comap`, `mem_top`, `mem_bot`, `mem_inf`, `mem_sInf`. A subring is also a submonoid and an additive subgroup, by `S.toSubsemiring` and `S.toAddSubgroup`, so the lemmas of Volume 5 apply to it.
 
 The lemmas for the closure properties of a subring are the generic `add_mem`, `neg_mem`, `sub_mem`, `mul_mem`, `pow_mem`, `one_mem`, `zero_mem`, which apply to each `SetLike` type with the matching class. So a proof writes `mul_mem ha hb` for `a * b ∈ S`, with no reference to `Subring`.
+
+The module `Mathlib.Algebra.Ring.Subsemiring.Basic` builds the same API for subsemirings, for use in `ℕ` and other semirings without negation. It has the complete lattice of subsemirings, `Subsemiring.closure` with `Subsemiring.closure_induction` and `Subsemiring.mem_closure_iff`, which describes the closure as the additive closure of the generated submonoid, and the images and preimages `Subsemiring.map` and `Subsemiring.comap`. The range of a ring homomorphism into a semiring is `RingHom.rangeS`, with the suffix `S` to tell it apart from `RingHom.range`, and `RingHom.rangeSRestrict` is the surjective homomorphism onto it. The center and the centralizers are `Subsemiring.center` and `Subsemiring.centralizer`, with `Subsemiring.mem_center_iff` and `Subsemiring.center.commSemiring`. The module also has products, `Subsemiring.prod` with `Subsemiring.prodEquiv`, the inclusion `Subsemiring.inclusion` of a smaller subsemiring in a larger one, and the scalar actions of a subsemiring on any type on which the big semiring acts, such as `Subsemiring.module`.
+
+The element lemmas behind the center come in separate modules. `Mathlib.Algebra.Ring.Center` shows that the center of a ring is closed under sums and negatives and contains the casts of integers, with `Set.add_mem_center`, `Set.neg_mem_center`, `Set.natCast_mem_center` and `Set.intCast_mem_center`. `Mathlib.Algebra.Ring.Centralizer` gives the same closure lemmas for a centralizer, `Set.add_mem_centralizer` and `Set.neg_mem_centralizer`. `Mathlib.Algebra.Ring.Submonoid.Basic` shows that the additive closure of a multiplicatively closed set is closed under products, with `MulMemClass.mul_mem_add_closure`, which is the key step in the description of the generated subsemiring. `Mathlib.Algebra.Ring.Subring.Units` defines the subgroup `Units.posSubgroup R` of positive units in an ordered ring, and proves that an element of the equalizer `RingHom.eqLocus f g` is a unit there if and only if it is a unit in the big ring, by `RingHom.isUnit_eqLocus_mk_iff`. `Mathlib.Algebra.Ring.Subring.IntPolynomial` turns a polynomial over a field $K$ whose coefficients lie in a subring $R$ into a polynomial over $R$, with `Polynomial.int`, and proves that the degree, the leading coefficient and monicity do not change, with `Polynomial.int_natDegree`, `Polynomial.int_leadingCoeff_eq` and `Polynomial.int_monic_iff`.
 
 Common errors of a learner:
 

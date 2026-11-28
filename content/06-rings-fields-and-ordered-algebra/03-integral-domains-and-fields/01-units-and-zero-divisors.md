@@ -3,6 +3,12 @@ title: Units, zero divisors and integral domains
 kind: theory
 modules:
   - Mathlib.Algebra.Ring.Int.Units
+  - Mathlib.Algebra.Ring.Units
+  - Mathlib.Algebra.Ring.Invertible
+  - Mathlib.Algebra.Ring.Regular
+  - Mathlib.Algebra.Ring.NonZeroDivisors
+  - Mathlib.Algebra.Ring.Torsion
+  - Mathlib.Algebra.Ring.Associated
 explains:
   E3: [IsDomain]
   E2: [Int.units_eq_one_or, Int.units_ne_iff_eq_neg, isDomain_iff_noZeroDivisors_and_nontrivial, NoZeroDivisors.to_isDomain, IsDomain.to_noZeroDivisors]
@@ -197,6 +203,10 @@ The units of a ring are the units of its multiplicative monoid, so the whole API
 The zero divisor API is in `Mathlib.Algebra.GroupWithZero.Defs` and `Basic`: `mul_eq_zero`, `mul_ne_zero`, `mul_self_eq_zero`, `pow_eq_zero_iff`, and the cancellation lemmas `mul_left_cancel₀`, `mul_right_cancel₀` and `mul_right_injective₀`. Each holds under `NoZeroDivisors` or `IsCancelMulZero`, so each applies to a domain by instance search. A subring of a domain is a domain by the instance for subrings, and the image of an injective ring homomorphism into a domain gives a domain by `Function.Injective.isDomain`.
 
 The set of the non-zero-divisors of a commutative ring is the submonoid `nonZeroDivisors R`, written `R⁰`. It is the denominator set of the field of fractions in Section 3.
+
+Several small modules connect these notions to the ring operations. `Mathlib.Algebra.Ring.Units` gives the negation of units: $-u$ is a unit (`Units.instNeg`, `IsUnit.neg`, `isUnit_neg_one`), `IsUnit.sub_iff` says that $x - y$ is a unit if and only if $y - x$ is, and `RingHom.isUnit_map` sends units to units. It also has the rules for the division by a unit $a /_p u = a u^{-1}$, such as `Units.divp_add_divp_same` and `Units.divp_add_divp`. `Mathlib.Algebra.Ring.Invertible` does the same for the data-carrying class `Invertible a` with the inverse `⅟a`: `invertibleNeg` and `invOf_neg` for $-a$, `invOf_add_invOf` for $a^{-1} + b^{-1} = a^{-1}(a + b) b^{-1}$, and `invOf_two_add_invOf_two` for $\tfrac12 + \tfrac12 = 1$.
+
+`Mathlib.Algebra.Ring.Regular` links regular elements and zero divisors: in a ring, an element $k$ with $k x = 0 \Rightarrow x = 0$ is left cancellable, by `isLeftRegular_of_non_zero_divisor`, and without zero divisors each nonzero element is regular, by `IsRegular.of_ne_zero'`, so `NoZeroDivisors.toIsCancelMulZero` gives cancellation. `Mathlib.Algebra.Ring.NonZeroDivisors` shows that the elements of `nonZeroDivisors R` are exactly the regular elements, by `isRegular_iff_mem_nonZeroDivisors`, and that they cancel, by `mul_cancel_left_mem_nonZeroDivisors` and `mul_cancel_right_mem_nonZeroDivisors`. In a finite ring each non-zero-divisor is a unit, by `isUnit_iff_mem_nonZeroDivisors_of_finite`, since multiplication by it is an injective map of a finite set to itself. `Mathlib.Algebra.Ring.Torsion` shows that a monoid homomorphism from a ring to a monoid without torsion sends $-1$ to $1$, by `MonoidHom.map_neg_one`, since $f(-1)^2 = f(1) = 1$. `Mathlib.Algebra.Ring.Associated` shows that $a$ and $-a$ are associated, with `Associated.neg_left`, `Associated.neg_right` and `Associated.neg_neg`.
 
 Common errors of a learner:
 
