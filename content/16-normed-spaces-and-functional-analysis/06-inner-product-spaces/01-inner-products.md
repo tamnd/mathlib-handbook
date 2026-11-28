@@ -7,6 +7,8 @@ modules:
   - Mathlib.Analysis.InnerProductSpace.OfNorm
   - Mathlib.Analysis.InnerProductSpace.PiL2
   - Mathlib.Analysis.InnerProductSpace.LinearMap
+  - Mathlib.Analysis.InnerProductSpace.Continuous
+  - Mathlib.Analysis.InnerProductSpace.ConformalLinearMap
 explains:
   E3: [InnerProductSpace, norm_inner_le_norm, parallelogram_law_with_norm, InnerProductSpace.ofNorm]
   E2: [Inner, inner_conj_symm, inner_smul_left, inner_smul_right, inner_add_left, inner_self_eq_zero, real_inner_self_eq_norm_sq, inner_self_eq_norm_sq_to_K, real_inner_le_norm, abs_real_inner_le_norm, norm_inner_eq_norm_iff, inner_eq_sum_norm_sq_div_four, real_inner_eq_norm_add_mul_self_sub_norm_mul_self_sub_norm_mul_self_div_two, norm_add_sq_real, InnerProductSpace.ofCore, EuclideanSpace, PiLp.inner_apply, innerSL, innerSL_apply_norm]
@@ -130,6 +132,10 @@ The complex case follows: if a complex norm satisfies the law, the real inner pr
 ### The library around it
 
 The file `Mathlib.Analysis.InnerProductSpace.Basic` holds the algebra of inner products: `inner_add_left`, `inner_smul_left`, `inner_smul_right`, `inner_conj_symm`, `real_inner_self_eq_norm_sq` and `inner_self_eq_norm_sq_to_K`, which reads `⟪x, x⟫_𝕜 = (‖x‖ : 𝕜) ^ 2`. These are the rewriting lemmas of daily use.
+
+The file `Mathlib.Analysis.InnerProductSpace.Continuous` proves that the inner product is continuous. The map $(x, y) \mapsto \langle x, y \rangle$ is a bounded real bilinear map, `isBoundedBilinearMap_inner`, because $|\langle x, y \rangle| \le \lVert x \rVert \lVert y \rVert$. So it is continuous, `continuous_inner`, and the composed forms `Continuous.inner`, `ContinuousAt.inner`, `ContinuousOn.inner`, `ContinuousWithinAt.inner` and `Filter.Tendsto.inner` say that $t \mapsto \langle f(t), g(t) \rangle$ is continuous, or has the limit $\langle x, y \rangle$, when $f$ and $g$ are continuous or have the limits $x$ and $y$.
+
+The file `Mathlib.Analysis.InnerProductSpace.ConformalLinearMap` has one theorem, `isConformalMap_iff`: a bounded real linear map $f$ between real inner product spaces is conformal if and only if there is a $c > 0$ with $\langle f u, f v \rangle = c \langle u, v \rangle$ for all $u$ and $v$. The proof uses polarization: a conformal map multiplies all norms by one factor $r > 0$, so it multiplies all inner products by $c = r^2$.
 
 Common errors:
 

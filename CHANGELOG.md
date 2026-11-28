@@ -22,6 +22,8 @@ Each release has a section. The newest release is first.
 
 - V13 has a home section for each of its modules. 50 new sections of the kind `api` treat them. They treat the filters `atTop` and `atBot`, the products and germs of filters, partial homeomorphisms, the pseudometric API and Lipschitz maps, local compactness and compactifications, the constructions of uniform spaces and hyperspaces, and metrizable spaces. New chapters treat metric geometry (Chapter 9), the order topology (Chapter 10) and the spaces of continuous maps (Chapter 11) (#73).
 
+- V16 has a home section for each of its modules. 42 new sections of the kind `api` treat them. They treat the class `RCLike`, normed torsors, multilinear and bilinear maps, compact and Fredholm operators, constructions of inner product spaces, positive operators and matrix norms. New chapters treat seminorms and locally convex spaces (Chapter 8), normed rings and Banach algebras (Chapter 9), absolute values and seminorms on rings (Chapter 10), convexity (Chapter 11) and C*-algebras (Chapter 12) (#74).
+
 ## v0.8.1 - 2026-11-28
 
 ### Changed

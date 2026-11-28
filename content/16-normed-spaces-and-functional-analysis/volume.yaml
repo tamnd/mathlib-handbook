@@ -1,6 +1,6 @@
 number: 16
 title: Normed spaces and functional analysis
-subtitle: Normed spaces, bounded operators, Banach and Hilbert spaces, Hahn-Banach and Riesz representation in Mathlib
+subtitle: Normed spaces, bounded operators, Banach and Hilbert spaces, Hahn-Banach and Riesz representation, locally convex spaces, Banach algebras, convexity and C*-algebras in Mathlib
 level: graduate
 prefixes:
 - Mathlib/Analysis/Normed
