@@ -53,7 +53,7 @@ The value $-\infty$ belongs to the zero object only: $\operatorname{pd} X < 0$ m
 ::: mathlib
 `CategoryTheory.ProjectiveResolution.extMk` · `Mathlib.CategoryTheory.Abelian.Projective.Ext`
 
-For `R : ProjectiveResolution X`, a map `f : R.complex.X n ⟶ Y` with `R.complex.d m n ≫ f = 0` and `n + 1 = m` gives `R.extMk f m hm hf : Ext X Y n`. Here `Ext` is `CategoryTheory.Abelian.Ext`, the derived category Ext of Chapter 5. `extMk_surjective` says that each class has this form, and `extMk_eq_zero_iff` says that the class is zero exactly when `f = R.complex.d n p ≫ g` with `p + 1 = n`. Together they are the description of Ext by cocycles and coboundaries. The bundled form is `R.extEquivCohomologyClass`, with additive and linear versions.
+For `R : ProjectiveResolution X`, a map `f : R.complex.X n ⟶ Y` with `R.complex.d m n ≫ f = 0` and `n + 1 = m` gives `R.extMk f m hm hf : Ext X Y n`. Here Ext is `CategoryTheory.Abelian.Ext`, the derived category Ext of Chapter 5. `extMk_surjective` says that each class has this form, and `extMk_eq_zero_iff` says that the class is zero exactly when `f = R.complex.d n p ≫ g` with `p + 1 = n`. Together they are the description of Ext by cocycles and coboundaries. The bundled form is `R.extEquivCohomologyClass`, with additive and linear versions.
 
 <?decl CategoryTheory.ProjectiveResolution.extMk?>
 :::

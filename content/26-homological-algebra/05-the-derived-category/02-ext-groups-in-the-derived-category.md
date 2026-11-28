@@ -177,7 +177,7 @@ The module `Mathlib.Algebra.Homology.LocalCohomology` uses these Ext groups for 
 Common errors of a learner:
 
 - `α.comp β h` means "$\alpha$ then $\beta$". The degree equation `h` has the degree of `α` first.
-- The degree of `Ext` is a natural number. The shift in the derived category is by the integer `(n : ℤ)`, and a cast appears in `Ext.homEquiv`.
+- The degree of `CategoryTheory.Abelian.Ext` is a natural number. The shift in the derived category is by the integer `(n : ℤ)`, and a cast appears in `Ext.homEquiv`.
 - The vanishing results are stated with `Subsingleton (Ext P Y (n + 1))`, not with an equality to `0`.
 - The precomposition with `extClass` is not the connecting map of the contravariant sequence. Use `Ext.δ`.
 

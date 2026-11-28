@@ -86,7 +86,7 @@ The module `Mathlib.Data.Fin.VecNotation` defines the notation `![a, b, c] : Fin
 | `Matrix.vecCons_inj` | $\operatorname{vecCons}(x, u) = \operatorname{vecCons}(y, v) \iff x = y \wedge u = v$ |
 | `Matrix.range_cons` | $\operatorname{range}(\operatorname{vecCons}(x, u)) = \{x\} \cup \operatorname{range}(u)$ |
 
-The head and the tail are `Matrix.vecHead` and `Matrix.vecTail`. The simp lemmas need one argument of the form `Matrix.vecCons _ _`, so simp computes `![a, b, c] 2 = c` but does not rewrite an unknown tuple. For an index that is a numeral, the simproc `Matrix.cons_val` does the computation in one step. The lemmas `Matrix.Fin.cons_vecCons` and `Matrix.Fin.snoc_vecCons` connect the notation with `Fin.cons` and `Fin.snoc`. `Matrix.vecAppend`, `Matrix.vecAlt0` and `Matrix.vecAlt1` join two vectors and take the entries at even and odd places. The lemma `injective_pair_iff_ne` says that `![x, y]` is injective if and only if $x \neq y$.
+The head and the tail are `Matrix.vecHead` and `Matrix.vecTail`. The simp lemmas need one argument of the form `Matrix.vecCons _ _`, so simp computes `![a, b, c] 2 = c` but does not rewrite an unknown tuple. For an index that is a numeral, the simproc `Matrix.cons_val` does the computation in one step. The lemmas `Matrix.Fin.cons_vecCons` and `Matrix.Fin.snoc_vecCons` connect the notation with `Fin.cons` and `Fin.snoc`. `Matrix.vecAppend`, `Matrix.vecAlt0` and `Matrix.vecAlt1` join two vectors and take the entries at even and odd places. The lemma `Matrix.injective_pair_iff_ne` says that `![x, y]` is injective if and only if $x \neq y$.
 
 #### Embeddings and finite sets of tuples
 

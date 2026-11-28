@@ -89,7 +89,7 @@ With `NoMaxOrder α` in a linear order, the successor turns closed bounds into o
 | `PNat.succ_eq_add_one` | $\operatorname{succ} n = n + 1$ in `ℕ+` |
 | `Fin.orderSucc_castSucc` | $\operatorname{succ}(\operatorname{castSucc} i) = \operatorname{succ} i$ |
 | `Fin.orderSucc_last` | $\operatorname{succ}(\operatorname{last} n) = \operatorname{last} n$ |
-| `ENat.succ_def` | $\operatorname{succ} m = m + 1$ in `ℕ∞` |
+| `Order.succ_eq_add_one` | $\operatorname{succ} m = m + 1$ in `ℕ∞` |
 | `ENat.add_one_le_iff` | $m \ne \top \to (m + 1 \le n \iff m < n)$ |
 
 The predecessor lemmas `Nat.pred_eq_pred` and `Int.pred_eq_pred` are the duals. The classes `Nat.instSuccAddOrder`, `Int.instSuccAddOrder` and `ENat.instSuccAddOrder` record that the successor is $x \mapsto x + 1$, so that a lemma about `succ` can be stated with `+ 1`. The two examples `Fin.orderSucc_last` and `ENat.succ_top` show the convention at a top element: $\operatorname{succ} \top = \top$, by the general `Order.succ_top`. So in `ℕ∞` the equivalence `ENat.add_one_le_iff` needs $m \ne \top$. The lemmas `Fin.covBy_iff` and `Int.natCast_covBy` move the covering relation through the casts to `ℕ` and to `ℤ`.

@@ -174,3 +174,26 @@ def test_fallback_juliamono():
     fb = Fallback()
     assert fb.letter("ᗮ") == "J"
     assert fb.apply("x ᗮ") == r"x \hbfb{J}{ᗮ}" and not fb.missing
+
+
+def test_source_deprecations():
+    from mlhb.deprecated import scan_file
+    src = '''namespace Set
+/-- a docstring with end in it
+end -/
+@[deprecated (since := "2026-06-03")] alias mem_diff := mem_sdiff
+section
+@[simp, deprecated mem_union (since := "2026-01-01")]
+theorem mem_or : True := trivial
+end
+@[deprecated (since := "2026-01-01")] alias ⟨foo, bar⟩ := baz
+end Set
+@[deprecated "Use `E 6` instead" (since := "2026-07-29")]
+abbrev E₆ : Nat := 6
+-- @[deprecated] alias commented := x
+@[deprecated (since := "2026-01-01")] alias _root_.Top.thing := other
+'''
+    out: dict[str, str] = {}
+    scan_file(src, out)
+    assert out == {"Set.mem_diff": "mem_sdiff", "Set.mem_or": "mem_union", "Set.foo": "", "Set.bar": "",
+                   "E₆": "", "Top.thing": "other"}

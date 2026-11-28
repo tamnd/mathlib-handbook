@@ -38,7 +38,7 @@ A reader needs these results when a size or a dimension can be infinite. The car
 
 The module `Mathlib.Data.ENat.Lattice` derives the instance `instCompleteLinearOrderENat`: each set of `ℕ∞` has a supremum and an infimum. It also gives `instCompleteLinearOrderWithBotENat` for `WithBot ℕ∞`. The module restates the lemmas of `WithTop` with the cast `Nat.cast` in place of `WithTop.some`, so a proof does not leave the simp normal form.
 
-The first family compares a supremum of casts with `⊤`. For $f : \iota \to \mathbb{N}$, `ENat.iSup_natCast_eq_top` says $\sup_i f(i) = \top$ if and only if $f$ is not bounded above, and `ENat.iSup_natCast_ne_top` and `ENat.iSup_natCast_lt_top` give the other forms. The infimum of casts is `⊤` exactly when the index type is empty: `ENat.iInf_natCast_eq_top`, `ENat.iInf_natCast_ne_top`, `ENat.iInf_natCast_lt_top` and `ENat.iInf_eq_top_of_isEmpty`. The forms with `coe` in the name, such as `ENat.iSup_coe_eq_top`, state the same facts. The cast commutes with a bounded supremum and with an infimum over a nonempty index: `ENat.natCast_iSup`, `ENat.natCast_sSup`, `ENat.natCast_iInf` and `ENat.natCast_sInf`. The supremum of all casts is `⊤`: this is `ENat.iSup_natCast`.
+The first family compares a supremum of casts with `⊤`. For $f : \iota \to \mathbb{N}$, `ENat.iSup_natCast_eq_top` says $\sup_i f(i) = \top$ if and only if $f$ is not bounded above, and `ENat.iSup_natCast_ne_top` and `ENat.iSup_natCast_lt_top` give the other forms. The infimum of casts is `⊤` exactly when the index type is empty: `ENat.iInf_natCast_eq_top`, `ENat.iInf_natCast_ne_top`, `ENat.iInf_natCast_lt_top` and `ENat.iInf_eq_top_of_isEmpty`. The forms with `coe` in the name, such as `ENat.iSup_natCast_eq_top`, state the same facts. The cast commutes with a bounded supremum and with an infimum over a nonempty index: `ENat.natCast_iSup`, `ENat.natCast_sSup`, `ENat.natCast_iInf` and `ENat.natCast_sInf`. The supremum of all casts is `⊤`: this is `ENat.iSup_natCast`.
 
 The order of `ℕ` is a well order with no infinite bounded sets. So suprema and infima in `ℕ∞` behave better than in `ℝ≥0∞`.
 
@@ -107,7 +107,7 @@ The module `Mathlib.Basic.Real.ENatENNReal` defines `ENat.toENNReal` as `ENat.ma
 
 #### Successors in ℕ∞
 
-The module `Mathlib.Data.ENat.SuccOrder` has no declarations. It imports `Mathlib.Order.SuccPred.ENat`, which gives the instance `instSuccOrderENat` with `ENat.succ_def`, $\operatorname{succ}(m) = m + 1$, and lemmas such as `ENat.lt_add_one_iff` and `ENat.add_one_le_iff`, which need $m \neq \top$.
+The module `Mathlib.Data.ENat.SuccOrder` has no declarations. It imports `Mathlib.Order.SuccPred.ENat`, which gives the instance `instSuccOrderENat` with `Order.succ_eq_add_one`, $\operatorname{succ}(m) = m + 1$, and lemmas such as `ENat.lt_add_one_iff` and `ENat.add_one_le_iff`, which need $m \neq \top$.
 
 #### Absolute value, sign and the multiplication of EReal
 

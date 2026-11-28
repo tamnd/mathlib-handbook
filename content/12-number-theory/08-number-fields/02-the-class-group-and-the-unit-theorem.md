@@ -79,7 +79,7 @@ The proof applies Minkowski's theorem on convex bodies to the lattice of an idea
 ::: mathlib
 `NumberField.exists_ideal_in_class_of_norm_le` · `Mathlib.NumberTheory.NumberField.ClassNumber`
 
-`∀ C : ClassGroup (𝓞 K), ∃ I, ClassGroup.mk0 I = C ∧ absNorm I ≤ minkowskiNormBound K`. A corollary is `RingOfIntegers.isPrincipalIdealRing_of_abs_discr_lt`, which gives $h_K = 1$ when $M_K < 2$. The finiteness of the class group in the general setting of a finite extension of the fraction field of a Euclidean domain is `ClassGroup.fintypeOfAdmissibleOfFinite` in `Mathlib.NumberTheory.ClassNumber.Finite`; this covers function fields as well.
+`∀ C : ClassGroup (𝓞 K), ∃ I, ClassGroup.mk0 I = C ∧ absNorm I ≤ minkowskiNormBound K`. A corollary is `NumberField.RingOfIntegers.isPrincipalIdealRing_of_abs_discr_lt`, which gives $h_K = 1$ when $M_K < 2$. The finiteness of the class group in the general setting of a finite extension of the fraction field of a Euclidean domain is `ClassGroup.fintypeOfAdmissibleOfFinite` in `Mathlib.NumberTheory.ClassNumber.Finite`; this covers function fields as well.
 
 <?decl NumberField.exists_ideal_in_class_of_norm_le?>
 :::

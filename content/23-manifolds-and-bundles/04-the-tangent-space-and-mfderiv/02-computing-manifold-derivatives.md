@@ -128,7 +128,7 @@ The theorem on charts is `mdifferentiableOn_extChartAt`, `mfderiv_extChartAt_sel
 <?decl tangentCoordChange?>
 :::
 
-The tangent space and the inclusion of the sphere are in the files of Chapter 2: `range_mfderiv_coe_sphere` is the first example, and `mfderiv_coe_sphere_injective` its injectivity part.
+The tangent space and the inclusion of the sphere are in the files of Chapter 2: `range_mvfderiv_subtypeVal` is the first example, and `injective_mvfderiv_subtypeVal_sphere` its injectivity part.
 
 Common errors of a learner:
 

@@ -49,7 +49,7 @@ The ring operations of $W(R)$ come from one theorem.
 
 This is `wittStructureInt_existsUnique` in `Mathlib.RingTheory.WittVector.StructurePolynomial`, and the polynomials are `wittStructureInt p Φ n`.
 
-*Proof sketch.* Over $\mathbb{Q}$, the polynomial $w_n$ has the form $p^nX_n + (\text{terms in } X_0, \dots, X_{n-1})$. So the equations can be solved for $\varphi_n$ by recursion, with a division by $p^n$. This gives `wittStructureRat`, with the recursion `wittStructureRat_rec`. The hard step is to show that the coefficients are integers. The key congruence is `C_p_pow_dvd_bind₁_rename_wittPolynomial_sub_sum`: the difference between the right side and the known part of the left side is divisible by $p^n$ over $\mathbb{Z}$. Then `map_wittStructureInt` identifies the integer family with the rational one. $\square$
+*Proof sketch.* Over $\mathbb{Q}$, the polynomial $w_n$ has the form $p^nX_n + (\text{terms in } X_0, \dots, X_{n-1})$. So the equations can be solved for $\varphi_n$ by recursion, with a division by $p^n$. This gives `wittStructureRat`, with the recursion `wittStructureRat_rec`. The hard step is to show that the coefficients are integers. The key congruence is `C_p_pow_dvd_aeval_rename_wittPolynomial_sub_sum`: the difference between the right side and the known part of the left side is divisible by $p^n$ over $\mathbb{Z}$. Then `map_wittStructureInt` identifies the integer family with the rational one. $\square$
 
 For $\Phi = X_0 + X_1$ and $\Phi = X_0X_1$ this gives the addition and multiplication polynomials `WittVector.wittAdd` and `WittVector.wittMul` of Chapter 8. The lemma `wittStructureInt_vars` says that $\varphi_n$ uses only the variables $X_{i,k}$ with $k \le n$. So the first $n + 1$ coordinates of a sum or product depend only on the first $n + 1$ coordinates of the inputs.
 
@@ -60,7 +60,7 @@ A function $f$ that is defined for each ring $R$, with $f : W(R) \to W(R)$, is p
 Two facts make the class useful.
 
 1. A polynomial function commutes with each map $W(g)$ for a ring map $g$. This is `WittVector.IsPoly.map`.
-2. The polynomials of $f$ are determined by their images under the Witt polynomials, `WittVector.poly_eq_of_wittPolynomial_bind_eq`.
+2. The polynomials of $f$ are determined by their images under the Witt polynomials, `WittVector.poly_eq_of_wittPolynomial_aeval_eq`.
 
 The tactic ghost_calc reduces an identity between polynomial functions to the case of a ring in which $p$ is invertible. There the ghost map is a bijection, `WittVector.ghostEquiv`, and the identity becomes an identity of sequences in $R^{\mathbb{N}}$. The tactic ghost_simp then simplifies the ghost components.
 
@@ -68,7 +68,7 @@ The module `Mathlib.RingTheory.WittVector.MulP` gives multiplication by a natura
 
 #### Frobenius
 
-The module `Mathlib.RingTheory.WittVector.Frobenius` defines the Frobenius polynomials `WittVector.frobeniusPoly`. They are the unique integer polynomials with $w_n(\varphi_0, \dots, \varphi_n) = w_{n+1}$, by `WittVector.bind₁_frobeniusPoly_wittPolynomial`. This gives `WittVector.frobenius`, a ring map $W(R) \to W(R)$ with ghost components shifted by one, `WittVector.ghostComponent_frobenius`.
+The module `Mathlib.RingTheory.WittVector.Frobenius` defines the Frobenius polynomials `WittVector.frobeniusPoly`. They are the unique integer polynomials with $w_n(\varphi_0, \dots, \varphi_n) = w_{n+1}$, by `WittVector.aeval_frobeniusPoly_wittPolynomial`. This gives `WittVector.frobenius`, a ring map $W(R) \to W(R)$ with ghost components shifted by one, `WittVector.ghostComponent_frobenius`.
 
 The coefficients of `WittVector.frobeniusPoly` are integers, although the recursion over $\mathbb{Q}$ divides by powers of $p$. Modulo $p$, the polynomial is $X_n^p$, `WittVector.frobeniusPoly_zmod`. So for a ring of characteristic $p$, the Frobenius of $W(R)$ is the map $W(\operatorname{Frob})$ that raises each coordinate to the power $p$. This is `WittVector.coeff_frobenius_charP` and `WittVector.frobenius_eq_map_frobenius`. If $R$ is perfect, then $F$ is bijective, `WittVector.frobenius_bijective`, with the ring isomorphism `WittVector.frobeniusEquiv`. On $W(\mathbb{F}_p) = \mathbb{Z}_p$, the Frobenius is the identity, `WittVector.frobenius_zmodp`.
 

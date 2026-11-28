@@ -49,7 +49,7 @@ The type `AddCircle T` is defined in `Mathlib.Topology.Instances.AddCircle` as t
 ::: mathlib
 `AddCircle.fourier` · `Mathlib.Analysis.Fourier.AddCircle`
 
-`fourier n : C(AddCircle T, ℂ)` is a bundled continuous map. The working formula is `fourier_coe_apply`: `fourier n ↑x = Complex.exp (2 * π * I * n * x / T)` for real `x`. The group law is `fourier_add`, and `fourier_norm` states that the sup norm of `fourier n` is $1$.
+`fourier n : C(AddCircle T, ℂ)` is a bundled continuous map. The working formula is `AddCircle.fourier_coe_apply`: `fourier n ↑x = Complex.exp (2 * π * I * n * x / T)` for real `x`. The group law is `AddCircle.fourier_add`, and `AddCircle.fourier_norm` states that the sup norm of `fourier n` is $1$.
 
 <?decl AddCircle.fourier?>
 <?decl AddCircle.fourier_coe_apply?>
@@ -66,7 +66,7 @@ They are the coefficients of the function of period $b - a$ that agrees with $f$
 ::: mathlib
 `AddCircle.fourierCoeff` · `Mathlib.Analysis.Fourier.AddCircle`
 
-`fourierCoeff f n` is `∫ t, fourier (-n) t • f t ∂haarAddCircle`. It takes any `f : AddCircle T → E` and gives `0` when the integrand is not integrable. The form with an interval is `fourierCoeff_eq_intervalIntegral`, valid for every starting point `a`. The coefficients only see `f` almost everywhere: `fourierCoeff_congr_ae`. The bare name `fourierCoeff` without the namespace is a deprecated alias in this edition.
+`fourierCoeff f n` is `∫ t, fourier (-n) t • f t ∂haarAddCircle`. It takes any `f : AddCircle T → E` and gives `0` when the integrand is not integrable. The form with an interval is `AddCircle.fourierCoeff_eq_intervalIntegral`, valid for every starting point `a`. The coefficients only see `f` almost everywhere: `AddCircle.fourierCoeff_congr_ae`. The bare name `fourierCoeff` without the namespace is a deprecated alias in this edition.
 
 <?decl AddCircle.fourierCoeff?>
 <?decl AddCircle.fourierCoeff_eq_intervalIntegral?>
@@ -76,7 +76,7 @@ They are the coefficients of the function of period $b - a$ that agrees with $f$
 ::: mathlib
 `AddCircle.fourierCoeffOn` · `Mathlib.Analysis.Fourier.AddCircle`
 
-`fourierCoeffOn hab f n`, with `hab : a < b` and `f : ℝ → E`, is the coefficient of `f` on `[a, b]`. The lemma `fourierCoeff_liftIco_eq` identifies it with `fourierCoeff` of the periodic function `AddCircle.liftIco (b - a) a f`.
+`fourierCoeffOn hab f n`, with `hab : a < b` and `f : ℝ → E`, is the coefficient of `f` on `[a, b]`. The lemma `AddCircle.fourierCoeff_liftIco_eq` identifies it with `AddCircle.fourierCoeff` of the periodic function `AddCircle.liftIco (b - a) a f`.
 
 <?decl AddCircle.fourierCoeffOn?>
 <?decl AddCircle.fourierCoeff_liftIco_eq?>
@@ -95,7 +95,7 @@ The last claim is the same computation: $\hat{e_m}(n) = \int e_{-n} e_m\,d\mu_T 
 ::: mathlib
 `AddCircle.orthonormal_fourier` · `Mathlib.Analysis.Fourier.AddCircle`
 
-`orthonormal_fourier` states `Orthonormal ℂ (fourierLp 2)`, where `fourierLp 2 n` is `fourier n` seen as an element of `Lp ℂ 2 haarAddCircle`. The statement for coefficients is `fourierCoeff_fourier`: `fourierCoeff (fourier n) = Pi.single n 1`. The constant function has `fourierCoeff_const`: its coefficients are `Pi.single 0 c`.
+`AddCircle.orthonormal_fourier` states `Orthonormal ℂ (fourierLp 2)`, where `fourierLp 2 n` is `fourier n` seen as an element of `Lp ℂ 2 haarAddCircle`. The statement for coefficients is `AddCircle.fourierCoeff_fourier`: `fourierCoeff (fourier n) = Pi.single n 1`. The constant function has `AddCircle.fourierCoeff_const`: its coefficients are `Pi.single 0 c`.
 
 <?decl AddCircle.orthonormal_fourier?>
 <?decl AddCircle.fourierCoeff_fourier?>
@@ -117,7 +117,7 @@ For $T = 1$ and a smooth periodic function, the rule reads $\widehat{f'}(n) = 2\
 ::: mathlib
 `AddCircle.fourierCoeffOn_of_hasDerivAt` · `Mathlib.Analysis.Fourier.AddCircle`
 
-The hypotheses are `n ≠ 0`, `∀ x ∈ uIcc a b, HasDerivAt f (f' x) x` and `IntervalIntegrable f' volume a b`. The conclusion is literally the displayed formula, with `fourier (-n) ↑a` for $e^{-2\pi i n a/L}$. It uses `hasDerivAt_fourier`, the derivative $\frac{2\pi i n}{T}e_n(x)$ of $x \mapsto e_n(x)$.
+The hypotheses are `n ≠ 0`, `∀ x ∈ uIcc a b, HasDerivAt f (f' x) x` and `IntervalIntegrable f' volume a b`. The conclusion is literally the displayed formula, with `fourier (-n) ↑a` for $e^{-2\pi i n a/L}$. It uses `AddCircle.hasDerivAt_fourier`, the derivative $\frac{2\pi i n}{T}e_n(x)$ of $x \mapsto e_n(x)$.
 
 <?decl AddCircle.fourierCoeffOn_of_hasDerivAt?>
 <?decl AddCircle.hasDerivAt_fourier?>

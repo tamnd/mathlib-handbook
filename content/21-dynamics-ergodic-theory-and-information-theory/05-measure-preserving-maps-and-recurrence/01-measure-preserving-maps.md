@@ -40,7 +40,7 @@ A measure preserving map is quasi measure preserving. When $Y = X$ and $\nu = \m
 ::: mathlib
 `MeasureTheory.MeasurePreserving` · `Mathlib.Dynamics.Ergodic.MeasurePreserving`
 
-`MeasurePreserving f μa μb` is a structure with the fields `measurable : Measurable f` and `map_eq : Measure.map f μa = μb`. The measures are `autoParam` arguments, so `MeasurePreserving f` alone means that `f` preserves `volume`. Quasi measure preservation is `MeasureTheory.Measure.QuasiMeasurePreserving`, with home in Volume 18, and `MeasurePreserving.quasiMeasurePreserving` is the implication.
+`MeasurePreserving f μa μb` is a structure with the fields `measurable : Measurable f` and `map_eq : Measure.map f μa = μb`. The measures are `autoParam` arguments, so `MeasurePreserving f` alone means that `f` preserves `volume`. Quasi measure preservation is `MeasureTheory.QuasiMeasurePreserving`, with home in Volume 18, and `MeasurePreserving.quasiMeasurePreserving` is the implication.
 
 <?decl MeasureTheory.MeasurePreserving?>
 :::

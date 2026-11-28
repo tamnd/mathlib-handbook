@@ -100,7 +100,7 @@ With monotonicity, the second field says that $f(a)$ is the least upper bound of
 | `Order.IsNormal.of_succ_lt` | in a well order, $f(a) < f(\operatorname{succ} a)$ and continuity at limits give normality |
 | `Order.IsNormal.map_isSuccLimit` | a normal function sends limits to limits |
 | `Order.IsNormal.le_iff_forall_le` | at a limit $a$, $f(a) \le b \iff \forall a' < a,\ f(a') \le b$ |
-| `Order.IsNormal.map_sSup` | $f(\sup s) = \sup f(s)$ for $s$ nonempty and bounded above |
+| `LeftOrdContinuous.map_csSup` | $f(\sup s) = \sup f(s)$ for $s$ nonempty and bounded above |
 | `Order.IsNormal.apply_of_isSuccLimit` | $f(a) = \sup_{b < a} f(b)$ at a limit $a$ |
 | `Order.isNormal_iff_dirSupClosed_range` | in a well order, a strictly monotone $f$ is normal iff its range is closed under directed suprema |
 

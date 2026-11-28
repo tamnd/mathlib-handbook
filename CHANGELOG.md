@@ -20,6 +20,8 @@ Each release has a section. The newest release is first.
 
 - V07 has a home section for each of its modules. 38 new sections of the kind `api` treat them. New chapters treat the constructions and the finiteness of modules (Chapter 8), the ordered modules and the lattices in vector spaces (Chapter 9) and the linear groups (Chapter 10).
 
+- `mlhb check` reads the deprecated attributes of the Mathlib source of the companion (`--lean`), because the index does not mark each deprecated alias. It also checks each Lean name in backticks in the prose, not only the names in the boxes and in `explains`. A sentence that says that a name is deprecated, old or renamed can still name it. The text of 47 sections now uses the current names in place of 99 deprecated names.
+
 ## v0.8.0 - 2026-11-28
 
 ### Changed

@@ -66,10 +66,10 @@ For real functions, the conditional expectation preserves the order. The lemma `
 | `MeasureTheory.setIntegral_abs_condExp_le` | the same over a set of $m$ |
 | `MeasureTheory.eLpNorm_condExp_le_eLpNorm` | $\lVert \mu[f \mid m] \rVert_p \le \lVert f \rVert_p$ for $p \ge 1$ |
 | `MeasureTheory.MemLp.condExp` | $f \in L^p$ gives $\mu[f \mid m] \in L^p$ for $p \ge 1$ |
-| `MeasureTheory.ae_bdd_condExp_of_ae_bdd` | $\lvert f \rvert \le R$ a.e. gives $\lvert \mu[f \mid m] \rvert \le R$ a.e. |
+| `MeasureTheory.ae_bdd_abs_condExp_of_ae_bdd_abs` | $\lvert f \rvert \le R$ a.e. gives $\lvert \mu[f \mid m] \rvert \le R$ a.e. |
 | `MeasureTheory.MemLp.essSup_norm_condExp_le_essSup_norm` | the essential supremum does not grow |
 
-The lemma `MeasureTheory.eLpNorm_one_condExp_le_eLpNorm` is the case $p = 1$. It is the base of the others. The lemma `MeasureTheory.MemLp.lpNorm_condExp_le_lpNorm` is the form with the real valued norm `lpNorm`.
+The lemma `MeasureTheory.eLpNorm_condExp_le_eLpNorm` is the case $p = 1$. It is the base of the others. The lemma `MeasureTheory.MemLp.lpNorm_condExp_le_lpNorm` is the form with the real valued norm `lpNorm`.
 
 A family of conditional expectations of one function is uniformly integrable. The lemma `MeasureTheory.Integrable.uniformIntegrable_condExp` states this for a finite measure, any family of sub-σ-algebras and $p = 1$. Together with the theorem of Vitali of Chapter 7, it gives the convergence in $L^1$ of the martingales $\mu[g \mid \mathcal{F}_n]$ of Volume 20.
 
