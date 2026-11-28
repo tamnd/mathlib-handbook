@@ -4,6 +4,10 @@ kind: theory
 modules:
   - Mathlib.Basic.Real.Pointwise
   - Mathlib.Basic.Real.Embedding
+  - Mathlib.Data.Real.Pointwise
+  - Mathlib.Data.Real.Embedding
+  - Mathlib.Data.Real.Archimedean
+  - Mathlib.Data.Real.Hom
 explains:
   E3: []
   E2: [Real.sSup_smul_of_nonneg, Real.mul_iSup_of_nonneg, Archimedean.embedReal, Archimedean.exists_orderAddMonoidHom_real_injective]

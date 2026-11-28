@@ -6,6 +6,8 @@ modules:
   - Mathlib.Data.Nat.Prime.Basic
   - Mathlib.Data.Nat.Prime.Infinite
   - Mathlib.Data.Nat.Factors
+  - Mathlib.Data.Int.Associated
+  - Mathlib.Data.Int.NatPrime
 explains:
   E3: [Nat.Prime, Nat.exists_infinite_primes, Nat.primeFactorsList]
   E2: [Nat.Prime.two_le, Nat.Prime.dvd_mul, Nat.minFac, Nat.minFac_prime, Nat.exists_prime_and_dvd, Nat.prime_def_lt, Nat.minFac_sq_le_self, Nat.Prime.coprime_iff_not_dvd, Nat.Prime.dvd_of_dvd_pow, Nat.not_bddAbove_setOfPred_prime, Nat.prod_primeFactorsList, Nat.primeFactorsList_unique]
@@ -156,6 +158,8 @@ The least factor of $91$ is $7$, and it is prime. The second part uses `Nat.minF
 ### The library around it
 
 The file `Mathlib.Data.Nat.Prime.Defs` also has `Nat.prime_two`, `Nat.Prime.one_lt` and `Nat.irreducible_iff_nat_prime`, and `Mathlib.Data.Nat.Prime.Basic` has `Nat.coprime_primes`. The subtype of the primes is `Nat.Primes`. The file `Mathlib.Data.Nat.Factors` has lemmas such as `Nat.mem_primeFactorsList` and `Nat.perm_primeFactorsList_mul`. Factorization in a general monoid, with `UniqueFactorizationMonoid`, belongs to the volume on rings.
+
+Two modules pass from `ℕ` to `ℤ`. `Mathlib.Data.Int.Associated` has one lemma, `Int.natAbs_eq_iff_associated`: two integers have the same absolute value if and only if they are associated, that is, $a = \pm b$. `Mathlib.Data.Int.NatPrime` has three lemmas on a natural prime $p$ and integers. `Int.Prime.dvd_natAbs_of_coe_dvd_sq` states that $p \mid k^2$ gives $p \mid \lvert k \rvert$. `Int.not_prime_of_int_mul` states that $c = a b$ with $\lvert a \rvert \neq 1$ and $\lvert b \rvert \neq 1$ is not prime. `Int.succ_dvd_or_succ_dvd_of_succ_sum_dvd_mul` states that $p^k \mid m$, $p^l \mid n$ and $p^{k+l+1} \mid m n$ give $p^{k+1} \mid m$ or $p^{l+1} \mid n$.
 
 ### Exercises
 

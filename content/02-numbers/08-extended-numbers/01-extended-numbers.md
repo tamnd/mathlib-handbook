@@ -5,6 +5,13 @@ modules:
   - Mathlib.Basic.NNReal.Defs
   - Mathlib.Basic.ENNReal.Basic
   - Mathlib.Basic.ENNReal.Operations
+  - Mathlib.Basic.NNReal.Basic
+  - Mathlib.Basic.NNReal.Star
+  - Mathlib.Data.ENNReal.Basic
+  - Mathlib.Data.ENNReal.Operations
+  - Mathlib.Data.NNReal.Defs
+  - Mathlib.Data.NNReal.Basic
+  - Mathlib.Data.NNReal.Star
 explains:
   E3: [NNReal, ENNReal]
   E2: [ENNReal.toReal, ENNReal.ofReal, ENNReal.mul_top, ENNReal.coe_ne_top, ENNReal.add_eq_top, ENNReal.iSup_add]
@@ -158,6 +165,12 @@ A hypothesis `h : a ≠ ⊤` lets a proof lift `a` to `ℝ≥0` with `lift a to 
 ### The library around it
 
 `Mathlib.Basic.NNReal.Defs` has `NNReal` and `Real.toNNReal`. `Mathlib.Basic.ENNReal.Basic` has the casts `ENNReal.ofNNReal`, `ENNReal.toNNReal`, `ENNReal.ofReal` and `ENNReal.toReal` with their lemmas, such as `ENNReal.coe_lt_top` and `ENNReal.toReal_top`. `Mathlib.Basic.ENNReal.Operations` has the arithmetic, for example `ENNReal.mul_eq_top`, `ENNReal.sub_top` and `ENNReal.top_sub_coe`. `Mathlib.Basic.ENNReal.Inv` has `ENNReal.inv_zero`, `ENNReal.inv_top` and `ENNReal.div_zero`, and `Mathlib.Basic.ENNReal.Real` has `ENNReal.ofReal_add` and `ENNReal.toReal_add`. A lemma states `≠ ⊤` when the junk value matters.
+
+`Mathlib.Basic.NNReal.Basic` collects the results on `ℝ≥0` that need more of the library. The cast to `ℝ` commutes with finite sums and products: `NNReal.coe_sum`, `NNReal.coe_prod`, `NNReal.coe_multiset_sum`, `NNReal.coe_list_sum` and `NNReal.coe_expect`, all `norm_cast` lemmas. In the other direction, `Real.toNNReal_sum_of_nonneg` needs nonnegative terms. The multiplication distributes over suprema and infima, as in `NNReal.mul_iSup`, `NNReal.iInf_mul` and `NNReal.mul_finset_sup`. Because the subtraction of `ℝ≥0` is truncated, `NNReal.sub_div` gives $(a - b) / c = a / c - b / c$ with no hypothesis, and `NNReal.coe_sub_of_lt` gives the cast of $b - a$ for $a < b$. The lemmas `NNReal.toReal_le` and `NNReal.toReal_lt` move an order statement to `ℝ`. The image of an interval under the cast is an interval: for example `NNReal.image_coe_Icc`, and `NNReal.range_coe` says that the range of the cast is $[0, \infty)$.
+
+`Mathlib.Basic.NNReal.Star` makes `ℝ≥0` a `StarRing` with the trivial star, and gives the instance `StarModule` of `ℝ≥0` on each star module over `ℝ`.
+
+`Mathlib.Data.ENNReal.Basic` and `Mathlib.Data.ENNReal.Operations` are deprecated redirects to `Mathlib.Basic.ENNReal.Basic` and `Mathlib.Basic.ENNReal.Operations`. Division, the maps to `ℝ` and finite sums have their own section in this chapter.
 
 ### Exercises
 

@@ -4,6 +4,8 @@ kind: theory
 modules:
   - Mathlib.Data.ZMod.Basic
   - Mathlib.Data.Nat.Totient
+  - Mathlib.Data.ZMod.Coprime
+  - Mathlib.Data.ZMod.Factorial
 explains:
   E3: [ZMod.unitOfCoprime, Nat.totient, ZMod.isUnit_iff_coprime]
   E2: [ZMod.unitsEquivCoprime, ZMod.mul_inv_eq_gcd, ZMod.card_units_eq_totient, Nat.totient_prime, Nat.totient_mul, Nat.totient_prime_pow, Nat.totient_eq_card_coprime, ZMod.inv_zero, ZMod.val_coe_unit_coprime]
@@ -236,6 +238,8 @@ The statement is `((p - 1)! : ZMod p) = -1` with `[Fact p.Prime]`. The proof in 
 ### The library around it
 
 The units of `ZMod n` have the API of a general group of units: `Units.val`, `IsUnit.unit` and the coercion `(ZMod n)ˣ → ZMod n`. Other lemmas are `ZMod.isUnit_prime_iff_not_dvd`, `ZMod.coe_unitOfCoprime` and `Nat.sum_totient`, the identity $\sum_{d \mid n} \varphi(d) = n$. Fermat and Euler for a general finite field are in `Mathlib.FieldTheory.Finite.Basic`, and Wilson's theorem with its converse `Nat.prime_iff_fac_equiv_neg_one` is in `Mathlib.NumberTheory.Wilson`.
+
+Two small modules complete the picture. In `Mathlib.Data.ZMod.Coprime`, the lemma `ZMod.ne_zero_of_gcd_eq_one` says that an integer $a$ with $\gcd(a, p) = 1$ has a nonzero class in `ZMod p` for a prime $p$. In `Mathlib.Data.ZMod.Factorial`, the lemma `ZMod.cast_descFactorial` says that $(p - 1)(p - 2) \cdots (p - n) \equiv (-1)^n \, n! \pmod{p}$ for $n \leq p$: each factor $p - i$ is congruent to $-i$.
 
 ### Exercises
 

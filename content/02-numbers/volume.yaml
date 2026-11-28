@@ -1,6 +1,6 @@
 number: 2
 title: Numbers
-subtitle: The natural numbers, the integers, the rationals, the reals and the casts between them
+subtitle: The natural numbers, the integers, the rationals, the reals, the complex numbers and the casts between them
 level: undergraduate
 prefixes:
 - Mathlib/Data/Nat

@@ -6,6 +6,16 @@ modules:
   - Mathlib.Data.Rat.Defs
   - Mathlib.Data.Rat.Lemmas
   - Mathlib.Data.NNRat.Defs
+  - Mathlib.Data.NNRat.BigOperators
+  - Mathlib.Data.NNRat.Encodable
+  - Mathlib.Data.NNRat.Lemmas
+  - Mathlib.Data.Dyadic
+  - Mathlib.Data.Dyadic.Basic
+  - Mathlib.Data.Rat.Encodable
+  - Mathlib.Data.Rat.Denumerable
+  - Mathlib.Data.Rat.Squarefree
+  - Mathlib.Data.Rat.Cardinal
+  - Mathlib.Data.Rat.Star
 explains:
   E3: [NNRat, Rat.den_dvd]
   E2: [Rat.mkRat_eq_divInt, Rat.num_dvd, Rat.den_eq_one_iff, Rat.num_div_eq_of_coprime, Rat.den_div_eq_of_coprime, NNRat.coe_add, Rat.toNNRat]
@@ -154,6 +164,12 @@ The statement is `r.den = 1 ↔ ↑r.num = r`, with the cast `Int.cast : ℤ →
 ### The library around it
 
 The structure `Rat` and the functions `mkRat` and `Rat.divInt` are in the core of Lean. Mathlib adds `Mathlib.Data.Rat.Init` with `NNRat`, `Mathlib.Data.Rat.Defs` with the basic lemmas (`Rat.den_ne_zero`, `Rat.num_ne_zero`, `Rat.add_divInt`), and `Mathlib.Data.Rat.Lemmas` with the divisibility lemmas. The field structure is `Rat.instField`, and `Rat.isFractionRing : IsFractionRing ℤ ℚ` connects `ℚ` to the general field of fractions. The tactic `norm_num` proves equations of rational literals.
+
+Three modules extend `Mathlib.Data.NNRat.Defs` on the type `ℚ≥0`. `Mathlib.Data.NNRat.Lemmas` has the recursor `NNRat.rec`, which proves a statement for each $q \geq 0$ from the case $m / n$ with $m, n \in \mathbb{N}$. It has the formulas `NNRat.mul_num` and `NNRat.mul_den` for the numerator and the denominator of a product, which divide by $\gcd(n_1 n_2, d_1 d_2)$, and the lemmas `Rat.toNNRat_div` and `Rat.toNNRat_inv` for the map $\mathbb{Q} \to \mathbb{Q}_{\geq 0}$, $q \mapsto \max(q, 0)$. `Mathlib.Data.NNRat.BigOperators` moves the cast through finite sums and products: `NNRat.cast_sum` and `NNRat.cast_prod` hold in each division semiring of characteristic zero, and `NNRat.toNNRat_sum_of_nonneg` needs terms $\geq 0$. `Mathlib.Data.NNRat.Encodable` gives the instance `NNRat.instEncodable`, so `ℚ≥0` is countable.
+
+The type `Dyadic` of the core of Lean holds the dyadic rationals $m \cdot 2^{k}$ with $m, k \in \mathbb{Z}$, with the map `Dyadic.toRat` to `ℚ`. `Mathlib.Data.Dyadic.Basic` makes it an ordered commutative ring with the instances `Dyadic.instLinearOrder`, `Dyadic.instCommRing_1` and `Dyadic.instIsStrictOrderedRing`, and it gives the cast lemmas `Dyadic.natCast_add`, `Dyadic.intCast_neg` and `Dyadic.toRat_ofNat`. The module `Mathlib.Data.Dyadic` is only a deprecated import.
+
+The module `Mathlib.Data.Rat.Encodable` gives the instance `Rat.instEncodable`: a rational number is coded by its numerator and its denominator, so `ℚ` is countable. The module `Mathlib.Data.Rat.Denumerable` makes this a bijection with `ℕ`, as `Rat.instDenumerable`. In `Mathlib.Data.Rat.Squarefree`, the lemma `Rat.sq_mul_squarefree_unique` says that the squarefree part of a rational number is unique: if $d_1, d_2 \in \mathbb{Z}$ are squarefree, $r_1 \ne 0$ and $r_1^2 d_1 = r_2^2 d_2$, then $d_1 = d_2$.
 
 ### Exercises
 

@@ -4,6 +4,9 @@ kind: theory
 modules:
   - Mathlib.Data.Rat.Sqrt
   - Mathlib.Data.Rat.Floor
+  - Mathlib.Data.NNRat.Floor
+  - Mathlib.Data.Rat.NatSqrt.Defs
+  - Mathlib.Data.Rat.NatSqrt.Real
 explains:
   E3: [Rat.isSquare_iff, Rat.sqrt]
   E2: [Rat.isSquare_natCast_iff, Rat.isSquare_intCast_iff, Rat.mul_self_num, Rat.mul_self_den, Rat.exists_mul_self, Rat.sqrt_eq, Rat.floor_def']
@@ -169,7 +172,9 @@ In $\mathbb{R}$, the least upper bound of $S$ is $\sqrt 2$ (Chapter 7).
 
 ### The library around it
 
-The order of `ℚ` is in `Mathlib.Algebra.Order.Ring.Rat` and `Mathlib.Algebra.Order.Field.Rat` in Volume 6, and `exists_rat_btwn` and `exists_nat_gt` are in `Mathlib.Algebra.Order.Archimedean.Basic`. The file `Mathlib.Data.Rat.Floor` has the floor and the ceiling, and `Mathlib.Data.Rat.Sqrt` has `Rat.sqrt` with `Rat.sqrt_nonneg` and `Rat.sqrt_natCast`. The theory of irrational real numbers is in `Mathlib.NumberTheory.Real.Irrational`, with `Nat.Prime.irrational_sqrt` and `irrational_sqrt_natCast_iff`.
+The order of `ℚ` is in `Mathlib.Algebra.Order.Ring.Rat` and `Mathlib.Algebra.Order.Field.Rat` in Volume 6, and `exists_rat_btwn` and `exists_nat_gt` are in `Mathlib.Algebra.Order.Archimedean.Basic`. The file `Mathlib.Data.Rat.Floor` has the floor and the ceiling, and `Mathlib.Data.Rat.Sqrt` has `Rat.sqrt` with `Rat.sqrt_nonneg` and `Rat.sqrt_natCast`. The module `Mathlib.Data.NNRat.Floor` gives `ℚ≥0` the instance `NNRat.instFloorSemiring`, with the floor `⌊q⌋₊` and the ceiling `⌈q⌉₊` in `ℕ`. The formula is `NNRat.floor_def`: $\lfloor q \rfloor = \mathrm{num}(q) / \mathrm{den}(q)$ with the division of `ℕ`, and `NNRat.floor_natCast_div_natCast` states $\lfloor n / d \rfloor = n / d$. The lemmas `NNRat.floor_cast`, `NNRat.ceil_cast` and `NNRat.coe_floor` state that the floor does not change under the cast to an ordered field, and the module gives `norm_num` an extension that computes `⌈q⌉₊` for a numeral $q$. The theory of irrational real numbers is in `Mathlib.NumberTheory.Real.Irrational`, with `Nat.Prime.irrational_sqrt` and `irrational_sqrt_natCast_iff`.
+
+The module `Mathlib.Data.Rat.NatSqrt.Defs` gives a rational approximation from below of $\sqrt{x}$ for $x \in \mathbb{N}$. The function `Nat.ratSqrt x prec` is a rational number $q \geq 0$ with $q^2 \leq x < (q + 1/\mathrm{prec})^2$ for $\mathrm{prec} > 0$, by `Nat.ratSqrt_nonneg`, `Nat.ratSqrt_sq_le` and `Nat.lt_ratSqrt_add_inv_prec_sq`. So the error of the approximation is less than $1/\mathrm{prec}$.
 
 ### Exercises
 
