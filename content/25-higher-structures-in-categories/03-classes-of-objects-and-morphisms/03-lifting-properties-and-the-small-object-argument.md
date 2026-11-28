@@ -4,6 +4,7 @@ kind: theory
 modules:
   - Mathlib.CategoryTheory.MorphismProperty.LiftingProperty
   - Mathlib.CategoryTheory.MorphismProperty.WeakFactorizationSystem
+  - Mathlib.CategoryTheory.MorphismProperty.Factorization
   - Mathlib.CategoryTheory.MorphismProperty.Retract
   - Mathlib.CategoryTheory.MorphismProperty.RetractArgument
   - Mathlib.CategoryTheory.MorphismProperty.TransfiniteComposition
@@ -113,6 +114,8 @@ For `I` with `HasSmallObjectArgument.{w} I`, `I.rlp.llp = (transfiniteCompositio
 :::
 
 The class `HasSmallObjectArgument.{w} I` asks for a regular cardinal `κ` with `IsCardinalForSmallObjectArgument I κ`. The condition on `Hom(A, -)` holds for a suitable `κ` when each source `A` is a presentable object, which is the subject of Chapter 7. The retract argument is `RetractArrow.ofLeftLiftingProperty` and `RetractArrow.ofRightLiftingProperty`.
+
+The factorization axiom lives in the module `Mathlib.CategoryTheory.MorphismProperty.Factorization`. For classes $W_1$ and $W_2$, a term of `MapFactorizationData W₁ W₂ f` is an object `Z` with maps `i` in $W_1$ and `p` in $W_2$ and the equation `fac : i ≫ p = f`. The class `HasFactorization W₁ W₂` asks for such a factorization of each map, and `factorizationData` chooses one. The class `W₁.comp W₂` holds the maps with a factorization, and `comp_eq_top_iff` says that `W₁.comp W₂ = ⊤` if and only if `HasFactorization W₁ W₂`. A functorial factorization, `FunctorialFactorizationData W₁ W₂`, is a functor `Z` on the arrow category with natural maps `i` and `p`, and `HasFunctorialFactorization W₁ W₂` implies `HasFactorization W₁ W₂` by an instance. The construction `FunctorialFactorizationData.functorCategory` extends a functorial factorization to each functor category $J \to C$ objectwise. The equivalence `MapFactorizationData.opEquiv` turns a factorization in $C$ into one in $C^{\mathrm{op}}$ with the roles of $W_1$ and $W_2$ exchanged, and `MapFactorizationData.ofIsEquivalence` moves a factorization along an equivalence of categories.
 
 Common errors of a learner:
 

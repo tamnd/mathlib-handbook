@@ -6,6 +6,12 @@ modules:
   - Mathlib.CategoryTheory.Abelian.NonPreadditive
   - Mathlib.CategoryTheory.Abelian.Images
   - Mathlib.CategoryTheory.Abelian.Opposite
+  - Mathlib.CategoryTheory.Abelian.FunctorCategory
+  - Mathlib.CategoryTheory.Abelian.Transfer
+  - Mathlib.CategoryTheory.Abelian.Yoneda
+  - Mathlib.CategoryTheory.Abelian.Subobject
+  - Mathlib.CategoryTheory.Abelian.Subcategory
+  - Mathlib.CategoryTheory.Abelian.Monomorphisms
 explains:
   E3: [CategoryTheory.Abelian, CategoryTheory.Abelian.image, CategoryTheory.Abelian.coimage, CategoryTheory.Abelian.coimageImageComparison, CategoryTheory.Abelian.coimageIsoImage, CategoryTheory.Abelian.ofCoimageImageComparisonIsIso, CategoryTheory.Abelian.epi_pullback_of_epi_f, CategoryTheory.NonPreadditiveAbelian, CategoryTheory.NonPreadditiveAbelian.preadditive, CategoryTheory.instAbelianOpposite]
   E2: [CategoryTheory.Abelian.factorThruImage, CategoryTheory.Abelian.image.ι, CategoryTheory.Abelian.coimage.π, CategoryTheory.Abelian.factorThruCoimage, CategoryTheory.Abelian.image.fac, CategoryTheory.Abelian.coimage_image_factorisation, CategoryTheory.Abelian.instEpiFactorThruImage, CategoryTheory.Abelian.instMonoFactorThruCoimage, CategoryTheory.Abelian.instIsIsoCoimageImageComparison, CategoryTheory.Abelian.imageIsoImage, CategoryTheory.Abelian.imageStrongEpiMonoFactorisation, CategoryTheory.Abelian.hasPullbacks, CategoryTheory.Abelian.hasFiniteLimits, CategoryTheory.Abelian.hasFiniteColimits, CategoryTheory.Abelian.mono_pushout_of_mono_f, CategoryTheory.Abelian.epi_snd_of_isLimit, CategoryTheory.NonPreadditiveAbelian.σ, CategoryTheory.NonPreadditiveAbelian.sub_def, CategoryTheory.NonPreadditiveAbelian.abelian, CategoryTheory.kernelOpOp, CategoryTheory.cokernelOpOp]
@@ -112,6 +118,14 @@ The class without the group structure. The subtraction is `NonPreadditiveAbelian
 :::
 
 The file `Abelian.Opposite` has the instance `Abelian Cᵒᵖ` and the isomorphisms that compare kernels and cokernels, such as `kernelOpOp` and `cokernelOpOp`.
+
+Several files build new abelian categories from old ones. If $D$ is abelian, the functor category $C \to D$ is abelian by the instance `Abelian.functorCategoryAbelian`. Kernels, cokernels and images are computed at each object: `Abelian.FunctorCategory.imageObjIso` and `Abelian.FunctorCategory.coimageObjIso` identify the image and the coimage of a natural transformation $\alpha$ at $X$ with those of $\alpha_X$, and `FunctorCategory.coimageImageComparison_app` computes the comparison map at $X$.
+
+The file `Abelian.Transfer` moves the abelian structure along a functor. The definition `abelianOfAdjunction` takes a preadditive category $C$ with finite products, an abelian category $D$, functors $F : C \to D$ and $G : D \to C$ with $G$ left exact and $G \dashv F$, and an isomorphism $G \circ F \cong \mathrm{id}_C$, written `F ⋙ G ≅ 𝟭 C` in Lean. Then $C$ is abelian. The special case `abelianOfEquivalence` needs an equivalence $F$ only. Both are definitions, not instances. The instances `ShrinkHoms.abelian` and `AsSmall.abelian` apply them to the categories with smaller hom types or a larger universe.
+
+The file `Abelian.Subcategory` proves that a full subcategory of an abelian category is abelian when its property contains zero and is closed under kernels, cokernels and finite products. The result is an instance, and the lemmas `ObjectProperty.preservesMonomorphisms_ι_of_isNormalEpiCategory` and `ObjectProperty.preservesEpimorphisms_ι_of_isNormalMonoCategory` show that the inclusion preserves monomorphisms and epimorphisms. In `Abelian.Subobject`, the order isomorphism `Abelian.subobjectIsoSubobjectOp X` sends a subobject of $X$ to its cokernel, a subobject of $X$ in $C^{\mathrm{op}}$, with the order reversed. So the quotients of $X$ form the dual lattice of its subobjects, and the instance `Abelian.wellPowered_opposite` deduces that a well-powered abelian category is well-copowered.
+
+The file `Abelian.Yoneda` is about a projective separator $G$. The theorem `Abelian.preadditiveCoyonedaObj_map_surjective` says that each morphism $\mathrm{Hom}(G, X) \to \mathrm{Hom}(G, Y)$ of modules over $\mathrm{End}(G)$ comes from a morphism $X \to Y$, when $X$ is a quotient of $G$. The theorem `Abelian.full_comp_preadditiveCoyonedaObj` restates it as the fullness of a composite functor. These results are a step towards the Gabriel-Popescu theorem.
 
 Common errors of a learner:
 

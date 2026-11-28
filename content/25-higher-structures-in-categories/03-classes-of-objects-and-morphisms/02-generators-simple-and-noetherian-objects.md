@@ -7,6 +7,13 @@ modules:
   - Mathlib.CategoryTheory.Simple
   - Mathlib.CategoryTheory.Preadditive.Schur
   - Mathlib.CategoryTheory.Noetherian
+  - Mathlib.CategoryTheory.Generator.StrongGenerator
+  - Mathlib.CategoryTheory.Generator.Type
+  - Mathlib.CategoryTheory.Generator.Presheaf
+  - Mathlib.CategoryTheory.Generator.Sheaf
+  - Mathlib.CategoryTheory.Generator.HomologicalComplex
+  - Mathlib.CategoryTheory.Generator.Indization
+  - Mathlib.CategoryTheory.Generator.Abelian
 explains:
   E3: [CategoryTheory.ObjectProperty.IsSeparating, CategoryTheory.ObjectProperty.IsDetecting, CategoryTheory.IsSeparator, CategoryTheory.isSeparator_iff_faithful_coyoneda_obj, CategoryTheory.ObjectProperty.IsSeparating.isDetecting, CategoryTheory.Simple, CategoryTheory.isIso_of_hom_simple, CategoryTheory.endomorphism_simple_eq_smul_id, CategoryTheory.Noetherian]
   E2: [CategoryTheory.IsCoseparator, CategoryTheory.IsDetector, CategoryTheory.ObjectProperty.IsDetecting.isSeparating, CategoryTheory.isDetector_iff_reflectsIsomorphisms_coyoneda_obj, CategoryTheory.ObjectProperty.isSeparating_iff_epi, CategoryTheory.isSeparator_sigma, CategoryTheory.wellPowered_of_isDetector, CategoryTheory.Preadditive.isSeparator_iff, CategoryTheory.isSeparator_iff_faithful_preadditiveCoyoneda, CategoryTheory.zero_not_simple, CategoryTheory.kernel_zero_of_ne_zero_from_simple, CategoryTheory.mono_of_ne_zero_from_simple, CategoryTheory.epi_of_ne_zero_to_simple, CategoryTheory.isIso_iff_ne_zero, CategoryTheory.simple_of_cosimple, CategoryTheory.indecomposable_of_simple, CategoryTheory.simple_iff_subobject_isSimpleOrder, CategoryTheory.finrank_hom_simple_simple_le_one, CategoryTheory.fieldEndOfFiniteDimensional, CategoryTheory.Artinian]
@@ -132,6 +139,10 @@ For a field `𝕜` with `IsAlgClosed 𝕜`, a `𝕜`-linear category with kernel
 :::
 
 The classes `Noetherian C` and `Artinian C` extend `EssentiallySmall C` and ask for `IsNoetherianObject X` and `IsArtinianObject X` for each object. These object classes are in the folder `Subobject`, and the file `Subobject.ArtinianObject` proves `exists_simple_subobject`: a nonzero Artinian object has a simple subobject. The Jordan-Hölder theorem for abelian categories is a TODO of the file `Noetherian`.
+
+A *strong generator* is a separating property $P$ such that no proper subobject $A \subsetneq X$ receives all the maps $G \to X$ from objects of $P$. The module `Generator.StrongGenerator` defines `ObjectProperty.IsStrongGenerator` as this conjunction, with the forms `ObjectProperty.isStrongGenerator_iff` for monomorphisms and `ObjectProperty.IsStrongGenerator.exists_of_mono_not_isIso`. Its main result is `ObjectProperty.isStrongGenerator_iff_exists_extremalEpi`: if $P$ is $w$-small, $C$ is locally $w$-small and has coproducts of size $w$, then $P$ is a strong generator if and only if each object is the target of an extremal epimorphism from a coproduct of objects of $P$. The lemma `ObjectProperty.IsStrongGenerator.mk_of_exists_colimitsOfShape` shows that $P$ is a strong generator when each object is a colimit of objects of $P$. Chapter 7 uses strong generators to characterize the locally presentable categories.
+
+The other modules of the folder `Generator` give separators of the common categories. In sets, `Types.isSeparator_punit` says that the one-point set is a separator, since a map is determined by its values on points. For presheaves $C^{\mathrm{op}} \to A$ with values in a category with coproducts, `Presheaf.freeYoneda X M` is the presheaf $Y \mapsto \coprod_{\mathrm{Hom}(Y, X)} M$. The bijection `Presheaf.freeYonedaHomEquiv` identifies its maps to $F$ with the maps $M \to F(X)$, a Yoneda lemma with coefficients. So `Presheaf.isSeparating` shows that the presheaves `freeYoneda X (S i)` separate when the $S_i$ separate $A$, and the instance `Presheaf.hasSeparator` gives a separator of the presheaf category. The module `Generator.Sheaf` sheafifies these objects, with `Sheaf.freeYoneda`, `Sheaf.freeYonedaHomEquiv`, `Sheaf.isSeparating` and the instance `Sheaf.hasSeparator` for a preadditive $A$. For a complex shape with no loop, `HomologicalComplex.separatingFamily` builds from a separating family of $C$ a separating family of complexes that are nonzero in at most two consecutive degrees (`HomologicalComplex.isSeparating_separatingFamily`), and `HomologicalComplex.isSeparator_coproduct_separatingFamily` gives one separator. For ind-objects, `Ind.isSeparating_range_yoneda` shows that the objects of $C$ separate `Ind C`, and `Ind.isSeparator_range_yoneda` makes their coproduct a separator when $C$ is small, preadditive and has finite colimits. Last, the module `Generator.Abelian` proves a result of Freyd: a complete abelian category with enough injectives and a separator has an injective coseparator (`Abelian.has_injective_coseparator`), and the dual `Abelian.has_projective_separator`.
 
 Common errors of a learner:
 

@@ -1,6 +1,6 @@
 number: 25
 title: Higher structures in categories
-subtitle: Abelian and triangulated categories, localization, shifts, sites and sheaves, presentable and Galois categories in Mathlib
+subtitle: Abelian and triangulated categories, localization, shifts, sites and sheaves, presentable and Galois categories, points of sites, hypercovers, descent and sheaf cohomology in Mathlib
 level: research
 prefixes:
 - Mathlib/CategoryTheory/Abelian

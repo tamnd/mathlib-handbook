@@ -6,6 +6,7 @@ modules:
   - Mathlib.CategoryTheory.Preadditive.Mat
   - Mathlib.CategoryTheory.Preadditive.OfBiproducts
   - Mathlib.CategoryTheory.Preadditive.AdditiveFunctor
+  - Mathlib.CategoryTheory.Preadditive.HomOrthogonal
 explains:
   E3: [CategoryTheory.Limits.isBilimitOfTotal, CategoryTheory.Limits.biproduct.total, CategoryTheory.Limits.HasBiproduct.of_hasProduct, CategoryTheory.Biprod.gaussian, CategoryTheory.Biprod.isoElim, CategoryTheory.SemiadditiveOfBinaryBiproducts.addCommMonoidHomOfHasBinaryBiproducts, CategoryTheory.Mat_, CategoryTheory.Mat_.lift, CategoryTheory.Functor.Additive, CategoryTheory.Functor.preservesFiniteBiproductsOfAdditive]
   E2: [CategoryTheory.Limits.HasFiniteBiproducts.of_hasFiniteProducts, CategoryTheory.Biprod.ofComponents, CategoryTheory.Biprod.unipotentLower, CategoryTheory.Biprod.column_nonzero_of_iso, CategoryTheory.subsingleton_preadditive_of_hasBinaryBiproducts, CategoryTheory.Limits.biprod.add_eq_lift_id_desc, CategoryTheory.SemiadditiveOfBinaryBiproducts.distrib, CategoryTheory.SemiadditiveOfBinaryBiproducts.add_eq_left_addition, CategoryTheory.Mat_.embedding, CategoryTheory.Mat_.embeddingLiftIso, CategoryTheory.Mat_.equivalenceSelfOfHasFiniteBiproducts, CategoryTheory.Mat, CategoryTheory.Mat.equivalenceSingleObj, CategoryTheory.Functor.map_add, CategoryTheory.Functor.additive_of_preservesBinaryBiproducts, CategoryTheory.AdditiveFunctor]
@@ -123,6 +124,8 @@ The commutative monoid on `X ⟶ Y`, built from `leftAdd`, `rightAdd` and the in
 
 <?decl CategoryTheory.SemiadditiveOfBinaryBiproducts.addCommMonoidHomOfHasBinaryBiproducts?>
 :::
+
+The file `Preadditive.HomOrthogonal` treats a family $s : \iota \to C$ that is *hom orthogonal*, `HomOrthogonal`: for $i \neq j$ there is at most one morphism $s_i \to s_j$, and it is $0$ when $C$ has zero morphisms. A morphism between biproducts $\bigoplus_a s_{f(a)} \to \bigoplus_b s_{g(b)}$ then has only diagonal blocks. The equivalence `HomOrthogonal.matrixDecomposition` turns it into a family of matrices, one for each $i \in \iota$, with entries in $\operatorname{End}(s_i)$. The lemma `HomOrthogonal.matrixDecomposition_id` sends the identity to the identity matrices, and `HomOrthogonal.matrixDecomposition_comp` sends a composite to the product of the matrices in the reverse order. `HomOrthogonal.matrixDecompositionAddEquiv` and `HomOrthogonal.matrixDecompositionLinearEquiv` are the additive and the linear forms. If each ring $\operatorname{End}(s_i)$ has invariant basis number, for example when each $s_i$ is simple, the theorem `HomOrthogonal.equiv_of_iso` says that two isomorphic biproducts have the same multiplicities. The proof is short: an isomorphism and its inverse give, for each $i$, two matrices whose products are identity matrices, so the two index sets over $i$ have the same size.
 
 Common errors of a learner:
 
