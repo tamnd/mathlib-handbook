@@ -10,6 +10,8 @@ Each release has a section. The newest release is first.
 
 - V02 and V26 have a home section for each of their modules. 41 new sections of the kind `api` treat them. New chapters treat the binary numerals and the positive natural numbers (V02 Chapter 9), the complex numbers (V02 Chapter 10) and the presheaves and sheaves of modules (V26 Chapter 9).
 
+- V10 and V12 have a home section for each of their modules. 54 new sections of the kind `api` treat them. New chapters in V10 treat the finiteness conditions, the graded algebras, divided powers and formal groups, the prime spectrum and local properties, Witt vectors and perfect rings, and matrix algebras. New chapters in V12 treat the modular forms and the irrational and transcendental numbers.
+
 ## v0.8.0 - 2026-11-28
 
 ### Changed
