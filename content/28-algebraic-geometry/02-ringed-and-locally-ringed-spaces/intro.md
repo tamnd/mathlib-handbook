@@ -1,0 +1,7 @@
+# Ringed and locally ringed spaces
+
+This chapter puts rings on the sheaves of Chapter 1 and builds the category in which schemes live. Section 1 defines presheafed spaces, sheafed spaces, ringed spaces and locally ringed spaces, with their morphisms: a continuous map together with a map of structure sheaves, which for locally ringed spaces must be local on every stalk. It builds stalk maps and proves that they compose, defines the basic open set where a section is a unit, and constructs residue fields and the restriction of a space to an open subset. Section 2 defines open immersions and proves that they are restrictions to open subsets, that they compose and that open embeddings of sheafed spaces with isomorphic stalks are open immersions. It constructs pullbacks along open immersions, the glued space of gluing data, colimits of presheafed spaces, and coproducts and coequalizers of locally ringed spaces.
+
+The chapter needs commutative rings, local rings and residue fields from Volume 10, categories, limits and colimits from Volume 24, and the presheaves, sheaves, stalks and restrictions of Chapter 1 of this volume. Continuous maps and open embeddings come from Volume 13.
+
+Chapter 3 constructs the spectrum of a ring as a locally ringed space and proves that the spectrum functor is adjoint to global sections. Chapter 4 defines a scheme as a locally ringed space that is locally isomorphic to a spectrum, and its open immersions, gluing and colimits are the ones of this chapter applied to schemes.
