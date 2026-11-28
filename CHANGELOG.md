@@ -18,6 +18,8 @@ Each release has a section. The newest release is first.
 
 - V18 has a home section for each of its modules. 36 new sections of the kind `api` treat them. New chapters treat measure theory on groups and convolution (Chapter 9), the conditional expectation (Chapter 10), the integrals on boxes (Chapter 11), the signed and vector measures (Chapter 12) and the finite measures and weak convergence (Chapter 13).
 
+- V07 has a home section for each of its modules. 38 new sections of the kind `api` treat them. New chapters treat the constructions and the finiteness of modules (Chapter 8), the ordered modules and the lattices in vector spaces (Chapter 9) and the linear groups (Chapter 10).
+
 ## v0.8.0 - 2026-11-28
 
 ### Changed
