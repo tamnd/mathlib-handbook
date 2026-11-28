@@ -131,7 +131,7 @@ The module `Mathlib.RingTheory.AlgebraTower` has the bases of a tower $R \to S \
 
 **Proof of `Module.Basis.smulTower`.** The products span $A$ by the argument of `Module.Finite.trans`. For independence, suppose $\sum_{i,j} r_{ij}b_ic_j = 0$. Group the terms as $\sum_j \big(\sum_i r_{ij}b_i\big)c_j = 0$. The $c_j$ are independent over $S$, so $\sum_i r_{ij}b_i = 0$ for each $j$. The $b_i$ are independent over $R$, so each $r_{ij} = 0$. $\square$
 
-The same module has `Module.Basis.algebraMapCoeffs`, which moves a basis over $R$ to a basis over $A$ when `algebraMap R A` is bijective, and the restriction maps `AlgHom.restrictDomain` and `AlgHom.extendScalars` for algebra maps out of a tower. The equivalence `algHomEquivSigma` splits an $R$-algebra map $C \to D$ into a map $B \to D$ and a $B$-algebra map $C \to D$.
+The same module has `Module.Basis.algebraMapCoeffs`, which moves a basis over $R$ to a basis over $A$ when `algebraMap R A` is bijective, and the restriction maps `AlgHom.domRestrict` and `AlgHom.extendScalars` for algebra maps out of a tower. The equivalence `algHomEquivSigma` splits an $R$-algebra map $C \to D$ into a map $B \to D$ and a $B$-algebra map $C \to D$.
 
 #### Common errors
 

@@ -236,7 +236,7 @@ The Baire property for a countable set of open sets.
 
 ### The library around it
 
-The class `BaireSpace` is in `Mathlib.Topology.Defs.Basic`. Its consequences are in `Mathlib.Topology.Baire.Lemmas`, and the two instances are in `Mathlib.Topology.Baire.CompleteMetrizable` and `Mathlib.Topology.Baire.LocallyCompactRegular`. The notions $G_\delta$, nowhere dense and meagre are in `Mathlib.Topology.GDelta.Basic`, with the metrizable facts, such as the $G_\delta$ property of the set of continuity points `IsGδ.setOf_continuousAt`, in `Mathlib.Topology.GDelta.MetrizableSpace`.
+The class `BaireSpace` is in `Mathlib.Topology.Defs.Basic`. Its consequences are in `Mathlib.Topology.Baire.Lemmas`, and the two instances are in `Mathlib.Topology.Baire.CompleteMetrizable` and `Mathlib.Topology.Baire.LocallyCompactRegular`. The notions $G_\delta$, nowhere dense and meagre are in `Mathlib.Topology.GDelta.Basic`, with the metrizable facts, such as the $G_\delta$ property of the set of continuity points `IsGδ.setOfPred_continuousAt`, in `Mathlib.Topology.GDelta.MetrizableSpace`.
 
 Mathlib states the Baire theorem for `IsCompletelyPseudoMetrizableSpace`, a property of a topology: it has some complete compatible pseudometric. This makes the theorem apply to open subsets of complete spaces, which are completely metrizable for another metric. The open interval $(0, 1)$ is not complete for the metric of $\mathbb{R}$, but it is homeomorphic to $\mathbb{R}$, so it is a Baire space.
 

@@ -5,7 +5,10 @@ A fault fails the check:
    reviewed with an empty reviewed_by, a kind that is not of 07.4), a section that does not open with a ##
    heading, a missing part or a wrong order of parts (07.3, 07.4), a Reference part without <?reference?>;
 2. a Lean name in a Mathlib box, a <?decl?> or an explains list that is not in the index;
-3. a deprecated name, with the new name in the message, unless the section is stale;
+3. a deprecated name, with the new name in the message, unless the section is stale. With the companion
+   (--lean), the check also reads the deprecated attributes of the Mathlib source, because the index does not
+   mark each deprecated alias, and it checks each Lean name in backticks in the prose of the section. A
+   sentence that says that a name is deprecated, old or renamed can name the old name;
 4. a <?lean?> anchor that is not in the companion;
 5. a module in modules whose home volume is another volume;
 6. a declaration at E3 or E2 in the explains of two sections;
@@ -25,6 +28,7 @@ from __future__ import annotations
 import os
 import re
 
+from .deprecated import scan, source_dir
 from .content import KINDS, STATUSES, Section, Volume, front, read
 from .map import Map
 from .md import _FENCE, BOX_CLOSE, BOX_HEAD, BOX_OPEN
@@ -48,6 +52,7 @@ NEED = {
     "survey": ("Overview", "Notes and history"),
 }
 
+_OLD = re.compile(r"deprecat|\bold(?:er)? (?:name|lemma|alias|API)|\brenamed\b|\bformer(?:ly)?\b", re.I)
 _GRADE = re.compile(r"^\d+\.\s+\((A|B|C|L)\)\s")
 _REQ = re.compile(r"^(V[0-9]{2})(?:\.(C[0-9]{2}))?$")
 
@@ -171,6 +176,8 @@ class Checker:
             self.chapters |= smap.chapter_ids(vid)
         self.home: dict[str, str] = {}          # an E3 or E2 name: its section id
         self.graph: dict[str, set[str]] = {}    # a chapter id: the chapter ids it requires
+        src = source_dir(smap.lean_root) if smap.lean_root else ""
+        self.srcdep: dict[str, str] = scan(src) if src and smap.decls is not None else {}
 
     def rel(self, p: str) -> str:
         return os.path.relpath(p, self.root)
@@ -182,9 +189,38 @@ class Checker:
         d = self.map.decls.get(n)
         if d is None:
             self.faults.append(f"{rel}: {where}: {n} is not in the index")
-        elif d.deprecated is not None and sec.status != "stale":
+        else:
+            self.deprecated(rel, where, n, sec)
+
+    def deprecated(self, rel: str, where: str, n: str, sec: Section) -> bool:
+        """Check 3 for one Lean name: a fault when the index or the source marks the name as deprecated."""
+        if sec.status == "stale" or self.map.decls is None:
+            return False
+        d = self.map.decls.get(n)
+        if d is not None and d.deprecated is not None:
             new = f"; use {d.deprecated}" if d.deprecated else ""
-            self.faults.append(f"{rel}: {where}: {n} is deprecated{new}")
+        elif n in self.srcdep:
+            new = f"; use {self.srcdep[n]}" if self.srcdep[n] else ""
+        else:
+            return False
+        self.faults.append(f"{rel}: {where}: {n} is deprecated{new}")
+        return True
+
+    def prose_names(self, rel: str, body: str, offset: int, sec: Section, done: set[str]):
+        """Check 3 for the Lean names in backticks in the prose, outside the code blocks."""
+        fence = False
+        for i, ln in enumerate(body.split("\n")):
+            if _FENCE.match(ln):
+                fence = not fence
+                continue
+            if fence:
+                continue
+            for sent in re.split(r"(?<=[.;:])\s+(?=[A-Z0-9`(])", ln):
+                if _OLD.search(sent):   # a sentence that tells the reader about an old name
+                    continue
+                for n in re.findall(r"`([^`\s]+)`", sent):
+                    if n not in done and self.deprecated(rel, f"line {i + offset}", n, sec):
+                        done.add(n)
 
     def section(self, v: Volume, ch, s: Section):
         rel = self.rel(s.path)
@@ -208,11 +244,14 @@ class Checker:
         if not fm.get("mathlib") and s.status != "planned":
             self.warns.append(f"{rel}: the front matter has no mathlib commit")
         # 2 and 3. the names
+        done: set[str] = set()
         for i, n, _ in box_names(body):
             self.name(rel, f"line {i + offset}, Mathlib box", n, s)
+            done.add(n)
         for depth, names in s.explains.items():
             for n in names:
                 self.name(rel, f"explains {depth}", n, s)
+                done.add(n)
                 if depth in ("E3", "E2"):   # 6. one home section for each E3 and E2 name
                     other = self.home.setdefault(n, s.id)
                     if other != s.id:
@@ -220,6 +259,7 @@ class Checker:
         for i, kind, arg in directives(body):
             if kind == "decl":
                 self.name(rel, f"line {i + offset}, <?decl?>", arg, s)
+                done.add(arg)
             elif kind == "lean" and self.map.lean_root:   # 4. the anchors
                 try:
                     self.map.lean_anchor(arg)
@@ -227,6 +267,7 @@ class Checker:
                         self.map.highlight.anchor(arg)
                 except KeyError as e:
                     f.append(f"{rel}:{i + offset}: <?lean {arg}?>: {e.args[0]}")
+        self.prose_names(rel, body, offset, s, done)
         # 5. the home volume of each module
         for m in s.modules:
             home = self.map.module_home.get(m)

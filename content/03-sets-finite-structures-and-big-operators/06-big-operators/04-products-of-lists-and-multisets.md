@@ -40,7 +40,7 @@ The files come in three layers. The group layer has the rules of a monoid: appen
 
 #### Products of lists
 
-For a list $l = [a_1, \ldots, a_n]$ of a monoid, `l.prod` is $a_1 a_2 \cdots a_n$, with `[].prod = 1`. The definition is a right fold, so the computation rules are the cons rule $(a :: l).\mathrm{prod} = a \cdot l.\mathrm{prod}$ and the append rule $(l_1 \mathbin{++} l_2).\mathrm{prod} = l_1.\mathrm{prod} \cdot l_2.\mathrm{prod}$. The file `Mathlib.Algebra.BigOperators.Group.List.Defs` gives the first consequences: `List.prod_replicate` says that the product of $n$ copies of $a$ is $a^n$, `List.prod_eq_pow_card` gives the same when each factor equals one $m$, and `List.prod_induction` proves that a property closed under products and true at $1$ holds for the product.
+For a list $l = [a_1, \ldots, a_n]$ of a monoid, `l.prod` is $a_1 a_2 \cdots a_n$, with `[].prod = 1`. The definition is a right fold, so the computation rules are the cons rule $(a :: l).\mathrm{prod} = a \cdot l.\mathrm{prod}$ and the append rule $(l_1 \mathbin{++} l_2).\mathrm{prod} = l_1.\mathrm{prod} \cdot l_2.\mathrm{prod}$. The file `Mathlib.Algebra.BigOperators.Group.List.Defs` gives the first consequences: `List.prod_replicate` says that the product of $n$ copies of $a$ is $a^n$, `List.prod_eq_pow_length` gives the same when each factor equals one $m$, and `List.prod_induction` proves that a property closed under products and true at $1$ holds for the product.
 
 The main rules of `Mathlib.Algebra.BigOperators.Group.List.Basic` are these.
 
@@ -105,8 +105,8 @@ The file `Mathlib.Algebra.BigOperators.Ring.Nat` has a parity rule: `Finset.even
 
 The order layer is in `Mathlib.Algebra.Order.BigOperators.Group.List` and `Mathlib.Algebra.Order.BigOperators.Group.Multiset`. The pattern is the pattern of Section 2 for finsets.
 
-1. Term by term: `List.prod_le_prod'` and `List.sum_le_sum` compare $\prod f$ and $\prod g$ over a list when $f \le g$ at each element. The strict forms are `List.prod_lt_prod'` and `Multiset.prod_lt_prod_of_nonempty`, and the forms for two lists in relation are `List.Forall₂.prod_le_prod` and `Multiset.prod_le_prod_of_rel_le`.
-2. Bounds by a constant: `List.pow_card_le_prod` gives $n^{|l|} \le l.\mathrm{prod}$ when $n \le x$ for each $x \in l$, and `List.card_nsmul_le_sum` is its twin.
+1. Term by term: `List.prod_le_prod` and `List.sum_le_sum` compare $\prod f$ and $\prod g$ over a list when $f \le g$ at each element. The strict forms are `List.prod_lt_prod` and `Multiset.prod_lt_prod_of_nonempty`, and the forms for two lists in relation are `List.Forall₂.prod_le_prod` and `Multiset.prod_le_prod_of_rel_le`.
+2. Bounds by a constant: `List.pow_length_le_prod` gives $n^{|l|} \le l.\mathrm{prod}$ when $n \le x$ for each $x \in l$, and `List.length_nsmul_le_sum` is its twin.
 3. One term and the whole: `List.single_le_sum` gives $x \le l.\mathrm{sum}$ for $x \in l$ when all terms are nonnegative, and `List.le_sum_of_mem` gives the same in a canonically ordered monoid with no hypothesis.
 4. Zero sums: `List.sum_eq_zero_iff` says that in a canonically ordered monoid, such as $\mathbb{N}$, a sum is $0$ exactly when each term is $0$.
 5. Submultiplicative maps: `List.le_prod_of_submultiplicative` and `Multiset.le_prod_of_submultiplicative`.
@@ -119,7 +119,7 @@ The files on monoids with zero give the products of nonnegative elements of an o
 
 1. A list product in a monoid that is not commutative depends on the order. `List.Perm.prod_eq` needs `CommMonoid`, and in a group the inverse of a product reverses the order, by `List.prod_inv_reverse`, not `List.prod_inv`.
 2. `Multiset.prod_eq_zero_iff` needs `NoZeroDivisors` and `Nontrivial`. In `ZMod 6`, the product of the multiset $\{2, 3\}$ is $0$ with no factor $0$.
-3. The order lemmas for products in a semiring carry the subscript $0$ and need the nonnegativity of the factors. The lemma `List.prod_le_prod'` without the subscript is for an ordered monoid, where multiplication is monotone, and it does not apply to $\mathbb{R}$ with its multiplication.
+3. The order lemmas for products in a semiring carry the subscript $0$ and need the nonnegativity of the factors. The lemma `List.prod_le_prod` without the subscript is for an ordered monoid, where multiplication is monotone, and it does not apply to $\mathbb{R}$ with its multiplication.
 
 ### Exercises
 

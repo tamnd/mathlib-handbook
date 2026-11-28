@@ -60,7 +60,7 @@ The module `Mathlib.Analysis.Subadditive` defines `Subadditive u` for a function
 $$\frac{u_m}{m} \le \frac{k n}{m} \cdot \frac{u_n}{n} + \frac{u_r}{m}.$$
 As $m \to \infty$, $kn/m \to 1$, and $u_r / m \to 0$ because $u_r$ takes only $n$ values. So eventually $u_m / m < u_n / n + \varepsilon$. Choose $n$ with $u_n / n < L + \varepsilon$. Then eventually $L \le u_m / m < L + 2\varepsilon$. $\square$
 
-This is `Subadditive.tendsto_lim`. The middle step, "eventually $u_m / m < L'$ when $u_n/n < L'$ for one $n$", is `Subadditive.eventually_div_lt_of_div_lt`. The multiplicative versions are `Submultiplicative.tendsto_lim`, `Submultiplicative.lim_le_rpow`, `Submultiplicative.apply_mul_add_le` and `Submultiplicative.eventually_rpow_lt_of_rpow_lt`. They need $u_n \ge 0$ instead of a lower bound. `Subadditive.submultiplicative_exp` states that $e^{u_n}$ is submultiplicative when $u$ is subadditive. A typical application is the spectral radius formula $\lim \|T^n\|^{1/n}$, since $\|T^{m+n}\| \le \|T^m\| \|T^n\|$.
+This is `Subadditive.tendsto_lim`. The middle step is "eventually $u_m / m < L'$ when $u_n/n < L'$ for one $n$". The library has no current lemma for this step alone, because `Subadditive.tendsto_lim` now comes directly from the multiplicative version. The multiplicative versions are `Submultiplicative.tendsto_lim`, `Submultiplicative.lim_le_rpow`, `Submultiplicative.apply_mul_add_le` and `Submultiplicative.eventually_rpow_lt_of_rpow_lt`. They need $u_n \ge 0$ instead of a lower bound. `Subadditive.submultiplicative_exp` states that $e^{u_n}$ is submultiplicative when $u$ is subadditive. A typical application is the spectral radius formula $\lim \|T^n\|^{1/n}$, since $\|T^{m+n}\| \le \|T^m\| \|T^n\|$.
 
 #### Discretized exponentials
 

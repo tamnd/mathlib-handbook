@@ -37,7 +37,7 @@ Mathlib has three predicates on a family `f : ι → α → β`, all with an exp
 
 The names are close, and the difference matters. `UnifIntegrable` has no bound on the norms. On a finite measure space with no atoms it implies the bound, but on a space with an atom it does not: the constant functions $f_n = n$ on a one-point space form a `UnifIntegrable` family, because the only set of small measure is empty. The lemma `MeasureTheory.UniformIntegrable.unifIntegrable` forgets the extra conditions. The lemma `MeasureTheory.UniformIntegrable.mk` builds the strong predicate from the weak one and a bound, and `MeasureTheory.UniformIntegrable.iSup_eLpNorm_lt` extracts the bound.
 
-The first predicate has several equivalent forms. The lemma `MeasureTheory.unifIntegrable_iff` replaces the indicator by the restricted measure: `eLpNorm (f i) p (μ.restrict s) ≤ ε`. The lemma `MeasureTheory.unifIntegrable_iff_tendsto` says that the supremum over $i$ and over sets of measure at most $\varepsilon$ tends to zero as $\varepsilon \to 0$. The third predicate has forms with $\varepsilon$ in `ℝ`, `NNReal` and `ENNReal`: `MeasureTheory.unifTight_iff_real`, `MeasureTheory.unifTight_iff_nnreal` and `MeasureTheory.unifTight_iff_ennreal`.
+The first predicate has several equivalent forms. The lemma `MeasureTheory.unifIntegrable_iff` replaces the indicator by the restricted measure: `eLpNorm (f i) p (μ.restrict s) ≤ ε`. The lemma `MeasureTheory.unifIntegrable_iff_tendsto` says that the supremum over $i$ and over sets of measure at most $\varepsilon$ tends to zero as $\varepsilon \to 0$. The third predicate has forms with $\varepsilon$ in `ℝ` and `NNReal`: `MeasureTheory.unifTight_iff_real` and `MeasureTheory.unifTight_iff_nnreal`. The form with `ENNReal` is the definition itself.
 
 #### Single functions and finite families
 
@@ -65,7 +65,7 @@ For real sequences, `MeasureTheory.uniformIntegrable_average_real` says that the
 
 On a finite measure space, `UniformIntegrable` has the form of probability theory. The lemma `MeasureTheory.uniformIntegrable_iff` says: for $1 \le p < \infty$, the family is uniformly integrable if and only if each `f i` is almost everywhere strongly measurable and for every $\varepsilon > 0$ there is $C$ with
 $$\|\mathbf{1}_{\{C \le \|f_i\|\}} f_i\|_p \le \varepsilon \quad \text{for all } i.$$
-The mass above the level $C$ is uniformly small. The lemmas `MeasureTheory.uniformIntegrable_of` and `MeasureTheory.UniformIntegrable.spec` are the two directions. The prime versions `MeasureTheory.uniformIntegrable_of'` and `MeasureTheory.UniformIntegrable.spec'` take strongly measurable functions and are easier to prove.
+The mass above the level $C$ is uniformly small. The lemmas `MeasureTheory.uniformIntegrable_of` and `MeasureTheory.UniformIntegrable.spec` are the two directions.
 
 A family bounded in $L^q$ for some $q > p$ satisfies this criterion, by the inequality of Chebyshev and Markov of Section 3. This gives the most common way to prove uniform integrability in practice.
 

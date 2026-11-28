@@ -121,7 +121,7 @@ Each such $a^* x$ has the Eilenberg-Zilber pair $(a, x)$. It is not in $\mathrm{
 ::: mathlib
 `SSet.stdSimplex` · `Mathlib.AlgebraicTopology.SimplicialSet.StdSimplex`
 
-`SSet` is `SimplicialObject (Type u)`, with `SSet.Truncated` and `SSet.Augmented`, and `SSet.hom_ext` compares two maps degreewise. `stdSimplex` is the functor `SimplexCategory ⥤ SSet` with notation `Δ[n]`, defined through `uliftYoneda`. `stdSimplex.objEquiv` identifies `Δ[n] _⦋m⦌` with `⦋m⦌ ⟶ ⦋n⦌`, and `asOrderHom` reads a simplex as a monotone map. `SSet.yonedaEquiv : (Δ[n] ⟶ X) ≃ X _⦋n⦌` is the Yoneda theorem. `stdSimplex.face S` is the subcomplex of simplices with image in the finset `S`, and `mem_nonDegenerate_iff_strictMono` says that the nondegenerate simplices of `Δ[n]` are the strictly monotone maps. `stdSimplex.isoNerve` identifies `Δ[n]` with the nerve of `Fin (n + 1)`.
+`SSet` is `SimplicialObject (Type u)`, with `SSet.Truncated` and `SSet.Augmented`, and `SSet.hom_ext` compares two maps degreewise. `SSet.stdSimplex` is the functor `SimplexCategory ⥤ SSet` with notation `Δ[n]`, defined through `uliftYoneda`. `stdSimplex.objEquiv` identifies `Δ[n] _⦋m⦌` with `⦋m⦌ ⟶ ⦋n⦌`, and `asOrderHom` reads a simplex as a monotone map. `SSet.yonedaEquiv : (Δ[n] ⟶ X) ≃ X _⦋n⦌` is the Yoneda theorem. `stdSimplex.face S` is the subcomplex of simplices with image in the finset `S`, and `mem_nonDegenerate_iff_strictMono` says that the nondegenerate simplices of `Δ[n]` are the strictly monotone maps. `stdSimplex.isoNerve` identifies `Δ[n]` with the nerve of `Fin (n + 1)`.
 
 <?decl SSet.stdSimplex?>
 :::

@@ -35,7 +35,7 @@ The product rule gives $X^n = (0, \dots, 0, 1, 0, \dots)$ with the $1$ at place 
 ::: mathlib
 `Polynomial` · `Mathlib.Algebra.Polynomial.Basic`
 
-`Polynomial R` has the notation `R[X]` after `open Polynomial`. At this commit it is an abbreviation for `AddMonoidAlgebra R ℕ`, the finitely supported functions `ℕ → R` with the convolution product of Volume 3. This is the definition of the text: a polynomial is its sequence of coefficients. The coefficient of degree `n` is `p.coeff n`, and two polynomials with the same coefficients are equal by `Polynomial.ext`. Mathlib defines `Polynomial R` for a semiring `R`, so `ℕ[X]` is a valid type.
+`Polynomial R` has the notation `R[X]` after `open Polynomial`. At this commit it is an abbreviation for `AddMonoidAlgebra R ℕ`, the finitely supported functions `ℕ → R` with the convolution product of Volume 3. This is the definition of the text: a polynomial is its sequence of coefficients. The coefficient of degree `n` is `p.coeff n`, and two polynomials with the same coefficients are equal by `AddMonoidAlgebra.ext`. Mathlib defines `Polynomial R` for a semiring `R`, so `ℕ[X]` is a valid type.
 
 <?decl Polynomial?>
 :::

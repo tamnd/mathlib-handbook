@@ -46,7 +46,7 @@ The file `Mathlib.MeasureTheory.Function.LpSeminorm.ChebyshevMarkov` states this
 |---|---|
 | `MeasureTheory.mul_meas_ge_le_pow_eLpNorm` | $\varepsilon \, \mu\{\varepsilon \le \|f\|^p\} \le \|f\|_p^p$ |
 | `MeasureTheory.mul_meas_ge_le_pow_eLpNorm'` | $\varepsilon^p \, \mu\{\varepsilon \le \|f\|\} \le \|f\|_p^p$ |
-| `MeasureTheory.meas_ge_le_mul_pow_eLpNorm_enorm` | the bound solved for the measure, with the factor `ε⁻¹ ^ p.toReal` |
+| `MeasureTheory.meas_ge_le_mul_pow_eLpNorm_eNorm` | the bound solved for the measure, with the factor `ε⁻¹ ^ p.toReal` |
 | `MeasureTheory.MemLp.meas_ge_lt_top` | for `f` in $L^p$ and `ε ≠ 0`, the set where $\varepsilon \le \|f\|$ has finite measure |
 
 The hypotheses `p ≠ 0` and `p ≠ ⊤` appear in each statement. For $p = \infty$ the right estimate is different: the set where $\|f\|$ exceeds the essential supremum is null. The last lemma is the reason why a function in $L^p$ with $p < \infty$ is concentrated on a σ-finite set. The file `Mathlib.MeasureTheory.Function.StronglyMeasurable.Lp` uses it to prove `MeasureTheory.Lp.finStronglyMeasurable`: an element of $L^p$ for $0 < p < \infty$ is the limit of simple functions with supports of finite measure. The lemmas `MeasureTheory.MemLp.aefinStronglyMeasurable` and `MeasureTheory.Integrable.aefinStronglyMeasurable` are the forms for functions. Chapter 10 needs them for the conditional expectation.
@@ -96,7 +96,7 @@ The file `Mathlib.MeasureTheory.Function.LpSeminorm.Trim` compares a measure `μ
 
 #### The inequality of Hölder for bilinear maps
 
-Section 1 proves the inequality of Hölder for products of real functions. The file `Mathlib.MeasureTheory.Function.Holder` states it for a continuous bilinear map `B : E →L[𝕜] F →L[𝕜] G`. The exponents are related by the class `ENNReal.HolderTriple p q r`, which says $1/p + 1/q = 1/r$. The lemma `MeasureTheory.eLpNorm_le_enorm_mul_eLpNorm_mul_eLpNorm` says that the $L^r$ seminorm of `fun x ↦ B (f x) (g x)` is at most `‖B‖ₑ * eLpNorm f p μ * eLpNorm g q μ`. The lemma `ContinuousLinearMap.memLp_of_bilin` gives the predicate.
+Section 1 proves the inequality of Hölder for products of real functions. The file `Mathlib.MeasureTheory.Function.Holder` states it for a continuous bilinear map `B : E →L[𝕜] F →L[𝕜] G`. The exponents are related by the class `ENNReal.HolderTriple p q r`, which says $1/p + 1/q = 1/r$. The lemma `MeasureTheory.eLpNorm_le_eNorm_mul_eLpNorm_mul_eLpNorm` says that the $L^r$ seminorm of `fun x ↦ B (f x) (g x)` is at most `‖B‖ₑ * eLpNorm f p μ * eLpNorm g q μ`. The lemma `ContinuousLinearMap.memLp_of_bilin` gives the predicate.
 
 On the spaces of classes, `ContinuousLinearMap.holder` is the map $L^p \times L^q \to L^r$ that `B` induces. The bundled versions `ContinuousLinearMap.holderₗ` and `ContinuousLinearMap.holderL` are bilinear and continuous bilinear maps. For $r = 1$ and a complete target, `ContinuousLinearMap.lpPairing` composes with the integral and gives a continuous pairing between $L^p$ and $L^q$, and `ContinuousLinearMap.lpPairing_eq_integral` computes it. With the scalar multiplication as the bilinear map, the file defines the product `f • g` of an element of $L^p$ with values in `𝕜` and an element of $L^q$, and proves `MeasureTheory.Lp.norm_smul_le`: $\|f \cdot g\|_r \le \|f\|_p \|g\|_q$.
 

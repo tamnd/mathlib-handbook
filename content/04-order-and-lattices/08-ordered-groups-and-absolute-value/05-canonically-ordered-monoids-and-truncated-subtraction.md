@@ -45,7 +45,7 @@ variable {α : Type*} [AddCommMonoid α] [PartialOrder α] [CanonicallyOrderedAd
 
 From these classes the library derives the instance `CanonicallyOrderedAdd.toIsOrderedAddMonoid`, so all the lemmas of Section 1 apply. The multiplicative class is `CanonicallyOrderedMul`, with the lemmas `le_self_mul` and `le_iff_exists_mul`. The lemma `lt_iff_exists_add` gives $a < b \leftrightarrow \exists c > 0, b = a + c$ when addition is strictly monotone, and `exists_pos_add_of_lt` gives the witness of a strict inequality.
 
-In a canonically ordered monoid each element is at least $0$, because $0 \le 0 + b = b$. The file `Mathlib.Algebra.Order.IsBotOne` gives this fact a class of its own. The class `IsBotZeroClass α` states that $0$ is the least element, and the instance `instIsBotZeroClass` gives it for each canonically ordered monoid. The lemmas `zero_le`, `le_zero_iff` and `pos_iff_ne_zero` need only this class. The multiplicative class is `IsBotOneClass`, with `le_one_iff_eq_one` and `one_lt_iff_ne_one`, and `bot_eq_one` identifies the bottom of an `OrderBot` with $1$. A canonically ordered monoid has exactly one unit, the identity, as the instance `CanonicallyOrderedCommMonoid.toUniqueAddUnits` records.
+In a canonically ordered monoid each element is at least $0$, because $0 \le 0 + b = b$. The file `Mathlib.Algebra.Order.IsBotOne` gives this fact a class of its own. The class `IsBotZeroClass α` states that $0$ is the least element, and the instance `instIsBotZeroClass` gives it for each canonically ordered monoid. The lemmas `zero_le`, `nonpos_iff_eq_zero` and `pos_iff_ne_zero` need only this class. The multiplicative class is `IsBotOneClass`, with `le_one_iff_eq_one` and `one_lt_iff_ne_one`, and `bot_eq_one` identifies the bottom of an `OrderBot` with $1$. A canonically ordered monoid has exactly one unit, the identity, as the instance `CanonicallyOrderedCommMonoid.toUniqueAddUnits` records.
 
 The file `Mathlib.Algebra.Order.Monoid.Canonical.Basic` has lemmas that split a quantifier over an interval. For example, `exists_le_add_iff_le_left` states that an element $a \le b + c$ with a property $P$ exists if and only if one exists below $b$, or $P(b + d)$ holds for some $d \le c$. The lemma `Set.range_add_eq_image_Ici` states that the range of $x \mapsto f(x + k)$ is the image of the interval $[k, \infty)$ under $f$.
 
@@ -81,7 +81,7 @@ The file `Mathlib.Algebra.Order.Monoid.Associated` orders the associates of a co
 
 ### Exercises
 
-1. (A) Prove `tsub_eq_zero_iff_le` from `tsub_le_iff_right` and `le_zero_iff`.
+1. (A) Prove `tsub_eq_zero_iff_le` from `tsub_le_iff_right` and `nonpos_iff_eq_zero`.
 2. (A) Show that the integers with the usual order are not canonically ordered, and find the axiom of `CanonicallyOrderedAdd` that fails.
 3. (B) Prove `tsub_tsub` in a type with `OrderedSub`, without the lemma itself.
 4. (B) Prove `tsub_add_eq_max` in a linear canonically ordered monoid with truncated subtraction.

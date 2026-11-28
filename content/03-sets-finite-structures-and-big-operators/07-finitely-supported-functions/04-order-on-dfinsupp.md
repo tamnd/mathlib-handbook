@@ -42,7 +42,7 @@ Most of the module assumes that each $\alpha\, i$ is a canonically ordered addit
 | `DFinsupp.le_iff` | $f \leq g$ if and only if $f\,i \leq g\,i$ for each $i \in \mathrm{supp}\, f$ |
 | `DFinsupp.single_le_iff` | $(\mathtt{fun_0} \mid i \Rightarrow a) \leq f \leftrightarrow a \leq f\,i$ |
 | `DFinsupp.support_mono` | $f \leq g$ implies $\mathrm{supp}\, f \subseteq \mathrm{supp}\, g$ |
-| `DFinsupp.bot_eq_zero` | the least element is $0$ |
+| `bot_eq_zero` | the least element is $0$ |
 | `DFinsupp.add_eq_zero_iff` | $f + g = 0 \leftrightarrow f = 0 \wedge g = 0$ |
 | `DFinsupp.tsub_apply` | the truncated difference is pointwise |
 | `DFinsupp.support_tsub` | $\mathrm{supp}(f - g) \subseteq \mathrm{supp}\, f$ |

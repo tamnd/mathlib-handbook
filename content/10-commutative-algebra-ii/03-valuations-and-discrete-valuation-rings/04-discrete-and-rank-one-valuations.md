@@ -82,7 +82,7 @@ The class `Valuation.RankOne v` in `Mathlib.RingTheory.Valuation.RankOne` gives 
 
 The module `Mathlib.RingTheory.Valuation.Discrete.RankOne` makes the rank one structure of a discrete valuation concrete. The isomorphism `Valuation.IsRankOneDiscrete.valueGroup₀_equiv_withZeroMulInt` identifies the value group with zero of a discrete valuation with $\mathbb{Z}^{m0}$, and sends the generator to $\exp(-1)$, by `Valuation.IsRankOneDiscrete.valueGroup₀_equiv_withZeroMulInt_apply_zpow`. The definition `Valuation.IsRankOneDiscrete.rankOne` then sends $\exp(-k)$ to $e^{-k}$ for a chosen real $e > 1$.
 
-The same notions exist for valuative relations, described in the next section. The results `ValuativeRel.isRankLeOne_iff_mulArchimedean` and `ValuativeRel.isNontrivial_of_rankOne` are the relation forms. In `Mathlib.RingTheory.Valuation.DiscreteValuativeRel`, `ValuativeRel.nonempty_orderIso_withZeroMul_int_iff` says that the value group with zero of a relation is isomorphic to $\mathbb{Z}^{m0}$ if and only if the relation is discrete, nontrivial and archimedean.
+The same notions exist for valuative relations, described in the next section. The results `ValuativeRel.isRankLeOne_iff_mulArchimedean` and `ValuativeRel.isNontrivial_of_rankOne` are the relation forms. In `Mathlib.RingTheory.Valuation.DiscreteValuativeRel`, `ValuativeRel.ValueGroupWithZero.nonempty_orderMonoidIso_withZeroMulInt_iff` says that the value group with zero of a relation is isomorphic to $\mathbb{Z}^{m0}$ if and only if the relation is discrete, nontrivial and archimedean.
 
 #### Archimedean value groups and principal ideals
 

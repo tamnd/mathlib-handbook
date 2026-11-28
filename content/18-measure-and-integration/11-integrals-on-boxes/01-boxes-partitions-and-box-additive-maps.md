@@ -65,7 +65,7 @@ The sum of a function over the boxes of a refinement `π.biUnion πi` is the dou
 
 The hyperplane $x_i = a$ cuts a box into two parts. These are `BoxIntegral.Box.splitLower I i a` and `BoxIntegral.Box.splitUpper I i a`, both in `WithBot`, since one part is empty when $a$ is outside the box. The prepartition `BoxIntegral.Prepartition.split I i a` has these two parts as boxes, and it is a partition, by `BoxIntegral.Prepartition.isPartitionSplit`.
 
-The prepartition `BoxIntegral.Prepartition.splitMany I s` cuts $I$ along a finite set $s$ of hyperplanes. It gives a grid of boxes. The lemma `BoxIntegral.Prepartition.IsPartition.exists_splitMany_le` says that every partition has a refinement of this form. The proof of additivity uses this lemma: a property that holds for cuts along one hyperplane holds for all partitions. The complement `BoxIntegral.Prepartition.compl π` is a prepartition whose union is $I \setminus \bigcup \pi$, and `BoxIntegral.Prepartition.exists_iUnion_eq_diff` states its existence.
+The prepartition `BoxIntegral.Prepartition.splitMany I s` cuts $I$ along a finite set $s$ of hyperplanes. It gives a grid of boxes. The lemma `BoxIntegral.Prepartition.IsPartition.exists_splitMany_le` says that every partition has a refinement of this form. The proof of additivity uses this lemma: a property that holds for cuts along one hyperplane holds for all partitions. The complement `BoxIntegral.Prepartition.compl π` is a prepartition whose union is $I \setminus \bigcup \pi$, and `BoxIntegral.Prepartition.exists_iUnion_eq_sdiff` states its existence.
 
 #### Tagged prepartitions
 
