@@ -1,6 +1,6 @@
 number: 5
 title: Groups
-subtitle: Monoids, groups, subgroups, quotients, actions and the Sylow theorems in Mathlib
+subtitle: Monoids, groups, subgroups, quotients, actions, the Sylow theorems, groups with zero, free groups, abelian and solvable groups and pointwise operations in Mathlib
 level: undergraduate
 prefixes:
 - Mathlib/GroupTheory

@@ -4,6 +4,13 @@ kind: theory
 modules:
   - Mathlib.Algebra.Group.Defs
   - Mathlib.Algebra.Group.Basic
+  - Mathlib.GroupTheory.EckmannHilton
+  - Mathlib.Algebra.Group.Semigroup
+  - Mathlib.Algebra.Group.Monoid
+  - Mathlib.Algebra.Group.DivInvMonoid
+  - Mathlib.Algebra.Group.MinimalAxioms
+  - Mathlib.Algebra.Group.IsCommutative
+  - Mathlib.Algebra.Group.Ext
 explains:
   E3: [Group]
   E2: [Monoid, Semigroup, CommGroup, inv_mul_cancel, mul_inv_cancel, mul_inv_rev, mul_left_cancel, left_inv_eq_right_inv]
@@ -219,6 +226,14 @@ The classes are in `Mathlib.Algebra.Group.Defs` and the files next to it. The ch
 The lemmas are named after their statements. The family `mul_inv_cancel_left`, `inv_mul_cancel_left`, `mul_inv_cancel_right` and `inv_mul_cancel_right` cancels a factor next to its inverse: `mul_inv_cancel_left a b` is $a (a^{-1} b) = b$. The family `mul_left_inj` and `mul_right_inj` turns an equation with a common factor into an equation without it. The lemmas `inv_mul_eq_one`, `mul_inv_eq_one` and `mul_eq_one_iff_eq_inv` turn an equation $x = 1$ into an equation between two elements.
 
 To find a lemma, write its statement and use `exact?`. For an equation that follows from the axioms of a group only, use the tactic `group`. In a commutative group with additive notation, use `abel`. With the multiplicative notation, `simp only [mul_comm, mul_left_comm, mul_assoc]` often works, and so does `ring` in a commutative ring.
+
+The module `Mathlib.GroupTheory.EckmannHilton` gives the argument of Eckmann and Hilton. Let $X$ carry two operations $m_1$ and $m_2$ with two-sided units $e_1$ and $e_2$, as in the predicate `EckmannHilton.IsUnital`. Suppose that the interchange law $m_1(m_2(a, b), m_2(c, d)) = m_2(m_1(a, c), m_1(b, d))$ holds. Then the units are equal (`EckmannHilton.one`), the two operations are equal (`EckmannHilton.mul`), and the operation is commutative (`EckmannHilton.mul_comm`) and associative (`EckmannHilton.mul_assoc`). The proof of the first claim is short. Put $a = d = e_2$ and $b = c = e_1$ in the interchange law. The left side is $m_1(e_1, e_1) = e_1$ and the right side is $m_2(e_2, e_2) = e_2$. The definitions `EckmannHilton.commMonoid` and `EckmannHilton.commGroup` turn a monoid or a group whose product satisfies the interchange law with a second unital operation into a commutative monoid or group. The main application is the proof that the higher homotopy groups are commutative.
+
+The chain of classes is split over three modules. The module `Mathlib.Algebra.Group.Semigroup` holds the classes with no identity: `Semigroup`, `CommMagma`, `CommSemigroup`, the cancellation classes `IsLeftCancelMul`, `IsRightCancelMul` and `IsCancelMul`, and the semigroups `LeftCancelSemigroup` and `RightCancelSemigroup`. It also defines `SemiconjBy` and `Commute`, and the unbundled class `IsMulCommutative`, which states $a b = b a$ for a type with a product. The lemma `isCancelMul_iff_forall_isRegular` states that a product is cancellative exactly when each element is regular. The module `Mathlib.Algebra.Group.Monoid` holds `MulOneClass`, `Monoid`, `CommMonoid` and the cancellative monoids, and the laws of natural powers `pow_zero`, `pow_succ`, `pow_add` and `pow_mul`. It defines three properties of a monoid that the later chapters use. `IsDedekindFiniteMonoid M` states that $a b = 1$ gives $b a = 1$, by `isDedekindFiniteMonoid_iff`; a commutative or a cancellative monoid has it by instance, and `mul_eq_one_comm` is the main lemma. `HasUniqueRoots M` states that $a \mapsto a^n$ is injective for each $n \neq 0$, by `hasUniqueRoots_iff`. `IsMulTorsionFree M` states that $a^n = b^n$ with $n \neq 0$ gives $a = b$ for commuting $a$ and $b$, by `isMulTorsionFree_iff`. The module also defines the power by repeated squaring `npowBinRec`, and `npowRec_eq_npowBinRec` states that it agrees with the power by recursion. The class `IsUnital` states that a product has a two-sided identity, by `isUnital_iff`.
+
+The module `Mathlib.Algebra.Group.DivInvMonoid` holds the classes between a monoid and a group. A `DivInvMonoid` has an inverse, a division with $a / b = a b^{-1}$ by `div_eq_mul_inv`, and an integer power with `zpow_zero`, `zpow_natCast` and `zpow_negSucc`; it does not ask $a^{-1} a = 1$. An `InvolutiveInv` has $(a^{-1})^{-1} = a$, and a `DivisionMonoid` adds $(a b)^{-1} = b^{-1} a^{-1}$ and the uniqueness of inverses. These weaker classes let the lemmas `inv_inv`, `mul_inv_rev` and `one_div` hold both in a group and in a group with zero. The module also defines the class `IsCyclic` for a type with an integer power, with `exists_zpow_surjective`; Chapter 3 studies cyclic groups.
+
+The module `Mathlib.Algebra.Group.MinimalAxioms` builds a group from the left axioms only. Given an associative product with $1 a = a$ and $a^{-1} a = 1$, the definition `Group.ofLeftAxioms` gives a `Group`, and `Group.ofRightAxioms` does the same from the right axioms. The proof is the computation of the right inverse in the part Theorems and proofs above. The module `Mathlib.Algebra.Group.IsCommutative` has scoped instances that turn a `Group` with `IsMulCommutative` into a `CommGroup`, such as `IsMulCommutative.instCommGroup` and `IsMulCommutative.instCommMonoid`. The module `Mathlib.Algebra.Group.Ext` states that two structures of a class on one type are equal when their products are equal: `Monoid.ext`, `CommMonoid.ext`, `Group.ext` and `CommGroup.ext`. So the product determines the identity and the inverse. For a `DivInvMonoid` the inverse is not determined, and `DivInvMonoid.ext` asks for both the product and the inverse. The lemmas such as `CommGroup.toGroup_injective` state that the projections between the classes are injective.
 
 ### Exercises
 

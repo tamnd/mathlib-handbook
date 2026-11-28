@@ -5,6 +5,12 @@ modules:
   - Mathlib.Algebra.Group.Action.Defs
   - Mathlib.GroupTheory.GroupAction.Defs
   - Mathlib.GroupTheory.GroupAction.Quotient
+  - Mathlib.Algebra.Pointwise.Stabilizer
+  - Mathlib.GroupTheory.GroupAction.Basic
+  - Mathlib.GroupTheory.GroupAction.Transitive
+  - Mathlib.GroupTheory.GroupAction.OfQuotient
+  - Mathlib.GroupTheory.GroupAction.Support
+  - Mathlib.GroupTheory.GroupAction.Ring
 explains:
   E3: [MulAction.card_orbit_mul_card_stabilizer_eq_card_group]
   E2: [MulAction, MulAction.orbit, MulAction.stabilizer, MulAction.mem_orbit_iff, MulAction.mem_stabilizer_iff, MulAction.orbitEquivQuotientStabilizer, MulAction.orbitRel, MulAction.toPermHom, MulAction.stabilizer_smul_eq_stabilizer_map_conj]
@@ -188,6 +194,12 @@ The counting form: `card (orbit G x) * card (stabilizer G x) = card G`, with `Fi
 ### The library around it
 
 The instance `Monoid.toMulAction` makes each monoid act on itself by left multiplication, so `g • x = g * x` for `g x : G` by `smul_eq_mul`. The conjugation action uses the type `ConjAct G` of the next section, to avoid a clash with this instance. The action on cosets is the instance `MulAction.quotient`, and Cayley's theorem is `Equiv.Perm.subgroupOfMulAction`. Fixed points and the sets fixed by one element are `MulAction.fixedPoints` and `MulAction.fixedBy`.
+
+A group that acts on $X$ also acts on the subsets of $X$, by $g \cdot s = \{g x : x \in s\}$. The module `Mathlib.Algebra.Pointwise.Stabilizer` studies the stabilizer of a set under this pointwise action. An element $g$ lies in `MulAction.stabilizer G s` if and only if $g x \in s \iff x \in s$ for each $x$, by `MulAction.mem_stabilizer_set`. For a finite set the inclusion $g \cdot s \subseteq s$ is enough (`MulAction.mem_stabilizer_set_iff_smul_set_subset`), because $g \cdot s$ and $s$ have the same number of elements. The stabilizer of a singleton is the stabilizer of the point (`MulAction.stabilizer_singleton`), and the empty set and the whole set have the stabilizer $\top$. The stabilizers of $s$ and $t$ meet inside the stabilizers of $s \cap t$, $s \cup t$ and $s \setminus t$, by `MulAction.stabilizer_inf_stabilizer_le_stabilizer_inter` and its relatives. For the action of $G$ on itself, a subgroup is its own stabilizer (`MulAction.stabilizer_subgroup`), and the stabilizer $S$ of a set $s$ satisfies $S s = s$ (`MulAction.stabilizer_mul_self`). The lemmas for a `Finset` carry the word finset in the name, as `MulAction.mem_stabilizer_finset`.
+
+The module `Mathlib.GroupTheory.GroupAction.Basic` holds the lemmas on orbits and stabilizers that need a group. A group element maps an orbit onto itself (`MulAction.smul_orbit`). The stabilizers of two points of one orbit are conjugate: `MulAction.stabilizer_smul_eq_stabilizer_map_conj` gives $\operatorname{Stab}(g a) = g \operatorname{Stab}(a) g^{-1}$, and `MulAction.stabilizerEquivStabilizer` is the resulting isomorphism. An action is transitive if and only if the type of orbits has at most one element (`MulAction.pretransitive_iff_subsingleton_quotient`), and each group acts transitively on each of its orbits (`MulAction.instIsPretransitiveElemOrbit`). A point is fixed if and only if its orbit has one element (`MulAction.mem_fixedPoints_iff_card_orbit_eq_one`). An action with trivial stabilizers is a cancellative action, by `isCancelSMul_iff_stabilizer_eq_bot`. For the permutations of a type, a transposition $(a\,b)$ stabilizes a set $S$ if and only if $a$ and $b$ are both in $S$ or both outside it (`Equiv.swap_mem_stabilizer`). The module `Mathlib.GroupTheory.GroupAction.Transitive` gives more forms of transitivity: `MulAction.isPretransitive_iff_base` (each point is $g a$ for a fixed $a$), `MulAction.isPretransitive_iff_orbit_eq_univ`, and `MulAction.IsPretransitive.of_surjective_map`, which carries transitivity along a surjective equivariant map.
+
+Three small modules finish the picture. In `Mathlib.GroupTheory.GroupAction.OfQuotient`, a normal subgroup $H$ acts trivially on its fixed points, so the quotient $G/H$ acts on them; `MulAction.coe_quotient_smul_fixedPoints` computes this action. In `Mathlib.GroupTheory.GroupAction.Support`, `MulAction.Supports G s b` says that each element of $G$ that fixes each point of $s$ also fixes $b$; the lemma `MulAction.Supports.mono` lets $s$ grow. The module `Mathlib.GroupTheory.GroupAction.Ring` gives the instances that make a ring act on itself: `NonUnitalNonAssocSemiring.toDistribSMul` and the scalar towers `NonUnitalNonAssocSemiring.nat_isScalarTower` and `NonUnitalNonAssocRing.int_isScalarTower`.
 
 Common errors of a learner:
 
