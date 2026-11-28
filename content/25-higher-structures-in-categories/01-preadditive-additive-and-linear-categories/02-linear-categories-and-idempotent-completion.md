@@ -8,6 +8,9 @@ modules:
   - Mathlib.CategoryTheory.Idempotents.Basic
   - Mathlib.CategoryTheory.Idempotents.Karoubi
   - Mathlib.CategoryTheory.Idempotents.KaroubiKaroubi
+  - Mathlib.CategoryTheory.Linear.FunctorCategory
+  - Mathlib.CategoryTheory.Linear.Yoneda
+  - Mathlib.CategoryTheory.Preadditive.Yoneda.Limits
 explains:
   E3: [CategoryTheory.Linear, CategoryTheory.Functor.Linear, CategoryTheory.preadditiveYoneda, CategoryTheory.full_preadditiveYoneda, CategoryTheory.IsIdempotentComplete, CategoryTheory.Idempotents.isIdempotentComplete_iff_hasEqualizer_of_id_and_idempotent, CategoryTheory.Idempotents.Karoubi, CategoryTheory.Idempotents.toKaroubi, CategoryTheory.Idempotents.instIsIdempotentCompleteKaroubi, CategoryTheory.Idempotents.toKaroubi_isEquivalence]
   E2: [CategoryTheory.Linear.preadditiveIntLinear, CategoryTheory.Linear.leftComp, CategoryTheory.Linear.instAlgebraEnd, CategoryTheory.Functor.mapLinearMap, CategoryTheory.preadditiveYonedaObj, CategoryTheory.faithful_preadditiveYoneda, CategoryTheory.preadditiveCoyoneda, CategoryTheory.Idempotents.idem_of_id_sub_idem, CategoryTheory.Idempotents.isIdempotentComplete_iff_idempotents_have_kernels, CategoryTheory.Idempotents.isIdempotentComplete_of_abelian, CategoryTheory.Idempotents.isIdempotentComplete_iff_opposite, CategoryTheory.Idempotents.Karoubi.Hom, CategoryTheory.Idempotents.fullyFaithfulToKaroubi, CategoryTheory.Idempotents.Karoubi.decompId, CategoryTheory.Idempotents.Karoubi.retract, CategoryTheory.Idempotents.instPreadditiveKaroubi, CategoryTheory.Idempotents.KaroubiKaroubi.equivalence]
@@ -115,6 +118,12 @@ A class over a semiring `R` with fields `homModule`, `smul_comp` and `comp_smul`
 
 <?decl CategoryTheory.Linear?>
 :::
+
+The module `Mathlib.CategoryTheory.Linear.FunctorCategory` makes `C ⥤ D` an $R$-linear category when `D` is $R$-linear, by the instance `functorCategoryLinear`. The scalar acts componentwise: the simp lemma `NatTrans.app_smul` states $(r \cdot \alpha)_X = r \cdot \alpha_X$. For a fixed object $X$, evaluation $\alpha \mapsto \alpha_X$ is the $R$-linear map `NatTrans.appLinearMap X`.
+
+The module `Mathlib.CategoryTheory.Linear.Yoneda` gives the linear form of the preadditive Yoneda embedding. For a ring $R$ and an $R$-linear category $C$, the functor `linearYoneda R C` sends $Y$ to the presheaf $X \mapsto \mathrm{Hom}(X, Y)$ with values in `ModuleCat R`, and `linearCoyoneda R C` is the dual functor $X \mapsto \mathrm{Hom}(X, -)$. The four theorems `whiskering_linearYoneda`, `whiskering_linearYoneda₂`, `whiskering_linearCoyoneda` and `whiskering_linearCoyoneda₂` say that the forgetful functors to types and to abelian groups turn these functors into `yoneda`, `preadditiveYoneda`, `coyoneda` and `preadditiveCoyoneda`. All four hold by `rfl`. The instances `full_linearYoneda` and `faithful_linearYoneda`, and their duals for `linearCoyoneda`, follow from the plain Yoneda lemma, as in the proof of the preadditive Yoneda embedding above. Each presheaf `(linearYoneda R C).obj X` is an additive functor, and for a commutative ring $R$ it is an $R$-linear functor.
+
+The file `Preadditive.Yoneda.Limits` proves that the functors of the preadditive Yoneda embedding preserve limits, by the instances `preservesLimits_preadditiveYonedaObj`, `preservesLimits_preadditiveCoyonedaObj`, `preservesLimits_preadditiveYoneda_obj` and `preservesLimits_preadditiveCoyoneda_obj`. The proof composes with the forgetful functor to types. That functor reflects limits, and the composite is a plain Yoneda functor, which preserves limits.
 
 Common errors of a learner:
 

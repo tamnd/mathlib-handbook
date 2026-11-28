@@ -5,6 +5,8 @@ modules:
   - Mathlib.CategoryTheory.Abelian.Pseudoelements
   - Mathlib.CategoryTheory.Abelian.DiagramLemmas.Four
   - Mathlib.CategoryTheory.Abelian.Refinements
+  - Mathlib.CategoryTheory.Abelian.CommSq
+  - Mathlib.CategoryTheory.Abelian.DiagramLemmas.KernelCokernelComp
 explains:
   E3: [CategoryTheory.epi_iff_surjective_up_to_refinements, CategoryTheory.ShortComplex.exact_iff_exact_up_to_refinements, CategoryTheory.Abelian.mono_of_epi_of_mono_of_mono, CategoryTheory.Abelian.epi_of_epi_of_epi_of_mono, CategoryTheory.Abelian.isIso_of_epi_of_isIso_of_isIso_of_mono, CategoryTheory.Abelian.Pseudoelement]
   E2: [CategoryTheory.surjective_up_to_refinements_of_epi, CategoryTheory.ShortComplex.Exact.exact_up_to_refinements, CategoryTheory.Abelian.mono_of_epi_of_mono_of_mono', CategoryTheory.Abelian.PseudoEqual, CategoryTheory.Abelian.Pseudoelement.pseudoApply, CategoryTheory.Abelian.Pseudoelement.pseudoZero, CategoryTheory.Abelian.Pseudoelement.epi_of_pseudo_surjective, CategoryTheory.Abelian.Pseudoelement.pseudo_surjective_of_epi, CategoryTheory.Abelian.Pseudoelement.pseudo_injective_of_mono, CategoryTheory.Abelian.Pseudoelement.exact_of_pseudo_exact, CategoryTheory.Abelian.Pseudoelement.pseudo_exact_of_exact, CategoryTheory.Abelian.Pseudoelement.sub_of_eq_image]
@@ -122,6 +124,10 @@ The general snake lemma in an abelian category, with the connecting map `SnakeIn
 
 <?decl CategoryTheory.ShortComplex.SnakeInput?>
 :::
+
+The file `Abelian.CommSq` gives the exact sequences of a commutative square with top $t : X_1 \to X_2$, left $l : X_1 \to X_3$, right $r : X_2 \to X_4$ and bottom $b : X_3 \to X_4$. If the square is a pushout, `IsPushout.exact_shortComplex` says that $X_1 \to X_2 \oplus X_3 \to X_4$ is exact, and the dual for a pullback is `IsPullback.exact_shortComplex'`. The lemma `IsPushout.mono_of_isPullback_of_mono` and the pair `Abelian.mono_cokernel_map_of_isPullback`, `Abelian.epi_kernel_map_of_isPushout` compare the kernels and the cokernels of the two parallel sides, and `IsPushout.hom_eq_add_up_to_refinements` writes a morphism to $X_4$ as a sum, up to refinements.
+
+The file `Abelian.DiagramLemmas.KernelCokernelComp` proves the kernel-cokernel sequence of a composite. For $f : X \to Y$ and $g : Y \to Z$, the abbreviation `kernelCokernelCompSequence f g` is the sequence $0 \to \ker f \to \ker (f g) \to \ker g \to \mathrm{coker}\, f \to \mathrm{coker}\,(f g) \to \mathrm{coker}\, g \to 0$, as a `ComposableArrows C 5`, and `kernelCokernelCompSequence_exact` says that it is exact. The proof applies the snake lemma to the map $\varphi : X \oplus Y \to Y \oplus Z$ with the matrix $\begin{pmatrix} f & -1 \\ 0 & g \end{pmatrix}$, called `kernelCokernelCompSequence.φ`. The kernel of $\varphi$ is $\ker (f g)$, embedded by $x \mapsto (x, f(x))$ (`kernelCokernelCompSequence.isLimit`), and its cokernel is $\mathrm{coker}\,(f g)$ (`kernelCokernelCompSequence.isColimit`). The input of the snake lemma is `kernelCokernelCompSequence.snakeInput`. The connecting map $\ker g \to \mathrm{coker}\, f$ is `kernelCokernelCompSequence.δ`, and `kernelCokernelCompSequence.δ_fac` says that it is the composite of the inclusion of $\ker g$ in $Y$ and the projection $Y \to \mathrm{coker}\, f$, with a minus sign. The Serre class file of Section 5 uses this sequence to show that the morphisms that are monomorphisms modulo a Serre class are closed under composition.
 
 Common errors of a learner:
 

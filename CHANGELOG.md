@@ -18,6 +18,8 @@ Each release has a section. The newest release is first.
 
 - V05 has a home section for each of its modules. 62 new sections of the kind `api` treat them. They treat the notation classes, units and divisibility in monoids, the morphism classes, submonoids and subsemigroups, commutators and the abelianization, congruences, torsors, racks and quandles, and free products. New chapters treat the groups with zero (Chapter 9) and the pointwise operations on sets, finsets and subgroups (Chapter 14) (#70).
 
+- V25 has a home section for each of its modules. 31 new sections of the kind `api` treat them. They treat idempotent completion, Grothendieck abelian categories, Serre classes, the properties of objects and morphisms, the localization of products and derivability structures, shifts and t-structures, the small object argument and the functoriality of sites. New chapters treat the morphisms and points of sites (Chapter 9) and hypercovers, descent and sheaf cohomology (Chapter 10) (#71).
+
 ## v0.8.1 - 2026-11-28
 
 ### Changed
