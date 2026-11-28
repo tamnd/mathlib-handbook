@@ -4,6 +4,13 @@ kind: theory
 modules:
   - Mathlib.Order.Monotone.Defs
   - Mathlib.Order.Monotone.Basic
+  - Mathlib.Order.Iterate
+  - Mathlib.Order.Monotone.Extension
+  - Mathlib.Order.Monotone.Odd
+  - Mathlib.Order.Monotone.Union
+  - Mathlib.Order.Monotone.Monovary
+  - Mathlib.Order.Monotone.MonovaryOrder
+  - Mathlib.Order.BoundedOrder.Monotone
 explains:
   E3: [Monotone, StrictMono]
   E2: [Antitone, StrictAnti, MonotoneOn, Monotone.comp, StrictMono.injective, StrictMono.lt_iff_lt, StrictMono.le_iff_le, monotone_nat_of_le_succ]
@@ -187,6 +194,14 @@ It is also strictly antitone on $(-\infty, 0)$, by the same computation, since $
 The definitions are in `Mathlib.Order.Monotone.Defs`, and the lemmas that need a linear order or the natural numbers are in `Mathlib.Order.Monotone.Basic`. The names follow one pattern. A lemma about a monotone function has the prefix `Monotone.`, and it applies with dot notation to a proof `hf : Monotone f`. The same lemma for the other three predicates has the prefix `Antitone.`, `StrictMono.` or `StrictAnti.`, and the form on a set has the suffix `On`, as in `StrictMonoOn.injOn`. The basic instances are `monotone_id` and `monotone_const`, and `Monotone.iterate` says that each iterate $f^{[n]}$ of a monotone map is monotone.
 
 For example, `Monotone.add` says that the sum of two monotone functions with values in an ordered additive monoid is monotone. To prove that a concrete function is monotone, the usual route is `intro a b h` and then a tactic for the inequality: `omega` on `ℕ` and `ℤ`, `gcongr` for a goal such as `a ^ 3 + 1 ≤ b ^ 3 + 1` that has the same shape on the two sides, and `nlinarith` or `positivity` for the rest.
+
+Four small modules give tools to build a monotone function from pieces. `MonotoneOn.Iic_union_Ici` says that a function on a linear order is monotone when it is monotone on $(-\infty, a]$ and on $[a, \infty)$. `MonotoneOn.union_right` and `StrictMonoOn.union` glue two sets $s$ and $t$ when a point $c$ is the greatest element of $s$ and the least element of $t$. In `Mathlib.Order.Monotone.Odd`, `monotone_of_odd_of_monotoneOn_nonneg` says that an odd function on an ordered additive group is monotone when it is monotone on $[0, \infty)$, and `strictMono_of_odd_strictMonoOn_nonneg` is the strict form. In `Mathlib.Order.Monotone.Extension`, `MonotoneOn.exists_monotone_extension` extends a function that is monotone on a set $s$, with a bounded image in a conditionally complete linear order, to a monotone function on the whole type that agrees with it on $s$.
+
+The module `Mathlib.Order.Iterate` compares the iterates of two maps. The base lemma is `Monotone.seq_le_seq`: if $f$ is monotone, $x_0 \le y_0$, $x_{k+1} \le f(x_k)$ and $f(y_k) \le y_{k+1}$ for each $k < n$, then $x_n \le y_n$. The proof is an induction on $n$: $x_{k+1} \le f(x_k) \le f(y_k) \le y_{k+1}$. The strict forms are `Monotone.seq_lt_seq_of_le_of_lt` and its variants. For two maps that commute, `Function.Commute.iterate_le_of_map_le` gives $f^{[n]}(x) \le g^{[n]}(x)$ from $f(x) \le g(x)$ when $f$ and $g$ are monotone, and `Function.Commute.iterate_pos_lt_iff_map_lt` gives the equivalence $f^{[n]}(x) < g^{[n]}(x) \iff f(x) < g(x)$ for $n > 0$ in a linear order. The lemma `Monotone.monotone_iterate_of_le_map` says that the orbit $n \mapsto f^{[n]}(x)$ is monotone when $x \le f(x)$, and `Function.monotone_iterate_of_id_le` says that $m \mapsto f^{[m]}$ is monotone when $\mathrm{id} \le f$.
+
+The module `Mathlib.Order.Monotone.Monovary` treats two functions $f : \iota \to \alpha$ and $g : \iota \to \beta$ on an index type with no order. `Monovary f g` says that $g(i) < g(j)$ gives $f(i) \le f(j)$, and `Antivary f g` says that $g(i) < g(j)$ gives $f(j) \le f(i)$. The forms on a set are `MonovaryOn` and `AntivaryOn`, and `monovaryOn_iff_monovary` turns the form on a set into the form on the subtype. Two monotone functions on a linear order monovary, by `Monotone.monovary`, and `monovary_self` says that each function monovaries with itself. The relation is symmetric when the values lie in linear orders: this is `Monovary.symm` and `monovary_comm`. The lemmas with `toDual` in their names, such as `monovary_toDual_right`, turn `Monovary` into `Antivary` through the order dual. The lemma `Monovary.comp_monotone_left` composes $f$ with a monotone map. The condition is the hypothesis of the rearrangement inequality in the algebra part of the library. The module `Mathlib.Order.Monotone.MonovaryOrder` gives the converse picture: `monovary_iff_exists_monotone` says that $f$ and $g$ with values in linear orders monovary if and only if some linear order on $\iota$ makes both $f$ and $g$ monotone. The strict order is `MonovaryOrder f g`: it compares the triples $(f(i), g(i), i)$ lexicographically, and a well-order of $\iota$ breaks the ties.
+
+The module `Mathlib.Order.BoundedOrder.Monotone` treats predicates as monotone functions into `Prop`, where $p \le q$ means $p \to q$. The lemmas `monotone_le` and `monotone_lt` say that $x \mapsto (a \le x)$ and $x \mapsto (a < x)$ are monotone, and `antitone_le` is the form $x \mapsto (x \le a)$. For a family of predicates $P(x, y)$ that are monotone in $y$, `Monotone.forall` says that $y \mapsto \forall x, P(x, y)$ is monotone, and `Monotone.exists` says the same for $y \mapsto \exists x, P(x, y)$. The lemma `forall_le_iff` says that for an antitone predicate, $P$ holds at each $x \le x_0$ if and only if $P(x_0)$ holds. The same module has `StrictMono.apply_eq_bot_iff`: for a strictly monotone map $f$ on an order with a least element, $f(a) = f(\bot)$ if and only if $a = \bot$.
 
 ### Exercises
 

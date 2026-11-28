@@ -4,6 +4,12 @@ kind: theory
 modules:
   - Mathlib.Order.Bounds.Defs
   - Mathlib.Order.Max
+  - Mathlib.Order.Bounds.Basic
+  - Mathlib.Order.Bounds.Image
+  - Mathlib.Order.Bounds.Lattice
+  - Mathlib.Order.Bounds.OrderIso
+  - Mathlib.Order.Nat
+  - Mathlib.Order.OrderDual
 explains:
   E3: [IsLUB, upperBounds, IsGreatest, IsMax, OrderDual]
   E2: [IsGLB, IsLeast, lowerBounds, BddAbove, BddBelow, Maximal, IsTop, IsLUB.unique, isLUB_le_iff, IsGreatest.isLUB, IsGreatest.maximal, maximal_iff, IsMax.not_lt, NoMaxOrder]
@@ -155,7 +161,15 @@ In $\mathbb{R}$ the same set has the supremum $\sqrt 2$. This difference between
 
 The definitions are in `Mathlib.Order.Bounds.Defs` and `Mathlib.Order.Max`, and the lemmas are in `Mathlib.Order.Bounds.Basic`. The lemmas come in groups of four: a lemma about `upperBounds`, `IsGreatest`, `IsLUB` or `BddAbove` has twins about `lowerBounds`, `IsLeast`, `IsGLB` and `BddBelow`, and the names change by the same rule. The lemmas `upperBounds_empty` and `isLUB_empty` treat the empty set.
 
+The file `Mathlib.Order.Bounds.Basic` has the rules for the set operations. The set of upper bounds reverses inclusion (`upperBounds_mono_set`), `upperBounds_union` says that $\operatorname{upperBounds}(s \cup t) = \operatorname{upperBounds}(s) \cap \operatorname{upperBounds}(t)$, and `upperBounds_singleton` and `upperBounds_insert` treat small sets. A subset of a bounded set is bounded (`BddAbove.mono`), and `BddAbove.union` and `bddAbove_insert` need the class `IsDirectedOrder`, because two upper bounds must have a common upper bound. For intervals, `isLUB_Icc` gives the supremum $b$ of $[a, b]$ when $a \le b$, and `isLUB_Iio` gives the supremum $a$ of $(-\infty, a)$ in a dense linear order. In a semilattice, `isLUB_pair` says that $a \sqcup b$ is the least upper bound of $\{a, b\}$, and `IsLUB.union` and `IsLUB.insert` compute the supremum of a union. In a linear order, `IsLUB.exists_between` says: if $a$ is the supremum of $s$ and $b < a$, then some $c \in s$ satisfies $b < c \le a$. The proof is short. If each $c \in s$ satisfies $c \le b$, then $b$ is an upper bound of $s$, so $a \le b$, which contradicts $b < a$. The file also builds structures from bounds: `SemilatticeSup.ofIsLUB` makes a semilattice from a function that gives the supremum of each pair, and `IsLeast.orderBot` makes a set with a least element into an `OrderBot`.
+
+The file `Mathlib.Order.Bounds.Image` moves bounds along maps. A monotone map sends an upper bound of $s$ to an upper bound of $f(s)$ (`Monotone.mem_upperBounds_image`), so it keeps bounded sets (`Monotone.map_bddAbove`) and greatest elements (`Monotone.map_isGreatest`). An antitone map exchanges the two sides, as in `Antitone.map_bddAbove`, which gives `BddBelow (f '' s)`. For a strictly monotone map on a linear order the implication becomes an equivalence, as in `StrictMono.map_isGreatest`. The lemmas on `Set.image2`, such as `BddAbove.image2` and `IsLeast.image2`, treat a function of two variables that is monotone in each variable, for example the sum of two sets. For products and functions, `bddAbove_prod`, `isLUB_prod` and `bddAbove_pi` reduce to the coordinates. The file `Mathlib.Order.Bounds.Lattice` treats unions of a family: `upperBounds_iUnion` and `isLUB_iUnion_iff_of_isLUB`, and `gc_upperBounds_lowerBounds` states that `upperBounds` and `lowerBounds` form a Galois connection in the sense of Chapter 6. The file `Mathlib.Order.Bounds.OrderIso` has the forms for an isomorphism, which reflects bounds in both directions: `OrderIso.upperBounds_image`, `OrderIso.isLUB_image` and `OrderIso.isLUB_preimage`.
+
 For maximal elements, `Mathlib.Order.Max` has `IsMax`, `IsMin`, `IsTop` and `IsBot` for the whole type,. The file `Mathlib.Order.Minimal` has the API of `Maximal` and `Minimal`.
+
+The module `Mathlib.Order.Nat` gives the first bounds of the natural numbers. The instance `Nat.instOrderBot` makes $0$ the bottom element, and `Nat.bot_eq_zero` states $\bot = 0$. The lemma `Nat.isLeast_find` says that `Nat.find hp` is the least element of $\{n \mid p\,n\}$, and `Set.Nonempty.isLeast_natFind` says the same for a nonempty set of natural numbers.
+
+The module `Mathlib.Order.OrderDual` defines the dual order and its first API. The equivalences `OrderDual.toDual` and `OrderDual.ofDual` are inverse, and `OrderDual.toDual_inj` says that `OrderDual.toDual` is injective. The lemmas `OrderDual.toDual_le_toDual`, `OrderDual.ofDual_le_ofDual` and `OrderDual.toDual_lt_toDual` reverse the order, and `OrderDual.toDual_le` and `OrderDual.le_toDual` move the map to the other side of an inequality. The lemmas `LE.le.dual` and `LE.le.ofDual` apply these to a hypothesis. The lemmas `OrderDual.forall` and `OrderDual.exists` turn a quantifier over the dual into a quantifier over the base type, and `OrderDual.rec` is the matching recursor. The lemmas `OrderDual.Preorder.dual_dual` and `OrderDual.instLinearOrder.dual_dual` say that the dual of the dual is the original instance, by definition. Each class of order properties has a dual instance, for example `OrderDual.denselyOrdered`. The same module transports single operations along an equivalence: `Equiv.top`, `Equiv.bot` and `Equiv.compl` define the operation on $\alpha$ from the operation on $\beta$ through an equivalence $\alpha \simeq \beta$.
 
 ### Exercises
 

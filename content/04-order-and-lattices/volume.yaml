@@ -1,6 +1,6 @@
 number: 4
 title: Order and lattices
-subtitle: Orders, lattices, fixed points, intervals and ordered groups as Mathlib writes them
+subtitle: Orders, lattices, fixed points, intervals, ordered groups, ordered algebra and successor orders as Mathlib writes them
 level: undergraduate
 prefixes:
 - Mathlib/Order

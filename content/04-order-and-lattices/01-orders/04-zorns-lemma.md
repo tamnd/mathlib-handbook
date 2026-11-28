@@ -4,6 +4,11 @@ kind: theory
 modules:
   - Mathlib.Order.Zorn
   - Mathlib.Order.Preorder.Chain
+  - Mathlib.Order.TeichmullerTukey
+  - Mathlib.Order.ZornAtoms
+  - Mathlib.Order.Extension.Linear
+  - Mathlib.Order.CompleteLattice.Chain
+  - Mathlib.Order.BourbakiWitt
 explains:
   E3: [zorn_le_nonempty, IsChain]
   E2: [zorn_le, zorn_le₀, zorn_le_nonempty₀, zorn_subset, zorn_subset_nonempty, exists_maximal_of_chains_bounded, IsMaxChain, IsChain.total]
@@ -134,6 +139,16 @@ This lemma states that each subset `t` of a vector space over a division ring co
 ### The library around it
 
 For Zorn's lemma, `Mathlib.Order.Zorn` has the variants listed in the boxes, with `zorn_superset` for the reversed inclusion. The file `Mathlib.Order.Preorder.Chain` has the API of chains: `IsChain.mono` for a subset of a chain, and the structure `Flag α` of a maximal chain.
+
+The module `Mathlib.Order.TeichmullerTukey` proves a form of Zorn's lemma for families of sets. A family $F$ of subsets of $\alpha$ is of finite character, `Order.IsOfFiniteCharacter F`, if a set $X$ lies in $F$ exactly when each finite subset of $X$ lies in $F$. The lemma `Order.IsOfFiniteCharacter.exists_maximal` is the lemma of Teichmüller and Tukey: each member $x$ of such a family lies below a maximal member $m$, with $x \subseteq m$ and `Maximal (· ∈ F) m`. The proof applies `zorn_subset_nonempty`: the union of a chain in $F$ is in $F$, because a finite subset of the union lies in one member of the chain.
+
+The module `Mathlib.Order.ZornAtoms` gives the form of Zorn's lemma for atoms and coatoms. The lemma `IsCoatomic.of_isChain_bounded` says: if each nonempty chain that does not contain $\top$ has an upper bound other than $\top$, then the order is coatomic, so each element other than $\top$ lies below a coatom. The dual `IsAtomic.of_isChain_bounded` uses lower bounds other than $\bot$. The proof applies `zorn_le_nonempty₀` to the interval from $x$ to $\top$, without $\top$. The order ideals of Chapter 3 use the coatomic form.
+
+The module `Mathlib.Order.Extension.Linear` applies Zorn's lemma to extend a partial order to a linear order. The lemma `extend_partialOrder` says: for a partial order $r$ on $\alpha$, there is a linear order $s$ with $r \le s$. The proof applies Zorn's lemma to the set of partial orders that contain $r$. A maximal partial order $s$ is linear, because if $a$ and $b$ are not comparable, the relation $s$ together with the pairs $(x, y)$ with $s(x, a)$ and $s(b, y)$ is a larger partial order. The type synonym `LinearExtension α` carries such a linear order, and `toLinearExtension` is the monotone map from $\alpha$ to it.
+
+The module `Mathlib.Order.CompleteLattice.Chain` gives a maximal chain without a choice of upper bounds. The set `maxChain r` is the union of the chains that `ChainClosure` makes from the empty set by successor steps and unions, and `maxChain_spec` says `IsMaxChain r (maxChain r)`. This is the maximality principle of Hausdorff. The lemma `ChainClosure.total` says that two members of the closure are comparable under inclusion, and `ChainClosure.isChain` says that each member is a chain.
+
+The module `Mathlib.Order.BourbakiWitt` has the class `ChainCompletePartialOrder`: a partial order in which each nonempty chain, of type `NonemptyChain α`, has a supremum `ChainCompletePartialOrder.cSup`, with `ChainCompletePartialOrder.le_cSup` and `ChainCompletePartialOrder.cSup_le`. The theorem of Bourbaki and Witt is `ChainCompletePartialOrder.nonempty_fixedPoints_of_inflationary`: an inflationary map $f$, with $x \le f(x)$ for each $x$, on a nonempty chain-complete partial order has a fixed point. Each complete lattice is chain-complete by `ChainCompletePartialOrder.instOfCompleteLattice`.
 
 ### Exercises
 

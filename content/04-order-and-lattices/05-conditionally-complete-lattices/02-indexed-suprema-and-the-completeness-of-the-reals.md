@@ -5,6 +5,7 @@ modules:
   - Mathlib.Order.ConditionallyCompleteLattice.Indexed
   - Mathlib.Order.ConditionallyCompletePartialOrder.Indexed
   - Mathlib.Algebra.Order.Group.Pointwise.CompleteLattice
+  - Mathlib.Algebra.Order.Group.CompleteLattice
 explains:
   E3: [ConditionallyCompleteLinearOrderBot, Monotone.ciSup_mem_iInter_Icc_of_antitone]
   E2: [le_ciSup, ciSup_le, exists_lt_of_lt_ciSup, ciSup_mono, isLUB_ciSup, Monotone.csSup_image_le, Monotone.le_csSup_image, csSup_add]
@@ -170,7 +171,7 @@ The lemma states `sSup (s + t) = sSup s + sSup t` for a conditionally complete l
 
 ### The library around it
 
-The file `Mathlib.Order.ConditionallyCompleteLattice.Indexed` repeats the lemmas for `sSup` in the indexed form, with the prefix `ci`: `le_ciSup`, `ciSup_le`, `ciSup_le_iff`, `ciSup_mono`, `isLUB_ciSup`, and the duals `ciInf_le` and `le_ciInf`. The constant family is `ciSup_const`. For a finite index type, `Set.finite_range` and `Set.Finite.bddAbove` give the bound of the range. The indexed form of the sum is `ciSup_add`. On `ℝ≥0∞` and `EReal`, which are complete lattices, all hypotheses disappear, so a proof with many side conditions on `ℝ` is often shorter there.
+The file `Mathlib.Order.ConditionallyCompleteLattice.Indexed` repeats the lemmas for `sSup` in the indexed form, with the prefix `ci`: `le_ciSup`, `ciSup_le`, `ciSup_le_iff`, `ciSup_mono`, `isLUB_ciSup`, and the duals `ciInf_le` and `le_ciInf`. The constant family is `ciSup_const`. For a finite index type, `Set.finite_range` and `Set.Finite.bddAbove` give the bound of the range. The indexed forms of the sum are in `Mathlib.Algebra.Order.Group.CompleteLattice`. For a family $f$ with a bounded range over a nonempty index type, `ciSup_add` states $(\bigsqcup_i f(i)) + a = \bigsqcup_i (f(i) + a)$ in an additive group with `AddRightMono`, and `add_ciSup` puts $a$ on the left. The lemmas `ciSup_sub`, `ciInf_add`, `add_ciInf` and `ciInf_sub` are the other cases, and `ciSup_mul`, `mul_ciSup`, `ciSup_div` and `ciInf_mul` are the multiplicative forms. On `ℝ≥0∞` and `EReal`, which are complete lattices, all hypotheses disappear, so a proof with many side conditions on `ℝ` is often shorter there.
 
 ### Exercises
 

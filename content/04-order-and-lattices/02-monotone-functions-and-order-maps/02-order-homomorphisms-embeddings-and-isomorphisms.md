@@ -4,6 +4,12 @@ kind: theory
 modules:
   - Mathlib.Order.Hom.Basic
   - Mathlib.Order.RelIso.Basic
+  - Mathlib.Order.RelIso.Set
+  - Mathlib.Order.Hom.Order
+  - Mathlib.Order.Hom.Set
+  - Mathlib.Order.Hom.Lex
+  - Mathlib.Order.Hom.PowersetCard
+  - Mathlib.Order.CountableDenseLinearOrder
 explains:
   E3: [OrderHom, OrderIso, OrderEmbedding]
   E2: [RelIso, RelEmbedding, OrderIso.le_iff_le, OrderIso.symm, OrderHom.comp, OrderEmbedding.ofStrictMono, OrderIso.map_sup, OrderIso.isMin_apply, StrictMono.orderIsoOfSurjective, Equiv.toOrderIso]
@@ -199,6 +205,16 @@ So $f$ is strictly monotone on $[0, \infty)$. The function is odd, $f(-x) = -f(x
 Use the predicate `Monotone f` when the function is given by a formula and the proof is about this one function. Use the bundled form `α →o β` when the maps themselves are the objects, for example when they form an ordered set, as in the fixed point theorems.
 
 All bundled order maps share the classes `OrderHomClass` and `OrderIsoClass`. A lemma stated for any `F` with `[OrderIsoClass F α β]` applies to `OrderIso`, to the lattice isomorphisms and to the isomorphisms of ordered groups at the same time. The field is `OrderIsoClass.map_le_map_iff`. The map `OrderIso.toOrderEmbedding` forgets the surjectivity, and `OrderEmbedding.subtype` is the inclusion of a subset with the induced order.
+
+The module `Mathlib.Order.RelIso.Set` connects relation maps with subsets. For a relation $r$ on $\alpha$ and a predicate $p$, `Subrel r p` is the restriction of $r$ to the subtype of $p$, and `Subrel.relEmbedding` embeds it back into $r$. `Subrel.inclusionEmbedding` is the embedding for an inclusion $s \subseteq t$, and `RelEmbedding.codRestrict` restricts the codomain of an embedding to a set that holds its range. For an isomorphism $e$, `RelIso.image_eq_preimage_symm` says $e(t) = (e^{-1})^{-1}(t)$, and `RelIso.range_eq` says that the range is the whole type. `RelHomClass.directed` says that a relation map sends a directed family to a directed family. The lemma `wellFounded_iff_wellFounded_subrel` says that a transitive relation is well founded if and only if its restriction to $\{x \mid r(x, b)\}$ is well founded for each $b$.
+
+The module `Mathlib.Order.Hom.Order` puts a lattice structure on the type `α →o β` when $\beta$ is a lattice. The operations act pointwise: `OrderHom.coe_sup` says that $(f \sqcup g)(x) = f(x) \sqcup g(x)$, and for a complete lattice $\beta$, `OrderHom.iSup_apply` and `OrderHom.sSup_apply` give the supremum of a family of maps at a point. The fixed point theorems of Chapter 4 use this complete lattice of monotone maps.
+
+The module `Mathlib.Order.Hom.Set` builds order isomorphisms from sets. A strictly monotone map $f$ on a linear order is an isomorphism onto its range by `StrictMono.orderIso`, and `StrictMono.orderIsoOfSurjective` is the form for a surjective map. `OrderIso.setCongr` and `Set.orderIsoOfEq` move along an equality of sets, and `OrderIso.Iic` and `OrderIso.Icc` restrict an isomorphism of lattices to intervals. In a Boolean algebra the complement is an antitone bijection, and `OrderIso.compl` packs it as an isomorphism from $\alpha$ to the order dual of $\alpha$. The lemma `OrderEmbedding.range_inj_of_wellFoundedLT` says that two order embeddings of a well-ordered type with the same range are equal. Initial segments in the next section give a stronger form of this rigidity.
+
+The module `Mathlib.Order.Hom.Lex` has the isomorphisms of lexicographic orders. `OrderIso.sumLexIioIci` cuts a linear order at a point $x$: it is the isomorphism from the lexicographic sum of $(-\infty, x)$ and $[x, \infty)$ to $\alpha$. `Prod.Lex.prodLexAssoc` is the associativity of the lexicographic product, and `Prod.Lex.sumLexProdLexDistrib` distributes a lexicographic product over a lexicographic sum. The module `Mathlib.Order.Hom.PowersetCard` treats the type of subsets of size $n$ of a linear order: `Set.powersetCard.orderIsoOfFin` lists the elements of such a subset $s$ in increasing order as an isomorphism from `Fin n` to $s$.
+
+The module `Mathlib.Order.CountableDenseLinearOrder` proves the theorem of Cantor on countable dense orders by the back-and-forth method. `Order.iso_of_countable_dense` says that two countable, nonempty, dense linear orders without a least or a greatest element are isomorphic. The example is $\mathbb{Q}$: each such order is isomorphic to it. `Order.embedding_from_countable_to_dense` says that each countable linear order embeds into each nontrivial dense linear order. The proof works with finite partial isomorphisms, of type `Order.PartialIso α β`. The step lemma `Order.PartialIso.exists_across` extends a finite partial isomorphism to one more point $a$: the new image $b$ must lie in the same gap between the old images as $a$ lies between the old points, and density with no endpoints gives such a $b$. An enumeration of the two countable types alternates steps forward and backward, and the union of the finite partial maps is the isomorphism.
 
 ### Exercises
 

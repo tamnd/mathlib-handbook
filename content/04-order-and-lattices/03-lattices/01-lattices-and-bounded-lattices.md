@@ -5,6 +5,10 @@ modules:
   - Mathlib.Order.Defs.Lattice
   - Mathlib.Order.Lattice
   - Mathlib.Order.BoundedOrder.Basic
+  - Mathlib.Order.BoundedOrder.Lattice
+  - Mathlib.Order.Copy
+  - Mathlib.Order.MinMax
+  - Mathlib.Order.Notation
 explains:
   E3: [Lattice, Lattice.mk']
   E2: [SemilatticeSup, SemilatticeInf, sup_le_iff, le_inf_iff, BoundedOrder, le_top, bot_le, sup_assoc, sup_idem, sup_inf_self, sup_eq_right]
@@ -180,6 +184,14 @@ This lemma is part 5 of the laws: `a ⊔ b = b ↔ a ≤ b`, with the twins `sup
 The lemmas come in dual pairs, with `sup` and `inf` exchanged and `le` moved: `le_sup_left` and `inf_le_left`, `sup_le` and `le_inf`, `sup_le_iff` and `le_inf_iff`. The monotonicity lemmas are `sup_le_sup` and `inf_le_inf`. In a bounded order there are `bot_le`, `le_top`, `sup_bot_eq` and `inf_top_eq`.
 
 Each linear order is a lattice by `LinearOrder.toLattice`. The sets, the subgroups, the submodules and the filters are lattices by instances. For sets, the simp normal form uses `∪` and `∩`.
+
+The module `Mathlib.Order.BoundedOrder.Lattice` holds the rules that mix the bounds with $\sqcup$ and $\sqcap$. Besides `sup_bot_eq` and `inf_top_eq`, it has `sup_eq_bot_iff`, which says $a \sqcup b = \bot$ if and only if $a = \bot$ and $b = \bot$, and its dual `inf_eq_top_iff`. In a linear order the same facts are stated for `max` and `min`, with an "or" for the other side: `min_eq_bot` says $\min(a, b) = \bot$ if and only if $a = \bot$ or $b = \bot$, and `max_eq_top` is its dual, with `min_ne_bot` and `max_ne_top` as the forms with $\ne$. The module also has the induction principle `WellFoundedLT.induction_bot`: in a well-founded order with a bottom, a property that holds somewhere and can always be moved strictly down from an element other than $\bot$ holds at $\bot$. The dual is `WellFoundedGT.induction_top`.
+
+The module `Mathlib.Order.Copy` has one definition for each order structure, such as `Lattice.copy`, `DistribLattice.copy`, `BoundedOrder.copy`, `CompleteLattice.copy` and `HeytingAlgebra.copy`. Each takes a structure, new operations and proofs that the new operations are equal to the old ones, and returns the same structure with the new operations as its fields. It is used to build an instance whose operations unfold to a chosen formula, for example the intersection of sets in place of a general infimum.
+
+The module `Mathlib.Order.Notation` declares the notation classes that the lattice chapters use: `Top` and `Bot` for $\top$ and $\bot$, `Compl` for $a^c$, `HImp` for the implication $a \Rightarrow b$, and `HNot` for the co-Heyting negation. A class of this kind holds only the symbol and no law, so the laws come from the order classes that extend it. The lemmas `top_nonempty` and `bot_nonempty` say that a type with a top or a bottom element is not empty. The module also fixes the printing of $\sqcup$ and $\sqcap$: in a linear order, `max a b` and `a ⊔ b` are the same term, and the delaborator prints `max` there.
+
+The module `Mathlib.Order.MinMax` holds the lemmas on `max` and `min` in a linear order. Since a linear order is a lattice with $\max = \sqcup$, most of them are lattice lemmas in the special case, but some use the linear order. `max_choice` and `min_choice` say that $\max(a, b)$ is $a$ or $b$, and `max_cases` and `min_cases` add the inequality that decides the case, so a proof can split on them. The characterizations `max_eq_left_iff`, `min_eq_right_iff`, `max_eq_iff` and `min_eq_iff` decide when the maximum is a given value. The order lemmas `le_max_of_le_left`, `lt_max_of_lt_left`, `max_le_max` and `max_lt_max`, and their duals for `min`, compare two maxima. `min_lt_max` says $\min(a, b) < \max(a, b)$ if and only if $a \ne b$. The distributive laws `max_min_distrib_left` and `min_max_distrib_left` hold because a linear order is a distributive lattice. For maps, `Monotone.map_max` gives $f(\max(a, b)) = \max(f(a), f(b))$ for a monotone $f$, and `Antitone.map_max` gives $\min(f(a), f(b))$ for an antitone $f$; the forms on a set are `MonotoneOn.map_max` and its relatives.
 
 ### Exercises
 
